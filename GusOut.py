@@ -10,8 +10,8 @@ from Level.Levels import level_1
 
 pygame.init()
 
-display_width = 800
-display_height = 600
+display_width = 1200
+display_height = 800
 
 screen = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Gus veut boire un coup')
@@ -22,10 +22,10 @@ red = (255,0,0)
 
 clock = pygame.time.Clock()
 
-gugus_face = pygame.image.load('Gus/gugus_face.png')
-gugus_dos = pygame.image.load('Gus/gugus_dos.png')
-gugus_droite = pygame.image.load('Gus/gugus_droite.png')
-gugus_gauche = pygame.image.load('Gus/gugus_gauche.png')
+gugus_face = pygame.image.load('Gus/Gus.png')
+gugus_dos = pygame.image.load('Gus/Gus_dos.png')
+gugus_droite = pygame.image.load('Gus/Gus_droit.png')
+gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
 
 gugus_width = 48
 gugus_height = 52
@@ -108,7 +108,7 @@ def game_loop():
         
         rect_gugus.topleft = (x,y)
         
-        liste_mur = level_1(screen)
+        liste_mur = level_1(screen,display_width,display_height)
         
         x,y = collisions(liste_mur,x,y,rect_gugus,x_change,y_change)
         
