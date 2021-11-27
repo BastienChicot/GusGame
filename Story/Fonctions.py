@@ -7,14 +7,16 @@ Created on Thu Nov 25 15:43:41 2021
 
 def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
 
-    for objet in liste_objet:
-        
-        index = rect_gugus.collidelist(liste_objet)
-        
-        if index >= 0 : 
+    for objet in liste_objet :
             
-            objet = liste_objet[index]
+        if objet.colliderect(rect_gugus):
     
+    # index = rect_gugus.collidelist(liste_objet)
+    
+    # if index >= 0 : 
+        
+    #     objet = liste_objet[index]
+
             if abs (objet.top - rect_gugus.bottom) <= 10 and y_change >= 2.5:
                 y_change = 0
             if abs (objet.bottom - rect_gugus.top) <= 10 and y_change <= -2.5:
@@ -26,8 +28,8 @@ def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
         else:
             x_change = x_change
             y_change = y_change
-            
-        x += x_change
-        y += y_change
         
-        return(x,y)
+    x += x_change
+    y += y_change
+    
+    return(x,y)

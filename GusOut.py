@@ -10,8 +10,8 @@ from Level.Levels import level_1
 
 pygame.init()
 
-display_width = 1200
-display_height = 800
+display_width = 1000
+display_height = 707
 
 screen = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Gus veut boire un coup')
@@ -29,9 +29,7 @@ gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
 
 gugus_width = 48
 gugus_height = 52
-running = 1.02 
-
-
+running=1.02
 
 def gugus_affich(gugus,x,y):
     screen.blit(gugus, (x,y))
@@ -43,6 +41,7 @@ def game_loop():
     y_change = 0
 
     gugus = gugus_face
+    gugus_dir = "face"
     
     gameExit = False
     run = False
@@ -55,17 +54,19 @@ def game_loop():
             ############################
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
+                    gugus_dir="left"
                     gugus = gugus_gauche
                     x_change = -2.5
                 elif event.key == pygame.K_RIGHT:
+                    gugus_dir="right"
                     gugus = gugus_droite
                     x_change = 2.5
-                    
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
+                    gugus_dir="up"
                     gugus = gugus_dos
                     y_change = -2.5
                 elif event.key == pygame.K_DOWN:
+                    gugus_dir="face"
                     gugus = gugus_face
                     y_change = 2.5
                     
@@ -76,10 +77,8 @@ def game_loop():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     x_change = 0
-            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     y_change = 0
-            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     run = False
             ######################
@@ -109,13 +108,13 @@ def game_loop():
         rect_gugus.topleft = (x,y)
         
         liste_mur = level_1(screen,display_width,display_height)
-        
+            
         x,y = collisions(liste_mur,x,y,rect_gugus,x_change,y_change)
-        
+
         rect_gugus.topleft = (x,y)
         
         screen.blit(gugus, rect_gugus)
-        
+
         pygame.display.update()
         clock.tick(60)
 
