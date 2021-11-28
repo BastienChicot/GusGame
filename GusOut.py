@@ -5,7 +5,7 @@ Created on Tue Nov 23 16:02:54 2021
 @author: basti
 """
 import pygame
-from Story.Fonctions import collisions
+from Story.Fonctions import collisions, histoire
 from Level.Levels import level_1
 
 pygame.init()
@@ -35,8 +35,8 @@ def gugus_affich(gugus,x,y):
     screen.blit(gugus, (x,y))
 
 def game_loop():
-    x =  (display_width * 0.45)
-    y = (display_height * 0.8)
+    x =  575
+    y = 73
     x_change = 0
     y_change = 0
 
@@ -112,6 +112,8 @@ def game_loop():
         x,y = collisions(liste_mur,x,y,rect_gugus,x_change,y_change)
 
         rect_gugus.topleft = (x,y)
+        
+        histoire(screen,x,y,"level_1")
         
         screen.blit(gugus, rect_gugus)
 
