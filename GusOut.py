@@ -46,6 +46,8 @@ def game_loop():
     gameExit = False
     run = False
     
+    action=False
+    
     while not gameExit:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -69,6 +71,8 @@ def game_loop():
                     gugus_dir="face"
                     gugus = gugus_face
                     y_change = 2.5
+                elif event.key == pygame.K_a:
+                    action = True
                     
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
@@ -113,7 +117,7 @@ def game_loop():
 
         rect_gugus.topleft = (x,y)
         
-        histoire(screen,x,y,"level_1")
+        histoire(screen,x,y,"level_1",action)
         
         screen.blit(gugus, rect_gugus)
 

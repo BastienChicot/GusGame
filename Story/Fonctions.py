@@ -35,7 +35,7 @@ def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
     
     return(x,y)
 
-def histoire(screen,x,y,level):
+def histoire(screen,x,y,level,action):
     pygame.font.init() # you have to call this at the start, 
                    # if you want to use this module.
     myfont = pygame.font.SysFont('arial', 20)
@@ -46,10 +46,7 @@ def histoire(screen,x,y,level):
             textsurface = myfont.render('Parler à papa (A)', False, (255, 255, 255))
             screen.blit(textsurface,(290,440))
 
-            if pygame.event == pygame.KEYDOWN:
+            if action:
                 
-                if pygame.KEYDOWN == pygame.K_a:
-                    
-                    textsurface2 = myfont.render('Bouge, tu me fatigues', False, (255, 255, 255))
-                    screen.blit(textsurface2,(290,540))
-        
+                textsurface2 = myfont.render('Bouge, tu me fatigues', False, (255, 255, 255))
+                screen.blit(textsurface2,(290,460))
