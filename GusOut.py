@@ -5,10 +5,14 @@ Created on Tue Nov 23 16:02:54 2021
 @author: basti
 """
 import pygame
-from Story.Fonctions import collisions, histoire
+from Story.Fonctions import collisions, sac_a_dos, action_key
 from Level.Levels import level_1
+from Story.histoire import histoire
 
 pygame.init()
+pygame.font.init()
+ 
+myfont = pygame.font.SysFont('arial', 20)
 
 display_width = 1000
 display_height = 707
@@ -31,24 +35,38 @@ gugus_width = 48
 gugus_height = 52
 running=1.02
 
+sac = sac_a_dos()
+action=action_key()
+
+phrases_papa = ["Laisse moi tranquille", "Va voir ta mère, elle est dans la chambre",
+                "Tu as apporté à manger à ta mère ?","Bon laisse moi tranquille maintenant",
+                "Tu me fatigues! Va-t-en!","ZZZzzzZZZzzz"]
+
 def gugus_affich(gugus,x,y):
     screen.blit(gugus, (x,y))
 
-def game_loop():
+def game_loop(sac,action):
     x =  575
     y = 73
     x_change = 0
     y_change = 0
-
+    
+    pressed = -1
+    pressed_dad = -1
+    
     gugus = gugus_face
     gugus_dir = "face"
-    
+        
     gameExit = False
     run = False
-    
-    action=False
+
+    liste_mur,liste_zone = level_1(screen,display_width,display_height)
     
     while not gameExit:
+        
+        liste_mur,liste_zone = level_1(screen,display_width,display_height)
+        rect_gugus = gugus.get_rect() 
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
@@ -71,8 +89,16 @@ def game_loop():
                     gugus_dir="face"
                     gugus = gugus_face
                     y_change = 2.5
-                elif event.key == pygame.K_a:
-                    action = True
+
+                if event.key == pygame.K_a and not action.click:
+                    action.click = True
+                    if 170 < x < 210 and 378 < y < 440 :
+                        pressed_dad += 1
+                    if 235 < x < 295 and 480 < y < 530 :
+                        pressed += 1
+                elif event.key != pygame.K_a:
+                
+                    action.click = False
                     
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
@@ -86,8 +112,7 @@ def game_loop():
                 if event.key == pygame.K_SPACE:
                     run = False
             ######################
-        
-        rect_gugus = gugus.get_rect()
+
         
         if run == True:
             if x_change != 0:
@@ -111,19 +136,69 @@ def game_loop():
         
         rect_gugus.topleft = (x,y)
         
-        liste_mur = level_1(screen,display_width,display_height)
+
             
         x,y = collisions(liste_mur,x,y,rect_gugus,x_change,y_change)
 
         rect_gugus.topleft = (x,y)
         
-        histoire(screen,x,y,"level_1",action)
-        
+        # action,sac=histoire(screen,x,y,"level_1",action,sac,pressed,liste_zone)
+    
+        if 170 < x < 210 and 378 < y < 440 :
+            
+            textsurface = myfont.render('Parler à papa (A)', False, (255, 255, 255))
+            screen.blit(textsurface,(290,440))
+                
+            i = pressed_dad
+            
+            if i >= 0 and i < 6 :
+                textsurface2 = myfont.render(phrases_papa[i], False, (255, 255, 255))
+                screen.blit(textsurface2,(290,460))                     
+            else:
+                i = 0         
+               
+        elif 235 < x < 295 and 480 < y < 530 :
+            
+            textsurface = myfont.render("Fouiller l'armoire (A)", False, (255, 255, 255))
+            screen.blit(textsurface,(290,440))
+
+            def find_torchon(find):
+                find = find
+                sac.torchon_salon = False
+                
+                if action.click == True and find == 0:
+                                   
+                    textsurface2 = myfont.render("Tu as trouvé un torchon et une cuillière", False, (255, 255, 255))
+                    screen.blit(textsurface2,(290,460))
+                    
+                    
+                if action.click == True and find == 1:
+                                            
+                    textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (255, 255, 255))
+                    screen.blit(textsurface2,(290,460))
+                    
+                    sac.torchon_salon = True
+                                        
+            if sac.torchon_salon == False and pressed == 0:
+                find_torchon(0)
+            if pressed > 0:
+                find_torchon(1)
+            
+            print(liste_zone[0].interaction,sac.torchon_salon)
+            
+        else:
+            action.click = False
+            
+        # for zone in liste_zone :
+        #     if zone.colliderect(rect_gugus) and action.click == True:
+        #         zone.passage = True  
+        #         return zone.passage
+
         screen.blit(gugus, rect_gugus)
 
         pygame.display.update()
         clock.tick(60)
 
-game_loop()
+game_loop(sac,action)
 pygame.quit()
 quit()

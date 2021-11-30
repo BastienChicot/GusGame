@@ -35,18 +35,43 @@ def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
     
     return(x,y)
 
-def histoire(screen,x,y,level,action):
-    pygame.font.init() # you have to call this at the start, 
-                   # if you want to use this module.
-    myfont = pygame.font.SysFont('arial', 20)
-    
-    if level == "level_1":
-        if 185 < x < 220 and 378 < y < 454 :
-            
-            textsurface = myfont.render('Parler à papa (A)', False, (255, 255, 255))
-            screen.blit(textsurface,(290,440))
+def move_gugus(gugus,x_change,y_change):
 
-            if action:
-                
-                textsurface2 = myfont.render('Bouge, tu me fatigues', False, (255, 255, 255))
-                screen.blit(textsurface2,(290,460))
+    gugus_face = pygame.image.load('Gus/Gus.png')
+    gugus_dos = pygame.image.load('Gus/Gus_dos.png')
+    gugus_droite = pygame.image.load('Gus/Gus_droit.png')
+    gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
+
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_RIGHT]:
+        x_change = 2
+        gugus=gugus_droite
+    elif keys[pygame.K_LEFT]:
+        x_change = -2 
+        gugus=gugus_gauche
+    elif keys[pygame.K_UP]:
+        y_change = -2
+        gugus=gugus_dos
+    elif keys[pygame.K_DOWN]:
+        y_change = 2
+        gugus=gugus_face
+    else:
+        y_change = 0
+        x_change = 0
+    
+    return(gugus,x_change,y_change)
+
+
+class sac_a_dos():
+    def __init__(self):
+        super().__init__()
+        self.torchon_salon = False
+
+class action_key():
+    def __init__(self):
+        super().__init__()
+        self.click = False
+        self.conversation_papa = 0
+        self.fouille = 0
+        

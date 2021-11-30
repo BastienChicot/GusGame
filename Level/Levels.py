@@ -9,6 +9,18 @@ import pygame
 white = (255,255,255)
 black = (0,0,0)
 
+
+class zone_inter(pygame.Rect):
+    def __init__(self,x,y,largeur,hauteur):
+        # super().__init__()
+        pygame.Rect.__init__(self,x,y,largeur,hauteur)
+        self.passage = False
+        self.interaction = -1
+        
+    def draw (x,y,largeur,hauteur):
+        pygame.Rect(x,y,largeur,hauteur)
+
+        
 def level_1(gameDisplay,display_width,display_height):
     
     fond=pygame.image.load('Level/level_1.jpg')
@@ -126,7 +138,11 @@ def level_1(gameDisplay,display_width,display_height):
     pygame.draw.rect(gameDisplay,white,mur44)  
     pygame.draw.rect(gameDisplay,white,mur45)
     pygame.draw.rect(gameDisplay,white,mur46)
-
+    
+    zone1 = zone_inter(235,480,60,50)  
+    
+    liste_zone=[zone1]
+    
     gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
     
-    return(liste_mur)
+    return(liste_mur,liste_zone)
