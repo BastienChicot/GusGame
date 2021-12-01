@@ -19,6 +19,12 @@ class zone_inter(pygame.Rect):
         
     def draw (x,y,largeur,hauteur):
         pygame.Rect(x,y,largeur,hauteur)
+        
+def zone_level_1():
+    zone1 = zone_inter(235,480,60,50)  
+    
+    liste_zone=[zone1]
+    return(liste_zone)
 
         
 def level_1(gameDisplay,display_width,display_height):
@@ -139,10 +145,10 @@ def level_1(gameDisplay,display_width,display_height):
     pygame.draw.rect(gameDisplay,white,mur45)
     pygame.draw.rect(gameDisplay,white,mur46)
     
-    zone1 = zone_inter(235,480,60,50)  
+    # zone1 = zone_inter(235,480,60,50)  
     
-    liste_zone=[zone1]
+    # liste_zone=[zone1]
     
     gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
     
-    return(liste_mur,liste_zone)
+    return(liste_mur)

@@ -66,7 +66,10 @@ def move_gugus(gugus,x_change,y_change):
 class sac_a_dos():
     def __init__(self):
         super().__init__()
-        self.torchon_salon = False
+        self.torchon_salon = 0
+        self.tire_bouchon = 0
+        self.soupe_froide = 0
+        self.soupe_chaude = 0
 
 class action_key():
     def __init__(self):
@@ -74,4 +77,63 @@ class action_key():
         self.click = False
         self.conversation_papa = 0
         self.fouille = 0
+
+def find_something(find,action,objet,screen,objet_find):
+    
+    pygame.font.init()
+ 
+    myfont = pygame.font.SysFont('arial', 20)
+
+    find = find
+    objet = find
+    textsurface2 = myfont.render("",False,(255, 255, 255))
+    
+    if action.click == True and find == 0:
+                       
+        textsurface2 = myfont.render("Tu as trouvé " + str(objet_find), False, (255, 255, 255))
+        screen.blit(textsurface2,(290,460))
+        objet = 1 
         
+    if action.click == True and find == 1:
+                                
+        textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (255, 255, 255))
+        screen.blit(textsurface2,(290,460))
+
+
+        
+    return(objet,textsurface2)
+
+def zone_interaction(screen,texte_zone,action,objet,var_iter,objet_find):
+    
+    pygame.font.init()
+ 
+    myfont = pygame.font.SysFont('arial', 20)
+    
+    textsurface = myfont.render(texte_zone, False, (255, 255, 255))
+    screen.blit(textsurface,(290,440))
+    
+    if var_iter == 0:
+        objet,textsurface2 = find_something(0,action,objet,screen,objet_find)
+        
+    if var_iter > 0:
+        objet,textsurface2 = find_something(1,action,objet,screen,objet_find)
+        
+    return(objet,var_iter)
+
+def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
+    
+    pygame.font.init()
+ 
+    myfont = pygame.font.SysFont('arial', 20)
+    
+    textsurface = myfont.render(texte_zone, False, (255, 255, 255))
+    screen.blit(textsurface,(290,440))
+    
+    i = var_iter
+    
+    if i <= max_iter:
+        textsurface2 = myfont.render(liste_phrases[i], False, (255, 255, 255))
+        screen.blit(textsurface2,(290,460))  
+
+    if var_iter > max_iter:
+        i -= max_iter
