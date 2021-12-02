@@ -30,18 +30,37 @@ def game_loop(sac,action):
     x_change = 0
     y_change = 0
     
-    phrases_papa = ["Laisse moi tranquille", "Va voir ta mère, elle est dans la chambre",
-                "Tu as apporté à manger à ta mère ?","Bon laisse moi tranquille maintenant",
-                "Tu me fatigues! Va-t-en!","ZZZzzzZZZzzz",""]
+    phrases_papa_avant_soupe = ["Laisse moi tranquille", "Va voir ta mère, elle est dans la chambre"]
+    phrases_papa_entre_soupe = ["Tu as apporté à manger à ta mère ?","Tu as apporté à manger à ta mère ?"]
+    phrases_papa_post_soupe = ["J'ai soif !!",
+                "Apportes moi une bière et tais-toi par pitié!"]
+    sleep = ["ZZZzzzZZZzzz","ZZZzzzZZZzzz"]
     phrases_maman = ["Kof kof ! Apporte moi un truc chaud à manger s'il te plait", "Merci beaucoup Gus","ZZZzzzZZZzzz",
                      ""]    
-
+    
+    #INTERACTIONS
     pressed_salon = -1
     pressed_mom = -1
     pressed_dad = -1
     pressed_cuisine1 = -1
     pressed_cuisine2 = -1
     pressed_four = -1
+    pressed_sdb1 = -1
+    pressed_frigo = -1 
+    
+    open_buro = False
+    service=False
+    mom_sleep = False
+    
+    #OBJETS NIVEAU
+    torchon_salon = 0
+    torchonsdb1 = 0
+    torchonsdb2 = 0
+    torchonch = 0
+    torchoncanap = 0
+    
+    cles_buro=0
+    biere=0
     
     gugus = gugus_face
         
@@ -52,6 +71,7 @@ def game_loop(sac,action):
     
     while not gameExit:
             
+        sac.torchon = torchon_salon+torchonsdb1+torchonsdb2+torchonch+torchoncanap
         liste_mur = level_1(screen,display_width,display_height)
         rect_gugus = gugus.get_rect() 
 
@@ -76,25 +96,42 @@ def game_loop(sac,action):
 
                 if event.key == pygame.K_a and not action.click:
                     action.click = True
-                    if 0 < x < 75 and 0 < y < 100 and sac.soupe_chaude == 0:
+                    #PERSONNES
+                    if 0 < x < 75 and 0 < y < 100 and sac.soupe_chaude == 0 and service == False:
                         pressed_mom = 0
-                    if 0 < x < 75 and 0 < y < 100 and sac.soupe_chaude == 1:
+                        pressed_dad = -1
+                    if 0 < x < 75 and 0 < y < 100 and sac.soupe_chaude == 1 and service == False:
                         pressed_mom = 1
-                    if 170 < x < 210 and 378 < y < 440 :
+                        pressed_dad = -1
+                    if 0 < x < 75 and 0 < y < 100 and sac.soupe_chaude == 1 and service == True:
+                        pressed_mom = 2
+                        pressed_dad = -1
+                        mom_sleep = True
+                    if 170 < x < 210 and 378 < y < 440 and biere == 0:
                         pressed_dad += 1
+                        service = False
+                    if 170 < x < 210 and 378 < y < 440 and biere == 1 and pressed_mom>=1:
+                        pressed_dad += 1
+                        service = True
+                        
+                    #OBJETS
                     if 235 < x < 295 and 480 < y < 530 :
                         pressed_salon += 1
+                    if 550 < x < 590 and 370 < y < 550 :
+                        pressed_sdb1 += 1
                     if 270 < x < 340 and 510 < y < 560 :
                         pressed_cuisine1 += 1  
                     if 240 < x < 300 and 580 < y < 680 :
                         pressed_cuisine2 += 1
                     if 341 < x < 410 and 510 < y < 560 and sac.soupe_froide == 0 and sac.soupe_chaude == 0:
-                        pressed_four = 1
+                        pressed_four = -1
                     if 341 < x < 410 and 510 < y < 560 and sac.soupe_froide == 1 and sac.soupe_chaude == 0:
                         pressed_four = 0
                     if 270 < x < 335 and 600 < y < 680 and sac.soupe_froide == 1 and sac.soupe_chaude == 1:
-                        pressed_four = 0
-                        
+                        pressed_four = 1
+                    if 230 < x < 270 and 560 < y < 630 :
+                        pressed_frigo +=1                        
+
                 elif event.key != pygame.K_a:
                 
                     action.click = False
@@ -136,53 +173,116 @@ def game_loop(sac,action):
         rect_gugus.topleft = (x,y)
         
         x,y = collisions(liste_mur,x,y,rect_gugus,x_change,y_change)
-
-#        rect_gugus.topleft = (x,y)
         
+        if pressed_salon == 0:
+            torchon_salon = 1
+        
+        ##DIALOGUES
         if 0 < x < 75 and 0 < y < 100 :
     
             zone_dialogue(screen,"Parler à maman (A)",action,phrases_maman,pressed_mom,3)
             
-        elif 170 < x < 210 and 378 < y < 440 :
+        elif 170 < x < 210 and 378 < y < 440 and sac.soupe_froide == 0 and sac.soupe_chaude == 0 and service == False and pressed_mom == -1:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa,pressed_dad,2)
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_avant_soupe,pressed_dad,2)
+        
+        elif 170 < x < 210 and 378 < y < 440 and sac.soupe_froide == 1 and sac.soupe_chaude == 0 and service == False and pressed_mom == 0:
+            
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_entre_soupe,pressed_dad,2)
 
-        elif 170 < x < 210 and 378 < y < 440 and pressed_mom >= 1:
+        elif 170 < x < 210 and 378 < y < 440 and sac.soupe_froide == 1 and sac.soupe_chaude == 1 and service == False and pressed_mom >= 1:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa,pressed_dad,3)
-               
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_post_soupe,pressed_dad,2)
+
+        elif 170 < x < 210 and 378 < y < 440 and sac.soupe_froide == 1 and sac.soupe_chaude == 1 and service == True:
+            
+            zone_dialogue(screen,"Parler à papa (A)",action,sleep,pressed_dad,2)
+                                                                                           
+        
+        ##OBJETS
         elif 235 < x < 295 and 480 < y < 530 :
-            
-            sac.torchon_salon, pressed_salon = zone_interaction(screen,"Fouiller l'armoire (A)",action,sac.torchon_salon,pressed_salon,"un torchon")
-       
+
+            pressed_salon = zone_interaction(screen,"Fouiller l'armoire (A)",action,pressed_salon,"un torchon")
+
         elif 290 < x < 340 and 510 < y < 560 :
             
-            sac.tire_bouchon,pressed_cuisine1 = zone_interaction(screen,"Fouiller les tirroirs (A)",action,sac.tire_bouchon,pressed_cuisine1,"un tire-bouchon")
+            pressed_cuisine1 = zone_interaction(screen,"Fouiller les tirroirs (A)",action,pressed_cuisine1,"un tire-bouchon")
 
         elif 341 < x < 410 and 510 < y < 560 and sac.soupe_froide == 1:
             
-            if pressed_four == -1: 
-                sac.soupe_chaude,pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,sac.soupe_chaude,pressed_four,"une soupe chaude")
-            if pressed_four >= 0: 
-                sac.soupe_chaude,pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,sac.soupe_chaude,pressed_four,"une soupe chaude")
-            
+            if pressed_four == 0 and pressed_mom <= 0: 
+                pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,pressed_four,"une soupe chaude")
+                sac.soupe_chaude=1 
+                pressed_four = 0
+            if pressed_four == 0 and pressed_mom >= 1: 
+                pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,pressed_four,"... un four vide")
+                sac.soupe_chaude=1
+                pressed_dad = -1
+                
         elif 341 < x < 410 and 510 < y < 560 and sac.soupe_froide == 0:
-            
-            sac.soupe_chaude,pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,sac.soupe_chaude,pressed_four,"... un four vide")
-            sac.soupe_chaude = 0
-        
+          
+            if pressed_mom < 0:
+                pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,pressed_four,"... un four vide")
+                sac.soupe_chaude = 0
+                pressed_four = 0
+
+            if pressed_mom == 0:
+                pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,pressed_four," ... rien ... Trouve d'abord quelque chose à chauffer!")
+                sac.soupe_chaude = 0
+                pressed_four = 0
+    
         elif 270 < x < 335 and 600 < y < 680 :
             
             if pressed_cuisine2 == -1:
-                sac.soupe_froide,pressed_cuisine2 = zone_interaction(screen,"Fouiller le placard (A)",action,sac.soupe_froide,pressed_cuisine2,"une soupe froide")            
+                pressed_cuisine2 = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_cuisine2,"une soupe froide")            
+
             if pressed_cuisine2 >= 0:
-                sac.soupe_froide,pressed_cuisine2 = zone_interaction(screen,"Fouiller le placard (A)",action,sac.soupe_froide,pressed_cuisine2,"une soupe froide")            
+                pressed_cuisine2 = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_cuisine2,"une soupe froide")            
                 sac.soupe_froide=1
+                pressed_dad = -1
+                
+        elif 560 < x < 650 and 0 < y < 30 :
+            
+            if sac.torchon <  5:
+                textsurface = myfont.render("Ca fait un peu haut pour sauter!", False, (255, 255, 255))
+                screen.blit(textsurface,(290,440))
+                
+        elif 550 < x < 590 and 370 < y < 550 :
+            
+            if pressed_sdb1 <= 0 and open_buro == False:                
+                pressed_sdb1 = zone_interaction(screen,"Fouiller le linge (A)",action,pressed_sdb1,"une clé")
+                cles_buro = 1
+            if pressed_sdb1 <= 0 and open_buro == True:
+                pressed_sdb1 = zone_interaction(screen,"Fouiller le linge (A)",action,pressed_sdb1,"une serviette")
+                torchonsdb1 = 1    
+                
+        elif 185 < x < 225 and 200 < y < 300 :
+            
+            if cles_buro == 0 and service == False and mom_sleep == False:
+                textsurface = myfont.render("La porte est fermée", False, (255, 255, 255))
+                screen.blit(textsurface,(290,440))                
+            if cles_buro == 1 and service == False and mom_sleep == False:
+                textsurface = myfont.render("Papa va mm'entendre, c'est chaud !", False, (255, 255, 255))
+                screen.blit(textsurface,(290,440))
+            if cles_buro == 1 and service == True and mom_sleep == False:
+                textsurface = myfont.render("Est-ce que maman dort ? Il ne faudrait pas qu'elle me grille.", False, (255, 255, 255))
+                screen.blit(textsurface,(290,440))                                     
+            if cles_buro == 1 and service == True and mom_sleep == True:                
+                textsurface = myfont.render("Tu as ouvert la porte du bureau", False, (255, 255, 255))
+                screen.blit(textsurface,(290,440))
+                pressed_sdb1 = -1
+                open_buro = True
+                
+        elif 230 < x < 270 and 560 < y < 630 :
+
+            pressed_frigo = zone_interaction(screen,"Ouvrir le frigo (A)",action,pressed_frigo,"une bière")
+            biere = 1
+
         else:
             action.click = False
         
         screen.blit(gugus, rect_gugus)
-      
+        print(cles_buro)
         pygame.display.update()
         clock.tick(60)
 
