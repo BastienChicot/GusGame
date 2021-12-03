@@ -69,7 +69,7 @@ class sac_a_dos():
         self.torchon = 0
         self.soupe_froide = 0
         self.soupe_chaude = 0
-        self.cle_maison = 0
+        self.cle_maison = False
 
 class action_key():
     def __init__(self):
