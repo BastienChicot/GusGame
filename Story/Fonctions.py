@@ -6,11 +6,11 @@ Created on Thu Nov 25 15:43:41 2021
 """
 import pygame
 
-def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
+def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
 
     for objet in liste_objet :
             
-        if objet.colliderect(rect_gugus):
+        if rect_gugus.colliderect(objet):
     
     # index = rect_gugus.collidelist(liste_objet)
     
@@ -18,22 +18,26 @@ def collisions (liste_objet,x,y,rect_gugus,x_change,y_change):
         
     #     objet = liste_objet[index]
 
-            if abs (objet.top - rect_gugus.bottom) <= 10 and y_change >= 2.5:
+            if abs (objet.top - rect_gugus.bottom) <= 10 and y_change >= speed:
                 y_change = 0
-            if abs (objet.bottom - rect_gugus.top) <= 10 and y_change <= -2.5:
+                rel_y = 0
+            if abs (objet.bottom - rect_gugus.top) <= 10 and y_change <= -speed:
                 y_change = 0
-            if abs (objet.left - rect_gugus.right) <= 10 and x_change >= 2.5:
+                rel_y = 0
+            if abs (objet.left - rect_gugus.right) <= 10 and x_change >= speed:
                 x_change = 0
-            if abs (objet.right - rect_gugus.left) <= 10 and x_change <= -2.5:
+                rel_x = 0 
+            if abs (objet.right - rect_gugus.left) <= 10 and x_change <= -speed:
                 x_change = 0
+                rel_x = 0 
         else:
             x_change = x_change
             y_change = y_change
-        
-    x += x_change
-    y += y_change
+            
+            rel_x = rel_x
+            rel_y = rel_y
     
-    return(x,y)
+    return(x_change,y_change,rel_x,rel_y)
 
 def move_gugus(gugus,x_change,y_change):
 
@@ -85,16 +89,16 @@ def find_something(find,action,screen,objet_find):
     myfont = pygame.font.SysFont('arial', 20)
 
     find = find
-    textsurface2 = myfont.render("",False,(255, 255, 255))
+    textsurface2 = myfont.render("",False,(0, 0, 0))
     
     if action.click == True and find == 0:
                        
-        textsurface2 = myfont.render("Tu as trouvé " + str(objet_find), False, (255, 255, 255))
+        textsurface2 = myfont.render("Tu as trouvé " + str(objet_find), False, (0, 0, 0))
         screen.blit(textsurface2,(290,460))
         
     if action.click == True and find == 1:
                                 
-        textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (255, 255, 255))
+        textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (0, 0, 0))
         screen.blit(textsurface2,(290,460))
         
     return(textsurface2)
@@ -105,7 +109,7 @@ def zone_interaction(screen,texte_zone,action,var_iter,objet_find):
  
     myfont = pygame.font.SysFont('arial', 20)
     
-    textsurface = myfont.render(texte_zone, False, (255, 255, 255))
+    textsurface = myfont.render(texte_zone, False, (0, 0, 0))
     screen.blit(textsurface,(290,440))
     
     if var_iter == 0:
@@ -122,16 +126,16 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
  
     myfont = pygame.font.SysFont('arial', 20)
     
-    textsurface = myfont.render(texte_zone, False, (255, 255, 255))
+    textsurface = myfont.render(texte_zone, False, (0, 0, 0))
     screen.blit(textsurface,(290,440))
     
     i = var_iter
     
-    if i < max_iter:
-        textsurface2 = myfont.render(liste_phrases[i], False, (255, 255, 255))
+    if i < max_iter and action.click == True:
+        textsurface2 = myfont.render(liste_phrases[i], False, (0, 0, 0))
         screen.blit(textsurface2,(290,460))
         i += 1
 
-    if var_iter >= max_iter:
+    if var_iter >= max_iter and action.click == True:
         i -= max_iter
     return(i)

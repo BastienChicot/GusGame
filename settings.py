@@ -6,8 +6,8 @@ Created on Wed Dec  1 14:31:40 2021
 """
 import pygame
 
-display_width = 1000
-display_height = 707
+display_width = 500
+display_height = 500
 
 black = (0,0,0)
 white = (255,255,255)
@@ -20,5 +20,3 @@ gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
 
 gugus_width = 48
 gugus_height = 52
-running=1.02
-

@@ -17,519 +17,318 @@ class zone_inter(pygame.Rect):
         self.passage = False
         self.interaction = -1
         
-    def draw (x,y,largeur,hauteur):
-        pygame.Rect(x,y,largeur,hauteur)
-        
 def zone_level_1():
     zone1 = zone_inter(235,480,60,50)  
     
     liste_zone=[zone1]
     return(liste_zone)
 
+class wall(pygame.Rect):
+    def __init__(self,x,y,largeur,hauteur,rel_x,rel_y):
+        pygame.Rect.__init__(self,x+rel_x,y+rel_y,largeur,hauteur)
+
         
-def level_1(gameDisplay,display_width,display_height):
+def level_1(gameDisplay,screen_x,screen_y):
     
-    fond=pygame.image.load('Level/level_1.jpg')
-    fond_width = 1000
-    fond_height = 707
-
-
+    fond=pygame.image.load('Level/level_1.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
     ##CHAMBRE PARENTS
-    mur = pygame.Rect(0,0,1000,10)
-    mur2 = pygame.Rect(0,0,42,430)
-    mur3 = pygame.Rect(0,430,12,140)
-    mur4 = pygame.Rect(0,571,167,137)  
-    mur5 = pygame.Rect(308,10,160,55)
-    mur6 = pygame.Rect(78,72,129,90)
-    mur7 = pygame.Rect(362,134,56,66)
-    mur8 = pygame.Rect(0,160,233,40)
-    mur9 = pygame.Rect(230,188,20,12)  
+    mur = wall(0,0,1000,10,screen_x,screen_y)
+    mur2 = wall(0,0,42,430,screen_x,screen_y)
+    mur3 = wall(0,430,12,140,screen_x,screen_y)
+    mur4 = wall(0,571,167,137,screen_x,screen_y)  
+    mur5 = wall(308,10,160,55,screen_x,screen_y)
+    mur6 = wall(78,72,129,90,screen_x,screen_y)
+    mur7 = wall(362,134,56,66,screen_x,screen_y)
+    mur8 = wall(0,160,233,40,screen_x,screen_y)
+    mur9 = wall(230,188,20,12,screen_x,screen_y)  
     ##CHAMBRE GUS
-    mur10 = pygame.Rect(410,65,37,112)
-    mur11 = pygame.Rect(517,0,13,170)
-    mur12 = pygame.Rect(618,0,118,63)
-    mur13 = pygame.Rect(657,68,75,215)
-    mur14 = pygame.Rect(518,254,150,21)  
-    mur15 = pygame.Rect(690,280,44,129)
+    mur10 = wall(410,65,37,112,screen_x,screen_y)
+    mur11 = wall(517,0,13,170,screen_x,screen_y)
+    mur12 = wall(618,0,118,63,screen_x,screen_y)
+    mur13 = wall(657,68,75,215,screen_x,screen_y)
+    mur14 = wall(518,254,150,21,screen_x,screen_y)  
+    mur15 = wall(690,280,44,129,screen_x,screen_y)
     ##SDB
-    mur16 = pygame.Rect(519,333,170,27)
-    mur17 = pygame.Rect(660,355,34,54)
-    mur18 = pygame.Rect(520,357,43,105)
-    mur19 = pygame.Rect(724,407,10,70)  
-    mur20 = pygame.Rect(680,470,53,82)
-    mur21 = pygame.Rect(567,517,104,70)
-    mur22 = pygame.Rect(660,355,34,54)
-    mur23 = pygame.Rect(520,550,213,11)
+    mur16 = wall(519,333,170,27,screen_x,screen_y)
+    mur17 = wall(660,355,34,54,screen_x,screen_y)
+    mur18 = wall(520,357,43,105,screen_x,screen_y)
+    mur19 = wall(724,407,10,70,screen_x,screen_y)  
+    mur20 = wall(680,470,53,82,screen_x,screen_y)
+    mur21 = wall(567,517,104,70,screen_x,screen_y)
+    mur22 = wall(660,355,34,54,screen_x,screen_y)
+    mur23 = wall(520,550,213,11,screen_x,screen_y)
     ##COULOIRS
-    mur24 = pygame.Rect(471,345,52,99)  
-    mur25 = pygame.Rect(265,289,91,40)
-    mur26 = pygame.Rect(410,663,326,38)
+    mur24 = wall(471,345,52,99,screen_x,screen_y)  
+    mur25 = wall(265,289,91,40,screen_x,screen_y)
+    mur26 = wall(410,663,326,38,screen_x,screen_y)
     ##PORTE ENTREE
-    mur27 = pygame.Rect(720,560,15,110)
+    mur27 = wall(720,560,15,110,screen_x,screen_y)
     ##CUISINE
-    mur28 = pygame.Rect(210,650,200,50)
-    mur29 = pygame.Rect(290,500,124,55)  
-    mur30 = pygame.Rect(235,620,35,50)
-    mur31 = pygame.Rect(290,467,67,43)
-    mur32 = pygame.Rect(152,593,34,117)
-    mur33 = pygame.Rect(63,548,20,50)
-    mur34 = pygame.Rect(141,555,20,50)
+    mur28 = wall(210,650,200,50,screen_x,screen_y)
+    mur29 = wall(290,500,124,55,screen_x,screen_y)  
+    mur30 = wall(235,620,35,50,screen_x,screen_y)
+    mur31 = wall(290,467,67,43,screen_x,screen_y)
+    mur32 = wall(152,593,34,117,screen_x,screen_y)
+    mur33 = wall(63,548,20,50,screen_x,screen_y)
+    mur34 = wall(141,555,20,50,screen_x,screen_y)
     ##SALON
-    mur35 = pygame.Rect(35,450,170,31)
-    mur36 = pygame.Rect(35,380,150,70)  
-    mur37 = pygame.Rect(35,320,215,57)
-    mur38 = pygame.Rect(347,326,10,25)
+    mur35 = wall(35,450,170,31,screen_x,screen_y)
+    mur36 = wall(35,380,150,70,screen_x,screen_y)  
+    mur37 = wall(35,320,215,57,screen_x,screen_y)
+    mur38 = wall(347,326,10,25,screen_x,screen_y)
     ##BUREAU
-    mur43 = pygame.Rect(35,300,80,20)
-    mur39 = pygame.Rect(35,240,6,55)
-    mur40 = pygame.Rect(35,194,50,48)
-    mur41 = pygame.Rect(90,190,100,30)
+    mur43 = wall(35,300,80,20,screen_x,screen_y)
+    mur39 = wall(35,240,6,55,screen_x,screen_y)
+    mur40 = wall(35,194,50,48,screen_x,screen_y)
+    mur41 = wall(90,190,100,30,screen_x,screen_y)
     ##PORTE BUREAU
-    mur42 = pygame.Rect(180,210,10,120)
+    mur42 = wall(180,210,10,120,screen_x,screen_y)
     ##EXTERIEUR
-    mur44 = pygame.Rect(988,0,12,707)
-    mur45 = pygame.Rect(850,70,150,370)
-    mur46 = pygame.Rect(850,440,15,87)
+    mur44 = wall(988,0,12,707,screen_x,screen_y)
+    mur45 = wall(850,70,150,370,screen_x,screen_y)
+    mur46 = wall(850,440,15,87,screen_x,screen_y)
         
     liste_mur = [mur,mur2,mur3,mur4,mur5,mur6,mur7,mur8,mur9,mur10,mur11,mur12,mur13,
-                 mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
-                 mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
-                 mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
-                 mur42,mur27
-                 ]
-    
-    pygame.draw.rect(gameDisplay,white,mur)
-    pygame.draw.rect(gameDisplay,white,mur2)
-    pygame.draw.rect(gameDisplay,white,mur3)
-    pygame.draw.rect(gameDisplay,white,mur4)
-    pygame.draw.rect(gameDisplay,white,mur5)
-    pygame.draw.rect(gameDisplay,white,mur6)
-    pygame.draw.rect(gameDisplay,white,mur7)
-    pygame.draw.rect(gameDisplay,white,mur8)
-    pygame.draw.rect(gameDisplay,white,mur9)
-    pygame.draw.rect(gameDisplay,white,mur10)
-    pygame.draw.rect(gameDisplay,white,mur11)    
-    pygame.draw.rect(gameDisplay,white,mur12)
-    pygame.draw.rect(gameDisplay,white,mur13) 
-    pygame.draw.rect(gameDisplay,white,mur14)
-    pygame.draw.rect(gameDisplay,white,mur15)           
-    pygame.draw.rect(gameDisplay,white,mur16)
-    pygame.draw.rect(gameDisplay,white,mur17) 
-    pygame.draw.rect(gameDisplay,white,mur18)
-    pygame.draw.rect(gameDisplay,white,mur19)  
-    pygame.draw.rect(gameDisplay,white,mur20)
-    pygame.draw.rect(gameDisplay,white,mur21) 
-    pygame.draw.rect(gameDisplay,white,mur22)
-    pygame.draw.rect(gameDisplay,white,mur23)           
-    pygame.draw.rect(gameDisplay,white,mur24)
-    pygame.draw.rect(gameDisplay,white,mur25) 
-    pygame.draw.rect(gameDisplay,white,mur26)
-    pygame.draw.rect(gameDisplay,white,mur27)  
-    pygame.draw.rect(gameDisplay,white,mur28)
-    pygame.draw.rect(gameDisplay,white,mur29) 
-    pygame.draw.rect(gameDisplay,white,mur30)
-    pygame.draw.rect(gameDisplay,white,mur31)  
-    pygame.draw.rect(gameDisplay,white,mur32)
-    pygame.draw.rect(gameDisplay,white,mur33)  
-    pygame.draw.rect(gameDisplay,white,mur34)
-    pygame.draw.rect(gameDisplay,white,mur35)  
-    pygame.draw.rect(gameDisplay,white,mur36)
-    pygame.draw.rect(gameDisplay,white,mur37) 
-    pygame.draw.rect(gameDisplay,white,mur38)
-    pygame.draw.rect(gameDisplay,white,mur39)  
-    pygame.draw.rect(gameDisplay,white,mur40)
-    pygame.draw.rect(gameDisplay,white,mur41)  
-    pygame.draw.rect(gameDisplay,white,mur42)
-    pygame.draw.rect(gameDisplay,white,mur43)
-    pygame.draw.rect(gameDisplay,white,mur44)  
-    pygame.draw.rect(gameDisplay,white,mur45)
-    pygame.draw.rect(gameDisplay,white,mur46)
-    
-    # zone1 = zone_inter(235,480,60,50)  
-    
-    # liste_zone=[zone1]
-    
-    gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
+                  mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
+                  mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
+                  mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
+                  mur42,mur27
+                  ]
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+        
+    gameDisplay.fill(white)
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
 
-def level_1_2(gameDisplay,display_width,display_height):
+def level_1_2(gameDisplay,screen_x,screen_y):
     
-    fond=pygame.image.load('Level/level_1.2.jpg')
-    fond_width = 1000
-    fond_height = 707
-
-
+    fond=pygame.image.load('Level/level_1.2.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
     ##CHAMBRE PARENTS
-    mur = pygame.Rect(0,0,1000,10)
-    mur2 = pygame.Rect(0,0,42,430)
-    mur3 = pygame.Rect(0,430,12,140)
-    mur4 = pygame.Rect(0,571,167,137)  
-    mur5 = pygame.Rect(308,10,160,55)
-    mur6 = pygame.Rect(78,72,129,90)
-    mur7 = pygame.Rect(362,134,56,66)
-    mur8 = pygame.Rect(0,160,233,40)
-    mur9 = pygame.Rect(230,188,20,12)  
+    mur = wall(0,0,1000,10,screen_x,screen_y)
+    mur2 = wall(0,0,42,430,screen_x,screen_y)
+    mur3 = wall(0,430,12,140,screen_x,screen_y)
+    mur4 = wall(0,571,167,137,screen_x,screen_y)  
+    mur5 = wall(308,10,160,55,screen_x,screen_y)
+    mur6 = wall(78,72,129,90,screen_x,screen_y)
+    mur7 = wall(362,134,56,66,screen_x,screen_y)
+    mur8 = wall(0,160,233,40,screen_x,screen_y)
+    mur9 = wall(230,188,20,12,screen_x,screen_y)  
     ##CHAMBRE GUS
-    mur10 = pygame.Rect(410,65,37,112)
-    mur11 = pygame.Rect(517,0,13,170)
-    mur12 = pygame.Rect(618,0,118,63)
-    mur13 = pygame.Rect(657,68,75,215)
-    mur14 = pygame.Rect(518,254,150,21)  
-    mur15 = pygame.Rect(690,280,44,129)
+    mur10 = wall(410,65,37,112,screen_x,screen_y)
+    mur11 = wall(517,0,13,170,screen_x,screen_y)
+    mur12 = wall(618,0,118,63,screen_x,screen_y)
+    mur13 = wall(657,68,75,215,screen_x,screen_y)
+    mur14 = wall(518,254,150,21,screen_x,screen_y)  
+    mur15 = wall(690,280,44,129,screen_x,screen_y)
     ##SDB
-    mur16 = pygame.Rect(519,333,170,27)
-    mur17 = pygame.Rect(660,355,34,54)
-    mur18 = pygame.Rect(520,357,43,105)
-    mur19 = pygame.Rect(724,407,10,70)  
-    mur20 = pygame.Rect(680,470,53,82)
-    mur21 = pygame.Rect(567,517,104,70)
-    mur22 = pygame.Rect(660,355,34,54)
-    mur23 = pygame.Rect(520,550,213,11)
+    mur16 = wall(519,333,170,27,screen_x,screen_y)
+    mur17 = wall(660,355,34,54,screen_x,screen_y)
+    mur18 = wall(520,357,43,105,screen_x,screen_y)
+    mur19 = wall(724,407,10,70,screen_x,screen_y)  
+    mur20 = wall(680,470,53,82,screen_x,screen_y)
+    mur21 = wall(567,517,104,70,screen_x,screen_y)
+    mur22 = wall(660,355,34,54,screen_x,screen_y)
+    mur23 = wall(520,550,213,11,screen_x,screen_y)
     ##COULOIRS
-    mur24 = pygame.Rect(471,345,52,99)  
-    mur25 = pygame.Rect(265,289,91,40)
-    mur26 = pygame.Rect(410,663,326,38)
+    mur24 = wall(471,345,52,99,screen_x,screen_y)  
+    mur25 = wall(265,289,91,40,screen_x,screen_y)
+    mur26 = wall(410,663,326,38,screen_x,screen_y)
     ##PORTE ENTREE
-    mur27 = pygame.Rect(720,560,15,110)
+    mur27 = wall(720,560,15,110,screen_x,screen_y)
     ##CUISINE
-    mur28 = pygame.Rect(210,650,200,50)
-    mur29 = pygame.Rect(290,500,124,55)  
-    mur30 = pygame.Rect(235,620,35,50)
-    mur31 = pygame.Rect(290,467,67,43)
-    mur32 = pygame.Rect(152,593,34,117)
-    mur33 = pygame.Rect(63,548,20,50)
-    mur34 = pygame.Rect(141,555,20,50)
+    mur28 = wall(210,650,200,50,screen_x,screen_y)
+    mur29 = wall(290,500,124,55,screen_x,screen_y)  
+    mur30 = wall(235,620,35,50,screen_x,screen_y)
+    mur31 = wall(290,467,67,43,screen_x,screen_y)
+    mur32 = wall(152,593,34,117,screen_x,screen_y)
+    mur33 = wall(63,548,20,50,screen_x,screen_y)
+    mur34 = wall(141,555,20,50,screen_x,screen_y)
     ##SALON
-    mur35 = pygame.Rect(35,450,170,31)
-    mur36 = pygame.Rect(35,380,150,70)  
-    mur37 = pygame.Rect(35,320,215,57)
-    mur38 = pygame.Rect(347,326,10,25)
+    mur35 = wall(35,450,170,31,screen_x,screen_y)
+    mur36 = wall(35,380,150,70,screen_x,screen_y)  
+    mur37 = wall(35,320,215,57,screen_x,screen_y)
+    mur38 = wall(347,326,10,25,screen_x,screen_y)
     ##BUREAU
-    mur43 = pygame.Rect(35,300,80,20)
-    mur39 = pygame.Rect(35,240,6,55)
-    mur40 = pygame.Rect(35,194,50,48)
-    mur41 = pygame.Rect(90,190,100,30)
+    mur43 = wall(35,300,80,20,screen_x,screen_y)
+    mur39 = wall(35,240,6,55,screen_x,screen_y)
+    mur40 = wall(35,194,50,48,screen_x,screen_y)
+    mur41 = wall(90,190,100,30,screen_x,screen_y)
     ##PORTE BUREAU
-    #mur42 = pygame.Rect(180,210,10,120)
+    #mur42 = wall(180,210,10,120,screen_x,screen_y)
     ##EXTERIEUR
-    mur44 = pygame.Rect(988,0,12,707)
-    mur45 = pygame.Rect(850,70,150,370)
-    mur46 = pygame.Rect(850,440,15,87)
+    mur44 = wall(988,0,12,707,screen_x,screen_y)
+    mur45 = wall(850,70,150,370,screen_x,screen_y)
+    mur46 = wall(850,440,15,87,screen_x,screen_y)
         
     liste_mur = [mur,mur2,mur3,mur4,mur5,mur6,mur7,mur8,mur9,mur10,mur11,mur12,mur13,
-                 mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
-                 mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
-                 mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
-                 #mur42
-                 mur27
-                 ]
-    
-    pygame.draw.rect(gameDisplay,white,mur)
-    pygame.draw.rect(gameDisplay,white,mur2)
-    pygame.draw.rect(gameDisplay,white,mur3)
-    pygame.draw.rect(gameDisplay,white,mur4)
-    pygame.draw.rect(gameDisplay,white,mur5)
-    pygame.draw.rect(gameDisplay,white,mur6)
-    pygame.draw.rect(gameDisplay,white,mur7)
-    pygame.draw.rect(gameDisplay,white,mur8)
-    pygame.draw.rect(gameDisplay,white,mur9)
-    pygame.draw.rect(gameDisplay,white,mur10)
-    pygame.draw.rect(gameDisplay,white,mur11)    
-    pygame.draw.rect(gameDisplay,white,mur12)
-    pygame.draw.rect(gameDisplay,white,mur13) 
-    pygame.draw.rect(gameDisplay,white,mur14)
-    pygame.draw.rect(gameDisplay,white,mur15)           
-    pygame.draw.rect(gameDisplay,white,mur16)
-    pygame.draw.rect(gameDisplay,white,mur17) 
-    pygame.draw.rect(gameDisplay,white,mur18)
-    pygame.draw.rect(gameDisplay,white,mur19)  
-    pygame.draw.rect(gameDisplay,white,mur20)
-    pygame.draw.rect(gameDisplay,white,mur21) 
-    pygame.draw.rect(gameDisplay,white,mur22)
-    pygame.draw.rect(gameDisplay,white,mur23)           
-    pygame.draw.rect(gameDisplay,white,mur24)
-    pygame.draw.rect(gameDisplay,white,mur25) 
-    pygame.draw.rect(gameDisplay,white,mur26)
-    pygame.draw.rect(gameDisplay,white,mur27)  
-    pygame.draw.rect(gameDisplay,white,mur28)
-    pygame.draw.rect(gameDisplay,white,mur29) 
-    pygame.draw.rect(gameDisplay,white,mur30)
-    pygame.draw.rect(gameDisplay,white,mur31)  
-    pygame.draw.rect(gameDisplay,white,mur32)
-    pygame.draw.rect(gameDisplay,white,mur33)  
-    pygame.draw.rect(gameDisplay,white,mur34)
-    pygame.draw.rect(gameDisplay,white,mur35)  
-    pygame.draw.rect(gameDisplay,white,mur36)
-    pygame.draw.rect(gameDisplay,white,mur37) 
-    pygame.draw.rect(gameDisplay,white,mur38)
-    pygame.draw.rect(gameDisplay,white,mur39)  
-    pygame.draw.rect(gameDisplay,white,mur40)
-    pygame.draw.rect(gameDisplay,white,mur41)  
-    #pygame.draw.rect(gameDisplay,white,mur42)
-    pygame.draw.rect(gameDisplay,white,mur43)
-    pygame.draw.rect(gameDisplay,white,mur44)  
-    pygame.draw.rect(gameDisplay,white,mur45)
-    pygame.draw.rect(gameDisplay,white,mur46)
-    
-    # zone1 = zone_inter(235,480,60,50)  
-    
-    # liste_zone=[zone1]
-    
-    gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
+                  mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
+                  mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
+                  mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
+                  #mur42,
+                  mur27
+                  ]
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
 
-def level_1_3(gameDisplay,display_width,display_height):
+def level_1_3(gameDisplay,screen_x,screen_y):
     
-    fond=pygame.image.load('Level/level_1.3.jpg')
-    fond_width = 1000
-    fond_height = 707
-
-
+    fond=pygame.image.load('Level/level_1.3.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
     ##CHAMBRE PARENTS
-    mur = pygame.Rect(0,0,1000,10)
-    mur2 = pygame.Rect(0,0,42,430)
-    mur3 = pygame.Rect(0,430,12,140)
-    mur4 = pygame.Rect(0,571,167,137)  
-    mur5 = pygame.Rect(308,10,160,55)
-    mur6 = pygame.Rect(78,72,129,90)
-    mur7 = pygame.Rect(362,134,56,66)
-    mur8 = pygame.Rect(0,160,233,40)
-    mur9 = pygame.Rect(230,188,20,12)  
+    mur = wall(0,0,1000,10,screen_x,screen_y)
+    mur2 = wall(0,0,42,430,screen_x,screen_y)
+    mur3 = wall(0,430,12,140,screen_x,screen_y)
+    mur4 = wall(0,571,167,137,screen_x,screen_y)  
+    mur5 = wall(308,10,160,55,screen_x,screen_y)
+    mur6 = wall(78,72,129,90,screen_x,screen_y)
+    mur7 = wall(362,134,56,66,screen_x,screen_y)
+    mur8 = wall(0,160,233,40,screen_x,screen_y)
+    mur9 = wall(230,188,20,12,screen_x,screen_y)  
     ##CHAMBRE GUS
-    mur10 = pygame.Rect(410,65,37,112)
-    mur11 = pygame.Rect(517,0,13,170)
-    mur12 = pygame.Rect(618,0,118,63)
-    mur13 = pygame.Rect(657,68,75,215)
-    mur14 = pygame.Rect(518,254,150,21)  
-    mur15 = pygame.Rect(690,280,44,129)
+    mur10 = wall(410,65,37,112,screen_x,screen_y)
+    mur11 = wall(517,0,13,170,screen_x,screen_y)
+    mur12 = wall(618,0,118,63,screen_x,screen_y)
+    mur13 = wall(657,68,75,215,screen_x,screen_y)
+    mur14 = wall(518,254,150,21,screen_x,screen_y)  
+    mur15 = wall(690,280,44,129,screen_x,screen_y)
     ##SDB
-    mur16 = pygame.Rect(519,333,170,27)
-    mur17 = pygame.Rect(660,355,34,54)
-    mur18 = pygame.Rect(520,357,43,105)
-    mur19 = pygame.Rect(724,407,10,70)  
-    mur20 = pygame.Rect(680,470,53,82)
-    mur21 = pygame.Rect(567,517,104,70)
-    mur22 = pygame.Rect(660,355,34,54)
-    mur23 = pygame.Rect(520,550,213,11)
+    mur16 = wall(519,333,170,27,screen_x,screen_y)
+    mur17 = wall(660,355,34,54,screen_x,screen_y)
+    mur18 = wall(520,357,43,105,screen_x,screen_y)
+    mur19 = wall(724,407,10,70,screen_x,screen_y)  
+    mur20 = wall(680,470,53,82,screen_x,screen_y)
+    mur21 = wall(567,517,104,70,screen_x,screen_y)
+    mur22 = wall(660,355,34,54,screen_x,screen_y)
+    mur23 = wall(520,550,213,11,screen_x,screen_y)
     ##COULOIRS
-    mur24 = pygame.Rect(471,345,52,99)  
-    mur25 = pygame.Rect(265,289,91,40)
-    mur26 = pygame.Rect(410,663,326,38)
+    mur24 = wall(471,345,52,99,screen_x,screen_y)  
+    mur25 = wall(265,289,91,40,screen_x,screen_y)
+    mur26 = wall(410,663,326,38,screen_x,screen_y)
     ##PORTE ENTREE
-    #♥mur27 = pygame.Rect(720,560,15,110)
+    #mur27 = wall(720,560,15,110,screen_x,screen_y)
     ##CUISINE
-    mur28 = pygame.Rect(210,650,200,50)
-    mur29 = pygame.Rect(290,500,124,55)  
-    mur30 = pygame.Rect(235,620,35,50)
-    mur31 = pygame.Rect(290,467,67,43)
-    mur32 = pygame.Rect(152,593,34,117)
-    mur33 = pygame.Rect(63,548,20,50)
-    mur34 = pygame.Rect(141,555,20,50)
+    mur28 = wall(210,650,200,50,screen_x,screen_y)
+    mur29 = wall(290,500,124,55,screen_x,screen_y)  
+    mur30 = wall(235,620,35,50,screen_x,screen_y)
+    mur31 = wall(290,467,67,43,screen_x,screen_y)
+    mur32 = wall(152,593,34,117,screen_x,screen_y)
+    mur33 = wall(63,548,20,50,screen_x,screen_y)
+    mur34 = wall(141,555,20,50,screen_x,screen_y)
     ##SALON
-    mur35 = pygame.Rect(35,450,170,31)
-    mur36 = pygame.Rect(35,380,150,70)  
-    mur37 = pygame.Rect(35,320,215,57)
-    mur38 = pygame.Rect(347,326,10,25)
+    mur35 = wall(35,450,170,31,screen_x,screen_y)
+    mur36 = wall(35,380,150,70,screen_x,screen_y)  
+    mur37 = wall(35,320,215,57,screen_x,screen_y)
+    mur38 = wall(347,326,10,25,screen_x,screen_y)
     ##BUREAU
-    mur43 = pygame.Rect(35,300,80,20)
-    mur39 = pygame.Rect(35,240,6,55)
-    mur40 = pygame.Rect(35,194,50,48)
-    mur41 = pygame.Rect(90,190,100,30)
+    mur43 = wall(35,300,80,20,screen_x,screen_y)
+    mur39 = wall(35,240,6,55,screen_x,screen_y)
+    mur40 = wall(35,194,50,48,screen_x,screen_y)
+    mur41 = wall(90,190,100,30,screen_x,screen_y)
     ##PORTE BUREAU
-    #mur42 = pygame.Rect(180,210,10,120)
+    #mur42 = wall(180,210,10,120,screen_x,screen_y)
     ##EXTERIEUR
-    mur44 = pygame.Rect(988,0,12,707)
-    mur45 = pygame.Rect(850,70,150,370)
-    mur46 = pygame.Rect(850,440,15,87)
+    mur44 = wall(988,0,12,707,screen_x,screen_y)
+    mur45 = wall(850,70,150,370,screen_x,screen_y)
+    mur46 = wall(850,440,15,87,screen_x,screen_y)
         
     liste_mur = [mur,mur2,mur3,mur4,mur5,mur6,mur7,mur8,mur9,mur10,mur11,mur12,mur13,
-                 mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
-                 mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
-                 mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
-                 #mur42,
-                 #mur27
-                 ]
-    
-    pygame.draw.rect(gameDisplay,white,mur)
-    pygame.draw.rect(gameDisplay,white,mur2)
-    pygame.draw.rect(gameDisplay,white,mur3)
-    pygame.draw.rect(gameDisplay,white,mur4)
-    pygame.draw.rect(gameDisplay,white,mur5)
-    pygame.draw.rect(gameDisplay,white,mur6)
-    pygame.draw.rect(gameDisplay,white,mur7)
-    pygame.draw.rect(gameDisplay,white,mur8)
-    pygame.draw.rect(gameDisplay,white,mur9)
-    pygame.draw.rect(gameDisplay,white,mur10)
-    pygame.draw.rect(gameDisplay,white,mur11)    
-    pygame.draw.rect(gameDisplay,white,mur12)
-    pygame.draw.rect(gameDisplay,white,mur13) 
-    pygame.draw.rect(gameDisplay,white,mur14)
-    pygame.draw.rect(gameDisplay,white,mur15)           
-    pygame.draw.rect(gameDisplay,white,mur16)
-    pygame.draw.rect(gameDisplay,white,mur17) 
-    pygame.draw.rect(gameDisplay,white,mur18)
-    pygame.draw.rect(gameDisplay,white,mur19)  
-    pygame.draw.rect(gameDisplay,white,mur20)
-    pygame.draw.rect(gameDisplay,white,mur21) 
-    pygame.draw.rect(gameDisplay,white,mur22)
-    pygame.draw.rect(gameDisplay,white,mur23)           
-    pygame.draw.rect(gameDisplay,white,mur24)
-    pygame.draw.rect(gameDisplay,white,mur25) 
-    pygame.draw.rect(gameDisplay,white,mur26)
-    #pygame.draw.rect(gameDisplay,white,mur27)  
-    pygame.draw.rect(gameDisplay,white,mur28)
-    pygame.draw.rect(gameDisplay,white,mur29) 
-    pygame.draw.rect(gameDisplay,white,mur30)
-    pygame.draw.rect(gameDisplay,white,mur31)  
-    pygame.draw.rect(gameDisplay,white,mur32)
-    pygame.draw.rect(gameDisplay,white,mur33)  
-    pygame.draw.rect(gameDisplay,white,mur34)
-    pygame.draw.rect(gameDisplay,white,mur35)  
-    pygame.draw.rect(gameDisplay,white,mur36)
-    pygame.draw.rect(gameDisplay,white,mur37) 
-    pygame.draw.rect(gameDisplay,white,mur38)
-    pygame.draw.rect(gameDisplay,white,mur39)  
-    pygame.draw.rect(gameDisplay,white,mur40)
-    pygame.draw.rect(gameDisplay,white,mur41)  
-    #pygame.draw.rect(gameDisplay,white,mur42)
-    pygame.draw.rect(gameDisplay,white,mur43)
-    pygame.draw.rect(gameDisplay,white,mur44)  
-    pygame.draw.rect(gameDisplay,white,mur45)
-    pygame.draw.rect(gameDisplay,white,mur46)
-    
-    # zone1 = zone_inter(235,480,60,50)  
-    
-    # liste_zone=[zone1]
-    
-    gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
+                  mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
+                  mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
+                  mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
+                  #mur42,
+                  #mur27
+                  ]
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
 
-def level_1_4(gameDisplay,display_width,display_height):
+def level_1_4(gameDisplay,screen_x,screen_y):
     
-    fond=pygame.image.load('Level/level_1.4.jpg')
-    fond_width = 1000
-    fond_height = 707
-
-
+    fond=pygame.image.load('Level/level_1.4.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
     ##CHAMBRE PARENTS
-    mur = pygame.Rect(0,0,1000,10)
-    mur2 = pygame.Rect(0,0,42,430)
-    mur3 = pygame.Rect(0,430,12,140)
-    mur4 = pygame.Rect(0,571,167,137)  
-    mur5 = pygame.Rect(308,10,160,55)
-    mur6 = pygame.Rect(78,72,129,90)
-    mur7 = pygame.Rect(362,134,56,66)
-    mur8 = pygame.Rect(0,160,233,40)
-    mur9 = pygame.Rect(230,188,20,12)  
+    mur = wall(0,0,1000,10,screen_x,screen_y)
+    mur2 = wall(0,0,42,430,screen_x,screen_y)
+    mur3 = wall(0,430,12,140,screen_x,screen_y)
+    mur4 = wall(0,571,167,137,screen_x,screen_y)  
+    mur5 = wall(308,10,160,55,screen_x,screen_y)
+    mur6 = wall(78,72,129,90,screen_x,screen_y)
+    mur7 = wall(362,134,56,66,screen_x,screen_y)
+    mur8 = wall(0,160,233,40,screen_x,screen_y)
+    mur9 = wall(230,188,20,12,screen_x,screen_y)  
     ##CHAMBRE GUS
-    mur10 = pygame.Rect(410,65,37,112)
-    mur11 = pygame.Rect(517,0,13,170)
-    mur12 = pygame.Rect(618,0,118,63)
-    mur13 = pygame.Rect(657,68,75,215)
-    mur14 = pygame.Rect(518,254,150,21)  
-    mur15 = pygame.Rect(690,280,44,129)
+    mur10 = wall(410,65,37,112,screen_x,screen_y)
+    mur11 = wall(517,0,13,170,screen_x,screen_y)
+    mur12 = wall(618,0,118,63,screen_x,screen_y)
+    mur13 = wall(657,68,75,215,screen_x,screen_y)
+    mur14 = wall(518,254,150,21,screen_x,screen_y)  
+    mur15 = wall(690,280,44,129,screen_x,screen_y)
     ##SDB
-    mur16 = pygame.Rect(519,333,170,27)
-    mur17 = pygame.Rect(660,355,34,54)
-    mur18 = pygame.Rect(520,357,43,105)
-    mur19 = pygame.Rect(724,407,10,70)  
-    mur20 = pygame.Rect(680,470,53,82)
-    mur21 = pygame.Rect(567,517,104,70)
-    mur22 = pygame.Rect(660,355,34,54)
-    mur23 = pygame.Rect(520,550,213,11)
+    mur16 = wall(519,333,170,27,screen_x,screen_y)
+    mur17 = wall(660,355,34,54,screen_x,screen_y)
+    mur18 = wall(520,357,43,105,screen_x,screen_y)
+    mur19 = wall(724,407,10,70,screen_x,screen_y)  
+    mur20 = wall(680,470,53,82,screen_x,screen_y)
+    mur21 = wall(567,517,104,70,screen_x,screen_y)
+    mur22 = wall(660,355,34,54,screen_x,screen_y)
+    mur23 = wall(520,550,213,11,screen_x,screen_y)
     ##COULOIRS
-    mur24 = pygame.Rect(471,345,52,99)  
-    mur25 = pygame.Rect(265,289,91,40)
-    mur26 = pygame.Rect(410,663,326,38)
+    mur24 = wall(471,345,52,99,screen_x,screen_y)  
+    mur25 = wall(265,289,91,40,screen_x,screen_y)
+    mur26 = wall(410,663,326,38,screen_x,screen_y)
     ##PORTE ENTREE
-    mur27 = pygame.Rect(720,560,15,110)
+    #mur27 = wall(720,560,15,110,screen_x,screen_y)
     ##CUISINE
-    mur28 = pygame.Rect(210,650,200,50)
-    mur29 = pygame.Rect(290,500,124,55)  
-    mur30 = pygame.Rect(235,620,35,50)
-    mur31 = pygame.Rect(290,467,67,43)
-    mur32 = pygame.Rect(152,593,34,117)
-    mur33 = pygame.Rect(63,548,20,50)
-    mur34 = pygame.Rect(141,555,20,50)
+    mur28 = wall(210,650,200,50,screen_x,screen_y)
+    mur29 = wall(290,500,124,55,screen_x,screen_y)  
+    mur30 = wall(235,620,35,50,screen_x,screen_y)
+    mur31 = wall(290,467,67,43,screen_x,screen_y)
+    mur32 = wall(152,593,34,117,screen_x,screen_y)
+    mur33 = wall(63,548,20,50,screen_x,screen_y)
+    mur34 = wall(141,555,20,50,screen_x,screen_y)
     ##SALON
-    mur35 = pygame.Rect(35,450,170,31)
-    mur36 = pygame.Rect(35,380,150,70)  
-    mur37 = pygame.Rect(35,320,215,57)
-    mur38 = pygame.Rect(347,326,10,25)
+    mur35 = wall(35,450,170,31,screen_x,screen_y)
+    mur36 = wall(35,380,150,70,screen_x,screen_y)  
+    mur37 = wall(35,320,215,57,screen_x,screen_y)
+    mur38 = wall(347,326,10,25,screen_x,screen_y)
     ##BUREAU
-    mur43 = pygame.Rect(35,300,80,20)
-    mur39 = pygame.Rect(35,240,6,55)
-    mur40 = pygame.Rect(35,194,50,48)
-    mur41 = pygame.Rect(90,190,100,30)
+    mur43 = wall(35,300,80,20,screen_x,screen_y)
+    mur39 = wall(35,240,6,55,screen_x,screen_y)
+    mur40 = wall(35,194,50,48,screen_x,screen_y)
+    mur41 = wall(90,190,100,30,screen_x,screen_y)
     ##PORTE BUREAU
-    #mur42 = pygame.Rect(180,210,10,120)
+    mur42 = wall(180,210,10,120,screen_x,screen_y)
     ##EXTERIEUR
-    mur44 = pygame.Rect(988,0,12,707)
-    mur45 = pygame.Rect(850,70,150,370)
-    mur46 = pygame.Rect(850,440,15,87)
+    mur44 = wall(988,0,12,707,screen_x,screen_y)
+    mur45 = wall(850,70,150,370,screen_x,screen_y)
+    mur46 = wall(850,440,15,87,screen_x,screen_y)
         
     liste_mur = [mur,mur2,mur3,mur4,mur5,mur6,mur7,mur8,mur9,mur10,mur11,mur12,mur13,
-                 mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
-                 mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
-                 mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
-#                 mur42,
-                 mur27
-                 ]
-    
-    pygame.draw.rect(gameDisplay,white,mur)
-    pygame.draw.rect(gameDisplay,white,mur2)
-    pygame.draw.rect(gameDisplay,white,mur3)
-    pygame.draw.rect(gameDisplay,white,mur4)
-    pygame.draw.rect(gameDisplay,white,mur5)
-    pygame.draw.rect(gameDisplay,white,mur6)
-    pygame.draw.rect(gameDisplay,white,mur7)
-    pygame.draw.rect(gameDisplay,white,mur8)
-    pygame.draw.rect(gameDisplay,white,mur9)
-    pygame.draw.rect(gameDisplay,white,mur10)
-    pygame.draw.rect(gameDisplay,white,mur11)    
-    pygame.draw.rect(gameDisplay,white,mur12)
-    pygame.draw.rect(gameDisplay,white,mur13) 
-    pygame.draw.rect(gameDisplay,white,mur14)
-    pygame.draw.rect(gameDisplay,white,mur15)           
-    pygame.draw.rect(gameDisplay,white,mur16)
-    pygame.draw.rect(gameDisplay,white,mur17) 
-    pygame.draw.rect(gameDisplay,white,mur18)
-    pygame.draw.rect(gameDisplay,white,mur19)  
-    pygame.draw.rect(gameDisplay,white,mur20)
-    pygame.draw.rect(gameDisplay,white,mur21) 
-    pygame.draw.rect(gameDisplay,white,mur22)
-    pygame.draw.rect(gameDisplay,white,mur23)           
-    pygame.draw.rect(gameDisplay,white,mur24)
-    pygame.draw.rect(gameDisplay,white,mur25) 
-    pygame.draw.rect(gameDisplay,white,mur26)
-    pygame.draw.rect(gameDisplay,white,mur27)  
-    pygame.draw.rect(gameDisplay,white,mur28)
-    pygame.draw.rect(gameDisplay,white,mur29) 
-    pygame.draw.rect(gameDisplay,white,mur30)
-    pygame.draw.rect(gameDisplay,white,mur31)  
-    pygame.draw.rect(gameDisplay,white,mur32)
-    pygame.draw.rect(gameDisplay,white,mur33)  
-    pygame.draw.rect(gameDisplay,white,mur34)
-    pygame.draw.rect(gameDisplay,white,mur35)  
-    pygame.draw.rect(gameDisplay,white,mur36)
-    pygame.draw.rect(gameDisplay,white,mur37) 
-    pygame.draw.rect(gameDisplay,white,mur38)
-    pygame.draw.rect(gameDisplay,white,mur39)  
-    pygame.draw.rect(gameDisplay,white,mur40)
-    pygame.draw.rect(gameDisplay,white,mur41)  
-    #pygame.draw.rect(gameDisplay,white,mur42)
-    pygame.draw.rect(gameDisplay,white,mur43)
-    pygame.draw.rect(gameDisplay,white,mur44)  
-    pygame.draw.rect(gameDisplay,white,mur45)
-    pygame.draw.rect(gameDisplay,white,mur46)
-    
-    # zone1 = zone_inter(235,480,60,50)  
-    
-    # liste_zone=[zone1]
-    
-    gameDisplay.blit(fond, ((display_width-fond_width)/2,(display_height-fond_height)/2)) 
+                  mur14,mur15,mur16,mur17,mur18,mur19,mur20,mur21,mur22,mur23,mur24,
+                  mur25,mur26,mur28,mur29,mur30,mur31,mur32,mur33,mur34,mur35,
+                  mur36,mur37,mur38,mur39,mur40,mur41,mur43,mur44,mur45,mur46,
+                  mur42
+                  #mur27
+                  ]
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
