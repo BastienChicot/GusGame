@@ -362,7 +362,7 @@ def game_loop(sac,action):
             action.click = False
         
         screen.blit(gugus, rect_gugus)
-        print(sac.torchon)
+        
         pygame.display.update()
         clock.tick(60)
 
