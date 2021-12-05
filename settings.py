@@ -20,3 +20,8 @@ gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
 
 gugus_width = 48
 gugus_height = 52
+
+
+fond_text = pygame.image.load("bank/image/zone_texte.png")
+sac_image = pygame.image.load("bank/image/sac.png")
+sac_tab = pygame.image.load("bank/image/sac_tab.png")

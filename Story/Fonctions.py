@@ -5,6 +5,7 @@ Created on Thu Nov 25 15:43:41 2021
 @author: basti
 """
 import pygame
+from settings import *
 
 def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
 
@@ -39,41 +40,18 @@ def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
     
     return(x_change,y_change,rel_x,rel_y)
 
-def move_gugus(gugus,x_change,y_change):
-
-    gugus_face = pygame.image.load('Gus/Gus.png')
-    gugus_dos = pygame.image.load('Gus/Gus_dos.png')
-    gugus_droite = pygame.image.load('Gus/Gus_droit.png')
-    gugus_gauche = pygame.image.load('Gus/Gus_gauche.png')
-
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_RIGHT]:
-        x_change = 2
-        gugus=gugus_droite
-    elif keys[pygame.K_LEFT]:
-        x_change = -2 
-        gugus=gugus_gauche
-    elif keys[pygame.K_UP]:
-        y_change = -2
-        gugus=gugus_dos
-    elif keys[pygame.K_DOWN]:
-        y_change = 2
-        gugus=gugus_face
-    else:
-        y_change = 0
-        x_change = 0
-    
-    return(gugus,x_change,y_change)
-
 
 class sac_a_dos():
     def __init__(self):
         super().__init__()
-        self.torchon = 0
+        self.Torchon = 0
         self.soupe_froide = 0
         self.soupe_chaude = 0
-        self.cle_maison = False
+        self.Cle_maison = 0
+        self.Alcool = 0
+
+    def iter_objects(self):
+        return (self.__dict__)                    
 
 class action_key():
     def __init__(self):
@@ -81,25 +59,37 @@ class action_key():
         self.click = False
         self.conversation_papa = 0
         self.fouille = 0
+        
+class Gus():
+    def __init__(self):
+        super().__init__()
+        self.pv = 100 
+        self.porte_entre = False
+        self.level = 1
+        self.money = 0
+        self.speed = 2
 
 def find_something(find,action,screen,objet_find):
     
     pygame.font.init()
  
-    myfont = pygame.font.SysFont('arial', 20)
+    myfont = pygame.font.SysFont('corbel', 20, bold=True)
 
     find = find
-    textsurface2 = myfont.render("",False,(0, 0, 0))
+    textsurface2 = myfont.render("",False, (110, 110, 110))
     
     if action.click == True and find == 0:
                        
-        textsurface2 = myfont.render("Tu as trouvé " + str(objet_find), False, (0, 0, 0))
-        screen.blit(textsurface2,(290,460))
+        textsurface2 = myfont.render("Tu as trouvé :" , False, (110, 110, 110))
+        textsurface3 = myfont.render(str(objet_find), False, (110, 110, 110))
+        
+        screen.blit(textsurface2,(290,425))
+        screen.blit(textsurface3,(290,445))
         
     if action.click == True and find == 1:
                                 
-        textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (0, 0, 0))
-        screen.blit(textsurface2,(290,460))
+        textsurface2 = myfont.render("Il n'y a plus rien ici !", False, (110, 110, 110))
+        screen.blit(textsurface2,(290,425))
         
     return(textsurface2)
 
@@ -107,10 +97,11 @@ def zone_interaction(screen,texte_zone,action,var_iter,objet_find):
     
     pygame.font.init()
  
-    myfont = pygame.font.SysFont('arial', 20)
+    myfont = pygame.font.SysFont('corbel', 20, bold=True)
     
-    textsurface = myfont.render(texte_zone, False, (0, 0, 0))
-    screen.blit(textsurface,(290,440))
+    textsurface = myfont.render(texte_zone, False, (110, 110, 110))
+    screen.blit(fond_text,(260,380))
+    screen.blit(textsurface,(280,400))
     
     if var_iter == 0:
         textsurface2 = find_something(0,action,screen,objet_find)
@@ -124,18 +115,42 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
     
     pygame.font.init()
  
-    myfont = pygame.font.SysFont('arial', 20)
+    myfont = pygame.font.SysFont('corbel', 20, bold=True)
     
-    textsurface = myfont.render(texte_zone, False, (0, 0, 0))
-    screen.blit(textsurface,(290,440))
+    textsurface = myfont.render(texte_zone, False, (110, 110, 110))
+    screen.blit(fond_text,(260,380))
+    screen.blit(textsurface,(280,400))
     
     i = var_iter
     
     if i < max_iter and action.click == True:
-        textsurface2 = myfont.render(liste_phrases[i], False, (0, 0, 0))
-        screen.blit(textsurface2,(290,460))
+        textsurface2 = myfont.render(liste_phrases[i], False, (110, 110, 110))
+        screen.blit(textsurface2,(290,425))
         i += 1
 
     if var_iter >= max_iter and action.click == True:
         i -= max_iter
     return(i)
+
+def affich_sac(screen,sac):
+    
+    pygame.font.init()
+    
+    myfont = pygame.font.SysFont('corbel', 18, bold=True)
+    texts = []
+    sac_dict = sac.iter_objects()
+
+    for i in sac_dict:
+        if sac_dict[i] == True or sac_dict[i] != 0:
+
+            text = str(i) + " -> " + str(sac_dict[i])
+            texts.append(text)
+   
+    screen.blit(sac_image,(25,130))
+    i = 220
+    for text in texts :
+
+        textsurface = myfont.render(text, False, (220, 220, 220))
+        screen.blit(textsurface,(75,i))
+        i += 20
+    

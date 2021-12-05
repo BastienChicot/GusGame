@@ -5,43 +5,45 @@ Created on Tue Nov 23 16:02:54 2021
 @author: basti
 """
 import pygame
-from Story.Fonctions import collisions, sac_a_dos, action_key, zone_interaction, zone_dialogue
+from Story.Fonctions import *
 from Level.Levels import *
 from settings import *
 
 pygame.init()
 pygame.font.init()
  
-myfont = pygame.font.SysFont('arial', 20)
+myfont = pygame.font.SysFont('corbel', 20, bold=True)
+Gus_font = pygame.font.SysFont('corbel', 16, bold=True)
 
 screen = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Gus veut boire un coup')
 
 clock = pygame.time.Clock()
 
+Gus = Gus()
 sac = sac_a_dos()
 action=action_key()
 
 
-def game_loop(sac,action):
+def game_loop(sac,action,Gus):
     
-    speed_move = 2
+    speed_move = Gus.speed
     
     x =  (display_width-gugus_width)/2
     y = (display_height-gugus_height)/2
-    screen_x = -400 + x
-    screen_y = -300 + y
+    screen_x = -475 + x
+    screen_y = -224 + y
     rel_x = 0 
     rel_y = 0
     x_change = 0
     y_change = 0
     
-    phrases_papa_avant_soupe = ["Laisse moi tranquille", "Va voir ta mère, elle est dans la chambre"]
+    phrases_papa_avant_soupe = ["Laisse moi tranquille", "Va voir ta mère!"]
     phrases_papa_entre_soupe = ["Tu as apporté à manger à ta mère ?","Tu as apporté à manger à ta mère ?"]
     phrases_papa_post_soupe = ["J'ai soif !!",
-                "Apportes moi une bière et tais-toi par pitié!"]
+                "Trouves-moi une bière!"]
     sleep = ["ZZZzzzZZZzzz","ZZZzzzZZZzzz"]
-    phrases_maman = ["Kof kof ! Apporte moi un truc chaud à manger s'il te plait", "Merci beaucoup Gus","ZZZzzzZZZzzz",
+    phrases_maman = ["Apporte moi un truc à manger s'il te plait", "Merci beaucoup Gus","ZZZzzzZZZzzz",
                      ""]    
     
     #INTERACTIONS
@@ -83,7 +85,7 @@ def game_loop(sac,action):
     
     while not gameExit:
             
-        sac.torchon = torchon_salon+torchonsdb1+torchoncoul+torchonch+torchon_entre+torchon_mom
+        sac.Torchon = torchon_salon+torchonsdb1+torchoncoul+torchonch+torchon_entre+torchon_mom
         
         if open_buro == False and porte_entre == False :
             liste_mur = level_1(screen,screen_x,screen_y)
@@ -95,7 +97,7 @@ def game_loop(sac,action):
             liste_mur = level_1_4(screen,screen_x,screen_y)
 
         rect_gugus = gugus.get_rect() 
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
@@ -162,7 +164,7 @@ def game_loop(sac,action):
                         pressed_four = -1
                     if 341+screen_x < x < 410+screen_x and 510+screen_y < y < 560+screen_y and sac.soupe_froide == 1 and sac.soupe_chaude == 0:
                         pressed_four = 0
-                    if 270+screen_x < x < 335+screen_x and 600+screen_y < y < 680+screen_y and sac.soupe_froide == 1 and sac.soupe_chaude == 1:
+                    if 270+screen_x < x < 335+screen_x and 600+screen_y < y < 680+screen_y and sac.soupe_chaude == 1:
                         pressed_four = 1
                     if 230+screen_x < x < 270+screen_x and 560+screen_y < y < 630+screen_y :
                         pressed_frigo +=1                        
@@ -240,19 +242,22 @@ def game_loop(sac,action):
             
             zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_entre_soupe,pressed_dad,2)
 
-        elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and sac.soupe_froide == 1 and sac.soupe_chaude == 1 and service == False and pressed_mom >= 1 and papa_fouillab == False:
+        elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and  sac.soupe_chaude == 1 and service == False and pressed_mom >= 1 and papa_fouillab == False:
             
             zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_post_soupe,pressed_dad,2)
 
-        elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and sac.soupe_froide == 1 and sac.soupe_chaude == 1 and service == True and papa_fouillab == False:
+        elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and service == True and papa_fouillab == False:
             
             zone_dialogue(screen,"Parler à papa (A)",action,sleep,pressed_dad,2)
             dad_sleep = True
+            sac.soupe_froide = 0 
+            sac.soupe_chaude = 0
         
         elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and papa_fouillab == True:
 
             fouille = zone_interaction(screen,"Fouiller papa (A)",action,fouille,"la clé de la maison!")
-            sac.cle_maison = True                                                                                         
+            sac.Cle_maison = 1  
+            mom_sleep == True                                                                                       
             
         ##OBJETS
         elif 235+screen_x < x < 295+screen_x and 480+screen_y < y < 530+screen_y :
@@ -269,7 +274,7 @@ def game_loop(sac,action):
 
         elif 530+screen_x < x < 615+screen_x and 610+screen_y < y < 700+screen_y :
 
-            pressed_entre = zone_interaction(screen,"Fouiller l'armoire (A)",action,pressed_entre,"une vieille couverture du chien")
+            pressed_entre = zone_interaction(screen,"Fouiller l'armoire (A)",action,pressed_entre,"un vieux plaid")
 
         elif 300+screen_x < x < 400+screen_x and 20+screen_y < y < 110+screen_y and mom_sleep == True :
 
@@ -314,15 +319,24 @@ def game_loop(sac,action):
                 
         elif 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y :
             
-            if sac.torchon <  5:
-                textsurface = myfont.render("Ca fait un peu haut pour sauter!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
-            if sac.torchon == 5:
-                textsurface = myfont.render("C'est toujours haut mais avec 5 serviettes ça se tente!'", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))   
-            if sac.torchon > 5:
-                textsurface = myfont.render("J'ai assez de linge pour me faire une descente en rappel!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))                
+            if sac.Torchon <  5:
+                textsurface = myfont.render("Ca fait un peu haut", False, (110, 110, 110))
+                textsurface2 = myfont.render("pour sauter!", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+            if sac.Torchon == 5:
+                textsurface = myfont.render("C'est toujours haut mais ", False, (110, 110, 110))
+                textsurface2 = myfont.render("avec 5 serviettes ça se tente!", False, (110, 110, 110))              
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400)) 
+                screen.blit(textsurface2,(280,420)) 
+            if sac.Torchon > 5:
+                textsurface = myfont.render("J'ai assez de linge pour me faire ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("une descente en rappel!", False, (110, 110, 110))              
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400)) 
+                screen.blit(textsurface2,(280,420))                
             
         elif 550+screen_x < x < 590+screen_x and 370+screen_y < y < 550+screen_y :
             
@@ -336,17 +350,21 @@ def game_loop(sac,action):
         elif 185+screen_x < x < 225+screen_x and 200+screen_y < y < 300+screen_y :
             
             if cles_buro == 0 and service == False and mom_sleep == False:
-                textsurface = myfont.render("La porte est fermée", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))                
+                textsurface = myfont.render("La porte est fermée", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))               
             if cles_buro == 1 and service == False and mom_sleep == False:
-                textsurface = myfont.render("Papa va m'entendre, c'est chaud !", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
+                textsurface = myfont.render("Papa va m'entendre, c'est chaud !", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400)) 
             if cles_buro == 1 and service == True and mom_sleep == False:
-                textsurface = myfont.render("Est-ce que maman dort ? Il ne faudrait pas qu'elle me grille.", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))                                     
+                textsurface = myfont.render("Est-ce que maman dort ? ", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(270,400))                                    
             if cles_buro == 1 and service == True and mom_sleep == True:                
-                textsurface = myfont.render("Tu as ouvert la porte du bureau", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
+                textsurface = myfont.render("Tu as ouvert la porte du bureau", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
                 pressed_sdb1 = -1
                 open_buro = True
                 
@@ -354,39 +372,73 @@ def game_loop(sac,action):
 
             pressed_frigo = zone_interaction(screen,"Ouvrir le frigo (A)",action,pressed_frigo,"une bière")
             biere = 1
+            sac.Alcool = 1
             
         elif 670+screen_x < x < 725+screen_x and 560+screen_y < y < 670+screen_y :
             
-            if sac.cle_maison == False and dad_sleep == False and mom_sleep == False:
-                textsurface = myfont.render("La porte est fermée, les clés ne sont pas là.", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))                
-            if sac.cle_maison == False and dad_sleep == True and mom_sleep == True:
-                textsurface = myfont.render("Les clés ne sont pas sur la porte. Papa a dû les garder sur lui!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
+            if sac.Cle_maison == False and dad_sleep == False and mom_sleep == False:
+                textsurface = myfont.render("La porte est fermée, ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("les clés ne sont pas là.", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))               
+                screen.blit(textsurface2,(280,420))  
+            if sac.Cle_maison == False and dad_sleep == True and mom_sleep == True:
+                textsurface = myfont.render("Les clés ne sont pas sur la porte." , False, (110, 110, 110)) 
+                textsurface2 = myfont.render("Où papa les a-t-il posé?" , False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420))  
                 papa_fouillab = True
-            if sac.cle_maison == False and dad_sleep == True and mom_sleep == False:
-                textsurface = myfont.render("Est-ce que maman dort ? \n Papa a dû garder les clés sur lui", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
+            if sac.Cle_maison == False and dad_sleep == True and mom_sleep == False:
+                textsurface = myfont.render("Est-ce que maman dort ?", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("Où sont les clés de papa?", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(270,400))
+                screen.blit(textsurface2,(270,420)) 
                 papa_fouillab = True                                     
-            if sac.cle_maison == False and dad_sleep == False and mom_sleep == True:               
-                textsurface = myfont.render("Papa ne dort pas, c'est tendu!! Et j'ai pas les clés!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
-            if sac.cle_maison == True and dad_sleep == True and mom_sleep == False:               
-                textsurface = myfont.render("Maman ne dort pas, c'est tendu!!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
-            if sac.cle_maison == True and dad_sleep == True and mom_sleep == True:               
-                textsurface = myfont.render("Tu as ouvert la porte d'entrée Batard!", False, (0, 0, 0))
-                screen.blit(textsurface,(290,440))
+            if sac.Cle_maison == False and dad_sleep == False and mom_sleep == True:               
+                textsurface = myfont.render("Papa ne dort pas, c'est tendu!! ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("Et j'ai pas les clés!", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+            if sac.Cle_maison == True and dad_sleep == True and mom_sleep == False:               
+                textsurface = myfont.render("Maman ne dort pas,", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("c'est tendu!!", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420))
+            if sac.Cle_maison == True and dad_sleep == True and mom_sleep == True:               
+                textsurface = myfont.render("Tu as ouvert ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("la porte d'entrée!", False, (110, 110, 110)) 
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420))
                 porte_entre = True
+                Gus.porte_entre = True
 
         else:
             action.click = False
         
         screen.blit(gugus, rect_gugus)
+        
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
+        argent = Gus_font.render("Argent : " + str(Gus.money), False, (31, 160, 85))
+        lvl = Gus_font.render("Niveau : " + str(Gus.level), False, (78, 22, 9))
 
+    
+        screen.blit(pv , (10,20))
+        screen.blit(lvl , (10,45))
+        screen.blit(argent , (10,70))
+        screen.blit(sac_tab , (10,450))
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            affich_sac(screen,sac)
+            
         pygame.display.update()
         clock.tick(100)
 
-game_loop(sac,action)
+game_loop(sac,action,Gus)
 pygame.quit()
 quit()
