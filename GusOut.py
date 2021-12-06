@@ -29,6 +29,9 @@ def game_loop(sac,action,Gus):
     
     speed_move = Gus.speed
     
+    frame_count = Gus.frame
+    a=0
+    
     x =  (display_width-gugus_width)/2
     y = (display_height-gugus_height)/2
     screen_x = -475 + x
@@ -38,13 +41,13 @@ def game_loop(sac,action,Gus):
     x_change = 0
     y_change = 0
     
-    phrases_papa_avant_soupe = ["Laisse moi tranquille", "Va voir ta mère!"]
-    phrases_papa_entre_soupe = ["Tu as apporté à manger à ta mère ?","Tu as apporté à manger à ta mère ?"]
-    phrases_papa_post_soupe = ["J'ai soif !!",
-                "Trouves-moi une bière!"]
-    sleep = ["ZZZzzzZZZzzz","ZZZzzzZZZzzz"]
-    phrases_maman = ["Apporte moi un truc à manger s'il te plait", "Merci beaucoup Gus","ZZZzzzZZZzzz",
-                     ""]    
+    phrases_papa_avant_soupe = [["Laisse moi tranquille"], ["Va voir ta mère","dans sa chambre"]]
+    phrases_papa_entre_soupe = [["Tu as apporté à","manger à ta mère ?"]]
+    phrases_papa_post_soupe = [["J'ai soif !!"],
+                ["Trouves-moi une bière","et tais-toi!"]]
+    sleep = [["ZZZzzzZZZzzz"]]
+    phrases_maman = [["Apporte moi un truc","à manger s'il te plait"], ["Merci beaucoup Gus"],["ZZZzzzZZZzzz",
+                     ""]]    
     
     #INTERACTIONS
     pressed_salon = -1
@@ -60,6 +63,7 @@ def game_loop(sac,action,Gus):
     pressed_couloir = -1
     pressed_arm_mom = -1
     pressed_entre = -1
+    pressed_sdb2 = -1
     
     open_buro = False
     service=False
@@ -78,13 +82,25 @@ def game_loop(sac,action,Gus):
     
     cles_buro=0
     biere=0
+    bouteille_alc = 0
     
     gugus = gugus_face
         
     gameExit = False
     
     while not gameExit:
+        
+        if frame_count <= 30:
+            frame_count += 1
+        else:
+            frame_count = 0
+        
+        if frame_count <= 15:
+            a=0
+        elif frame_count > 15:
+            a=1
             
+        sac.Alcool = biere + bouteille_alc
         sac.Torchon = torchon_salon+torchonsdb1+torchoncoul+torchonch+torchon_entre+torchon_mom
         
         if open_buro == False and porte_entre == False :
@@ -101,25 +117,32 @@ def game_loop(sac,action,Gus):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
-    
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    Gus.pause += 1    
             ############################
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    gugus = gugus_gauche
+                if event.key == pygame.K_LEFT:  
                     x_change = -speed_move
                     rel_x = speed_move
+                    y_change = 0
+                    rel_y = 0
                 elif event.key == pygame.K_RIGHT:
-                    gugus = gugus_droite
                     x_change = speed_move
                     rel_x = -speed_move
+                    y_change = 0
+                    rel_y = 0
                 elif event.key == pygame.K_UP:
-                    gugus = gugus_dos
                     y_change = -speed_move
                     rel_y = speed_move
+                    x_change = 0
+                    rel_x = 0
                 elif event.key == pygame.K_DOWN:
-                    gugus = gugus_face
                     y_change = speed_move
                     rel_y = -speed_move
+                    x_change = 0
+                    rel_x = 0
 
                 if event.key == pygame.K_a and not action.click:
                     action.click = True
@@ -130,7 +153,7 @@ def game_loop(sac,action,Gus):
                     if 0+screen_x < x < 75+screen_x and 0+screen_y < y < 100+screen_y and sac.soupe_chaude == 1 and service == False:
                         pressed_mom = 1
                         pressed_dad = -1
-                    if 0+screen_x < x < 75+screen_x and 0+screen_y < y < 100+screen_y and sac.soupe_chaude == 1 and service == True:
+                    if 0+screen_x < x < 75+screen_x and 0+screen_y < y < 100+screen_y and service == True:
                         pressed_mom = 2
                         pressed_dad = -1
                         mom_sleep = True
@@ -144,6 +167,8 @@ def game_loop(sac,action,Gus):
                         fouille += 1
                         
                     #OBJETS
+                    if 612+screen_x < x < 670+screen_x and 457+screen_y < y < 540+screen_y:
+                        pressed_sdb2 += 1
                     if 235+screen_x < x < 295+screen_x and 480+screen_y < y < 530+screen_y :
                         pressed_salon += 1
                     if 610+screen_x < x < 660+screen_x and 155+screen_y < y < 230+screen_y :
@@ -174,14 +199,36 @@ def game_loop(sac,action,Gus):
                     action.click = False
                     
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_LEFT:
                     x_change = 0
                     rel_x = 0
-                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    gugus = gugus_gauche                    
+                if event.key == pygame.K_RIGHT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_droite
+
+                if event.key == pygame.K_UP:
                     y_change = 0
                     rel_y = 0
+                    gugus = gugus_dos
+                    
+                if event.key == pygame.K_DOWN:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_face
+                    
             ######################            
-        
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            gugus=gugus_walkdown[a]
+        if keys[pygame.K_UP]:
+            gugus=gugus_walkup[a]
+        if keys[pygame.K_RIGHT]:
+            gugus=gugus_walkright[a]
+        if keys[pygame.K_LEFT]:
+            gugus=gugus_walkleft[a]
+            
         rect_gugus.topleft = (x,y)
         
         x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
@@ -229,26 +276,32 @@ def game_loop(sac,action,Gus):
         if pressed_arm_mom >= 0:
             torchon_mom = 1
             
-        ##DIALOGUES
+        if pressed_frigo == 0 :
+            biere = 1
+        
+        if pressed_sdb2 == 0:
+            bouteille_alc = 1
+            
+        ##DIALOGUESs
         if 0+screen_x < x < 75+screen_x and 0+screen_y < y < 100+screen_y :
     
-            zone_dialogue(screen,"Parler à maman (A)",action,phrases_maman,pressed_mom,3)
+            zone_dialogue(screen,"Parler à maman (A)",action,phrases_maman[pressed_mom],pressed_mom,3)
             
         elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and sac.soupe_froide == 0 and sac.soupe_chaude == 0 and service == False and pressed_mom == -1 and papa_fouillab == False:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_avant_soupe,pressed_dad,2)
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_avant_soupe[pressed_dad],pressed_dad,2)
         
         elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and sac.soupe_froide == 1 and sac.soupe_chaude == 0 and service == False and pressed_mom == 0 and papa_fouillab == False:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_entre_soupe,pressed_dad,2)
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_entre_soupe[pressed_dad],pressed_dad,2)
 
         elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and  sac.soupe_chaude == 1 and service == False and pressed_mom >= 1 and papa_fouillab == False:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_post_soupe,pressed_dad,2)
+            zone_dialogue(screen,"Parler à papa (A)",action,phrases_papa_post_soupe[pressed_dad],pressed_dad,2)
 
         elif 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and service == True and papa_fouillab == False:
             
-            zone_dialogue(screen,"Parler à papa (A)",action,sleep,pressed_dad,2)
+            zone_dialogue(screen,"Parler à papa (A)",action,sleep[0],pressed_dad,2)
             dad_sleep = True
             sac.soupe_froide = 0 
             sac.soupe_chaude = 0
@@ -257,9 +310,14 @@ def game_loop(sac,action,Gus):
 
             fouille = zone_interaction(screen,"Fouiller papa (A)",action,fouille,"la clé de la maison!")
             sac.Cle_maison = 1  
-            mom_sleep == True                                                                                       
+            mom_sleep == True  
+            biere = 0                                                                                     
             
         ##OBJETS
+        elif 612+screen_x < x < 670+screen_x and 457+screen_y < y < 540+screen_y :
+
+            pressed_sdb2 = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_sdb2,"une bouteille d'alcool")
+
         elif 235+screen_x < x < 295+screen_x and 480+screen_y < y < 530+screen_y :
 
             pressed_salon = zone_interaction(screen,"Fouiller l'armoire (A)",action,pressed_salon,"un torchon")
@@ -354,25 +412,27 @@ def game_loop(sac,action,Gus):
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(280,400))               
             if cles_buro == 1 and service == False and mom_sleep == False:
-                textsurface = myfont.render("Papa va m'entendre, c'est chaud !", False, (110, 110, 110)) 
+                textsurface = myfont.render("Papa va m'entendre,", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("c'est chaud !", False, (110, 110, 110)) 
                 screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400)) 
+                screen.blit(textsurface,(280,400))               
+                screen.blit(textsurface2,(280,420)) 
             if cles_buro == 1 and service == True and mom_sleep == False:
                 textsurface = myfont.render("Est-ce que maman dort ? ", False, (110, 110, 110)) 
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(270,400))                                    
             if cles_buro == 1 and service == True and mom_sleep == True:                
-                textsurface = myfont.render("Tu as ouvert la porte du bureau", False, (110, 110, 110)) 
+                textsurface = myfont.render("Tu as ouvert", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("la porte du bureau", False, (110, 110, 110)) 
                 screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface,(280,400))               
+                screen.blit(textsurface2,(280,420)) 
                 pressed_sdb1 = -1
                 open_buro = True
                 
         elif 230+screen_x < x < 270+screen_x and 560+screen_y < y < 630+screen_y :
 
             pressed_frigo = zone_interaction(screen,"Ouvrir le frigo (A)",action,pressed_frigo,"une bière")
-            biere = 1
-            sac.Alcool = 1
             
         elif 670+screen_x < x < 725+screen_x and 560+screen_y < y < 670+screen_y :
             
@@ -435,6 +495,8 @@ def game_loop(sac,action,Gus):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_TAB]:
             affich_sac(screen,sac)
+        if (Gus.pause%2) == 1:
+            pause(screen)
             
         pygame.display.update()
         clock.tick(100)

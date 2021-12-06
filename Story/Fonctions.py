@@ -68,6 +68,8 @@ class Gus():
         self.level = 1
         self.money = 0
         self.speed = 2
+        self.pause = 0
+        self.frame = 0
 
 def find_something(find,action,screen,objet_find):
     
@@ -120,17 +122,18 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
     textsurface = myfont.render(texte_zone, False, (110, 110, 110))
     screen.blit(fond_text,(260,380))
     screen.blit(textsurface,(280,400))
-    
-    i = var_iter
-    
-    if i < max_iter and action.click == True:
-        textsurface2 = myfont.render(liste_phrases[i], False, (110, 110, 110))
-        screen.blit(textsurface2,(290,425))
-        i += 1
+    i=var_iter
+    j = 425
+    for phrases in liste_phrases :
+        
+        if i < max_iter and action.click == True:
+            textsurface2 = myfont.render(phrases, False, (110, 110, 110))
+            screen.blit(textsurface2,(290,j))
 
-    if var_iter >= max_iter and action.click == True:
-        i -= max_iter
-    return(i)
+            j += 20
+    
+        if var_iter >= max_iter and action.click == True:
+            i -= max_iter
 
 def affich_sac(screen,sac):
     
@@ -153,4 +156,7 @@ def affich_sac(screen,sac):
         textsurface = myfont.render(text, False, (220, 220, 220))
         screen.blit(textsurface,(75,i))
         i += 20
+
+def pause(screen):
+    screen.blit(poze, (50 , 150))
     
