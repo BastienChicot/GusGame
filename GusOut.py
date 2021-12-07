@@ -48,6 +48,9 @@ def game_loop(sac,action,Gus):
     sleep = [["ZZZzzzZZZzzz"]]
     phrases_maman = [["Apporte moi un truc","à manger s'il te plait"], ["Merci beaucoup Gus"],["ZZZzzzZZZzzz",
                      ""]]    
+    phrases_cleb=[["Aîe !","Ca fait mal!"]]
+    phrases_papier=[["Ah! Juste quelques", "feuilles de papiers et","des stylos.","Rien d'utile!"]]
+    phrases_cuisine=[["Juste des assiettes","et des couverts..."]]
     
     #INTERACTIONS
     pressed_salon = -1
@@ -55,6 +58,7 @@ def game_loop(sac,action,Gus):
     pressed_dad = -1
     pressed_cuisine1 = -1
     pressed_cuisine2 = -1
+    pressed_cuisine3 = -1
     pressed_four = -1
     pressed_sdb1 = -1
     pressed_frigo = -1 
@@ -64,6 +68,14 @@ def game_loop(sac,action,Gus):
     pressed_arm_mom = -1
     pressed_entre = -1
     pressed_sdb2 = -1
+    pressed_cleb = -1
+    pressed_papier = -1 
+    pressed_tune_buro = -1
+    pressed_tune_entre = -1 
+    pressed_couloir2 = -1
+    pressed_buro = -1
+    pressed_tune_ch = -1
+    pressed_sortie = -1
     
     open_buro = False
     service=False
@@ -83,6 +95,12 @@ def game_loop(sac,action,Gus):
     cles_buro=0
     biere=0
     bouteille_alc = 0
+    tune_buro = 0
+    tune_entre = 0
+    tune_ch = 0
+    
+    capote_buro = 0
+    capote_entree = 0
     
     gugus = gugus_face
         
@@ -99,9 +117,11 @@ def game_loop(sac,action,Gus):
             a=0
         elif frame_count > 15:
             a=1
-            
+        
+        sac.Capote = capote_buro + capote_entree
         sac.Alcool = biere + bouteille_alc
         sac.Torchon = torchon_salon+torchonsdb1+torchoncoul+torchonch+torchon_entre+torchon_mom
+        Gus.money = round(tune_buro + tune_entre + tune_ch,2)
         
         if open_buro == False and porte_entre == False :
             liste_mur = level_1(screen,screen_x,screen_y)
@@ -192,8 +212,27 @@ def game_loop(sac,action,Gus):
                     if 270+screen_x < x < 335+screen_x and 600+screen_y < y < 680+screen_y and sac.soupe_chaude == 1:
                         pressed_four = 1
                     if 230+screen_x < x < 270+screen_x and 560+screen_y < y < 630+screen_y :
-                        pressed_frigo +=1                        
-
+                        pressed_frigo +=1     
+                    if 416+screen_x < x < 490+screen_x and 610+screen_y < y < 690+screen_y :
+                        pressed_cleb = 0
+                        Gus.pv -= 1
+                    if 84+screen_x < x < 144+screen_x and 516+screen_y < y < 580+screen_y or 626+screen_x < x < 700+screen_x and 269+screen_y < y < 340+screen_y or 260+screen_x < x < 350+screen_x and 230+screen_y < y < 300+screen_y:
+                        pressed_papier = 0
+                    if 90+screen_x < x < 180+screen_x and 200+screen_y < y < 260+screen_y :   
+                        pressed_tune_buro += 1
+                    if 595+screen_x < x < 670+screen_x and 570+screen_y < y < 656+screen_y :
+                        pressed_tune_entre += 1
+                    if 350+screen_x < x < 400+screen_x and 600+screen_y < y < 670+screen_y :
+                        pressed_cuisine3 = 0
+                    if 430+screen_x < x < 500+screen_x and 330+screen_y < y < 430+screen_y :
+                        pressed_couloir2 += 1
+                    if 10+screen_x < x < 118+screen_x and 260+screen_y < y < 320+screen_y :
+                        pressed_buro += 1
+                    if 200+screen_x < x < 234+screen_x and 95+screen_y < y < 170+screen_y :
+                        pressed_tune_ch += 1
+                    if 920+screen_x < x < 1000+screen_x and 0+screen_y < y < 100+screen_y :
+                        pressed_sortie += 1
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
@@ -275,6 +314,16 @@ def game_loop(sac,action,Gus):
             torchon_entre = 1
         if pressed_arm_mom >= 0:
             torchon_mom = 1
+        if pressed_tune_buro >= 0:
+            tune_buro = 0.1  
+        if pressed_tune_entre >= 0:
+            tune_entre = 0.05
+        if pressed_tune_ch >= 0:
+            tune_ch = 0.2
+        if pressed_buro >= 0:
+            capote_buro = 1        
+        if pressed_sortie >= 0:
+            capote_entree = 1
             
         if pressed_frigo == 0 :
             biere = 1
@@ -314,9 +363,64 @@ def game_loop(sac,action,Gus):
             biere = 0                                                                                     
             
         ##OBJETS
+        elif 0+screen_x < x < 50+screen_x and 460+screen_y < y < 586+screen_y :
+
+                textsurface = myfont.render("Ca fait un peu haut", False, (110, 110, 110))
+                textsurface2 = myfont.render("pour sauter!", False, (110, 110, 110))
+                textsurface3 = myfont.render("Je suis pas fou!", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface3,(280,440)) 
+
+        elif 10+screen_x < x < 93+screen_x and 195+screen_y < y < 258+screen_y :
+
+                textsurface = myfont.render("Pourquoi elle est", False, (110, 110, 110))
+                textsurface2 = myfont.render("toute nue la dame ?", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                
+        elif 430+screen_x < x < 500+screen_x and 330+screen_y < y < 430+screen_y :
+            
+            pressed_couloir2 = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_couloir2,"un briquet!")
+            sac.Briquet = 1
+
+        elif 10+screen_x < x < 118+screen_x and 260+screen_y < y < 320+screen_y :
+
+            pressed_buro = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_buro,"un drôle de truc.")
+
+        elif 920+screen_x < x < 1000+screen_x and 0+screen_y < y < 100+screen_y :
+            
+            pressed_sortie = zone_interaction(screen,"Regarder par terre (A)",action,pressed_sortie,"un drôle de truc.")
+
+        elif 200+screen_x < x < 234+screen_x and 95+screen_y < y < 170+screen_y :
+            
+            pressed_tune_ch = zone_interaction(screen,"Fouiller le meuble (A)",action,pressed_tune_ch,"20 centimes")
+            
+        elif 350+screen_x < x < 400+screen_x and 600+screen_y < y < 670+screen_y :
+
+            zone_dialogue(screen,"Fouiller le meuble (A)",action,phrases_cuisine[pressed_cuisine3],pressed_cuisine3,1)
+
         elif 612+screen_x < x < 670+screen_x and 457+screen_y < y < 540+screen_y :
 
             pressed_sdb2 = zone_interaction(screen,"Fouiller le placard (A)",action,pressed_sdb2,"une bouteille d'alcool")
+        
+        elif 90+screen_x < x < 180+screen_x and 200+screen_y < y < 260+screen_y :
+
+            pressed_tune_buro = zone_interaction(screen,"Fouiller le bureau (A)",action,pressed_tune_buro,"10 centimes.")
+
+        elif 595+screen_x < x < 670+screen_x and 570+screen_y < y < 656+screen_y :
+
+            pressed_tune_entre = zone_interaction(screen,"Fouiller le meuble (A)",action,pressed_tune_entre,"5 centimes.")
+
+        elif 416+screen_x < x < 490+screen_x and 610+screen_y < y < 690+screen_y :
+
+            zone_dialogue(screen,"Caresser le chien (A)",action,phrases_cleb[pressed_cleb],pressed_cleb,1)
+
+        elif 84+screen_x < x < 144+screen_x and 516+screen_y < y < 580+screen_y or 626+screen_x < x < 700+screen_x and 269+screen_y < y < 340+screen_y or 260+screen_x < x < 350+screen_x and 230+screen_y < y < 300+screen_y:
+
+            zone_dialogue(screen,"Fouiller ici (A)",action,phrases_papier[pressed_papier],pressed_papier,1)
 
         elif 235+screen_x < x < 295+screen_x and 480+screen_y < y < 530+screen_y :
 
@@ -384,18 +488,22 @@ def game_loop(sac,action,Gus):
                 screen.blit(textsurface,(280,400))
                 screen.blit(textsurface2,(280,420)) 
             if sac.Torchon == 5:
-                textsurface = myfont.render("C'est toujours haut mais ", False, (110, 110, 110))
-                textsurface2 = myfont.render("avec 5 serviettes ça se tente!", False, (110, 110, 110))              
+                textsurface = myfont.render("C'est toujours haut ", False, (110, 110, 110))
+                textsurface2 = myfont.render("mais avec 5 serviettes", False, (110, 110, 110))
+                textsurface3 = myfont.render("ça se tente!", False, (110, 110, 110))              
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(280,400)) 
-                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface2,(280,415)) 
+                screen.blit(textsurface3,(280,430))
             if sac.Torchon > 5:
-                textsurface = myfont.render("J'ai assez de linge pour me faire ", False, (110, 110, 110)) 
-                textsurface2 = myfont.render("une descente en rappel!", False, (110, 110, 110))              
+                textsurface = myfont.render("J'ai assez de linge ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render(" pour me faire une", False, (110, 110, 110)) 
+                textsurface3 = myfont.render("descente en rappel!", False, (110, 110, 110))              
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(280,400)) 
-                screen.blit(textsurface2,(280,420))                
-            
+                screen.blit(textsurface2,(280,415))                
+                screen.blit(textsurface3,(280,430))
+                
         elif 550+screen_x < x < 590+screen_x and 370+screen_y < y < 550+screen_y :
             
             if pressed_sdb1 <= 0 and open_buro == False:                
@@ -497,7 +605,8 @@ def game_loop(sac,action,Gus):
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
             pause(screen)
-            
+        if Gus.pv == 0:
+            game_over(screen)
         pygame.display.update()
         clock.tick(100)
 

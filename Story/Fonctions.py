@@ -49,6 +49,8 @@ class sac_a_dos():
         self.soupe_chaude = 0
         self.Cle_maison = 0
         self.Alcool = 0
+        self.Briquet = 0
+        self.Capote = 0 
 
     def iter_objects(self):
         return (self.__dict__)                    
@@ -75,7 +77,7 @@ def find_something(find,action,screen,objet_find):
     
     pygame.font.init()
  
-    myfont = pygame.font.SysFont('corbel', 20, bold=True)
+    myfont = pygame.font.SysFont('corbel', 19, bold=True)
 
     find = find
     textsurface2 = myfont.render("",False, (110, 110, 110))
@@ -117,20 +119,20 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
     
     pygame.font.init()
  
-    myfont = pygame.font.SysFont('corbel', 20, bold=True)
+    myfont = pygame.font.SysFont('corbel', 19, bold=True)
     
     textsurface = myfont.render(texte_zone, False, (110, 110, 110))
     screen.blit(fond_text,(260,380))
-    screen.blit(textsurface,(280,400))
+    screen.blit(textsurface,(280,385))
     i=var_iter
-    j = 425
+    j = 405
     for phrases in liste_phrases :
         
         if i < max_iter and action.click == True:
             textsurface2 = myfont.render(phrases, False, (110, 110, 110))
             screen.blit(textsurface2,(290,j))
 
-            j += 20
+            j += 15
     
         if var_iter >= max_iter and action.click == True:
             i -= max_iter
@@ -159,4 +161,14 @@ def affich_sac(screen,sac):
 
 def pause(screen):
     screen.blit(poze, (50 , 150))
+
+def game_over(screen):
+    screen.fill(black)
+
+    pygame.font.init()
+ 
+    myfont = pygame.font.SysFont('corbel', 40, bold=True)
+    
+    textsurface = myfont.render("GAME OVER", False, (255, 0, 0))
+    screen.blit(textsurface,(135,200))
     
