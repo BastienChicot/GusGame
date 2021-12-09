@@ -40,3 +40,5 @@ fond_text = pygame.image.load("bank/image/zone_texte.png")
 sac_image = pygame.image.load("bank/image/sac.png")
 sac_tab = pygame.image.load("bank/image/sac_tab.png")
 poze = pygame.image.load("bank/image/pause.png")
+
+

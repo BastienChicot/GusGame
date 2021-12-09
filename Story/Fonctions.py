@@ -61,6 +61,8 @@ class action_key():
         self.click = False
         self.conversation_papa = 0
         self.fouille = 0
+        self.change_level = False
+
         
 class Gus():
     def __init__(self):
@@ -159,8 +161,32 @@ def affich_sac(screen,sac):
         screen.blit(textsurface,(75,i))
         i += 20
 
-def pause(screen):
+def pause(screen,gameExit):
+    import os
+    selection = pygame.Rect((130, 230), (260, 50))
+    saving_area = pygame.Rect((130, 230), (260, 50))
+    leaving_area = pygame.Rect((130, 290), (260, 50))
+    rect_surf = pygame.Surface(leaving_area.size)
+    rect_leav = pygame.Surface(saving_area.size)
+    rect_select = pygame.Surface(selection.size)
+    
+    
+    if saving_area.colliderect(selection):
+        
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            os.startfile('requirements.txt')
+            print("ca fonctionne")
+    
+    elif leaving_area.colliderect(selection):
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]: 
+            gameExit = True
+    
     screen.blit(poze, (50 , 150))
+    screen.blit(rect_surf,saving_area)
+    screen.blit(rect_leav,leaving_area)
+    screen.blit(rect_select,selection)
 
 def game_over(screen):
     screen.fill(black)
