@@ -12,6 +12,8 @@ display_height = 500
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
 
 gugus_face = pygame.image.load('Gus/Gus.png')
 gugus_walkdown_1 = pygame.image.load('Gus/Gus_1.png')

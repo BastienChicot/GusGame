@@ -6,6 +6,7 @@ Created on Thu Nov 25 15:43:41 2021
 """
 import pygame
 from settings import *
+import pandas as pd
 
 def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
 
@@ -161,32 +162,30 @@ def affich_sac(screen,sac):
         screen.blit(textsurface,(75,i))
         i += 20
 
-def pause(screen,gameExit):
-    import os
-    selection = pygame.Rect((130, 230), (260, 50))
-    saving_area = pygame.Rect((130, 230), (260, 50))
-    leaving_area = pygame.Rect((130, 290), (260, 50))
-    rect_surf = pygame.Surface(leaving_area.size)
-    rect_leav = pygame.Surface(saving_area.size)
-    rect_select = pygame.Surface(selection.size)
-    
-    
-    if saving_area.colliderect(selection):
-        
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_RETURN]:
-            os.startfile('requirements.txt')
-            print("ca fonctionne")
-    
-    elif leaving_area.colliderect(selection):
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_RETURN]: 
-            gameExit = True
+def pause(screen,gameExit,Gus,sac):
+    keys=pygame.key.get_pressed()
     
     screen.blit(poze, (50 , 150))
-    screen.blit(rect_surf,saving_area)
-    screen.blit(rect_leav,leaving_area)
-    screen.blit(rect_select,selection)
+    
+    if keys[pygame.K_s]:
+        d = {'level': [Gus.level]}
+        df = pd.DataFrame(data=d)
+        df.to_csv("Story/saves/save.csv", sep=";")
+        
+        pygame.font.init()
+ 
+        myfont = pygame.font.SysFont('corbel', 25, bold=True)
+        
+        textsurface = myfont.render("Partie sauvegardée", False, (0, 0, 0))
+        screen.blit(textsurface,(135,350))
+
+    if keys[pygame.K_q]: 
+        pygame.quit()
+
+def load(sac,Gus):
+    data = pd.read_csv("Story/saves/save.csv", sep=";")
+    return(int(data["level"]))
+    
 
 def game_over(screen):
     screen.fill(black)

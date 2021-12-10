@@ -8,7 +8,9 @@ import pygame
 
 white = (255,255,255)
 black = (0,0,0)
-
+red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
 
 class zone_inter(pygame.Rect):
     def __init__(self,x,y,largeur,hauteur):
@@ -26,8 +28,7 @@ def zone_level_1():
 class wall(pygame.Rect):
     def __init__(self,x,y,largeur,hauteur,rel_x,rel_y):
         pygame.Rect.__init__(self,x+rel_x,y+rel_y,largeur,hauteur)
-
-        
+    
 def level_1(gameDisplay,screen_x,screen_y):
     
     fond=pygame.image.load('Level/level_1.jpg').convert()

@@ -568,18 +568,15 @@ def nivo1(sac,action,Gus):
                 screen.blit(textsurface,(270,400))
                 screen.blit(textsurface2,(270,420)) 
                 papa_fouillab = True                                     
-            if sac.Cle_maison == False and dad_sleep == False and mom_sleep == True:               
-                textsurface = myfont.render("Papa ne dort pas, c'est tendu!! ", False, (110, 110, 110)) 
-                textsurface2 = myfont.render("Et j'ai pas les clés!", False, (110, 110, 110)) 
-                screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
-                screen.blit(textsurface2,(280,420)) 
+
             if sac.Cle_maison == True and dad_sleep == True and mom_sleep == False:               
-                textsurface = myfont.render("Maman ne dort pas,", False, (110, 110, 110)) 
-                textsurface2 = myfont.render("c'est tendu!!", False, (110, 110, 110)) 
+                textsurface = myfont.render("Tu as ouvert ", False, (110, 110, 110)) 
+                textsurface2 = myfont.render("la porte d'entrée!", False, (110, 110, 110)) 
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(280,400))
                 screen.blit(textsurface2,(280,420))
+                porte_entre = True
+                Gus.porte_entre = True
             if sac.Cle_maison == True and dad_sleep == True and mom_sleep == True:               
                 textsurface = myfont.render("Tu as ouvert ", False, (110, 110, 110)) 
                 textsurface2 = myfont.render("la porte d'entrée!", False, (110, 110, 110)) 
@@ -611,7 +608,7 @@ def nivo1(sac,action,Gus):
         if keys[pygame.K_TAB]:
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
-            pause(screen,gameExit)
+            pause(screen,gameExit,Gus,sac)
         if Gus.pv == 0:
             game_over(screen)
 
@@ -787,7 +784,7 @@ def nivo2(sac,action,Gus):
         if keys[pygame.K_TAB]:
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
-            pause(screen,gameExit)
+            pause(screen,gameExit,Gus,sac)
         if Gus.pv == 0:
             game_over(screen)
 
