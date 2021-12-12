@@ -12,6 +12,7 @@ from Story.histoire import *
 from Level.Levels import *
 from settings import *
 
+pygame.mixer.init()
 pygame.init()
 pygame.font.init()
 
@@ -45,23 +46,21 @@ while not gameExit:
     keys=pygame.key.get_pressed()
     
     if keys[pygame.K_RETURN]:
+
         Gus_level = 1
         if Gus.level == 1 :
             nivo1(sac,action,Gus)
         if Gus.level == 2 :
             nivo2(sac,action,Gus)
     if keys[pygame.K_l]:
-        Gus.level=load(sac,Gus)
+        Gus,sac=load(Gus,sac)
         if Gus.level == 1 :
             nivo1(sac,action,Gus)
         if Gus.level == 2 :
             nivo2(sac,action,Gus)
 
     if keys[pygame.K_q]:
-        pygame.quit()
-        
-    print(Gus.level)
-      
+        pygame.quit()      
 
     pygame.display.update()
 

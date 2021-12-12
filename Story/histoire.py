@@ -8,9 +8,11 @@ import pygame
 from Story.Fonctions import *
 from Level.Levels import *
 from settings import *
-
+pygame.mixer.pre_init(44100, -16, 1, 1411)
+pygame.mixer.init()
 pygame.init()
 pygame.font.init()
+
 
 myfont = pygame.font.SysFont('corbel', 20, bold=True)
 Gus_font = pygame.font.SysFont('corbel', 16, bold=True)
@@ -20,9 +22,10 @@ pygame.display.set_caption('Gus veut boire un coup')
 
 clock = pygame.time.Clock()
 
-def nivo1(sac,action,Gus):
-    speed_move = Gus.speed
 
+def nivo1(sac,action,Gus):
+    pygame.init()
+    speed_move = Gus.speed
     frame_count = Gus.frame
     a=0
     x =  (display_width-gugus_width)/2
@@ -261,12 +264,16 @@ def nivo1(sac,action,Gus):
         keys=pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
             gugus=gugus_walkdown[a]
+            step_s.play()
         if keys[pygame.K_UP]:
             gugus=gugus_walkup[a]
+            step_s.play()
         if keys[pygame.K_RIGHT]:
             gugus=gugus_walkright[a]
+            step_s.play()
         if keys[pygame.K_LEFT]:
             gugus=gugus_walkleft[a]
+            step_s.play()
             
         rect_gugus.topleft = (x,y)
         

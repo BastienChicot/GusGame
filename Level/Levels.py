@@ -6,6 +6,8 @@ Created on Thu Nov 25 16:40:54 2021
 """
 import pygame
 
+pygame.init()
+
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)

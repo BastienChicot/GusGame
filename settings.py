@@ -5,6 +5,14 @@ Created on Wed Dec  1 14:31:40 2021
 @author: basti
 """
 import pygame
+pygame.mixer.pre_init(44100, -16, 1, 1411)
+pygame.mixer.init()
+
+import os
+
+step_path = os.path.join("bank", "son", "step.ogg")
+step_s = pygame.mixer.Sound(step_path)
+step_s.set_volume(0.5)
 
 display_width = 500
 display_height = 500

@@ -6,7 +6,9 @@ Created on Thu Nov 25 15:43:41 2021
 """
 import pygame
 from settings import *
-import pandas as pd
+import pickle
+
+pygame.init()
 
 def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
 
@@ -75,6 +77,8 @@ class Gus():
         self.speed = 2
         self.pause = 0
         self.frame = 0
+    def iter_objects(self):
+        return (self.__dict__)   
 
 def find_something(find,action,screen,objet_find):
     
@@ -168,10 +172,12 @@ def pause(screen,gameExit,Gus,sac):
     screen.blit(poze, (50 , 150))
     
     if keys[pygame.K_s]:
-        d = {'level': [Gus.level]}
-        df = pd.DataFrame(data=d)
-        df.to_csv("Story/saves/save.csv", sep=";")
-        
+        gus_save = Gus.iter_objects()
+        sac_save = sac.iter_objects()
+        with open('Story/saves/Gus.pkl', 'wb') as f:
+            pickle.dump(gus_save, f, pickle.HIGHEST_PROTOCOL)
+        with open('Story/saves/Sac.pkl', 'wb') as fi:
+            pickle.dump(sac_save, fi, pickle.HIGHEST_PROTOCOL)       
         pygame.font.init()
  
         myfont = pygame.font.SysFont('corbel', 25, bold=True)
@@ -182,10 +188,18 @@ def pause(screen,gameExit,Gus,sac):
     if keys[pygame.K_q]: 
         pygame.quit()
 
-def load(sac,Gus):
-    data = pd.read_csv("Story/saves/save.csv", sep=";")
-    return(int(data["level"]))
+def load(Gus,sac):
+    with open('Story/saves/Gus.pkl', 'rb') as f:
+        gus_load = pickle.load(f)
+    for key,value in gus_load.items():
+        setattr(Gus,key,value)
     
+    with open('Story/saves/Sac.pkl', 'rb') as fi:
+        sac_load = pickle.load(fi)    
+    for key,value in sac_load.items():
+        setattr(sac,key,value)
+        
+    return(Gus,sac)
 
 def game_over(screen):
     screen.fill(black)
