@@ -5,14 +5,26 @@ Created on Wed Dec  1 14:31:40 2021
 @author: basti
 """
 import pygame
-pygame.mixer.pre_init(44100, -16, 1, 1411)
+pygame.mixer.pre_init(44100, -16, 1, 4096)
 pygame.mixer.init()
 
 import os
 
 step_path = os.path.join("bank", "son", "step.ogg")
+click_path = os.path.join("bank", "son", "click.ogg")
+enter_path = os.path.join("bank", "son", "enter.ogg")
+other_path = os.path.join("bank", "son", "other.ogg")
+find_path = os.path.join("bank", "son", "find.ogg")
 step_s = pygame.mixer.Sound(step_path)
 step_s.set_volume(0.5)
+click_ = pygame.mixer.Sound(click_path)
+click_.set_volume(0.5)
+enter_s = pygame.mixer.Sound(enter_path)
+enter_s.set_volume(0.75)
+other_s = pygame.mixer.Sound(other_path)
+other_s.set_volume(0.1)
+find_s = pygame.mixer.Sound(find_path)
+find_s.set_volume(0.15)
 
 display_width = 500
 display_height = 500

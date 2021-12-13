@@ -90,6 +90,7 @@ def find_something(find,action,screen,objet_find):
     textsurface2 = myfont.render("",False, (110, 110, 110))
     
     if action.click == True and find == 0:
+        find_s.play()
                        
         textsurface2 = myfont.render("Tu as trouvé :" , False, (110, 110, 110))
         textsurface3 = myfont.render(str(objet_find), False, (110, 110, 110))
@@ -172,6 +173,7 @@ def pause(screen,gameExit,Gus,sac):
     screen.blit(poze, (50 , 150))
     
     if keys[pygame.K_s]:
+        other_s.play()
         gus_save = Gus.iter_objects()
         sac_save = sac.iter_objects()
         with open('Story/saves/Gus.pkl', 'wb') as f:
@@ -186,6 +188,7 @@ def pause(screen,gameExit,Gus,sac):
         screen.blit(textsurface,(135,350))
 
     if keys[pygame.K_q]: 
+        other_s.play()
         pygame.quit()
 
 def load(Gus,sac):

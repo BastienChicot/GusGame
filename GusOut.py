@@ -46,6 +46,7 @@ while not gameExit:
     keys=pygame.key.get_pressed()
     
     if keys[pygame.K_RETURN]:
+        enter_s.play()
 
         Gus_level = 1
         if Gus.level == 1 :
@@ -53,6 +54,7 @@ while not gameExit:
         if Gus.level == 2 :
             nivo2(sac,action,Gus)
     if keys[pygame.K_l]:
+        enter_s.play()
         Gus,sac=load(Gus,sac)
         if Gus.level == 1 :
             nivo1(sac,action,Gus)
@@ -60,6 +62,7 @@ while not gameExit:
             nivo2(sac,action,Gus)
 
     if keys[pygame.K_q]:
+        other_s.play()
         pygame.quit()      
 
     pygame.display.update()
