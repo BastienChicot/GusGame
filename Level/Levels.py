@@ -335,3 +335,10 @@ def level_1_4(gameDisplay,screen_x,screen_y):
     gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
+
+def level_2(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_2_test.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    gameDisplay.blit(fond, (screen_x,screen_y)) 

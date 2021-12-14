@@ -638,8 +638,8 @@ def nivo2(sac,action,Gus):
     a=0
     x =  (display_width-gugus_width)/2
     y = (display_height-gugus_height)/2    
-    screen_x = -475 + x
-    screen_y = -224 + y    
+    screen_x = -1000 + x
+    screen_y = -750 + y    
     rel_x = 0 
     rel_y = 0
     x_change = 0
@@ -654,7 +654,7 @@ def nivo2(sac,action,Gus):
         
     gameExit = False
     
-    while not gameExit and Gus.level == 1:
+    while not gameExit and Gus.level == 2:
         
         if frame_count <= 30:
             frame_count += 1
@@ -665,7 +665,8 @@ def nivo2(sac,action,Gus):
             a=0
         elif frame_count > 15:
             a=1
-
+        
+        level_2(screen,screen_x,screen_y)
         rect_gugus = gugus.get_rect() 
         
         for event in pygame.event.get():
@@ -771,28 +772,28 @@ def nivo2(sac,action,Gus):
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0
             x -= rel_x
-        elif screen_x <= display_width - 1000 and rel_x < 0 :
-            screen_x = display_width - 1000
+        elif screen_x <= display_width - 1400 and rel_x < 0 :
+            screen_x = display_width - 1400
             x -= rel_x
         if screen_y >= 0 and rel_y > 0 :
             screen_y = 0
             y  -= rel_y
-        elif screen_y <= display_height - 707 and rel_y < 0:
-            screen_y = display_height - 707 
+        elif screen_y <= display_height - 1000 and rel_y < 0:
+            screen_y = display_height - 1000 
             y -= rel_y
             
         if x < (display_width-gugus_width)/2 and rel_x < 0:
             screen_x = 0
             x -= rel_x
         elif x > (display_width-gugus_width)/2 and rel_x > 0:
-            screen_x = display_width - 1000
+            screen_x = display_width - 1400
             x -= rel_x
             
         if y < (display_height-gugus_height)/2 and rel_y < 0:
             screen_y = 0
             y -= rel_y
         elif y > (display_height-gugus_height)/2 and rel_y > 0:
-            screen_y = display_height - 707 
+            screen_y = display_height - 1000 
             y -= rel_y
              
             
@@ -804,7 +805,7 @@ def nivo2(sac,action,Gus):
 
         else:
             action.click = False
-        
+
         screen.blit(gugus, rect_gugus)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))

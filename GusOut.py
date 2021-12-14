@@ -20,12 +20,19 @@ Gus = Gus()
 sac = sac_a_dos()
 action=action_key()
 
+def launch(Gus):
+    if Gus.level == 1 :
+        nivo1(sac,action,Gus)
+    if Gus.level == 2 :
+        nivo2(sac,action,Gus)    
+
 gameExit = False
 
 while not gameExit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gameExit = True
+
     demarrer = pygame.Rect(25,25,450,130)
     charger = pygame.Rect(25,180,450,130)
     quitter = pygame.Rect(25,335,450,130)
@@ -47,24 +54,16 @@ while not gameExit:
     
     if keys[pygame.K_RETURN]:
         enter_s.play()
-
-        Gus_level = 1
-        if Gus.level == 1 :
-            nivo1(sac,action,Gus)
-        if Gus.level == 2 :
-            nivo2(sac,action,Gus)
+        launch(Gus)
     if keys[pygame.K_l]:
         enter_s.play()
         Gus,sac=load(Gus,sac)
-        if Gus.level == 1 :
-            nivo1(sac,action,Gus)
-        if Gus.level == 2 :
-            nivo2(sac,action,Gus)
-
+        launch(Gus)
     if keys[pygame.K_q]:
         other_s.play()
-        pygame.quit()      
-
+        pygame.quit() 
+        
+    
     pygame.display.update()
 
 
