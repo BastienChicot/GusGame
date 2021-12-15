@@ -338,7 +338,24 @@ def level_1_4(gameDisplay,screen_x,screen_y):
 
 def level_2(gameDisplay,screen_x,screen_y):
     
-    fond=pygame.image.load('Level/level_2_test.png').convert()
+    fond=pygame.image.load('Level/level_2E.jpg').convert()
     fond_width,fond_height = fond.get_rect().size
     
+    #HALL
+    mur0 = wall(0,507,240,200,screen_x,screen_y)
+    mur1 = wall(0,0,25,707,screen_x,screen_y)
+    mur2 = wall(0,0,945,30,screen_x,screen_y)
+    mur3 = wall(231,293,52,415,screen_x,screen_y)
+    mur4 = wall(606,0,54,158,screen_x,screen_y)
+    mur5 = wall(606,280,30,270,screen_x,screen_y)
+    mur6 = wall(282,275,57,75,screen_x,screen_y)
+    mur7 = wall(275,466,151,10,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7
+                  ]    
     gameDisplay.blit(fond, (screen_x,screen_y)) 
+    
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+        
+    return(liste_mur)
