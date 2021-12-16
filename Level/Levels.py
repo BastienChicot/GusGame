@@ -30,6 +30,11 @@ def zone_level_1():
 class wall(pygame.Rect):
     def __init__(self,x,y,largeur,hauteur,rel_x,rel_y):
         pygame.Rect.__init__(self,x+rel_x,y+rel_y,largeur,hauteur)
+        
+class pnj():
+    def __init__(self,speed,side,x_start,y_start):
+        super().__init__()
+        self.speed = speed
     
 def level_1(gameDisplay,screen_x,screen_y):
     
@@ -351,11 +356,32 @@ def level_2(gameDisplay,screen_x,screen_y):
     mur6 = wall(282,275,57,75,screen_x,screen_y)
     mur7 = wall(275,466,151,10,screen_x,screen_y)
     
-    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7
-                  ]    
-    gameDisplay.blit(fond, (screen_x,screen_y)) 
+    #CAVE
+    mur8 = wall(635,135,170,52,screen_x,screen_y)
+    mur9 = wall(635,278,178,63,screen_x,screen_y)
+    mur10 = wall(635,10,305,61,screen_x,screen_y)
+    mur11 = wall(635,70,53,70,screen_x,screen_y)
+    mur12 = wall(888,0,55,390,screen_x,screen_y)
+    mur13 = wall(872,390,68,164,screen_x,screen_y)
+    mur14 = wall(635,415,320,63,screen_x,screen_y)
     
+    #EXT
+    mur15 = wall(644,478,300,37,screen_x,screen_y)
+    mur16 = wall(688,516,264,52,screen_x,screen_y)
+    mur19 = wall(775,560,120,22,screen_x,screen_y)
+    
+    #limites
+    mur17 = wall(0,700,1000,7,screen_x,screen_y)
+    mur18 = wall(999,0,10,708,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                 mur8,mur9,mur10,mur11,mur12,mur13,mur14,
+                 mur15,mur16,mur17,mur18,mur19
+                  ]    
+
     for mur in liste_mur:
         pygame.draw.rect(gameDisplay,black,mur)
+
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
         
     return(liste_mur)

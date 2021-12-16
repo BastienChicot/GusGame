@@ -15,12 +15,6 @@ def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
     for objet in liste_objet :
             
         if rect_gugus.colliderect(objet):
-    
-    # index = rect_gugus.collidelist(liste_objet)
-    
-    # if index >= 0 : 
-        
-    #     objet = liste_objet[index]
 
             if abs (objet.top - rect_gugus.bottom) <= 10 and y_change >= speed:
                 y_change = 0
@@ -42,6 +36,36 @@ def collisions (liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
             rel_y = rel_y
     
     return(x_change,y_change,rel_x,rel_y)
+
+def collisions_pnj (liste_objet,rect_gugus,x_change,y_change,side):
+
+    for objet in liste_objet :
+            
+        if rect_gugus.colliderect(objet):
+
+            if abs (objet.top - rect_gugus.bottom) <= 10:
+                y_change = 0
+
+            if abs (objet.bottom - rect_gugus.top) <= 10:
+                y_change = 0
+
+            if abs (objet.left - rect_gugus.right) <= 10:
+                x_change = 0
+
+            if abs (objet.right - rect_gugus.left) <= 10:
+                x_change = 0
+
+        else:
+            x_change = x_change
+            y_change = y_change
+            
+    if side == "left" and x_change == 0:
+        side = "right"
+
+    elif side == "right" and x_change == 0:
+        side = "left"
+        
+    return(x_change,y_change,side)
 
 
 class sac_a_dos():
@@ -80,6 +104,11 @@ class Gus():
     def iter_objects(self):
         return (self.__dict__)   
 
+class pnj():
+    def __init__(self):
+        super().__init__()
+        self.walkdown = photo_walkdown
+        
 def find_something(find,action,screen,objet_find):
     
     pygame.font.init()
