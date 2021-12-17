@@ -651,9 +651,11 @@ def nivo2(sac,action,Gus):
     test_x = 820
     rat_left = pygame.image.load('bank/pnj/rat_g.png')
     rat_right = pygame.image.load('bank/pnj/rat_d.png')
-    #INTERACTIONS
+    
 
     
+    #INTERACTIONS
+
     #OBJETS NIVEAU
 
         
@@ -671,7 +673,12 @@ def nivo2(sac,action,Gus):
         elif frame_count > 15:
             a=1
         
-
+        rat2 = pnj()
+        #rat2.place(rel_x,rel_y,-1)
+        rat2.move(-1,800,350,screen_x,screen_y)
+        
+        # rat2.rect.x += screen_x
+        # rat2.rect.y += screen_y
         if rat_side == "left":
             rat=rat_left
             move_rat_x =  -1
@@ -828,6 +835,7 @@ def nivo2(sac,action,Gus):
 
         screen.blit(gugus, rect_gugus)
         screen.blit(rat, rect_rat)
+        screen.blit(rat2.image, rat2.rect)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(Gus.money), False, (31, 160, 85))
@@ -847,7 +855,6 @@ def nivo2(sac,action,Gus):
         if Gus.pv == 0:
             game_over(screen)
 
-        print(x_rat,rat_side)
         pygame.display.update()
-
+        print(rat2.rect.x,rat2.rect.y,screen_x,rel_x)
         clock.tick(100)

@@ -31,11 +31,20 @@ class wall(pygame.Rect):
     def __init__(self,x,y,largeur,hauteur,rel_x,rel_y):
         pygame.Rect.__init__(self,x+rel_x,y+rel_y,largeur,hauteur)
         
-class pnj():
-    def __init__(self,speed,side,x_start,y_start):
-        super().__init__()
-        self.speed = speed
-    
+class pnj(pygame.sprite.Sprite):
+    def __init__(self):
+        self.image = pygame.image.load('bank/pnj/rat_g.png').convert_alpha()
+        largeur,hauteur = self.image.get_rect().size
+        
+        self.rect = self.image.get_rect()
+
+        
+    def move(self, speed,x_start,y_start,rel_x,rel_y):
+        self.rect.x = x_start + rel_x + speed
+        self.rect.y = y_start + rel_y
+
+
+
 def level_1(gameDisplay,screen_x,screen_y):
     
     fond=pygame.image.load('Level/level_1.jpg').convert()
@@ -340,7 +349,7 @@ def level_1_4(gameDisplay,screen_x,screen_y):
     gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
-
+    
 def level_2(gameDisplay,screen_x,screen_y):
     
     fond=pygame.image.load('Level/level_2E.jpg').convert()
@@ -381,7 +390,9 @@ def level_2(gameDisplay,screen_x,screen_y):
 
     for mur in liste_mur:
         pygame.draw.rect(gameDisplay,black,mur)
-
+    
+    #PNJ
+    
     gameDisplay.blit(fond, (screen_x,screen_y)) 
-        
+    
     return(liste_mur)

@@ -63,4 +63,6 @@ sac_image = pygame.image.load("bank/image/sac.png")
 sac_tab = pygame.image.load("bank/image/sac_tab.png")
 poze = pygame.image.load("bank/image/pause.png")
 
-
+#PNJ
+rat_left = pygame.image.load('bank/pnj/rat_g.png')
+rat_right = pygame.image.load('bank/pnj/rat_d.png')

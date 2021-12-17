@@ -103,11 +103,6 @@ class Gus():
         self.frame = 0
     def iter_objects(self):
         return (self.__dict__)   
-
-class pnj():
-    def __init__(self):
-        super().__init__()
-        self.walkdown = photo_walkdown
         
 def find_something(find,action,screen,objet_find):
     
