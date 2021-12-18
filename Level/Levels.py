@@ -32,16 +32,74 @@ class wall(pygame.Rect):
         pygame.Rect.__init__(self,x+rel_x,y+rel_y,largeur,hauteur)
         
 class pnj(pygame.sprite.Sprite):
-    def __init__(self):
-        self.image = pygame.image.load('bank/pnj/rat_g.png').convert_alpha()
+    def __init__(self,x_start,y_start,rel_x,rel_y,img_start,side_start):
+        
+        self.side = side_start
+        self.image = img_start
         largeur,hauteur = self.image.get_rect().size
         
         self.rect = self.image.get_rect()
-
-        
-    def move(self, speed,x_start,y_start,rel_x,rel_y):
-        self.rect.x = x_start + rel_x + speed
+        self.rect.x = x_start + rel_x 
         self.rect.y = y_start + rel_y
+        
+        
+    def move(self, spawnx, spawny, speedx, speedy):
+        spawnx += speedx
+        spawny += speedy
+        return(spawnx,spawny)
+        
+    def collisions_pnj (self,liste_objet,speedx, speedy,img_d,img_g,scheme_move):
+        if scheme_move == 0:
+            for objet in liste_objet :
+                    
+                if self.rect.colliderect(objet):
+                        
+                    if abs (objet.left - self.rect.right) <= 10:
+                        speedx = -1
+                        self.side = "left"
+                        self.image = img_g
+        
+                    if abs (objet.right - self.rect.left) <= 10:
+                        speedx = 1
+                        self.side = "right"
+                        self.image = img_d
+        
+                else:
+                    speedx = speedx
+                    speedy = speedy            
+            
+        elif scheme_move == 1 :
+            for objet in liste_objet :
+                    
+                if self.rect.colliderect(objet):
+        
+                    if abs (objet.top - self.rect.bottom) <= 10:
+                        speedx = -1
+                        speedy = 0
+                        self.side = "left"
+                        self.image = img_g
+                    if abs (objet.bottom - self.rect.top) <= 10:
+                        speedx = 1
+                        speedy = 0
+                        self.side = "right"
+                        self.image=img_d
+
+                    if abs (objet.left - self.rect.right) <= 10:
+                        speedx = 0
+                        speedy = 1
+                        self.side = "down"
+        
+                    if abs (objet.right - self.rect.left) <= 10:
+                        speedx = 0
+                        speedy = -1
+                        self.side = "up"
+        
+                else:
+                    speedx = speedx
+                    speedy = speedy
+        
+        return(speedx,speedy)
+            
 
 
 
@@ -392,7 +450,7 @@ def level_2(gameDisplay,screen_x,screen_y):
         pygame.draw.rect(gameDisplay,black,mur)
     
     #PNJ
-    
+
     gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)

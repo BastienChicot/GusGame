@@ -645,14 +645,15 @@ def nivo2(sac,action,Gus):
     x_change = 0
     y_change = 0
     gugus = gugus_face
-    rat_side = "left"
-    move_rat_y = 0
-    
-    test_x = 820
-    rat_left = pygame.image.load('bank/pnj/rat_g.png')
-    rat_right = pygame.image.load('bank/pnj/rat_d.png')
-    
 
+    #CREATION ET CARACTERISTIQUES PNJ
+    speed_y = 0
+    speed_x = -1
+    rat_left = pygame.image.load('bank/pnj/rat_g.png')
+    
+    spawn_x = 820
+    spawn_y = 400
+    rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
     
     #INTERACTIONS
 
@@ -673,24 +674,17 @@ def nivo2(sac,action,Gus):
         elif frame_count > 15:
             a=1
         
-        rat2 = pnj()
-        #rat2.place(rel_x,rel_y,-1)
-        rat2.move(-1,800,350,screen_x,screen_y)
-        
-        # rat2.rect.x += screen_x
-        # rat2.rect.y += screen_y
-        if rat_side == "left":
-            rat=rat_left
-            move_rat_x =  -1
-        elif rat_side == "right":
-            rat=rat_right
-            move_rat_x = 1
-        test_x += move_rat_x
-        x_rat = test_x + screen_x
-        y_rat = 400 + screen_y
         liste_mur = level_2(screen,screen_x,screen_y)
+            
+        if rat2.side == "left":
+            rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
+        elif rat2.side == "right":
+            rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_right,'right')
+            
+        speed_x,speed_y = rat2.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
+        spawn_x,spawn_y = rat2.move(spawn_x,spawn_y,speed_x,speed_y)
+        
         rect_gugus = gugus.get_rect() 
-        rect_rat = rat.get_rect()
                 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -787,12 +781,8 @@ def nivo2(sac,action,Gus):
             
         rect_gugus.topleft = (x,y)
         
-        rect_rat.topleft = (x_rat,y_rat)
-        
         x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-        
-        move_rat_x,move_rat_y,rat_side = collisions_pnj(liste_mur,rect_rat,move_rat_x,move_rat_y,rat_side)
-                                           
+          
         screen_x += rel_x
         screen_y += rel_y
         
@@ -834,7 +824,7 @@ def nivo2(sac,action,Gus):
             action.click = False
 
         screen.blit(gugus, rect_gugus)
-        screen.blit(rat, rect_rat)
+        
         screen.blit(rat2.image, rat2.rect)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
@@ -856,5 +846,5 @@ def nivo2(sac,action,Gus):
             game_over(screen)
 
         pygame.display.update()
-        print(rat2.rect.x,rat2.rect.y,screen_x,rel_x)
+        
         clock.tick(100)
