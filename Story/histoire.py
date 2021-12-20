@@ -654,7 +654,7 @@ def nivo2(sac,action,Gus):
     spawn_x = 820
     spawn_y = 400
     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
-    
+    liste_pnj = [rat2]
     #INTERACTIONS
 
     #OBJETS NIVEAU
@@ -782,7 +782,26 @@ def nivo2(sac,action,Gus):
         rect_gugus.topleft = (x,y)
         
         x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-          
+       
+        if rat2.rect.colliderect(rect_gugus) and rat2.side == "left":
+            if abs (rat2.rect.left - rect_gugus.right) <= 10:
+                speed_x *= -1
+                speed_y *= -1
+                rat2.side = "right"
+        if rat2.rect.colliderect(rect_gugus) and rat2.side == "right":
+            if abs (rat2.rect.right - rect_gugus.left) <= 10:
+                speed_x *= -1
+                speed_y *= -1
+                rat2.side = "left"
+                
+        if rect_gugus.colliderect(rat2.rect):
+            if abs (rat2.rect.left - rect_gugus.right) <= 10:
+                x_change = 0
+                rel_x = 0
+        if rat2.rect.colliderect(rect_gugus):
+            if abs (rat2.rect.right - rect_gugus.left) <= 10:
+                x_change = 0
+                rel_x = 0           
         screen_x += rel_x
         screen_y += rel_y
         
@@ -846,5 +865,5 @@ def nivo2(sac,action,Gus):
             game_over(screen)
 
         pygame.display.update()
-        
+
         clock.tick(100)

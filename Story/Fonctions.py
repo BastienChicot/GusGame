@@ -67,6 +67,36 @@ def collisions_pnj (liste_objet,rect_gugus,x_change,y_change,side):
         
     return(x_change,y_change,side)
 
+def coll_gus_pnj(liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
+
+    for objet in liste_objet :
+            
+        if objet.rect.colliderect(rect_gugus):
+
+            if abs (objet.rect.top - rect_gugus.bottom) <= 10 and y_change >= speed:
+                y_change = 0
+                rel_y = 0
+
+            if abs (objet.rect.bottom - rect_gugus.top) <= 10 and y_change <= -speed:
+                y_change = 0
+                rel_y = 0
+                print(1)
+            if abs (objet.rect.left - rect_gugus.right) <= 10 and x_change >= speed:
+                x_change = 0
+                rel_x = 0 
+                print(1)
+            if abs (objet.rect.right - rect_gugus.left) <= 10 and x_change <= -speed:
+                x_change = 0
+                rel_x = 0 
+                print(1)
+        else:
+            x_change = x_change
+            y_change = y_change
+            
+            rel_x = rel_x
+            rel_y = rel_y
+    
+    return(x_change,y_change,rel_x,rel_y)
 
 class sac_a_dos():
     def __init__(self):
