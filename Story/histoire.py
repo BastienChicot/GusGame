@@ -645,6 +645,9 @@ def nivo2(sac,action,Gus):
     x_change = 0
     y_change = 0
     gugus = gugus_face
+    
+    ##ESPACE
+    level_display = "level2E"
 
     #CREATION ET CARACTERISTIQUES PNJ
     speed_y = 0
@@ -674,8 +677,8 @@ def nivo2(sac,action,Gus):
         elif frame_count > 15:
             a=1
         
-        liste_mur = level_2(screen,screen_x,screen_y)
-            
+        liste_mur = level_2NE(screen,screen_x,screen_y)
+           
         if rat2.side == "left":
             rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
         elif rat2.side == "right":

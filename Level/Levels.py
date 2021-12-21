@@ -454,3 +454,44 @@ def level_2(gameDisplay,screen_x,screen_y):
     gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
+
+def level_2NE(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_2NE.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #HAIE
+    mur0 = wall(823,364,107,350,screen_x,screen_y)
+    mur1 = wall(771,433,55,75,screen_x,screen_y)
+    
+    #MUR BATIMENT
+    mur2 = wall(116,0,885,20,screen_x,screen_y)
+    mur3 = wall(768,20,240,20,screen_x,screen_y)
+    mur4 = wall(884,40,110,20,screen_x,screen_y)
+    mur5 = wall(120,0,50,35,screen_x,screen_y)
+    
+    #FONTAINE
+    mur6 = wall(282,275,57,75,screen_x,screen_y)
+    
+    #POUBELLE
+    mur7 = wall(627,180,40,20,screen_x,screen_y)
+    
+    #limites
+    mur8 = wall(0,0,1000,2,screen_x,screen_y)
+    mur9 = wall(998,0,10,707,screen_x,screen_y)
+    mur10 = wall(0,705,920,10,screen_x,screen_y)
+    mur11 = wall(-10,0,11,430,screen_x,screen_y)
+    mur12 = wall(-10,552,11,155,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                 mur8,mur9,mur10,mur11,mur12,
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+    
+    return(liste_mur)
