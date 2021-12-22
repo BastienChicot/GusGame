@@ -267,4 +267,22 @@ def game_over(screen):
     
     textsurface = myfont.render("GAME OVER", False, (255, 0, 0))
     screen.blit(textsurface,(135,200))
-    
+
+def border_start(screen_x,screen_y,x,y,start_x,start_y,display_width,display_height):
+    if screen_x >= 0:
+        screen_x = 0
+        x += start_x
+    elif screen_x <= display_width - 1000 :
+        screen_x = display_width - 1000
+        x += start_x
+    if screen_y >= 0  :
+        screen_y = 0
+        y  += start_y
+    elif screen_y <= display_height - 707:
+        screen_y = display_height - 707 
+        y += start_y
+    else:
+        x=x
+        y=y
+        
+    return(x,y,screen_x,screen_y)

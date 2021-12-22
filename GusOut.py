@@ -21,10 +21,12 @@ sac = sac_a_dos()
 action=action_key()
 
 def launch(Gus):
-    if Gus.level == 1 :
+    if Gus.level == 1:
         nivo1(sac,action,Gus)
-    if Gus.level == 2 :
-        nivo2(sac,action,Gus)    
+    if Gus.level == 2:
+        nivo2(sac,action,Gus) 
+    if Gus.level == 2.1:
+        nivo2NE(sac,action,Gus)    
 
 gameExit = False
 
