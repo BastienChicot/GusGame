@@ -471,7 +471,14 @@ def level_2NE(gameDisplay,screen_x,screen_y):
     mur5 = wall(120,0,50,35,screen_x,screen_y)
     
     #FONTAINE
-    mur6 = wall(282,275,57,75,screen_x,screen_y)
+    mur6 = wall(183,250,350,61,screen_x,screen_y)
+    mur13 = wall(195,220,316,130,screen_x,screen_y)
+    mur14 = wall(209,199,290,164,screen_x,screen_y)
+    mur15 = wall(218,185,273,200,screen_x,screen_y)
+    mur16 = wall(235,170,231,232,screen_x,screen_y)
+    mur17 = wall(256,156,195,270,screen_x,screen_y)
+    mur18 = wall(281,146,144,303,screen_x,screen_y)
+    mur19 = wall(306,134,87,326,screen_x,screen_y)
     
     #POUBELLE
     mur7 = wall(627,180,40,20,screen_x,screen_y)
@@ -485,6 +492,7 @@ def level_2NE(gameDisplay,screen_x,screen_y):
     
     liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
                  mur8,mur9,mur10,mur11,mur12,
+                 mur13,mur14,mur15,mur16,mur17,mur18,mur19
                   ]    
 
     for mur in liste_mur:

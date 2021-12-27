@@ -867,6 +867,7 @@ def nivo2(sac,action,Gus):
             game_over(screen)
 
         pygame.display.update()
+
         clock.tick(100)
 
 def nivo2NE(sac,action,Gus):
@@ -876,8 +877,10 @@ def nivo2NE(sac,action,Gus):
     a=0
     x =  (display_width-gugus_width)/2
     y = (display_height-gugus_height)/2    
-    screen_x = -940 + x
-    screen_y = -500 + y    
+    start_x = 940
+    start_y = 451
+    screen_x = -start_x + x
+    screen_y = -start_y + y    
     rel_x = 0 
     rel_y = 0
     x_change = 0
@@ -892,6 +895,19 @@ def nivo2NE(sac,action,Gus):
 
         
     gameExit = False
+    
+    if screen_x >= 0 :
+        screen_x = 0
+        x = start_x
+    elif screen_x <= display_width - 1000 :
+        screen_x = display_width - 1000
+        x = start_x + display_width - 1000
+    if screen_y >= 0 :
+        screen_y = 0
+        y = start_y
+    elif screen_y <= display_height - 707 :
+        screen_y = display_height - 707 
+        y = start_y + display_height - 707 
     
     while not gameExit and Gus.level == 2.1:
         
@@ -957,15 +973,6 @@ def nivo2NE(sac,action,Gus):
                 elif event.key != pygame.K_a:
                 
                     action.click = False
-
-                # if event.key == pygame.K_RETURN and not action.change_level:
-                #     action.change_level = True
-                #     enter_s.play()
-                #     if 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y and sac.Torchon >= 5:
-                #         Gus.level = 2                    
-                # elif event.key != pygame.K_RETURN:
-                
-                #     action.change_level = False
                     
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
@@ -1005,7 +1012,7 @@ def nivo2NE(sac,action,Gus):
         rect_gugus.topleft = (x,y)
         
         x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-       
+                 
         screen_x += rel_x
         screen_y += rel_y
         
@@ -1034,8 +1041,7 @@ def nivo2NE(sac,action,Gus):
             y -= rel_y
         elif y > (display_height-gugus_height)/2 and rel_y > 0:
             screen_y = display_height - 707 
-            y -= rel_y
-             
+            y -= rel_y             
             
         ##DIALOGUES
                                                                                    
