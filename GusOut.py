@@ -23,12 +23,8 @@ action=action_key()
 def launch(Gus):
     if Gus.level == 1:
         nivo1(sac,action,Gus)
-    if Gus.level == 2:
-        nivo2(sac,action,Gus) 
-    # elif Gus.level == 2.1:
-    #     nivo2NE(sac,action,Gus)
-    # elif Gus.level == 2.2:
-    #     nivo2N(sac,action,Gus) 
+    if Gus.level >= 2 and Gus.level < 3:
+        nivo2(sac,action,Gus)  
         
 gameExit = False
 

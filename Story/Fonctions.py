@@ -133,7 +133,28 @@ class Gus():
         self.frame = 0
         self.spawn = 1
     def iter_objects(self):
-        return (self.__dict__)   
+        return (self.__dict__)  
+    
+def spawn_level(x,y,start_x,start_y):
+    
+    screen_x = -start_x + x
+    screen_y = -start_y + y    
+
+    
+    if screen_x >= 0 :
+        screen_x = 0
+        x = start_x
+    elif screen_x <= display_width - 1000 :
+        screen_x = display_width - 1000
+        x = start_x + display_width - 1000
+    if screen_y >= 0 :
+        screen_y = 0
+        y = start_y
+    elif screen_y <= display_height - 707 :
+        screen_y = display_height - 707 
+        y = start_y + display_height - 707
+        
+    return(screen_x,screen_y,x,y)
         
 def find_something(find,action,screen,objet_find):
     
