@@ -131,6 +131,7 @@ class Gus():
         self.speed = 2
         self.pause = 0
         self.frame = 0
+        self.spawn = 1
     def iter_objects(self):
         return (self.__dict__)   
         

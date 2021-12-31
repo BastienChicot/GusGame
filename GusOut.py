@@ -25,9 +25,11 @@ def launch(Gus):
         nivo1(sac,action,Gus)
     if Gus.level == 2:
         nivo2(sac,action,Gus) 
-    if Gus.level == 2.1:
-        nivo2NE(sac,action,Gus)    
-
+    # elif Gus.level == 2.1:
+    #     nivo2NE(sac,action,Gus)
+    # elif Gus.level == 2.2:
+    #     nivo2N(sac,action,Gus) 
+        
 gameExit = False
 
 while not gameExit:
@@ -65,7 +67,6 @@ while not gameExit:
         other_s.play()
         pygame.quit() 
         
-    
     pygame.display.update()
 
 
