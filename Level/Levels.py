@@ -503,3 +503,60 @@ def level_2NE(gameDisplay,screen_x,screen_y):
     gameDisplay.blit(fond, (screen_x,screen_y)) 
     
     return(liste_mur)
+
+def level_2N(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_2N.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Boites aux lettres
+    mur0 = wall(40,0,102,8,screen_x,screen_y)
+    
+    #escalier
+    mur1 = wall(0,133,31,11,screen_x,screen_y)
+    mur2 = wall(35,148,31,11,screen_x,screen_y)
+    mur23 = wall(0,47,31,1,screen_x,screen_y)
+    mur24 = wall(31,63,31,1,screen_x,screen_y)
+    
+    #but
+    mur3 = wall(535,66,82,100,screen_x,screen_y)
+    mur4 = wall(555,48,62,120,screen_x,screen_y)
+    mur5 = wall(575,28,42,140,screen_x,screen_y)
+    mur6 = wall(599,0,18,168,screen_x,screen_y)
+
+    #ARBRE
+    mur15 = wall(430,243,355,47,screen_x,screen_y)
+    mur16 = wall(455,222,339,100,screen_x,screen_y)
+    mur17 = wall(466,177,323,150,screen_x,screen_y)
+    mur18 = wall(500,155,270,200,screen_x,screen_y)
+    mur19 = wall(524,136,200,233,screen_x,screen_y)
+    mur21 = wall(616,110,60,255,screen_x,screen_y)
+    mur22 = wall(600,345,62,90,screen_x,screen_y)
+    
+    #POUBELLE
+    mur7 = wall(115,422,40,20,screen_x,screen_y)
+    mur20 = wall(80,432,40,15,screen_x,screen_y)
+    
+    #limites
+    mur8 = wall(0,0,172,2,screen_x,screen_y)
+    mur9 = wall(252,0,751,2,screen_x,screen_y)
+    mur10 = wall(998,0,10,430,screen_x,screen_y)
+    mur11 = wall(998,552,10,160,screen_x,screen_y)
+    mur12 = wall(0,705,1000,5,screen_x,screen_y)
+    mur13 = wall(0,0,10,430,screen_x,screen_y)
+    mur14 = wall(0,552,10,160,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                  mur8,mur9,mur10,mur11,mur12,
+                  mur13,mur14,mur15,mur16,mur17,mur18,mur19,
+                  mur20,mur21,mur22,mur23,mur24
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)

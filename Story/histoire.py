@@ -656,10 +656,8 @@ def nivo2(sac,action,Gus):
     
     spawn_x = 820
     spawn_y = 400
-    
-    if Gus.level == 2:        
-        rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
-
+       
+    rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')    
     #INTERACTIONS
 
     #OBJETS NIVEAU
@@ -808,6 +806,8 @@ def nivo2(sac,action,Gus):
                     rel_x = 0           
             screen_x += rel_x
             screen_y += rel_y
+            
+            screen.blit(rat2.image, rat2.rect)
         
             if y < -2:
                 Gus.level = 2.1
@@ -818,7 +818,11 @@ def nivo2(sac,action,Gus):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,480)
+                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,481)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,481)
                         
             time += 1
             
@@ -833,7 +837,34 @@ def nivo2(sac,action,Gus):
                 Gus.level = 2
                 Gus.spawn = 2
                 time = 0
+            if x < 0:
+                Gus.level = 2.2
+                Gus.spawn = 1
+                time = 0
+                
+        elif Gus.level == 2.2:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,480)
+                        
+            time += 1
+            
+            liste_mur = level_2N(screen,screen_x,screen_y)
         
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if y < 0 :
+                Gus.level = 2.3
+                Gus.spawn = 1
+                time = 0
+            if x > 480 :
+                Gus.level = 2.1
+                Gus.spawn = 2
+                time = 0        
         
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0
@@ -869,9 +900,6 @@ def nivo2(sac,action,Gus):
             action.click = False
 
         screen.blit(gugus, rect_gugus)
-        
-        if Gus.level == 2:            
-            screen.blit(rat2.image, rat2.rect)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(Gus.money), False, (31, 160, 85))
