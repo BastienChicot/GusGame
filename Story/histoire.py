@@ -847,7 +847,11 @@ def nivo2(sac,action,Gus):
             if Gus.spawn == 1 and time < 2:
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,480)
-                        
+
+            elif Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,480)
+                                            
             time += 1
             
             liste_mur = level_2N(screen,screen_x,screen_y)
@@ -857,15 +861,43 @@ def nivo2(sac,action,Gus):
             screen_x += rel_x
             screen_y += rel_y
             
-            if y < 0 :
+            if x < 0 :
                 Gus.level = 2.3
+                Gus.spawn = 1
+                time = 0
+            if y < 0:
+                Gus.level = 2.4
                 Gus.spawn = 1
                 time = 0
             if x > 480 :
                 Gus.level = 2.1
                 Gus.spawn = 2
-                time = 0        
+                time = 0   
+                
+        elif Gus.level == 2.3:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,480)
+                        
+            time += 1
+            
+            liste_mur = level_2NO(screen,screen_x,screen_y)
         
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if x > 480 :
+                Gus.level = 2.2
+                Gus.spawn = 2
+                time = 0
+            if y > 465:
+                Gus.level = 2.5
+                Gus.spawn = 1
+                time = 0
+                
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0
             x -= rel_x
