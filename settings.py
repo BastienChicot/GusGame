@@ -66,3 +66,7 @@ poze = pygame.image.load("bank/image/pause.png")
 #PNJ
 rat_left = pygame.image.load('bank/pnj/rat_g.png')
 rat_right = pygame.image.load('bank/pnj/rat_d.png')
+
+concierge_1=pygame.image.load('bank/pnj/concierge1.png')
+concierge_2=pygame.image.load('bank/pnj/concierge2.png')
+concierge = [concierge_1,concierge_2]

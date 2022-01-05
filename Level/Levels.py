@@ -576,6 +576,35 @@ def level_2O(gameDisplay,screen_x,screen_y):
     
     return(liste_mur)
 
+def level_2NN(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_2NN.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #POUBELLE
+    mur0 = wall(345,0,660,438,screen_x,screen_y)
+    mur6 = wall(591,420,65,135,screen_x,screen_y)
+    
+    #LIMTES
+    mur1 = wall(0,705,178,10,screen_x,screen_y)
+    mur2 = wall(253,605,800,110,screen_x,screen_y)
+    mur3 = wall(0,0,178,707,screen_x,screen_y)
+    mur4 = wall(0,0,1000,400,screen_x,screen_y)
+    mur5 = wall(654,0,350,707,screen_x,screen_y)
+    
+    liste_mur = [mur0, mur1
+                   ,mur2,mur3,mur4,mur5,mur6
+                   ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)
+
 def level_2N(gameDisplay,screen_x,screen_y):
     
     fond=pygame.image.load('Level/level_2N.jpg').convert()

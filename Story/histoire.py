@@ -833,7 +833,7 @@ def nivo2(sac,action,Gus):
             screen_x += rel_x
             screen_y += rel_y
             
-            if y > 450 :
+            if y > 460 :
                 Gus.level = 2
                 Gus.spawn = 2
                 time = 0
@@ -846,11 +846,15 @@ def nivo2(sac,action,Gus):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,480)
+                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,481)
 
             elif Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,480)
+                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,481)
+
+            if Gus.spawn == 3 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,190,11) 
                                             
             time += 1
             
@@ -858,9 +862,32 @@ def nivo2(sac,action,Gus):
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
+            pnj_concierge = concierge[a]
+            rect_concierge = pnj_concierge.get_rect()
+            rect_concierge.topleft=(783+screen_x,383+screen_y)
+                  
+            if rect_gugus.colliderect(rect_concierge) and x_change > 0:
+                if abs (rect_concierge.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(rect_concierge) and x_change < 0:
+                if abs (rect_concierge.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0   
+            if rect_gugus.colliderect(rect_concierge) and y_change < 0:
+                if abs (rect_concierge.bottom - rect_gugus.top) <= 10:
+                    y_change = 0
+                    rel_y = 0
+            if rect_gugus.colliderect(rect_concierge) and y_change > 0:
+                if abs (rect_concierge.top - rect_gugus.bottom) <= 10:
+                    y_change = 0
+                    rel_y = 0  
+                    
             screen_x += rel_x
             screen_y += rel_y
-            
+        
+            screen.blit(pnj_concierge, rect_concierge)
+
             if x < 0 :
                 Gus.level = 2.3
                 Gus.spawn = 1
@@ -882,8 +909,8 @@ def nivo2(sac,action,Gus):
                 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,112,651)                        
-         
+                screen_x,screen_y,x,y = spawn_level(x,y,112,651) 
+                
             time += 1
             
             liste_mur = level_2NO(screen,screen_x,screen_y)
@@ -906,7 +933,7 @@ def nivo2(sac,action,Gus):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,112,10)
+                screen_x,screen_y,x,y = spawn_level(x,y,112,50)
                         
             time += 1
             
@@ -920,6 +947,26 @@ def nivo2(sac,action,Gus):
             if y < 0:
                 Gus.level = 2.3
                 Gus.spawn = 2
+                time = 0
+            
+        elif Gus.level == 2.5:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,190,655)
+                        
+            time += 1
+            
+            liste_mur = level_2NN(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if y > 465:
+                Gus.level = 2.2
+                Gus.spawn = 3
                 time = 0
                 
         if screen_x >= 0 and rel_x > 0:
