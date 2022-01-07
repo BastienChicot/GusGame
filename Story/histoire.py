@@ -657,7 +657,12 @@ def nivo2(sac,action,Gus):
     spawn_x = 820
     spawn_y = 400
        
-    rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')    
+    rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left') 
+
+    spawn_damex = 120
+    spawn_damey = 250
+    dame_left = dame_l[0]
+    dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,"left")
     #INTERACTIONS
 
     #OBJETS NIVEAU
@@ -914,11 +919,51 @@ def nivo2(sac,action,Gus):
             time += 1
             
             liste_mur = level_2NO(screen,screen_x,screen_y)
-        
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
+            dame_left = dame_l[a]            
+            dame_right = dame_d[a]
+
+            if dame.side == "left":
+                dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,'left')
+            elif dame.side == "right":
+                dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_right,'right')
+            
+            speed_x,speed_y = dame.collisions_pnj(liste_mur,speed_x,speed_y,dame_right,dame_left,0)
+            spawn_damex,spawn_damey = dame.move(spawn_damex,spawn_damey,speed_x,speed_y)
+            
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+    
+            if dame.rect.colliderect(rect_gugus) and dame.side == "left":
+                if abs (dame.rect.left - rect_gugus.right) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    dame.side = "right"
+            if dame.rect.colliderect(rect_gugus) and dame.side == "right":
+                if abs (dame.rect.right - rect_gugus.left) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    dame.side = "left"
+                    
+            if rect_gugus.colliderect(dame.rect):
+                if abs (dame.rect.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(dame.rect):
+                if abs (dame.rect.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0     
+            if rect_gugus.colliderect(dame.rect):
+                if abs (dame.rect.bottom - rect_gugus.top) <= 10:
+                    y_change = 0
+                    rel_y = 0    
+            if rect_gugus.colliderect(dame.rect):
+                if abs (dame.rect.top - rect_gugus.bottom) <= 10:
+                    y_change = 0
+                    rel_y = 0    
             screen_x += rel_x
             screen_y += rel_y
+            
+            screen.blit(dame.image, dame.rect)
             
             if x > 480 :
                 Gus.level = 2.2

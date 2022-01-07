@@ -70,3 +70,11 @@ rat_right = pygame.image.load('bank/pnj/rat_d.png')
 concierge_1=pygame.image.load('bank/pnj/concierge1.png')
 concierge_2=pygame.image.load('bank/pnj/concierge2.png')
 concierge = [concierge_1,concierge_2]
+
+dame_left1 = pygame.image.load("bank/pnj/dameg1.png")
+dame_left2 = pygame.image.load("bank/pnj/dameg2.png")
+dame_right1 = pygame.image.load("bank/pnj/damed1.png")
+dame_right2 = pygame.image.load("bank/pnj/damed2.png")
+
+dame_l = [dame_left1,dame_left2]
+dame_d = [dame_right1,dame_right2]
