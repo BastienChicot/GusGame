@@ -27,6 +27,7 @@ def nivo1(sac,action,Gus):
     speed_move = Gus.speed
     frame_count = Gus.frame
     a=0
+    time = 0
     x =  (display_width-gugus_width)/2
     y = (display_height-gugus_height)/2    
     screen_x = -475 + x
@@ -243,7 +244,13 @@ def nivo1(sac,action,Gus):
                     enter_s.play()
                     if 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y and sac.Torchon >= 5:
                         Gus.level = 2  
-                        Gus.origin = 1
+                        Gus.spawn = 1
+                        time = 0
+                    elif 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y and sac.Torchon == 4:
+                        Gus.level = 2.2
+                        Gus.spawn = 4
+                        Gus.pv -= 20
+                        time = 0
                 elif event.key != pygame.K_RETURN:
                 
                     action.change_level = False
@@ -496,15 +503,15 @@ def nivo1(sac,action,Gus):
                 
         elif 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y :
             
-            if sac.Torchon <  5:
+            if sac.Torchon <  4:
                 textsurface = myfont.render("Ca fait un peu haut", False, (110, 110, 110))
                 textsurface2 = myfont.render("pour sauter!", False, (110, 110, 110))
                 screen.blit(fond_text,(260,380))
                 screen.blit(textsurface,(280,400))
                 screen.blit(textsurface2,(280,420)) 
-            if sac.Torchon == 5:
+            if sac.Torchon == 4:
                 textsurface = myfont.render("C'est toujours haut ", False, (110, 110, 110))
-                textsurface2 = myfont.render("mais avec 5 serviettes", False, (110, 110, 110))
+                textsurface2 = myfont.render("mais avec 4 serviettes", False, (110, 110, 110))
                 textsurface3 = myfont.render("ça se tente!", False, (110, 110, 110)) 
                 textsurface4 = myfont.render("Descendre : (ENTER)", False, (110, 110, 110)) 
                 screen.blit(fond_text,(260,380))
@@ -512,7 +519,7 @@ def nivo1(sac,action,Gus):
                 screen.blit(textsurface2,(280,415)) 
                 screen.blit(textsurface3,(280,430))
                 screen.blit(textsurface4,(280,445))
-            if sac.Torchon > 5:
+            if sac.Torchon >= 5:
                 textsurface = myfont.render("J'ai assez de linge ", False, (110, 110, 110)) 
                 textsurface2 = myfont.render(" pour me faire une", False, (110, 110, 110)) 
                 textsurface3 = myfont.render("descente en rappel!", False, (110, 110, 110))              
@@ -860,7 +867,11 @@ def nivo2(sac,action,Gus):
             if Gus.spawn == 3 and time < 2:
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,190,11) 
-                                            
+
+            if Gus.spawn == 4 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,510,631)
+                                           
             time += 1
             
             liste_mur = level_2N(screen,screen_x,screen_y)
@@ -892,6 +903,11 @@ def nivo2(sac,action,Gus):
             screen_y += rel_y
         
             screen.blit(pnj_concierge, rect_concierge)
+            
+            if Gus.spawn == 4 and time < 150: 
+                textsurface = myfont.render("Aïe ma cheville!", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
 
             if x < 0 :
                 Gus.level = 2.3
@@ -920,9 +936,13 @@ def nivo2(sac,action,Gus):
             
             liste_mur = level_2NO(screen,screen_x,screen_y)
             
-            dame_left = dame_l[a]            
-            dame_right = dame_d[a]
-
+            if dame.movement == True:
+                dame_left = dame_l[a]            
+                dame_right = dame_d[a]
+            elif dame.movement == False:
+                dame_left = dame_l[2]            
+                dame_right = dame_d[2]
+                
             if dame.side == "left":
                 dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,'left')
             elif dame.side == "right":
@@ -935,29 +955,45 @@ def nivo2(sac,action,Gus):
     
             if dame.rect.colliderect(rect_gugus) and dame.side == "left":
                 if abs (dame.rect.left - rect_gugus.right) <= 10:
-                    speed_x *= -1
+                    speed_x *= 0
                     speed_y *= -1
-                    dame.side = "right"
+                    dame.movement = False
+
             if dame.rect.colliderect(rect_gugus) and dame.side == "right":
                 if abs (dame.rect.right - rect_gugus.left) <= 10:
-                    speed_x *= -1
+                    speed_x = 0
+                    speed_y *= -1  
+                    dame.movement = False
+                    
+            if not dame.rect.colliderect(rect_gugus) and dame.side == "left":
+                if abs (dame.rect.left - rect_gugus.right) <= 10:
+                    speed_x = -1
                     speed_y *= -1
                     dame.side = "left"
-                    
+                    dame.movement = True
+
+            if not dame.rect.colliderect(rect_gugus) and dame.side == "right":
+                if abs (dame.rect.right - rect_gugus.left) <= 10:
+                    speed_x = 1
+                    speed_y *= -1
+                    dame.side = "right" 
+                    dame.movement = True
+                                        
+
             if rect_gugus.colliderect(dame.rect):
-                if abs (dame.rect.left - rect_gugus.right) <= 10:
+                if abs (dame.rect.left - rect_gugus.right) <= 10 and x_change > 0:
                     x_change = 0
                     rel_x = 0
             if rect_gugus.colliderect(dame.rect):
-                if abs (dame.rect.right - rect_gugus.left) <= 10:
+                if abs (dame.rect.right - rect_gugus.left) <= 10 and x_change < 0:
                     x_change = 0
                     rel_x = 0     
             if rect_gugus.colliderect(dame.rect):
-                if abs (dame.rect.bottom - rect_gugus.top) <= 10:
+                if abs (dame.rect.bottom - rect_gugus.top) <= 10 and y_change < 0:
                     y_change = 0
                     rel_y = 0    
             if rect_gugus.colliderect(dame.rect):
-                if abs (dame.rect.top - rect_gugus.bottom) <= 10:
+                if abs (dame.rect.top - rect_gugus.bottom) <= 10 and y_change > 0:
                     y_change = 0
                     rel_y = 0    
             screen_x += rel_x

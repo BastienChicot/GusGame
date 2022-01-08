@@ -73,8 +73,10 @@ concierge = [concierge_1,concierge_2]
 
 dame_left1 = pygame.image.load("bank/pnj/dameg1.png")
 dame_left2 = pygame.image.load("bank/pnj/dameg2.png")
+dame_left0 = pygame.image.load("bank/pnj/Dame_gauche.png")
 dame_right1 = pygame.image.load("bank/pnj/damed1.png")
 dame_right2 = pygame.image.load("bank/pnj/damed2.png")
+dame_right0 = pygame.image.load("bank/pnj/Dame_droite.png")
 
-dame_l = [dame_left1,dame_left2]
-dame_d = [dame_right1,dame_right2]
+dame_l = [dame_left1,dame_left2,dame_left0]
+dame_d = [dame_right1,dame_right2,dame_right0]

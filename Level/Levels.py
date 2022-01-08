@@ -41,6 +41,7 @@ class pnj(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x_start + rel_x 
         self.rect.y = y_start + rel_y
+        self.movement = True
         
         
     def move(self, spawnx, spawny, speedx, speedy):
