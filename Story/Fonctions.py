@@ -101,6 +101,7 @@ def coll_gus_pnj(liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
 class sac_a_dos():
     def __init__(self):
         super().__init__()
+        #Nivo1
         self.Torchon = 0
         self.soupe_froide = 0
         self.soupe_chaude = 0
@@ -108,6 +109,17 @@ class sac_a_dos():
         self.Alcool = 0
         self.Briquet = 0
         self.Capote = 0 
+        #Nivo2
+        self.Sucre_Glace = 0 
+        self.Clopes = 0
+        self.Ballon = 0
+        self.Teuteu = 0
+        self.Telephone = 0
+        self.Clef = 0
+        self.Horaires_bus = 0
+        self.Portefeuille = 0
+        self.Huile_rateau = 0
+        self.Photos = 0
 
     def iter_objects(self):
         return (self.__dict__)                    
@@ -221,6 +233,24 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
         if var_iter >= max_iter and action.click == True:
             i -= max_iter
 
+def zone_dialogue_noiter(screen,texte_zone,action,liste_phrases):
+    
+    pygame.font.init()
+ 
+    myfont = pygame.font.SysFont('corbel', 19, bold=True)
+    
+    textsurface = myfont.render(texte_zone, False, (110, 110, 110))
+    screen.blit(fond_text,(260,380))
+    screen.blit(textsurface,(280,385))
+    j = 405
+    for phrases in liste_phrases :
+        
+        if action.click == True:
+            textsurface2 = myfont.render(phrases, False, (110, 110, 110))
+            screen.blit(textsurface2,(290,j))
+
+            j += 15
+            
 def affich_sac(screen,sac):
     
     pygame.font.init()
@@ -237,11 +267,14 @@ def affich_sac(screen,sac):
    
     screen.blit(sac_image,(25,130))
     i = 220
+    j = 75
     for text in texts :
-
         textsurface = myfont.render(text, False, (220, 220, 220))
-        screen.blit(textsurface,(75,i))
+        screen.blit(textsurface,(j,i))
         i += 20
+        if i > 350:
+            j += 150
+            i = 220
 
 def pause(screen,gameExit,Gus,sac):
     keys=pygame.key.get_pressed()

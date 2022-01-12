@@ -671,13 +671,14 @@ def nivo2(sac,action,Gus):
     dame_left = dame_l[0]
     dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,"left")
     #INTERACTIONS
-
+    pressed_vieille = -1
+    phrases_vieille =[["J'ai perdu mes","clopes gamin!!"]]
     #OBJETS NIVEAU
 
         
     gameExit = False
     
-    while not gameExit :
+    while not gameExit:
         
         if frame_count <= 30:
             frame_count += 1
@@ -731,10 +732,9 @@ def nivo2(sac,action,Gus):
                     action.click = True
                     click_.play()
                     #PERSONNES
-
-                        
+                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
+                        pressed_vieille = 0
                     #OBJETS
-
                         
                 elif event.key != pygame.K_a:
                 
@@ -778,7 +778,7 @@ def nivo2(sac,action,Gus):
         rect_gugus.topleft = (x,y)
                 
         if Gus.level == 2:
-            
+    
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,226,225)
             elif Gus.spawn == 2 and time < 2:
@@ -825,7 +825,9 @@ def nivo2(sac,action,Gus):
                 Gus.level = 2.1
                 Gus.spawn = 1
                 time = 0
-       
+        if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[pressed_vieille],pressed_vieille,1)       
         elif Gus.level == 2.1:
             
             if Gus.spawn == 1 and time < 2:
@@ -1048,8 +1050,8 @@ def nivo2(sac,action,Gus):
             if y > 465:
                 Gus.level = 2.2
                 Gus.spawn = 3
-                time = 0
-                
+                time = 0             
+         
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0
             x -= rel_x
@@ -1079,10 +1081,6 @@ def nivo2(sac,action,Gus):
         
         ##OBJETS
 
-
-        else:
-            action.click = False
-
         screen.blit(gugus, rect_gugus)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
@@ -1102,7 +1100,8 @@ def nivo2(sac,action,Gus):
         if Gus.pv == 0:
             game_over(screen)
 
-        pygame.display.update() 
+        pygame.display.update()
+        print(action.click)
 
         clock.tick(100)
 
