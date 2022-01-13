@@ -670,10 +670,21 @@ def nivo2(sac,action,Gus):
     spawn_damey = 250
     dame_left = dame_l[0]
     dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,"left")
+    
+    ####LVL 2
+
     #INTERACTIONS
     pressed_vieille = -1
-    phrases_vieille =[["J'ai perdu mes","clopes gamin!!"]]
+    pressed_interphone = -1
+    
+    phrases_vieille =[["J'ai perdu mes","clopes gamin!!"],
+                      ["Il me faut bien plus de","clopes que ça gamin!"]]
+    phrases_interphone =[["Qui c'est ??"]]
+    phrases_papier=[["Ah! Juste quelques", "feuilles de papiers et","des stylos.","Rien d'utile!"]]
+
     #OBJETS NIVEAU
+    pressed_arbre = -1
+    pressed_papier = -1
 
         
     gameExit = False
@@ -732,9 +743,18 @@ def nivo2(sac,action,Gus):
                     action.click = True
                     click_.play()
                     #PERSONNES
-                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
+                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Clopes == 0:
                         pressed_vieille = 0
+                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Clopes == 1:
+                        pressed_vieille = 1
+                    if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
+                        pressed_interphone = 0
+                    
                     #OBJETS
+                    if 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
+                        pressed_arbre += 1  
+                    if 635+screen_x < x < 792+screen_x and 320+screen_y < y < 368+screen_y and Gus.level == 2:
+                        pressed_papier = 0
                         
                 elif event.key != pygame.K_a:
                 
@@ -802,6 +822,7 @@ def nivo2(sac,action,Gus):
                     speed_x *= -1
                     speed_y *= -1
                     rat2.side = "right"
+                    
             if rat2.rect.colliderect(rect_gugus) and rat2.side == "right":
                 if abs (rat2.rect.right - rect_gugus.left) <= 10:
                     speed_x *= -1
@@ -825,9 +846,60 @@ def nivo2(sac,action,Gus):
                 Gus.level = 2.1
                 Gus.spawn = 1
                 time = 0
+        ##INTERACTION LVL 2
         if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
 
-            zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[pressed_vieille],pressed_vieille,1)       
+            zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[pressed_vieille],pressed_vieille,2)
+            
+        elif 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Sonner à l'interphone (A)",action,phrases_interphone[pressed_interphone],pressed_interphone,1)
+       
+        ##OBJET LVL 2
+        elif 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
+            
+            pressed_arbre = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,pressed_arbre,"un paquet de clopes!")
+            sac.Clopes = 1
+            
+        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 0 :
+
+                textsurface = myfont.render("Il y a un truc", False, (110, 110, 110))
+                textsurface2 = myfont.render("fermé à clé dans ce", False, (110, 110, 110))
+                textsurface3 = myfont.render("carton", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface3,(280,440))  
+                
+        elif 545+screen_x < x < 610+screen_x and 20+screen_y < y < 110+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Beurk...", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                
+        elif 368+screen_x < x < 513+screen_x and 0+screen_y < y < 35+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Il n'y a rien ", False, (110, 110, 110))
+                textsurface2 = myfont.render("d'intéressant sur", False, (110, 110, 110))
+                textsurface3 = myfont.render(" ce tableau.", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface3,(280,440))
+        
+        elif 33+screen_x < x < 231+screen_x and 0+screen_y < y < 50+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Elles sont toutes ", False, (110, 110, 110))
+                textsurface2 = myfont.render("fermées à clé.", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                
+                screen.blit(textsurface2,(280,420))
+                
+        elif 635+screen_x < x < 792+screen_x and 320+screen_y < y < 368+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Fouiller ici (A)",action,phrases_papier[pressed_papier],pressed_papier,1)
+
         elif Gus.level == 2.1:
             
             if Gus.spawn == 1 and time < 2:
@@ -1101,7 +1173,6 @@ def nivo2(sac,action,Gus):
             game_over(screen)
 
         pygame.display.update()
-        print(action.click)
 
         clock.tick(100)
 

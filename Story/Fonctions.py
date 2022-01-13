@@ -272,7 +272,7 @@ def affich_sac(screen,sac):
         textsurface = myfont.render(text, False, (220, 220, 220))
         screen.blit(textsurface,(j,i))
         i += 20
-        if i > 350:
+        if i > 335:
             j += 150
             i = 220
 
