@@ -656,6 +656,8 @@ def nivo2(sac,action,Gus):
     screen_x = -225 + x
     screen_y = -225 + y 
     
+    interact = False
+    tune = Gus.money
     #CREATION ET CARACTERISTIQUES PNJ
     speed_y = 0
     speed_x = -1
@@ -671,7 +673,7 @@ def nivo2(sac,action,Gus):
     dame_left = dame_l[0]
     dame = pnj(spawn_damex,spawn_damey,screen_x,screen_y,dame_left,"left")
     
-    ####LVL 2
+    ####LVL 2 EST
 
     #INTERACTIONS
     pressed_vieille = -1
@@ -685,7 +687,29 @@ def nivo2(sac,action,Gus):
     #OBJETS NIVEAU
     pressed_arbre = -1
     pressed_papier = -1
-
+    
+    ##LVL 2 NE
+    
+    #INTERACTIONS
+    pressed_stuff = -1
+    phrases_stuff = [["Touches pas à ça !! ","C'est mon sac!"]]
+    pressed_tox = -1
+    phrases_toxo = [["","Qu'est-ce tu veux toi?","","Dégages de là"]]
+    #ITEMS
+    pressed_seringue = -1
+    pressed_ball = -1
+    
+    ##LVL 2 NORD
+    #INTERACTIONS
+    pressed_con = -1
+    phrases_con = [["J'en ai mmarre de ce","quartier. Entre les ","dealers et les camés...",
+                    "J'espère qu'ils finiront","tous au trou!"]]
+    #ITEMS
+    clopesEst = 0
+    clopesNord = 0
+    press_poub = -1
+    argent_poub = 0
+    press_coin = -1
         
     gameExit = False
     
@@ -702,7 +726,10 @@ def nivo2(sac,action,Gus):
             a=1
             
         rect_gugus = gugus.get_rect() 
-                
+        
+        Gus.money = round(tune + argent_poub,2)
+        sac.Clopes = round(clopesEst + clopesNord, 0)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
@@ -743,18 +770,40 @@ def nivo2(sac,action,Gus):
                     action.click = True
                     click_.play()
                     #PERSONNES
+                    ###EST
                     if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Clopes == 0:
                         pressed_vieille = 0
                     if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Clopes == 1:
                         pressed_vieille = 1
                     if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
                         pressed_interphone = 0
-                    
                     #OBJETS
+                    ###EST
                     if 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
                         pressed_arbre += 1  
                     if 635+screen_x < x < 792+screen_x and 320+screen_y < y < 368+screen_y and Gus.level == 2:
                         pressed_papier = 0
+                    ###NORD EST
+                    ##INTERACTIONS
+                    if 777+screen_x < x < 870+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1:
+                        pressed_stuff = 0
+                    if 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1:
+                        pressed_tox = 0
+                    ##ITEMS
+                    if 780+screen_x < x < 830+screen_x and 530+screen_y < y < 560+screen_y and Gus.level == 2.1:
+                        pressed_seringue += 1
+                    if 70+screen_x < x < 110+screen_x and 0+screen_y < y < 32+screen_y and Gus.level == 2.1:
+                        pressed_ball += 1
+                        
+                    ###NORD
+                    ##INTERACTIONS
+                    if interact and Gus.level == 2.2:
+                        pressed_con = 0
+                    ##ITEMS
+                    if 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
+                        press_poub += 1
+                    if 0+screen_x < x < 45+screen_x and 0+screen_y < y < 45+screen_y and Gus.level == 2.2:
+                        press_coin += 1
                         
                 elif event.key != pygame.K_a:
                 
@@ -846,60 +895,8 @@ def nivo2(sac,action,Gus):
                 Gus.level = 2.1
                 Gus.spawn = 1
                 time = 0
-        ##INTERACTION LVL 2
-        if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
 
-            zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[pressed_vieille],pressed_vieille,2)
             
-        elif 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
-
-            zone_dialogue(screen,"Sonner à l'interphone (A)",action,phrases_interphone[pressed_interphone],pressed_interphone,1)
-       
-        ##OBJET LVL 2
-        elif 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
-            
-            pressed_arbre = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,pressed_arbre,"un paquet de clopes!")
-            sac.Clopes = 1
-            
-        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 0 :
-
-                textsurface = myfont.render("Il y a un truc", False, (110, 110, 110))
-                textsurface2 = myfont.render("fermé à clé dans ce", False, (110, 110, 110))
-                textsurface3 = myfont.render("carton", False, (110, 110, 110))
-                screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
-                screen.blit(textsurface2,(280,420)) 
-                screen.blit(textsurface3,(280,440))  
-                
-        elif 545+screen_x < x < 610+screen_x and 20+screen_y < y < 110+screen_y and Gus.level == 2 :
-
-                textsurface = myfont.render("Beurk...", False, (110, 110, 110))
-                screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
-                
-        elif 368+screen_x < x < 513+screen_x and 0+screen_y < y < 35+screen_y and Gus.level == 2 :
-
-                textsurface = myfont.render("Il n'y a rien ", False, (110, 110, 110))
-                textsurface2 = myfont.render("d'intéressant sur", False, (110, 110, 110))
-                textsurface3 = myfont.render(" ce tableau.", False, (110, 110, 110))
-                screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
-                screen.blit(textsurface2,(280,420)) 
-                screen.blit(textsurface3,(280,440))
-        
-        elif 33+screen_x < x < 231+screen_x and 0+screen_y < y < 50+screen_y and Gus.level == 2 :
-
-                textsurface = myfont.render("Elles sont toutes ", False, (110, 110, 110))
-                textsurface2 = myfont.render("fermées à clé.", False, (110, 110, 110))
-                screen.blit(fond_text,(260,380))
-                screen.blit(textsurface,(280,400))
-                
-                screen.blit(textsurface2,(280,420))
-                
-        elif 635+screen_x < x < 792+screen_x and 320+screen_y < y < 368+screen_y and Gus.level == 2:
-
-            zone_dialogue(screen,"Fouiller ici (A)",action,phrases_papier[pressed_papier],pressed_papier,1)
-
         elif Gus.level == 2.1:
             
             if Gus.spawn == 1 and time < 2:
@@ -927,7 +924,8 @@ def nivo2(sac,action,Gus):
                 Gus.level = 2.2
                 Gus.spawn = 1
                 time = 0
-                
+
+            
         elif Gus.level == 2.2:
             
             if Gus.spawn == 1 and time < 2:
@@ -968,11 +966,14 @@ def nivo2(sac,action,Gus):
                 if abs (rect_concierge.bottom - rect_gugus.top) <= 10:
                     y_change = 0
                     rel_y = 0
+                    interact = True                    
             if rect_gugus.colliderect(rect_concierge) and y_change > 0:
                 if abs (rect_concierge.top - rect_gugus.bottom) <= 10:
                     y_change = 0
                     rel_y = 0  
-                    
+            if not rect_gugus.colliderect(rect_concierge):
+                interact = False       
+                
             screen_x += rel_x
             screen_y += rel_y
         
@@ -1124,6 +1125,104 @@ def nivo2(sac,action,Gus):
                 Gus.spawn = 3
                 time = 0             
          
+        if press_poub >= 0:
+            argent_poub = 0.1 
+        
+        ##INTERACTION LVL 2
+        if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[pressed_vieille],pressed_vieille,2)
+            
+        elif 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Sonner à l'interphone (A)",action,phrases_interphone[pressed_interphone],pressed_interphone,1)
+       
+        ##OBJET LVL 2
+        elif 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
+            
+            pressed_arbre = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,pressed_arbre,"un paquet de clopes!")
+            clopesEst = 1
+            
+        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 0 :
+
+                textsurface = myfont.render("Il y a un truc", False, (110, 110, 110))
+                textsurface2 = myfont.render("fermé à clé dans ce", False, (110, 110, 110))
+                textsurface3 = myfont.render("carton", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface3,(280,440))  
+                
+        elif 545+screen_x < x < 610+screen_x and 20+screen_y < y < 110+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Beurk...", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                
+        elif 368+screen_x < x < 513+screen_x and 0+screen_y < y < 35+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Il n'y a rien ", False, (110, 110, 110))
+                textsurface2 = myfont.render("d'intéressant sur", False, (110, 110, 110))
+                textsurface3 = myfont.render(" ce tableau.", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                screen.blit(textsurface2,(280,420)) 
+                screen.blit(textsurface3,(280,440))
+        
+        elif 33+screen_x < x < 231+screen_x and 0+screen_y < y < 50+screen_y and Gus.level == 2 :
+
+                textsurface = myfont.render("Elles sont toutes ", False, (110, 110, 110))
+                textsurface2 = myfont.render("fermées à clé.", False, (110, 110, 110))
+                screen.blit(fond_text,(260,380))
+                screen.blit(textsurface,(280,400))
+                
+                screen.blit(textsurface2,(280,420))
+                
+        elif 635+screen_x < x < 792+screen_x and 320+screen_y < y < 368+screen_y and Gus.level == 2:
+
+            zone_dialogue(screen,"Fouiller ici (A)",action,phrases_papier[pressed_papier],pressed_papier,1)
+        
+        #### LVL 2.1
+        ##INTERACTIONS
+        elif 777+screen_x < x < 870+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1:
+            zone_dialogue(screen,"Fouiller les affaires (A)",action,phrases_stuff[pressed_stuff],pressed_stuff,2)
+        elif 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1:
+            zone_dialogue(screen,"Parler avec le toxico (A)",action,phrases_toxo[pressed_tox],pressed_tox,2)
+                        
+        ##ITEMS
+        elif 780+screen_x < x < 830+screen_x and 530+screen_y < y < 560+screen_y and Gus.level == 2.1:
+            pressed_seringue = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,pressed_seringue,"un seringue!")
+            sac.Seringue = 1
+            
+        elif 70+screen_x < x < 110+screen_x and 0+screen_y < y < 32+screen_y and Gus.level == 2.1:        
+            pressed_ball = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,pressed_ball,"un ballon!")
+            sac.Ballon = 1
+            
+        elif 395+screen_x < x < 450+screen_x and 540+screen_y < y < 590+screen_y and Gus.level == 2.1 :
+
+            textsurface = myfont.render("Beurk...", False, (110, 110, 110))
+            screen.blit(fond_text,(x,y-80))
+            screen.blit(textsurface,(x+20,y-60))
+            
+        elif 750+screen_x < x < 840+screen_x and 630+screen_y < y < 707+screen_y and Gus.level == 2.1 :
+
+            textsurface = myfont.render("Beurk...", False, (110, 110, 110))
+            screen.blit(fond_text,(x,y-80))
+            screen.blit(textsurface,(x+20,y-60))
+            
+        ###LVL 2.2
+        ##INTERACTIONS
+        elif interact == True and Gus.level == 2.2:
+            zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[pressed_con],pressed_con,2)
+              
+        
+        ##ITEMS
+        elif 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
+            press_poub = zone_interaction(screen,"Fouiller les poubelles (A)",action,press_poub,"10 centimes!")
+        elif 0+screen_x < x < 45+screen_x and 0+screen_y < y < 45+screen_y and Gus.level == 2.2 and clopesNord == 1:
+            press_coin = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,press_coin,"des capotes!")
+            clopesNord = 1
+            
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0
             x -= rel_x

@@ -120,6 +120,7 @@ class sac_a_dos():
         self.Portefeuille = 0
         self.Huile_rateau = 0
         self.Photos = 0
+        self.Seringue = 0
 
     def iter_objects(self):
         return (self.__dict__)                    
