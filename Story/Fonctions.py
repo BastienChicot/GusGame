@@ -277,7 +277,7 @@ def affich_sac(screen,sac):
             j += 150
             i = 220
 
-def pause(screen,gameExit,Gus,sac):
+def pause(screen,gameExit,Gus,sac,tr):
     keys=pygame.key.get_pressed()
     
     screen.blit(poze, (50 , 150))
@@ -286,10 +286,14 @@ def pause(screen,gameExit,Gus,sac):
         other_s.play()
         gus_save = Gus.iter_objects()
         sac_save = sac.iter_objects()
+        trigger_save = tr.iter_objects()
         with open('Story/saves/Gus.pkl', 'wb') as f:
             pickle.dump(gus_save, f, pickle.HIGHEST_PROTOCOL)
         with open('Story/saves/Sac.pkl', 'wb') as fi:
             pickle.dump(sac_save, fi, pickle.HIGHEST_PROTOCOL)       
+        with open('Story/saves/Trigger.pkl', 'wb') as tr:
+            pickle.dump(trigger_save, tr, pickle.HIGHEST_PROTOCOL)
+            
         pygame.font.init()
  
         myfont = pygame.font.SysFont('corbel', 25, bold=True)
@@ -301,7 +305,7 @@ def pause(screen,gameExit,Gus,sac):
         other_s.play()
         pygame.quit()
 
-def load(Gus,sac):
+def load(Gus,sac,tr):
     with open('Story/saves/Gus.pkl', 'rb') as f:
         gus_load = pickle.load(f)
     for key,value in gus_load.items():
@@ -312,7 +316,12 @@ def load(Gus,sac):
     for key,value in sac_load.items():
         setattr(sac,key,value)
         
-    return(Gus,sac)
+    with open('Story/saves/Trigger.pkl', 'rb') as trig:
+        trigger_load = pickle.load(trig)    
+    for key,value in trigger_load.items():
+        setattr(tr,key,value)
+        
+    return(Gus,sac,tr)
 
 def game_over(screen):
     screen.fill(black)

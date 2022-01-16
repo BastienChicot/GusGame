@@ -9,6 +9,7 @@ import pandas as pd
 
 from Story.Fonctions import *
 from Story.histoire import *
+from Story.trigger import *
 from Level.Levels import *
 from settings import *
 
@@ -19,12 +20,13 @@ pygame.font.init()
 Gus = Gus()
 sac = sac_a_dos()
 action=action_key()
+tr = trigger()
 
 def launch(Gus):
     if Gus.level == 1:
-        nivo1(sac,action,Gus)
+        nivo1(sac,action,Gus,tr)
     if Gus.level >= 2 and Gus.level < 3:
-        nivo2(sac,action,Gus)  
+        nivo2(sac,action,Gus,tr)  
         
 gameExit = False
 
@@ -57,7 +59,7 @@ while not gameExit:
         launch(Gus)
     if keys[pygame.K_l]:
         enter_s.play()
-        Gus,sac=load(Gus,sac)
+        Gus,sac,tr=load(Gus,sac,tr)
         launch(Gus)
     if keys[pygame.K_q]:
         other_s.play()
