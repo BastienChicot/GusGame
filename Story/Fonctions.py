@@ -122,6 +122,14 @@ class sac_a_dos():
         self.Photos = 0
         self.Seringue = 0
 
+    def update_items(self,tr):
+        self.Clopes = tr.clopesEst + tr.clopesNord + tr.clopes_nn
+        self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree
+        self.Seringue = tr.seringue_NE + tr.seringue_NO
+        self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere
+        self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
+        tr.torchon_entre + tr.torchon_mom)
+        
     def iter_objects(self):
         return (self.__dict__)                    
 
@@ -145,6 +153,10 @@ class Gus():
         self.pause = 0
         self.frame = 0
         self.spawn = 1
+        
+    def update_items(self,tr):
+        self.money = tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch
+        
     def iter_objects(self):
         return (self.__dict__)  
     

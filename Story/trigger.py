@@ -63,5 +63,33 @@ class trigger():
         self.nord2 = -1
         self.nord3 = -1
         
+        
+        
+        ###Items collectables
+        self.torchon_salon = 0
+        self.torchonsdb1 = 0
+        self.torchoncoul = 0
+        self.torchonch = 0
+        self.torchon_entre = 0
+        self.torchon_mom = 0
+        
+        self.biere=0
+        self.bouteille_alc = 0
+        self.tune_buro = 0
+        self.tune_entre = 0
+        self.tune_ch = 0
+        
+        self.capote_buro = 0
+        self.capote_entree = 0
+
+        self.clopesEst = 0
+        self.clopesNord = 0
+        self.argent_poub = 0
+        self.seringue_NE = 0
+        self.seringue_NO = 0
+        self.bouteille_NO = 0
+        self.capote_nn = 0
+        self.clopes_nn = 0
+        
     def iter_objects(self):
         return (self.__dict__) 

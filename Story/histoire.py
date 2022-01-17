@@ -51,23 +51,8 @@ def nivo1(sac,action,Gus,tr):
     
     #INTERACTIONS
     
-    #OBJETS NIVEAU
-    torchon_salon = 0
-    torchonsdb1 = 0
-    torchoncoul = 0
-    torchonch = 0
-    torchon_entre = 0
-    torchon_mom = 0
-    
+    #OBJETS NIVEAU    
     cles_buro=0
-    biere=0
-    bouteille_alc = 0
-    tune_buro = 0
-    tune_entre = 0
-    tune_ch = 0
-    
-    capote_buro = 0
-    capote_entree = 0
         
     gameExit = False
     
@@ -83,11 +68,9 @@ def nivo1(sac,action,Gus,tr):
         elif frame_count > 15:
             a=1
             
-        sac.Capote = capote_buro + capote_entree
-        sac.Alcool = biere + bouteille_alc
-        sac.Torchon = torchon_salon+torchonsdb1+torchoncoul+torchonch+torchon_entre+torchon_mom
-        Gus.money = round(tune_buro + tune_entre + tune_ch,2)
-        
+        Gus.update_items(tr)
+        sac.update_items(tr)        
+
         if tr.open_buro == False and tr.porte_entre == False :
             liste_mur = level_1(screen,screen_x,screen_y)
         if tr.open_buro == True and tr.porte_entre == False :
@@ -149,10 +132,10 @@ def nivo1(sac,action,Gus,tr):
                         tr.pressed_mom = 2
                         tr.pressed_dad = -1
                         tr.mom_sleep = True
-                    if 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and biere == 0:
+                    if 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and tr.biere == 0:
                         tr.pressed_dad += 1
                         tr.service = False
-                    if 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and biere == 1 and tr.pressed_mom>=1 and tr.dad_sleep == False:
+                    if 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and tr.biere == 1 and tr.pressed_mom>=1 and tr.dad_sleep == False:
                         tr.pressed_dad += 1
                         tr.service = True
                     if 170+screen_x < x < 210+screen_x and 378+screen_y < y < 440+screen_y and tr.papa_fouillab == True :
@@ -295,33 +278,33 @@ def nivo1(sac,action,Gus,tr):
             y -= rel_y
              
         if tr.pressed_salon >= 0:
-            torchon_salon = 1
+            tr.torchon_salon = 1
         if tr.pressed_ch >= 0:
-            torchonch = 1
+            tr.torchonch = 1
         if tr.pressed_couloir >= 0:
-            torchoncoul = 1
+            tr.torchoncoul = 1
         if tr.pressed_sdb1 >= 0:
-            torchonsdb1 = 1
+            tr.torchonsdb1 = 1
         if tr.pressed_entre >= 0:
-            torchon_entre = 1
+            tr.torchon_entre = 1
         if tr.pressed_arm_mom >= 0:
-            torchon_mom = 1
+            tr.torchon_mom = 1
         if tr.pressed_tune_buro >= 0:
-            tune_buro = 0.1  
+            tr.tune_buro = 0.1  
         if tr.pressed_tune_entre >= 0:
-            tune_entre = 0.05
+            tr.tune_entre = 0.05
         if tr.pressed_tune_ch >= 0:
-            tune_ch = 0.2
+            tr.tune_ch = 0.2
         if tr.pressed_buro >= 0:
-            capote_buro = 1        
+            tr.capote_buro = 1        
         if tr.pressed_sortie >= 0:
-            capote_entree = 1
+            tr.capote_entree = 1
             
         if tr.pressed_frigo == 0 :
-            biere = 1
+            tr.biere = 1
         
         if tr.pressed_sdb2 == 0:
-            bouteille_alc = 1
+            tr.bouteille_alc = 1
             
         ##DIALOGUESs
         if 0+screen_x < x < 75+screen_x and 0+screen_y < y < 100+screen_y :
@@ -352,7 +335,7 @@ def nivo1(sac,action,Gus,tr):
             tr.fouille = zone_interaction(screen,"Fouiller papa (A)",action,tr.fouille,"la clé de la maison!")
             sac.Cle_maison = 1  
             tr.mom_sleep == True  
-            biere = 0                                                                                     
+            tr.biere = 0                                                                                     
             
         ##OBJETS
         elif 0+screen_x < x < 50+screen_x and 460+screen_y < y < 586+screen_y :
@@ -505,7 +488,7 @@ def nivo1(sac,action,Gus,tr):
                 cles_buro = 1
             if tr.pressed_sdb1 <= 0 and tr.open_buro == True:
                 tr.pressed_sdb1 = zone_interaction(screen,"Fouiller le linge (A)",action,tr.pressed_sdb1,"une serviette")
-                torchonsdb1 = 1    
+                tr.torchonsdb1 = 1    
                 
         elif 185+screen_x < x < 225+screen_x and 200+screen_y < y < 300+screen_y :
             
@@ -588,7 +571,7 @@ def nivo1(sac,action,Gus,tr):
         screen.blit(gugus, rect_gugus)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
-        argent = Gus_font.render("Argent : " + str(Gus.money), False, (31, 160, 85))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
         lvl = Gus_font.render("Niveau : " + str(Gus.level), False, (78, 22, 9))
 
     
@@ -673,14 +656,6 @@ def nivo2(sac,action,Gus,tr):
     ##LVL 2 NORD OUEST
     phrases_vois=[["J'ai pas le temps","de discuter avec toi","Gus."]]
     #ITEMS
-    clopesEst = 0
-    clopesNord = 0
-    argent_poub = 0
-    seringue_NE = 0
-    seringue_NO = 0
-    bouteille_NO = 0
-    capote_nn = 0
-    clopes_nn = 0
     
     gameExit = False
     
@@ -697,12 +672,8 @@ def nivo2(sac,action,Gus,tr):
             a=1
             
         rect_gugus = gugus.get_rect() 
-        
-        Gus.money = round(tune + argent_poub,2)
-        sac.Clopes = round(clopesEst + clopesNord + clopes_nn, 0)
-        sac.Seringue = round(seringue_NE + seringue_NO,0)
-        sac.Alcool=round(alcool+bouteille_NO,0)
-        sac.Capote = round(preservatif + capote_nn, 0)
+        Gus.update_items(tr)
+        sac.update_items(tr)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -1153,7 +1124,7 @@ def nivo2(sac,action,Gus,tr):
                 time = 0             
          
         if tr.press_poub >= 0:
-            argent_poub = 0.1 
+            tr.argent_poub = 0.1 
         
         ##INTERACTION LVL 2
         if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2:
@@ -1168,7 +1139,7 @@ def nivo2(sac,action,Gus,tr):
         elif 638+screen_x < x < 700+screen_x and 500+screen_y < y < 520+screen_y and Gus.level == 2:
             
             tr.pressed_arbre = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.pressed_arbre,"un paquet de clopes!")
-            clopesEst = 1
+            tr.clopesEst = 1
             
         elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 0 :
 
@@ -1219,7 +1190,7 @@ def nivo2(sac,action,Gus,tr):
         ##ITEMS
         elif 780+screen_x < x < 830+screen_x and 530+screen_y < y < 560+screen_y and Gus.level == 2.1:
             tr.pressed_seringue = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.pressed_seringue,"un seringue!")
-            seringue_NE = 1
+            tr.seringue_NE = 1
             
         elif 70+screen_x < x < 110+screen_x and 0+screen_y < y < 32+screen_y and Gus.level == 2.1:        
             tr.pressed_ball = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.pressed_ball,"un ballon!")
@@ -1245,9 +1216,9 @@ def nivo2(sac,action,Gus,tr):
         ##ITEMS
         elif 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
             tr.press_poub = zone_interaction(screen,"Fouiller les poubelles (A)",action,tr.press_poub,"10 centimes!")
-        elif 0+screen_x < x < 45+screen_x and 0+screen_y < y < 45+screen_y and Gus.level == 2.2 and clopesNord == 1:
+        elif 0+screen_x < x < 45+screen_x and 0+screen_y < y < 45+screen_y and Gus.level == 2.2 :
             tr.press_coin = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.press_coin,"des capotes!")
-            clopesNord = 1
+            tr.clopesNord = 1
             
         ###LVL 2.3
         ##INTERACTIONS
@@ -1262,10 +1233,10 @@ def nivo2(sac,action,Gus,tr):
         ##ITEMS
         elif 525+screen_x < x < 575+screen_x and 400+screen_y < y < 445+screen_y and Gus.level == 2.3:
             tr.press_poub2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_poub2,"une seringue!")
-            seringue_NO = 1
+            tr.seringue_NO = 1
         elif 0+screen_x < x < 58+screen_x and 140+screen_y < y < 190+screen_y and Gus.level == 2.3:            
             tr.press_car = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.press_car,"un fond d'alcool!")
-            bouteille_NO = 1
+            tr.bouteille_NO = 1
             
             
         ###LVL 2.5
@@ -1277,7 +1248,7 @@ def nivo2(sac,action,Gus,tr):
             tr.nord2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.nord2,"que de la merde!")
         elif 540+screen_x < x < 620+screen_x and 510+screen_y < y < 540+screen_y and Gus.level == 2.5:
             tr.nord3 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.nord3,"quelques clopes!")
-            clopes_nn = 1  
+            tr.clopes_nn = 1  
 ###############################################################################################
             
         if screen_x >= 0 and rel_x > 0:
@@ -1312,7 +1283,7 @@ def nivo2(sac,action,Gus,tr):
         screen.blit(gugus, rect_gugus)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
-        argent = Gus_font.render("Argent : " + str(Gus.money), False, (31, 160, 85))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
         lvl = Gus_font.render("Niveau : " + str(int(Gus.level)), False, (78, 22, 9))
     
         screen.blit(pv , (10,20))
