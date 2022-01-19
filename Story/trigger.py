@@ -8,7 +8,8 @@ Created on Sun Jan 16 11:32:39 2022
 class trigger():
     def __init__(self):
         super().__init__()
-    
+        self.game_over = False
+        
         ###NIVO 1
         self.pressed_salon = -1
         self.pressed_mom = -1
@@ -56,6 +57,7 @@ class trigger():
         self.pressed_ball = -1
         
         self.pressed_con = -1
+        self.ask_con = False
         self.press_poub = -1
         self.press_coin = -1
         
@@ -64,6 +66,7 @@ class trigger():
         self.press_car = -1 
         
         self.press_dealer = -1
+        self.ask_deal = False
         self.press_pnj_bus = -1
         self.horaire_bus = -1
         self.press_conduct = -1
@@ -77,6 +80,12 @@ class trigger():
         
         
         self.give_money = 0
+        
+        self.argent_vieille = 0
+        self.argent_tox = 0
+        self.argent_vois = 0
+        self.argent_cond = 0
+        self.argent_voisine = 0
         ###Items collectables
         self.torchon_salon = 0
         self.torchonsdb1 = 0
@@ -103,8 +112,12 @@ class trigger():
         self.capote_nn = 0
         self.clopes_nn = 0
         
+        self.collect_bonbon = False
+        
     def update_items(self):
          self.give_money = self.pnj_bus
+         self.drug_money = (self.argent_vieille + self.argent_tox + 
+                            self.argent_vois + self.argent_cond + self.argent_voisine)
         
     def iter_objects(self):
         return (self.__dict__) 

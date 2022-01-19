@@ -110,7 +110,7 @@ class sac_a_dos():
         self.Briquet = 0
         self.Capote = 0 
         #Nivo2
-        self.Sucre_Glace = 0 
+        self.Bonbons_bizarres = 0 
         self.Clopes = 0
         self.Ballon = 0
         self.Teuteu = 0
@@ -156,7 +156,7 @@ class Gus():
         
     def update_items(self,tr):
         self.money = (tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
-                      tr.give_money)
+                      tr.give_money + tr.drug_money)
         
     def iter_objects(self):
         return (self.__dict__)  

@@ -650,14 +650,17 @@ def nivo2(sac,action,Gus,tr):
     ##LVL 2 NORD
     #INTERACTIONS
     phrases_con = [["J'en ai mmarre de ce","quartier. Entre les ","dealers et les camés...",
-                    "J'espère qu'ils finiront","tous au trou!"]]
+                    "J'espère qu'ils finiront","tous au trou!"],["Qu'est-ce que tu",
+                                                                 "fais avec ça Gus?"],
+                                                                 ["finito"]]
     
     ##LVL 2 NORD OUEST
     phrases_vois=[["J'ai pas le temps","de discuter avec toi","Gus."]]
     #ITEMS
     
     ##LVL 2 OUEST
-    phrases_deal=[["Ah Gus!! Tu diras","à ton père qu'il","me doit encore de","l'argent."]]
+    phrases_deal=[["Ah Gus!! Tu diras","à ton père qu'il","me doit encore de","l'argent."],
+                  ["J'ai pas besoin de","ça Gus! ","Reviens me voir quand","tu auras tout vendu."]]
     phrases_pnj_bus=[["Il me manque juste","20 centimes pour","prendre le bus.","",
                       "Donner 20 cts : ENTER"],
                      ["Tiens, j'ai trouvé ces","clés. Je ne sais pas à","qui elles sont."]]
@@ -752,8 +755,10 @@ def nivo2(sac,action,Gus,tr):
                         
                     ###NORD
                     ##INTERACTIONS
-                    if interact and Gus.level == 2.2:
+                    if interact and Gus.level == 2.2 and tr.ask_con == False:
                         tr.pressed_con = 0
+                    if interact and Gus.level == 2.2 and tr.ask_con == True:
+                        tr.pressed_con = 1
                     ##ITEMS
                     if 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
                         tr.press_poub += 1
@@ -769,8 +774,10 @@ def nivo2(sac,action,Gus,tr):
                         tr.press_car+= 1   
                         
                     ###OUEST
-                    if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4:
+                    if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and tr.ask_deal == False:
                         tr.press_dealer = 0
+                    if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and tr.ask_deal == True:
+                        tr.press_dealer = 1
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Clef == 0:
                         tr.press_pnj_bus = 0
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Clef == 1:
@@ -797,6 +804,29 @@ def nivo2(sac,action,Gus,tr):
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and tr.press_pnj_bus == 0:
                         tr.pnj_bus = -0.2  
                         sac.Clef = 1
+                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Bonbons_bizarres > 0:
+                        tr.argent_vieille = 0.2
+                        sac.Bonbons_bizarres -= 5
+                    if 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1 and sac.Bonbons_bizarres > 0:
+                        tr.argent_tox = 0.2
+                        sac.Bonbons_bizarres -= 5
+                    if interact == True and Gus.level == 2.2 and tr.ask_con == False:
+                        tr.ask_con = True
+                        tr.pressed_con = 1
+                        zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[tr.pressed_con],tr.pressed_con,2)
+                    if interact == True and Gus.level == 2.2 and tr.ask_con == True:
+                        tr.pressed_con = 2
+                    if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
+                        tr.ask_deal = True
+                    if interact == True and Gus.level == 2.3 and sac.Bonbons_bizarres > 0:
+                        tr.argent_voisine = 0.2
+                        sac.Bonbons_bizarres -= 5     
+                    if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
+                        tr.argent_vois = 0.2
+                        sac.Bonbons_bizarres -= 5                         
+                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
+                        tr.argent_cond = 0.2 
+                        sac.Bonbons_bizarres -= 5
                         
                 elif event.key != pygame.K_RETURN:
                 
@@ -838,6 +868,11 @@ def nivo2(sac,action,Gus,tr):
             gugus=gugus_walkleft[a]
             
         rect_gugus.topleft = (x,y)
+        
+        if tr.press_cave >= 1:
+            tr.collect_bonbon = True
+        if tr.pressed_con == 2 and tr.ask_con == True:
+            tr.game_over = True
                 
         if Gus.level == 2:
     
@@ -1163,6 +1198,12 @@ def nivo2(sac,action,Gus,tr):
 
             zone_dialogue(screen,"Parler à la vieille (A)",action,phrases_vieille[tr.pressed_vieille],tr.pressed_vieille,2)
             
+            if sac.Bonbons_bizarres > 0 and tr.argent_vieille == 0:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))  
+            
         elif 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2:
 
             zone_dialogue(screen,"Sonner à l'interphone (A)",action,phrases_interphone[tr.pressed_interphone],tr.pressed_interphone,1)
@@ -1183,9 +1224,11 @@ def nivo2(sac,action,Gus,tr):
                 screen.blit(textsurface2,(280,420)) 
                 screen.blit(textsurface3,(280,440))  
         
-        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 1 :
-            tr.press_cave = zone_interaction(screen,"Ouvrir le coffre (A)",action,tr.press_cave,"plein de sucre bizarre...")
-            sac.Sucre_Glace = 20
+        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 1 and tr.collect_bonbon == False:
+            tr.press_cave = zone_interaction(screen,"Ouvrir le coffre (A)",action,tr.press_cave,"plein de bonbons...")
+            sac.Bonbons_bizarres = 20
+        elif 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 1 and tr.collect_bonbon == True:
+            tr.press_cave = zone_interaction(screen,"Ouvrir le coffre (A)",action,tr.press_cave,"plein de bonbons...")
                 
         elif 545+screen_x < x < 610+screen_x and 20+screen_y < y < 110+screen_y and Gus.level == 2 :
 
@@ -1222,6 +1265,12 @@ def nivo2(sac,action,Gus,tr):
             zone_dialogue(screen,"Fouiller les affaires (A)",action,phrases_stuff[tr.pressed_stuff],tr.pressed_stuff,2)
         elif 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1:
             zone_dialogue(screen,"Parler avec le toxico (A)",action,phrases_toxo[tr.pressed_tox],tr.pressed_tox,2)
+            
+            if sac.Bonbons_bizarres > 0 and tr.argent_tox == 0:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-120,y-60))
+                screen.blit(textsurface2,(x-25,y-40)) 
                         
         ##ITEMS
         elif 780+screen_x < x < 830+screen_x and 530+screen_y < y < 560+screen_y and Gus.level == 2.1:
@@ -1248,7 +1297,17 @@ def nivo2(sac,action,Gus,tr):
         ##INTERACTIONS
         elif interact == True and Gus.level == 2.2:
             zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[tr.pressed_con],tr.pressed_con,2)
-        
+            
+            if sac.Bonbons_bizarres > 0 and tr.ask_con == False:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+            elif sac.Bonbons_bizarres > 0 and tr.ask_con == True:
+                textsurface = myfont.render("Vendre quand même", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))         
         ##ITEMS
         elif 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
             tr.press_poub = zone_interaction(screen,"Fouiller les poubelles (A)",action,tr.press_poub,"10 centimes!")
@@ -1260,6 +1319,13 @@ def nivo2(sac,action,Gus,tr):
         ##INTERACTIONS
         elif interact == True and Gus.level == 2.3:
             zone_dialogue(screen,"Parler à la voisine (A)",action,phrases_vois[tr.press_vois],tr.press_vois,2)
+            
+            if sac.Bonbons_bizarres > 0 and tr.argent_voisine == 0:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         elif 162+screen_x < x < 262+screen_x and 50+screen_y < y < 161+screen_y and Gus.level == 2.3 :
                 textsurface = myfont.render("C'est la voiture de", False, (110, 110, 110))
                 textsurface2 = myfont.render("papa.", False, (110, 110, 110))
@@ -1278,8 +1344,22 @@ def nivo2(sac,action,Gus,tr):
         ##INTERACTIONS
         elif 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4:
             zone_dialogue(screen,"Parler au dealer (A)",action,phrases_deal[tr.press_dealer],tr.press_dealer,2)
+            
+            if sac.Bonbons_bizarres > 0 and tr.ask_deal == False:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         elif 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4:
             zone_dialogue(screen,"Parler au voisin (A)",action,phrases_pnj_bus[tr.press_pnj_bus],tr.press_pnj_bus,2)
+            
+            if sac.Bonbons_bizarres > 0 and tr.argent_vois == 0:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         elif 370+screen_x < x < 390+screen_x and 475+screen_y < y < 510+screen_y and Gus.level == 2.4:
                 textsurface = myfont.render("Ce sont les  ", False, (110, 110, 110))
                 textsurface2 = myfont.render("horaires du bus..", False, (110, 110, 110))
@@ -1287,7 +1367,13 @@ def nivo2(sac,action,Gus,tr):
                 screen.blit(textsurface,(280,400))
                 screen.blit(textsurface2,(280,420))
         elif 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4:
-            zone_dialogue(screen,"Parler au conducteur (A)",action,phrases_conducteur[tr.press_conduct],tr.press_conduct,2)    
+            zone_dialogue(screen,"Parler au conducteur (A)",action,phrases_conducteur[tr.press_conduct],tr.press_conduct,2) 
+            
+            if sac.Bonbons_bizarres > 0 and tr.argent_cond == 0:
+                textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
                         
         ###LVL 2.5
         ##ITEMS
@@ -1346,7 +1432,7 @@ def nivo2(sac,action,Gus,tr):
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
             pause(screen,gameExit,Gus,sac,tr)
-        if Gus.pv == 0:
+        if Gus.pv == 0 or tr.game_over == True:
             game_over(screen)
 
         pygame.display.update()
