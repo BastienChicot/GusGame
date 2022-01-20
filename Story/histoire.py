@@ -197,12 +197,16 @@ def nivo1(sac,action,Gus,tr):
                     if 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y and sac.Torchon >= 5:
                         Gus.level = 2  
                         Gus.spawn = 1
+                        sac.Torchon = 0
                         time = 0
+                        sac.soupe_froide = 0
                     elif 560+screen_x < x < 650+screen_x and 0+screen_y < y < 30+screen_y and sac.Torchon == 4:
                         Gus.level = 2.2
                         Gus.spawn = 4
                         Gus.pv -= 20
+                        sac.Torchon -= 4
                         time = 0
+                        sac.soupe_froide = 0
                 elif event.key != pygame.K_RETURN:
                 
                     action.change_level = False
@@ -563,7 +567,7 @@ def nivo1(sac,action,Gus,tr):
         elif 862+screen_x < x < 1000+screen_x and 440+screen_y < y < 480+screen_y :
             Gus.level = 2
             Gus.spawn = 1
-
+            sac.soupe_froide = 0
         else:
             action.click = False
         
@@ -649,7 +653,7 @@ def nivo2(sac,action,Gus,tr):
     
     ##LVL 2 NORD
     #INTERACTIONS
-    phrases_con = [["J'en ai mmarre de ce","quartier. Entre les ","dealers et les camés...",
+    phrases_con = [["J'en ai marre de ce","quartier. Entre les ","dealers et les camés...",
                     "J'espère qu'ils finiront","tous au trou!"],["Qu'est-ce que tu",
                                                                  "fais avec ça Gus?"],
                                                                  ["finito"]]
@@ -740,6 +744,7 @@ def nivo2(sac,action,Gus,tr):
                         tr.pressed_papier = 0
                     if 680+screen_x < x < 712+screen_x and 88+screen_y < y < 140+screen_y and Gus.level == 2 and sac.Clef == 1 :
                         tr.press_cave += 1
+                        tr.collect_bonbon = True
 
                     ###NORD EST
                     ##INTERACTIONS
@@ -755,9 +760,9 @@ def nivo2(sac,action,Gus,tr):
                         
                     ###NORD
                     ##INTERACTIONS
-                    if interact and Gus.level == 2.2 and tr.ask_con == False:
+                    if interact and Gus.level == 2.2 and sac.Bonbons_bizarres == 0:
                         tr.pressed_con = 0
-                    if interact and Gus.level == 2.2 and tr.ask_con == True:
+                    if interact and Gus.level == 2.2 and sac.Bonbons_bizarres > 0:
                         tr.pressed_con = 1
                     ##ITEMS
                     if 79+screen_x < x < 160+screen_x and 438+screen_y < y < 467+screen_y and Gus.level == 2.2:
@@ -804,27 +809,26 @@ def nivo2(sac,action,Gus,tr):
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and tr.press_pnj_bus == 0:
                         tr.pnj_bus = -0.2  
                         sac.Clef = 1
-                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Bonbons_bizarres > 0:
+                    if 325+screen_x < x < 360+screen_x and 315+screen_y < y < 355+screen_y and Gus.level == 2 and sac.Bonbons_bizarres > 0 and tr.argent_vieille == 0:
                         tr.argent_vieille = 0.2
                         sac.Bonbons_bizarres -= 5
-                    if 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1 and sac.Bonbons_bizarres > 0:
+                    if 894+screen_x < x < 940+screen_x and 20+screen_y < y < 70+screen_y and Gus.level == 2.1 and sac.Bonbons_bizarres > 0 and tr.argent_tox == 0:
                         tr.argent_tox = 0.2
                         sac.Bonbons_bizarres -= 5
-                    if interact == True and Gus.level == 2.2 and tr.ask_con == False:
+                    if interact == True and Gus.level == 2.2 and sac.Bonbons_bizarres != 0:
+                        zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[0],0,2)
+                    if interact == True and Gus.level == 2.2 and tr.pressed_con == 1:
                         tr.ask_con = True
-                        tr.pressed_con = 1
-                        zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[tr.pressed_con],tr.pressed_con,2)
-                    if interact == True and Gus.level == 2.2 and tr.ask_con == True:
                         tr.pressed_con = 2
                     if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
                         tr.ask_deal = True
-                    if interact == True and Gus.level == 2.3 and sac.Bonbons_bizarres > 0:
+                    if interact == True and Gus.level == 2.3 and sac.Bonbons_bizarres > 0 and tr.argent_voisine == 0:
                         tr.argent_voisine = 0.2
                         sac.Bonbons_bizarres -= 5     
-                    if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
+                    if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0 and tr.argent_vois == 0:
                         tr.argent_vois = 0.2
                         sac.Bonbons_bizarres -= 5                         
-                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0:
+                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0 and tr.argent_cond == 0:
                         tr.argent_cond = 0.2 
                         sac.Bonbons_bizarres -= 5
                         
@@ -869,9 +873,7 @@ def nivo2(sac,action,Gus,tr):
             
         rect_gugus.topleft = (x,y)
         
-        if tr.press_cave >= 1:
-            tr.collect_bonbon = True
-        if tr.pressed_con == 2 and tr.ask_con == True:
+        if tr.pressed_con == 2:
             tr.game_over = True
                 
         if Gus.level == 2:
@@ -1298,12 +1300,12 @@ def nivo2(sac,action,Gus,tr):
         elif interact == True and Gus.level == 2.2:
             zone_dialogue(screen,"Parler au concierge (A)",action,phrases_con[tr.pressed_con],tr.pressed_con,2)
             
-            if sac.Bonbons_bizarres > 0 and tr.ask_con == False:
+            if sac.Bonbons_bizarres > 0 and tr.pressed_con != 1:
                 textsurface = myfont.render("Proposer des bonbons", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40)) 
-            elif sac.Bonbons_bizarres > 0 and tr.ask_con == True:
+            elif sac.Bonbons_bizarres > 0 and tr.pressed_con == 1:
                 textsurface = myfont.render("Vendre quand même", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
@@ -1436,6 +1438,6 @@ def nivo2(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        
+        print(tr.collect_bonbon)
         clock.tick(100)
 
