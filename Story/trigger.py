@@ -86,6 +86,14 @@ class trigger():
         self.argent_vois = 0
         self.argent_cond = 0
         self.argent_voisine = 0
+        self.argent_teu = 0
+        self.ask_phone = False
+        
+        self.tout_vendu = False
+        self.accept_deal =False
+        self.vente_teu = False
+        self.miss_money = 0
+        self.fouille_sac = False
         ###Items collectables
         self.torchon_salon = 0
         self.torchonsdb1 = 0
