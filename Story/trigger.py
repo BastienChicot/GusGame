@@ -84,6 +84,7 @@ class trigger():
         self.argent_vieille = 0
         self.argent_tox = 0
         self.argent_vois = 0
+        self.argent_con = 0
         self.argent_cond = 0
         self.argent_voisine = 0
         self.argent_teu = 0
@@ -94,6 +95,8 @@ class trigger():
         self.vente_teu = False
         self.miss_money = 0
         self.fouille_sac = False
+        self.show_photo = False
+        self.repair_inter = False
         ###Items collectables
         self.torchon_salon = 0
         self.torchonsdb1 = 0

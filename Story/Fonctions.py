@@ -121,6 +121,7 @@ class sac_a_dos():
         self.Huile_rateau = 0
         self.Photos = 0
         self.Seringue = 0
+        self.Filtre_postillon = 0
 
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopesNord + tr.clopes_nn
@@ -156,7 +157,7 @@ class Gus():
         
     def update_items(self,tr):
         self.money = (tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
-                      tr.give_money + tr.drug_money + tr.argent_teu)
+                      tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con)
         
     def iter_objects(self):
         return (self.__dict__)  
