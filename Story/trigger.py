@@ -9,6 +9,7 @@ class trigger():
     def __init__(self):
         super().__init__()
         self.game_over = False
+        self.drug_money = 0
         
         ###NIVO 1
         self.pressed_salon = -1
@@ -127,7 +128,7 @@ class trigger():
         
     def update_items(self):
          self.give_money = self.pnj_bus
-         self.drug_money = (self.argent_vieille + self.argent_tox + 
+         self.drug_money = (0 + self.argent_vieille + self.argent_tox + 
                             self.argent_vois + self.argent_cond + self.argent_voisine)
         
     def iter_objects(self):

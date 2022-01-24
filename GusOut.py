@@ -27,6 +27,8 @@ def launch(Gus):
         nivo1(sac,action,Gus,tr)
     if Gus.level >= 2 and Gus.level < 3:
         nivo2(sac,action,Gus,tr)  
+    if Gus.level >= 3 and Gus.level < 4:
+        print("cool")  
         
 gameExit = False
 

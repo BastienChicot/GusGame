@@ -150,13 +150,13 @@ class Gus():
         self.porte_entre = False
         self.level = 1
         self.money = 0
-        self.speed = 5#♣2
+        self.speed = 2
         self.pause = 0
         self.frame = 0
         self.spawn = 1
         
     def update_items(self,tr):
-        self.money = (tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
+        self.money = (0 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
                       tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con)
         
     def iter_objects(self):
