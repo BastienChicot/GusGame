@@ -157,7 +157,7 @@ class Gus():
         
     def update_items(self,tr):
         self.money = (0 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
-                      tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con)
+                      tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con + tr.ticket_bus)
         
     def iter_objects(self):
         return (self.__dict__)  

@@ -58,6 +58,7 @@ class trigger():
         self.pressed_ball = -1
         
         self.pressed_con = -1
+        self.missions_con = False
         self.ask_con = False
         self.press_poub = -1
         self.press_coin = -1
@@ -71,6 +72,7 @@ class trigger():
         self.press_pnj_bus = -1
         self.horaire_bus = -1
         self.press_conduct = -1
+        self.ticket_bus = 0
         
         self.pnj_bus = 0
     
@@ -81,6 +83,7 @@ class trigger():
         
         
         self.give_money = 0
+        self.vire_dealer = False
         
         self.argent_vieille = 0
         self.argent_tox = 0
