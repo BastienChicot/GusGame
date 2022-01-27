@@ -47,6 +47,7 @@ class trigger():
         
         ##NIVO 2
         self.pressed_vieille = -1
+        self.apporte_clope = False
         self.pressed_interphone = -1
         self.pressed_arbre = -1
         self.pressed_papier = -1
@@ -119,7 +120,7 @@ class trigger():
         self.capote_entree = 0
 
         self.clopesEst = 0
-        self.clopesNord = 0
+        self.capoteNord = 0
         self.argent_poub = 0
         self.seringue_NE = 0
         self.seringue_NO = 0

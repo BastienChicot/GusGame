@@ -113,7 +113,7 @@ class sac_a_dos():
         self.Bonbons_bizarres = 0 
         self.Clopes = 0
         self.Ballon = 0
-        self.Teuteu = 0
+        
         self.Telephone = 0
         self.Clef = 0
         self.Horaires_bus = 0
@@ -122,10 +122,11 @@ class sac_a_dos():
         self.Photos = 0
         self.Seringue = 0
         self.Filtre_postillon = 0
+        self.Teuteu = 0
 
     def update_items(self,tr):
-        self.Clopes = tr.clopesEst + tr.clopesNord + tr.clopes_nn
-        self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree
+        self.Clopes = tr.clopesEst + tr.clopes_nn
+        self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord
         self.Seringue = tr.seringue_NE + tr.seringue_NO
         self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere
         self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
@@ -156,7 +157,7 @@ class Gus():
         self.spawn = 1
         
     def update_items(self,tr):
-        self.money = (0 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
+        self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
                       tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con + tr.ticket_bus)
         
     def iter_objects(self):
