@@ -118,16 +118,16 @@ class sac_a_dos():
         self.Clef = 0
         self.Horaires_bus = 0
         self.Portefeuille = 0
-        self.Huile_rateau = 0
         self.Photos = 0
         self.Seringue = 0
         self.Filtre_postillon = 0
         self.Teuteu = 0
-
+        self.Huile_rateau = 0
+        
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord
-        self.Seringue = tr.seringue_NE + tr.seringue_NO
+        self.Seringue = tr.seringue_NE + tr.seringue_NO + tr.seringueN + tr.seringueO
         self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere
         self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
         tr.torchon_entre + tr.torchon_mom)

@@ -63,6 +63,7 @@ class trigger():
         self.ask_con = False
         self.press_poub = -1
         self.press_coin = -1
+        self.tree_22 = -1
         
         self.press_vois = -1
         self.press_poub2 = -1
@@ -74,6 +75,7 @@ class trigger():
         self.horaire_bus = -1
         self.press_conduct = -1
         self.ticket_bus = 0
+        self.back_bus = -1
         
         self.pnj_bus = 0
     
@@ -91,7 +93,6 @@ class trigger():
         self.argent_vois = 0
         self.argent_con = 0
         self.argent_cond = 0
-        self.argent_voisine = 0
         self.argent_teu = 0
         self.ask_phone = False
         
@@ -124,6 +125,9 @@ class trigger():
         self.argent_poub = 0
         self.seringue_NE = 0
         self.seringue_NO = 0
+        self.seringueN = 0
+        self.seringueO = 0
+        
         self.bouteille_NO = 0
         self.capote_nn = 0
         self.clopes_nn = 0
@@ -133,7 +137,7 @@ class trigger():
     def update_items(self):
          self.give_money = self.pnj_bus
          self.drug_money = (0 + self.argent_vieille + self.argent_tox + 
-                            self.argent_vois + self.argent_cond + self.argent_voisine)
+                            self.argent_vois + self.argent_cond )
         
     def iter_objects(self):
         return (self.__dict__) 
