@@ -778,9 +778,9 @@ def nivo2(sac,action,Gus,tr):
                         
                     if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2 and tr.repair_inter == False:
                         tr.pressed_interphone = 0
-                    if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2 and tr.repair_inter == True and tr.show_photo == False:
+                    if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2 and tr.repair_inter == True and tr.miss_money == 0:
                         tr.pressed_interphone = 1
-                    if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2 and tr.repair_inter == True and tr.show_photo == True:
+                    if 550+screen_x < x < 600+screen_x and 510+screen_y < y < 555+screen_y and Gus.level == 2 and tr.repair_inter == True and tr.miss_money == 1:
                         tr.pressed_interphone = 2
                     #OBJETS
                     ###EST
@@ -875,7 +875,7 @@ def nivo2(sac,action,Gus,tr):
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Clef == 0:
                         tr.press_pnj_bus = 0
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Clef == 1 and sac.Bonbons_bizarres == 0 and tr.tout_vendu == False:
-                        tr.press_pnj_bus = 2
+                        tr.press_pnj_bus = 1
                     if 420+screen_x < x < 490+screen_x and 480+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Clef == 1 and (sac.Bonbons_bizarres > 0 or tr.tout_vendu == True):
                         tr.press_pnj_bus = 2
                     if 370+screen_x < x < 390+screen_x and 475+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Telephone == 1:
@@ -890,7 +890,7 @@ def nivo2(sac,action,Gus,tr):
                     ###NORD-NORD
                     if 340+screen_x < x < 400+screen_x and 410+screen_y < y < 445+screen_y and Gus.level == 2.5:
                         tr.nord1 += 1   
-                    if 400+screen_x < x < 536+screen_x and 430+screen_y < y < 450+screen_y and Gus.level == 2.5:
+                    if 400+screen_x < x < 536+screen_x and 430+screen_y < y < 450+screen_y and Gus.level == 2.5 and tr.repair_inter == False:
                         tr.nord2 += 1 
                     if 540+screen_x < x < 620+screen_x and 510+screen_y < y < 540+screen_y and Gus.level == 2.5:
                         tr.nord3 += 1
@@ -1568,7 +1568,7 @@ def nivo2(sac,action,Gus,tr):
         elif 340+screen_x < x < 400+screen_x and 410+screen_y < y < 445+screen_y and Gus.level == 2.5:
             tr.nord1 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.nord1,"un drôle de truc!")
             capote_nn = 1  
-        elif 400+screen_x < x < 536+screen_x and 430+screen_y < y < 450+screen_y and Gus.level == 2.5:
+        elif 400+screen_x < x < 536+screen_x and 430+screen_y < y < 450+screen_y and Gus.level == 2.5 and tr.repair_inter == False:
             tr.nord2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.nord2,"un truc electrique!")
             sac.Filtre_postillon = 1
         elif 540+screen_x < x < 620+screen_x and 510+screen_y < y < 540+screen_y and Gus.level == 2.5:
