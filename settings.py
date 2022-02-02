@@ -80,3 +80,8 @@ dame_right0 = pygame.image.load("bank/pnj/Dame_droite.png")
 
 dame_l = [dame_left1,dame_left2,dame_left0]
 dame_d = [dame_right1,dame_right2,dame_right0]
+
+vieille_bus = pygame.image.load("bank/pnj/vieille.png")
+fond_bus = pygame.image.load("bank/pnj/fond_bus.png")
+bouteille = pygame.image.load("bank/pnj/bouteille.png")
+valise = pygame.image.load("bank/pnj/valise.png")

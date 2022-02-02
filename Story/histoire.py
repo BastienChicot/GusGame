@@ -954,8 +954,8 @@ def nivo2(sac,action,Gus,tr):
                         sac.Bonbons_bizarres -= 5
                     if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == True and sac.Telephone == 0:
                         tr.ticket_bus = -1
-                        Gus.level = 3
-                        Gus.spawn = 2
+                        Gus.level = 999
+                        Gus.spawn = 1
                         
                     if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and tr.argent_teu == 10 and tr.argent_con == 10 and tr.missions_con == True and sac.Telephone == 0:
                         Gus.level = 3
@@ -1628,3 +1628,207 @@ def nivo2(sac,action,Gus,tr):
         
         clock.tick(100)
 
+def bonus_level(sac,action,Gus,tr):
+    pygame.init()
+    speed_move = Gus.speed
+    frame_count = Gus.frame
+    a=0
+    time = 0
+    x =  (display_width-gugus_width)/2
+    y = (display_height-gugus_height)/2  
+    rel_x = 0 
+    rel_y = 0
+    x_change = 0
+    y_change = 0
+    gugus = gugus_face
+    
+    screen_x = -225 + x
+    screen_y = -225 + y 
+    
+    interact = False
+    tune = Gus.money
+    alcool = sac.Alcool
+    preservatif = sac.Capote
+    #CREATION ET CARACTERISTIQUES PNJ
+    
+    ####LVL 2 EST
+
+    #INTERACTIONS
+
+    #OBJETS NIVEAU
+    #INTERACTIONS
+    #ITEMS    
+    
+    gameExit = False
+    
+    while not gameExit:
+                    
+        if frame_count <= 30:
+            frame_count += 1
+        else:
+            frame_count = 0
+        
+        if frame_count <= 15:
+            a=0
+        elif frame_count > 15:
+            a=1
+            
+        rect_gugus = gugus.get_rect() 
+        tr.update_items()
+        Gus.update_items(tr)
+        sac.update_items(tr)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    other_s.play()
+                    Gus.pause += 1    
+                if event.key == pygame.K_TAB:
+                    other_s.play() 
+            ############################
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:  
+                    x_change = -speed_move
+                    rel_x = speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_RIGHT:
+                    x_change = speed_move
+                    rel_x = -speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_UP:
+                    y_change = -speed_move
+                    rel_y = speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_DOWN:
+                    y_change = speed_move
+                    rel_y = -speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                if event.key == pygame.K_a and not action.click:
+                    action.click = True
+                    click_.play()
+                    #PERSONNES
+                    ###EST
+                         
+                elif event.key != pygame.K_a:
+                
+                    action.click = False
+                
+                if event.key == pygame.K_RETURN:
+                    enter_s.play()
+                            
+                elif event.key != pygame.K_RETURN:
+                
+                    action.change_level = False
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_gauche 
+                    step_s.stop()
+                if event.key == pygame.K_RIGHT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_droite 
+                    step_s.stop()
+
+                if event.key == pygame.K_UP:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_dos 
+                    step_s.stop()
+                    
+                if event.key == pygame.K_DOWN:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_face 
+                    step_s.stop()
+                    
+            ######################            
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            gugus=gugus_walkdown[a]
+        if keys[pygame.K_UP]:
+            gugus=gugus_walkup[a]
+        if keys[pygame.K_RIGHT]:
+            gugus=gugus_walkright[a]
+        if keys[pygame.K_LEFT]:
+            gugus=gugus_walkleft[a]
+            
+        rect_gugus.topleft = (x,y)
+
+        screen_x,screen_y,x,y = spawn_level(x,y,20,20)
+    
+        time += 1
+        liste_mur = level_bonus(screen,screen_x,screen_y)
+        
+        x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+
+        screen_x += rel_x
+        screen_y += rel_y
+                    
+        ##INTERACTION LVL 2
+        ##OBJET LVL 2
+            
+        if screen_x >= 0 and rel_x > 0:
+            screen_x = 0
+            x -= rel_x
+        elif screen_x <= display_width - 1000 and rel_x < 0 :
+            screen_x = display_width - 1000
+            x -= rel_x
+        if screen_y >= 0 and rel_y > 0 :
+            screen_y = 0
+            y  -= rel_y
+        elif screen_y <= display_height - 707 and rel_y < 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+            
+        if x < (display_width-gugus_width)/2 and rel_x < 0:
+            screen_x = 0
+            x -= rel_x
+        elif x > (display_width-gugus_width)/2 and rel_x > 0:
+            screen_x = display_width - 1000
+            x -= rel_x
+            
+        if y < (display_height-gugus_height)/2 and rel_y < 0:
+            screen_y = 0
+            y -= rel_y
+        elif y > (display_height-gugus_height)/2 and rel_y > 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+        
+        ##OBJETS
+
+        screen.blit(gugus, rect_gugus)
+        
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
+        lvl = Gus_font.render("Niveau : " + str(int(Gus.level)), False, (78, 22, 9))
+    
+        screen.blit(pv , (10,20))
+        screen.blit(lvl , (10,45))
+        screen.blit(argent , (10,70))
+        screen.blit(sac_tab , (10,450))
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            affich_sac(screen,sac)
+        if (Gus.pause%2) == 1:
+            pause(screen,gameExit,Gus,sac,tr)
+        if Gus.pv == 0 or tr.game_over == True:
+            game_over(screen)
+
+        pygame.display.update()
+        
+        clock.tick(100)
