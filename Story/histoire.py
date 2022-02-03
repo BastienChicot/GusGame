@@ -698,7 +698,7 @@ def nivo2(sac,action,Gus,tr):
     
     gameExit = False
     
-    while not gameExit:
+    while not gameExit and Gus.level >= 2 and Gus.level < 3:
         
         if gus_run:
             speed_move = 3
@@ -880,9 +880,9 @@ def nivo2(sac,action,Gus,tr):
                         tr.press_pnj_bus = 2
                     if 370+screen_x < x < 390+screen_x and 475+screen_y < y < 510+screen_y and Gus.level == 2.4 and sac.Telephone == 1:
                         tr.horaire_bus += 1
-                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == False:
+                    if 526+screen_x < x < 594+screen_x and 430+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == False:
                         tr.press_conduct = 0 
-                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == True:
+                    if 526+screen_x < x < 594+screen_x and 430+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == True:
                         tr.press_conduct = 1 
                     if 920+screen_x < x < 975+screen_x and 444+screen_y < y < 504+screen_y and Gus.level == 2.4:
                         tr.back_bus += 1
@@ -952,10 +952,11 @@ def nivo2(sac,action,Gus,tr):
                     if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and sac.Bonbons_bizarres > 0 and tr.argent_cond == 0:
                         tr.argent_cond = 0.2 
                         sac.Bonbons_bizarres -= 5
-                    if 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == True and sac.Telephone == 0:
+                    if 526+screen_x < x < 594+screen_x and 430+screen_y < y < 500+screen_y and Gus.level == 2.4 and tr.vire_dealer == True and sac.Telephone == 0:
                         tr.ticket_bus = -1
-                        Gus.level = 999
+                        Gus.level = 0
                         Gus.spawn = 1
+                        time = 0
                         
                     if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and tr.argent_teu == 10 and tr.argent_con == 10 and tr.missions_con == True and sac.Telephone == 0:
                         Gus.level = 3
@@ -1544,7 +1545,7 @@ def nivo2(sac,action,Gus,tr):
             tr.back_bus = zone_interaction(screen,"Regarder sour le bus (A)",action,tr.back_bus,"une seringue!")
             tr.seringueO = 1 
             
-        elif 526+screen_x < x < 594+screen_x and 450+screen_y < y < 500+screen_y and Gus.level == 2.4:
+        elif 526+screen_x < x < 594+screen_x and 430+screen_y < y < 500+screen_y and Gus.level == 2.4:
             zone_dialogue(screen,"Parler au conducteur (A)",action,phrases_conducteur[tr.press_conduct],tr.press_conduct,2) 
             
             if sac.Bonbons_bizarres > 0 and tr.argent_cond == 0:
@@ -1634,8 +1635,8 @@ def bonus_level(sac,action,Gus,tr):
     frame_count = Gus.frame
     a=0
     time = 0
-    x =  (display_width-gugus_width)/2
-    y = (display_height-gugus_height)/2  
+    x =  20
+    y = 20
     rel_x = 0 
     rel_y = 0
     x_change = 0
@@ -1649,19 +1650,33 @@ def bonus_level(sac,action,Gus,tr):
     tune = Gus.money
     alcool = sac.Alcool
     preservatif = sac.Capote
-    #CREATION ET CARACTERISTIQUES PNJ
     
-    ####LVL 2 EST
-
-    #INTERACTIONS
-
-    #OBJETS NIVEAU
-    #INTERACTIONS
-    #ITEMS    
+     #CREATION ET CARACTERISTIQUES PNJ  
+    start_ticks=pygame.time.get_ticks()
+    
+    start_x = 214
+    start_y = 389
+    start_2 = 243
+    start_3 = 253
+    start_4 = 317
+    start_5 = 155
+    start_2y = 20
+    start_3y = 159
+    start_4y = 182
+    start_5y = 192
+   
+    player = pygame.Rect(x, y, 48, 52)
+    pnj = bonhomme(start_x, start_y,vieille_bus)
+    pnj2 = bonhomme(start_2, start_2y,fond_bus)
+    pnj3 = bonhomme(start_3, start_3y,bouteille)
+    pnj4 = bonhomme(start_4, start_4y,valise)
+    pnj5 = bonhomme(start_5, start_5y,poussette)
+    
+    liste_pnj = [pnj,pnj2,pnj3,pnj4,pnj5]
     
     gameExit = False
     
-    while not gameExit:
+    while not gameExit and Gus.level == 0:
                     
         if frame_count <= 30:
             frame_count += 1
@@ -1714,15 +1729,11 @@ def bonus_level(sac,action,Gus,tr):
                     x_change = 0
                     rel_x = 0
                     step_s.play(-1)
-                if event.key == pygame.K_a and not action.click:
-                    action.click = True
-                    click_.play()
+                for elt in liste_pnj:
+                    if event.key == pygame.K_a and player.colliderect(elt):
+                        elt.in_touch = True 
                     #PERSONNES
                     ###EST
-                         
-                elif event.key != pygame.K_a:
-                
-                    action.click = False
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
@@ -1755,6 +1766,10 @@ def bonus_level(sac,action,Gus,tr):
                     gugus = gugus_face 
                     step_s.stop()
                     
+                for elt in liste_pnj:
+                    if event.key == pygame.K_a:
+                        elt.in_touch = False
+                    
             ######################            
         keys=pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
@@ -1767,50 +1782,79 @@ def bonus_level(sac,action,Gus,tr):
             gugus=gugus_walkleft[a]
             
         rect_gugus.topleft = (x,y)
-
-        screen_x,screen_y,x,y = spawn_level(x,y,20,20)
-    
-        time += 1
-        liste_mur = level_bonus(screen,screen_x,screen_y)
+        
+        liste_mur = level_bonus(screen,0,0)
         
         x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-
+    
+        time += 1
+        
+        for truc in liste_pnj:
+            if rect_gugus.colliderect(truc) and truc.in_touch == False:
+                if abs(rect_gugus.bottom - truc.top) <= 10 and rel_y < 0:
+                    rel_y = 0
+                if abs(rect_gugus.top - truc.bottom) <= 10 and rel_y > 0:
+                    rel_y = 0
+                if abs(rect_gugus.left - truc.right) <= 10 and rel_x > 0:
+                    rel_x = 0
+                if abs(rect_gugus.right - truc.left) <= 10 and rel_x < 0:
+                    rel_x = 0
+                    
+        for elt in liste_pnj:
+            if elt.in_touch:
+                liste_temp = [x for x in liste_pnj if x != elt]
+                for truc in liste_temp:
+                    if elt.colliderect(truc) and truc.in_touch == False:
+                        if abs(elt.bottom - truc.top) <= 10 and rel_y < 0:
+                            rel_y = 0
+                        if abs(elt.top - truc.bottom) <= 10 and rel_y > 0:
+                            rel_y = 0
+                        if abs(elt.left - truc.right) <= 10 and rel_x > 0:
+                            rel_x = 0
+                        if abs(elt.right - truc.left) <= 10 and rel_x < 0:
+                            rel_x = 0
+                            
+                for mur in liste_mur:
+                    if elt.colliderect(mur):
+                        if abs(elt.bottom - mur.top) <= 10 and rel_y < 0:
+                            rel_y = 0
+                        if abs(elt.top - mur.bottom) <= 10 and rel_y > 0:
+                            rel_y = 0
+                        if abs(elt.left - mur.right) <= 10 and rel_x > 0:
+                            rel_x = 0
+                        if abs(elt.right - mur.left) <= 10 and rel_x < 0:
+                            rel_x = 0
+                            
         screen_x += rel_x
         screen_y += rel_y
                     
-        ##INTERACTION LVL 2
-        ##OBJET LVL 2
-            
-        if screen_x >= 0 and rel_x > 0:
-            screen_x = 0
-            x -= rel_x
-        elif screen_x <= display_width - 1000 and rel_x < 0 :
-            screen_x = display_width - 1000
-            x -= rel_x
-        if screen_y >= 0 and rel_y > 0 :
-            screen_y = 0
-            y  -= rel_y
-        elif screen_y <= display_height - 707 and rel_y < 0:
-            screen_y = display_height - 707 
-            y -= rel_y
-            
-        if x < (display_width-gugus_width)/2 and rel_x < 0:
-            screen_x = 0
-            x -= rel_x
-        elif x > (display_width-gugus_width)/2 and rel_x > 0:
-            screen_x = display_width - 1000
-            x -= rel_x
-            
-        if y < (display_height-gugus_height)/2 and rel_y < 0:
-            screen_y = 0
-            y -= rel_y
-        elif y > (display_height-gugus_height)/2 and rel_y > 0:
-            screen_y = display_height - 707 
-            y -= rel_y
+        ##INTERACTION LVL 
+        ##OBJET LVL 
+        
+        x -= rel_x
+        y -= rel_y           
+
         
         ##OBJETS
+        seconds=(pygame.time.get_ticks()-start_ticks)/1000
+        countdown = int(120 - seconds)
+        
+        player.topleft = (x,y)
+        for pp in liste_pnj:
+            if pp.in_touch == True:
+                pp.x -= rel_x
+                pp.y -= rel_y
+        
+        for elt in liste_pnj:
+            elt.rect.topleft = (elt.x,elt.y)
+            screen.blit(elt.image,elt.rect)
 
         screen.blit(gugus, rect_gugus)
+        
+        titre = myfont.render("Time", False, (20, 20, 20))
+        textsurface = myfont.render(str(countdown), False, (20, 20, 20))
+        screen.blit(titre,(450,20))
+        screen.blit(textsurface,(455,35))
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))

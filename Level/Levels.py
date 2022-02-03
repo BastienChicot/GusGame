@@ -583,7 +583,7 @@ def level_2O_ohne(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #BATIMENT
-    mur0 = wall(424,0,676,410,screen_x,screen_y)
+    mur0 = wall(424,0,676,400,screen_x,screen_y)
     
     #LIMTES
     mur1 = wall(0,705,1000,10,screen_x,screen_y)
@@ -593,8 +593,8 @@ def level_2O_ohne(gameDisplay,screen_x,screen_y):
     mur5 = wall(176,0,825,10,screen_x,screen_y)
     
     #VOITURES
-    mur10 = wall(390,450,103,50,screen_x,screen_y)
-    mur6 = wall(472,493,530,214,screen_x,screen_y)
+    mur10 = wall(390,441,103,50,screen_x,screen_y)
+    mur6 = wall(472,483,530,214,screen_x,screen_y)
 
     liste_mur = [mur0, mur1
                   ,mur2,mur3,mur4,mur5,mur6,
@@ -702,26 +702,30 @@ def level_bonus(gameDisplay,screen_x,screen_y):
     fond=pygame.image.load('Level/nivo_bonus.jpg').convert()
     fond_width,fond_height = fond.get_rect().size
     
-    #POUBELLE
-    mur0 = wall(345,0,660,438,screen_x,screen_y)
-    # mur6 = wall(591,420,65,135,screen_x,screen_y)
+    #INTERIEUR BUS
+    mur0 = wall(150,0,80,175,screen_x,screen_y)
+    mur6 = wall(306,0,77,133,screen_x,screen_y)
+    mur7 = wall(295,250,100,250,screen_x,screen_y)
+    mur8 = wall(151,268,84,82,screen_x,screen_y)
     
     # #LIMTES
-    mur1 = wall(0,705,178,10,screen_x,screen_y)
-    # mur2 = wall(253,605,800,110,screen_x,screen_y)
-    # mur3 = wall(0,0,178,707,screen_x,screen_y)
-    # mur4 = wall(0,0,1000,400,screen_x,screen_y)
-    # mur5 = wall(654,0,350,707,screen_x,screen_y)
+    mur1 = wall(0,-10,500,10,screen_x,screen_y)
+    mur2 = wall(383,0,200,500,screen_x,screen_y)
+    mur3 = wall(-10,0,10,500,screen_x,screen_y)
+    mur4 = wall(0,442,500,60,screen_x,screen_y)
     
-    liste_mur = [mur0, mur1]
-    #                ,mur2,mur3,mur4,mur5,mur6
-    #                ]    
+    ## POUBELLE
+    mur5 = wall(0,284,91,216,screen_x,screen_y)
+    
+    liste_mur = [mur0, mur1
+                    ,mur2,mur3,mur4,mur5,mur6
+                    ,mur7,mur8
+                    ]    
 
-    # for mur in liste_mur:
-    #     pygame.draw.rect(gameDisplay,black,mur)
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
     
     #PNJ
-    gameDisplay.blit(fond, (screen_x,screen_y)) 
-
+    gameDisplay.blit(fond, (0,0)) 
     
     return(liste_mur)

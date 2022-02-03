@@ -98,6 +98,20 @@ def coll_gus_pnj(liste_objet,rect_gugus,x_change,y_change,speed,rel_x,rel_y):
     
     return(x_change,y_change,rel_x,rel_y)
 
+class bonhomme(pygame.Rect):
+    def __init__(self,x,y,image):
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.width,self.height = image.get_rect().size
+        pygame.Rect.__init__(self,x,y,self.width,self.height)
+        self.in_touch = False
+    def move_truc(self,move_x,move_y):
+        self.x += move_x
+        self.y += move_y
+        pygame.Rect.__init__(self,self.x,self.y,self.width,self.height)
+
 class sac_a_dos():
     def __init__(self):
         super().__init__()
@@ -366,3 +380,5 @@ def border_start(screen_x,screen_y,x,y,start_x,start_y,display_width,display_hei
         y=y
         
     return(x,y,screen_x,screen_y)
+
+

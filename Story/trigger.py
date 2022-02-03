@@ -10,6 +10,7 @@ class trigger():
         super().__init__()
         self.game_over = False
         self.drug_money = 0
+        self.change_level = False
         
         ###NIVO 1
         self.pressed_salon = -1
