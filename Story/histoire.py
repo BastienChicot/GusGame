@@ -961,6 +961,7 @@ def nivo2(sac,action,Gus,tr):
                     if 125+screen_x < x < 188+screen_x and 465+screen_y < y < 550+screen_y and Gus.level == 2.4 and tr.argent_teu == 10 and tr.argent_con == 10 and tr.missions_con == True and sac.Telephone == 0:
                         Gus.level = 3
                         Gus.spawn = 1
+                        time = 0
                             
                 elif event.key != pygame.K_RETURN:
                 
@@ -1677,180 +1678,218 @@ def bonus_level(sac,action,Gus,tr):
     gameExit = False
     
     while not gameExit and Gus.level == 0:
-                    
-        if frame_count <= 30:
-            frame_count += 1
-        else:
-            frame_count = 0
-        
-        if frame_count <= 15:
-            a=0
-        elif frame_count > 15:
-            a=1
-            
-        rect_gugus = gugus.get_rect() 
-        tr.update_items()
-        Gus.update_items(tr)
-        sac.update_items(tr)
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                gameExit = True
-            
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    other_s.play()
-                    Gus.pause += 1    
-                if event.key == pygame.K_TAB:
-                    other_s.play() 
-            ############################
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:  
-                    x_change = -speed_move
-                    rel_x = speed_move
-                    y_change = 0
-                    rel_y = 0
-                    step_s.play(-1)
-                elif event.key == pygame.K_RIGHT:
-                    x_change = speed_move
-                    rel_x = -speed_move
-                    y_change = 0
-                    rel_y = 0
-                    step_s.play(-1)
-                elif event.key == pygame.K_UP:
-                    y_change = -speed_move
-                    rel_y = speed_move
-                    x_change = 0
-                    rel_x = 0
-                    step_s.play(-1)
-                elif event.key == pygame.K_DOWN:
-                    y_change = speed_move
-                    rel_y = -speed_move
-                    x_change = 0
-                    rel_x = 0
-                    step_s.play(-1)
-                for elt in liste_pnj:
-                    if event.key == pygame.K_a and player.colliderect(elt):
-                        elt.in_touch = True 
-                    #PERSONNES
-                    ###EST
-                
-                if event.key == pygame.K_RETURN:
-                    enter_s.play()
-                            
-                elif event.key != pygame.K_RETURN:
-                
-                    action.change_level = False
-            
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT:
-                    x_change = 0
-                    rel_x = 0
-                    gugus = gugus_gauche 
-                    step_s.stop()
-                if event.key == pygame.K_RIGHT:
-                    x_change = 0
-                    rel_x = 0
-                    gugus = gugus_droite 
-                    step_s.stop()
-
-                if event.key == pygame.K_UP:
-                    y_change = 0
-                    rel_y = 0
-                    gugus = gugus_dos 
-                    step_s.stop()
-                    
-                if event.key == pygame.K_DOWN:
-                    y_change = 0
-                    rel_y = 0
-                    gugus = gugus_face 
-                    step_s.stop()
-                    
-                for elt in liste_pnj:
-                    if event.key == pygame.K_a:
-                        elt.in_touch = False
-                    
-            ######################            
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_DOWN]:
-            gugus=gugus_walkdown[a]
-        if keys[pygame.K_UP]:
-            gugus=gugus_walkup[a]
-        if keys[pygame.K_RIGHT]:
-            gugus=gugus_walkright[a]
-        if keys[pygame.K_LEFT]:
-            gugus=gugus_walkleft[a]
-            
-        rect_gugus.topleft = (x,y)
-        
-        liste_mur = level_bonus(screen,0,0)
-        
-        x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-    
-        time += 1
-        
-        for truc in liste_pnj:
-            if rect_gugus.colliderect(truc) and truc.in_touch == False:
-                if abs(rect_gugus.bottom - truc.top) <= 10 and rel_y < 0:
-                    rel_y = 0
-                if abs(rect_gugus.top - truc.bottom) <= 10 and rel_y > 0:
-                    rel_y = 0
-                if abs(rect_gugus.left - truc.right) <= 10 and rel_x > 0:
-                    rel_x = 0
-                if abs(rect_gugus.right - truc.left) <= 10 and rel_x < 0:
-                    rel_x = 0
-                    
-        for elt in liste_pnj:
-            if elt.in_touch:
-                liste_temp = [x for x in liste_pnj if x != elt]
-                for truc in liste_temp:
-                    if elt.colliderect(truc) and truc.in_touch == False:
-                        if abs(elt.bottom - truc.top) <= 10 and rel_y < 0:
-                            rel_y = 0
-                        if abs(elt.top - truc.bottom) <= 10 and rel_y > 0:
-                            rel_y = 0
-                        if abs(elt.left - truc.right) <= 10 and rel_x > 0:
-                            rel_x = 0
-                        if abs(elt.right - truc.left) <= 10 and rel_x < 0:
-                            rel_x = 0
-                            
-                for mur in liste_mur:
-                    if elt.colliderect(mur):
-                        if abs(elt.bottom - mur.top) <= 10 and rel_y < 0:
-                            rel_y = 0
-                        if abs(elt.top - mur.bottom) <= 10 and rel_y > 0:
-                            rel_y = 0
-                        if abs(elt.left - mur.right) <= 10 and rel_x > 0:
-                            rel_x = 0
-                        if abs(elt.right - mur.left) <= 10 and rel_x < 0:
-                            rel_x = 0
-                            
-        screen_x += rel_x
-        screen_y += rel_y
-                    
-        ##INTERACTION LVL 
-        ##OBJET LVL 
-        
-        x -= rel_x
-        y -= rel_y           
-
-        
-        ##OBJETS
         seconds=(pygame.time.get_ticks()-start_ticks)/1000
-        countdown = int(120 - seconds)
+            
+        countdown = int(130 - seconds)
         
-        player.topleft = (x,y)
-        for pp in liste_pnj:
-            if pp.in_touch == True:
-                pp.x -= rel_x
-                pp.y -= rel_y
+        if seconds <= 10:
+            start = int(10 - seconds)
+            liste_mur = level_bonus(screen,0,0)
+            
+            start_down = myfont.render(str(start), False, (255, 20, 20))
+            
+            screen.blit(start_down,(455,50)) 
+            
+        elif 10 < seconds < 130:
+            if frame_count <= 30:
+                frame_count += 1
+            else:
+                frame_count = 0
+            
+            if frame_count <= 15:
+                a=0
+            elif frame_count > 15:
+                a=1
+                
+            rect_gugus = gugus.get_rect() 
+            tr.update_items()
+            Gus.update_items(tr)
+            sac.update_items(tr)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True
+                
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        other_s.play()
+                        Gus.pause += 1    
+                    if event.key == pygame.K_TAB:
+                        other_s.play() 
+                ############################
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:  
+                        x_change = -speed_move
+                        rel_x = speed_move
+                        y_change = 0
+                        rel_y = 0
+                        step_s.play(-1)
+                    elif event.key == pygame.K_RIGHT:
+                        x_change = speed_move
+                        rel_x = -speed_move
+                        y_change = 0
+                        rel_y = 0
+                        step_s.play(-1)
+                    elif event.key == pygame.K_UP:
+                        y_change = -speed_move
+                        rel_y = speed_move
+                        x_change = 0
+                        rel_x = 0
+                        step_s.play(-1)
+                    elif event.key == pygame.K_DOWN:
+                        y_change = speed_move
+                        rel_y = -speed_move
+                        x_change = 0
+                        rel_x = 0
+                        step_s.play(-1)
+                    for elt in liste_pnj:
+                        if event.key == pygame.K_a and player.colliderect(elt):
+                            elt.in_touch = True 
+                        #PERSONNES
+                        ###EST
+                    
+                    if event.key == pygame.K_RETURN:
+                        enter_s.play()
+                                
+                    elif event.key != pygame.K_RETURN:
+                    
+                        action.change_level = False
+                
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_LEFT:
+                        x_change = 0
+                        rel_x = 0
+                        gugus = gugus_gauche 
+                        step_s.stop()
+                    if event.key == pygame.K_RIGHT:
+                        x_change = 0
+                        rel_x = 0
+                        gugus = gugus_droite 
+                        step_s.stop()
+    
+                    if event.key == pygame.K_UP:
+                        y_change = 0
+                        rel_y = 0
+                        gugus = gugus_dos 
+                        step_s.stop()
+                        
+                    if event.key == pygame.K_DOWN:
+                        y_change = 0
+                        rel_y = 0
+                        gugus = gugus_face 
+                        step_s.stop()
+                        
+                    for elt in liste_pnj:
+                        if event.key == pygame.K_a:
+                            elt.in_touch = False
+                        
+                ######################            
+            keys=pygame.key.get_pressed()
+            if keys[pygame.K_DOWN]:
+                gugus=gugus_walkdown[a]
+            if keys[pygame.K_UP]:
+                gugus=gugus_walkup[a]
+            if keys[pygame.K_RIGHT]:
+                gugus=gugus_walkright[a]
+            if keys[pygame.K_LEFT]:
+                gugus=gugus_walkleft[a]
+                
+            rect_gugus.topleft = (x,y)
+            
+            liste_mur = level_bonus(screen,0,0)
+            
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
         
-        for elt in liste_pnj:
-            elt.rect.topleft = (elt.x,elt.y)
-            screen.blit(elt.image,elt.rect)
+            time += 1
+            
+            for truc in liste_pnj:
+                if rect_gugus.colliderect(truc) and truc.in_touch == False:
+                    if abs(rect_gugus.bottom - truc.top) <= 10 and rel_y < 0:
+                        rel_y = 0
+                    if abs(rect_gugus.top - truc.bottom) <= 10 and rel_y > 0:
+                        rel_y = 0
+                    if abs(rect_gugus.left - truc.right) <= 10 and rel_x > 0:
+                        rel_x = 0
+                    if abs(rect_gugus.right - truc.left) <= 10 and rel_x < 0:
+                        rel_x = 0
+                        
+            for elt in liste_pnj:
+                if elt.in_touch:
+                    liste_temp = [x for x in liste_pnj if x != elt]
+                    for truc in liste_temp:
+                        if elt.colliderect(truc) and truc.in_touch == False:
+                            if abs(elt.bottom - truc.top) <= 10 and rel_y < 0:
+                                rel_y = 0
+                            if abs(elt.top - truc.bottom) <= 10 and rel_y > 0:
+                                rel_y = 0
+                            if abs(elt.left - truc.right) <= 10 and rel_x > 0:
+                                rel_x = 0
+                            if abs(elt.right - truc.left) <= 10 and rel_x < 0:
+                                rel_x = 0
+                                
+                    for mur in liste_mur:
+                        if elt.colliderect(mur):
+                            if abs(elt.bottom - mur.top) <= 10 and rel_y < 0:
+                                rel_y = 0
+                            if abs(elt.top - mur.bottom) <= 10 and rel_y > 0:
+                                rel_y = 0
+                            if abs(elt.left - mur.right) <= 10 and rel_x > 0:
+                                rel_x = 0
+                            if abs(elt.right - mur.left) <= 10 and rel_x < 0:
+                                rel_x = 0
+                                
+            screen_x += rel_x
+            screen_y += rel_y
+                        
+            ##INTERACTION LVL 
+            ##OBJET LVL 
+            
+            x -= rel_x
+            y -= rel_y           
+    
+            
+            ##OBJETS
+            
+            player.topleft = (x,y)
+            for pp in liste_pnj:
+                if pp.in_touch == True:
+                    pp.x -= rel_x
+                    pp.y -= rel_y
+            
+            for elt in liste_pnj:
+                elt.rect.topleft = (elt.x,elt.y)
+                screen.blit(elt.image,elt.rect)
+            
+            screen.blit(gugus, rect_gugus)
 
-        screen.blit(gugus, rect_gugus)
+        elif seconds >= 130:
+            Gus.level = 3
+            Gus.spawn = 2
+            time = 0
         
+        if 0 < x < 50 and 0 < y < 50:
+            ligne_0 = myfont.render("AIDE", False, (255, 100, 50))
+            ligne_1 = myfont.render("Aide le chauffeur de bus :", False, (255, 100, 50))
+            ligne_2 = myfont.render("  - Débarasse le de la vieille,", False, (255, 100, 50))
+            ligne_3 = myfont.render("  - Place les gens correctement,", False, (255, 100, 50))
+            ligne_4 = myfont.render("  - Ramasse les déchets si tu en trouves,", False, (255, 100, 50))
+            ligne_5 = myfont.render("  - Installes toi au fond,", False, (255, 100, 50))
+            ligne_6 = myfont.render("Tu auras peut-être une surprise", False, (255, 100, 50))
+            ligne_7 = myfont.render("Tu peux déplacer certains objets en ", False, (255, 100, 50))
+            ligne_8 = myfont.render("maintenant A appuyer lorsque tu es à", False, (255, 100, 50))
+            ligne_9 = myfont.render("côté d'eux.", False, (255, 100, 50))
+        
+            screen.blit(ligne_0,(130,140))             
+            screen.blit(ligne_1,(155,160))            
+            screen.blit(ligne_2,(155,175))            
+            screen.blit(ligne_3,(155,190))            
+            screen.blit(ligne_4,(155,205))            
+            screen.blit(ligne_5,(155,220)) 
+            screen.blit(ligne_6,(155,245)) 
+            screen.blit(ligne_7,(155,265)) 
+            screen.blit(ligne_8,(155,280)) 
+            screen.blit(ligne_9,(155,295)) 
+            
         titre = myfont.render("Time", False, (20, 20, 20))
         textsurface = myfont.render(str(countdown), False, (20, 20, 20))
         screen.blit(titre,(450,20))
