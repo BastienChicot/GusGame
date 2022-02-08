@@ -15,6 +15,7 @@ pygame.font.init()
 
 myfont = pygame.font.SysFont('corbel', 20, bold=True)
 Gus_font = pygame.font.SysFont('corbel', 16, bold=True)
+big_font = pygame.font.SysFont('corbel', 40, bold=True)
 
 screen = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Gus veut boire un coup')
@@ -1655,7 +1656,7 @@ def bonus_level(sac,action,Gus,tr):
      #CREATION ET CARACTERISTIQUES PNJ  
     start_ticks=pygame.time.get_ticks()
     
-    start_x = 214
+    start_x = 195
     start_y = 389
     start_2 = 243
     start_3 = 253
@@ -1686,9 +1687,36 @@ def bonus_level(sac,action,Gus,tr):
             start = int(10 - seconds)
             liste_mur = level_bonus(screen,0,0)
             
-            start_down = myfont.render(str(start), False, (255, 20, 20))
+            start_down = big_font.render(str(start), False, (255, 20, 20))
             
-            screen.blit(start_down,(455,50)) 
+            pygame.draw.rect(screen,(20,20,20),(105,115,400,230))            
+            pygame.draw.rect(screen,(200,200,200),(110,120,390,220))
+            
+            ligne_0 = myfont.render("AIDE", False, (255, 100, 50))
+            ligne_1 = myfont.render("Aide le chauffeur de bus :", False, (255, 100, 50))
+            ligne_2 = myfont.render("  - Débarasse le de la vieille,", False, (255, 100, 50))
+            ligne_3 = myfont.render("  - Place les gens correctement,", False, (255, 100, 50))
+            ligne_4 = myfont.render("  - Ramasse les déchets si tu en trouves,", False, (255, 100, 50))
+            ligne_5 = myfont.render("  - Installes toi au fond,", False, (255, 100, 50))
+            ligne_6 = myfont.render("Tu auras peut-être une surprise", False, (255, 100, 50))
+            ligne_7 = myfont.render("Tu peux déplacer certains objets en ", False, (255, 100, 50))
+            ligne_8 = myfont.render("maintenant A appuyer lorsque tu es à", False, (255, 100, 50))
+            ligne_9 = myfont.render("côté d'eux.", False, (255, 100, 50))
+            ligne_10 = Gus_font.render("Pour revoir cette aide, approche-toi du chauffeur", False, (10, 10, 10))
+            
+            screen.blit(ligne_0,(130,140))             
+            screen.blit(ligne_1,(155,160))            
+            screen.blit(ligne_2,(155,175))            
+            screen.blit(ligne_3,(155,190))            
+            screen.blit(ligne_4,(155,205))            
+            screen.blit(ligne_5,(155,220)) 
+            screen.blit(ligne_6,(155,245)) 
+            screen.blit(ligne_7,(155,265)) 
+            screen.blit(ligne_8,(155,280)) 
+            screen.blit(ligne_9,(155,295)) 
+            screen.blit(ligne_10,(130,315)) 
+
+            screen.blit(start_down,(420,160)) 
             
         elif 10 < seconds < 130:
             if frame_count <= 30:
@@ -1742,6 +1770,16 @@ def bonus_level(sac,action,Gus,tr):
                         x_change = 0
                         rel_x = 0
                         step_s.play(-1)
+                    if event.key == pygame.K_a and not action.click:
+                        action.click = True
+                        click_.play()
+
+                        if 220 < x < 265 and -10 < y < 50 and Gus.level == 0:
+                            tr.pos_bonus += 1
+                    elif event.key != pygame.K_a:
+                
+                        action.click = False
+
                     for elt in liste_pnj:
                         if event.key == pygame.K_a and player.colliderect(elt):
                             elt.in_touch = True 
@@ -1782,7 +1820,8 @@ def bonus_level(sac,action,Gus,tr):
                     for elt in liste_pnj:
                         if event.key == pygame.K_a:
                             elt.in_touch = False
-                        
+
+                                
                 ######################            
             keys=pygame.key.get_pressed()
             if keys[pygame.K_DOWN]:
@@ -1845,9 +1884,19 @@ def bonus_level(sac,action,Gus,tr):
             ##OBJET LVL 
             
             x -= rel_x
-            y -= rel_y           
-    
+            y -= rel_y  
             
+            if pnj.x < 106 and pnj2.x >= 152 and pnj3.x < 152 and pnj4.x >= 152 and pnj5.x >= 152:
+                tr.fin_nivo_bonus = True
+            
+            if 220 < x < 265 and -10 < y < 50 and Gus.level == 0:
+                tr.pos_bonus = zone_interaction(screen,"Qu'est-ce que c'est (A)",action,tr.pos_bonus,"5 ç!")
+                tr.argent_bonus = 5
+    
+            if tr.fin_nivo_bonus == True and tr.argent_bonus == 5:
+                Gus.level = 3
+                Gus.spawn = 2
+                time = 0
             ##OBJETS
             
             player.topleft = (x,y)
@@ -1866,8 +1915,34 @@ def bonus_level(sac,action,Gus,tr):
             Gus.level = 3
             Gus.spawn = 2
             time = 0
+            
+        titre = myfont.render("Time", False, (20, 20, 20))
+        textsurface = myfont.render(str(countdown), False, (20, 20, 20))
+        screen.blit(titre,(450,20))
+        screen.blit(textsurface,(455,35))
         
-        if 0 < x < 50 and 0 < y < 50:
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
+        lvl = Gus_font.render("Niveau : Bonus", False, (78, 22, 9))
+    
+        screen.blit(pv , (10,20))
+        screen.blit(lvl , (10,45))
+        screen.blit(argent , (10,70))
+        screen.blit(sac_tab , (10,450))
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            affich_sac(screen,sac)
+        if (Gus.pause%2) == 1 and seconds > 10:
+            pause(screen,gameExit,Gus,sac,tr)
+        if Gus.pv == 0 or tr.game_over == True:
+            game_over(screen)
+            
+        if 240 < x < 320 and 390 < y < 480:
+            
+            pygame.draw.rect(screen,(20,20,20),(105,115,390,230))            
+            pygame.draw.rect(screen,(200,200,200),(110,120,380,220))
+            
             ligne_0 = myfont.render("AIDE", False, (255, 100, 50))
             ligne_1 = myfont.render("Aide le chauffeur de bus :", False, (255, 100, 50))
             ligne_2 = myfont.render("  - Débarasse le de la vieille,", False, (255, 100, 50))
@@ -1889,28 +1964,6 @@ def bonus_level(sac,action,Gus,tr):
             screen.blit(ligne_7,(155,265)) 
             screen.blit(ligne_8,(155,280)) 
             screen.blit(ligne_9,(155,295)) 
-            
-        titre = myfont.render("Time", False, (20, 20, 20))
-        textsurface = myfont.render(str(countdown), False, (20, 20, 20))
-        screen.blit(titre,(450,20))
-        screen.blit(textsurface,(455,35))
-        
-        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
-        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
-        lvl = Gus_font.render("Niveau : " + str(int(Gus.level)), False, (78, 22, 9))
-    
-        screen.blit(pv , (10,20))
-        screen.blit(lvl , (10,45))
-        screen.blit(argent , (10,70))
-        screen.blit(sac_tab , (10,450))
-
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_TAB]:
-            affich_sac(screen,sac)
-        if (Gus.pause%2) == 1:
-            pause(screen,gameExit,Gus,sac,tr)
-        if Gus.pv == 0 or tr.game_over == True:
-            game_over(screen)
 
         pygame.display.update()
         
