@@ -86,3 +86,16 @@ fond_bus = pygame.image.load("bank/pnj/fond_bus.png")
 bouteille = pygame.image.load("bank/pnj/bouteille.png")
 valise = pygame.image.load("bank/pnj/valise.png")
 poussette = pygame.image.load("bank/pnj/poussette.png")
+
+batteur1 = pygame.image.load("bank/pnj/batteur_1.png")
+batteur2 = pygame.image.load("bank/pnj/batteur_2.png")
+batteur = [batteur1,batteur2]
+
+bass1 = pygame.image.load("bank/pnj/bassiste1.png")
+bass2 = pygame.image.load("bank/pnj/bassiste2.png")
+bassist = [bass1,bass2]
+
+guit1 = pygame.image.load("bank/pnj/guitar1.png")
+guit2 = pygame.image.load("bank/pnj/guitar2.png")
+guitar = [guit1,guit2]
+

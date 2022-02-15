@@ -26,11 +26,11 @@ def launch(Gus):
     if Gus.level == 1:
         nivo1(sac,action,Gus,tr)
     if Gus.level >= 2 and Gus.level < 3:
-        nivo2(sac,action,Gus,tr)  
-    if Gus.level >= 3 and Gus.level < 4:
-        print("cool")  
+        nivo2(sac,action,Gus,tr)      
     if Gus.level == 0:
         bonus_level(sac,action,Gus,tr)
+    if Gus.level >= 3 and Gus.level < 4:
+        nivo3(sac,action,Gus,tr)
         
 gameExit = False
 
