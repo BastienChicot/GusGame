@@ -1988,10 +1988,21 @@ def nivo3(sac,action,Gus,tr):
     screen_y = -225 + y 
     
     interact = False
+    interact_bass = False
+    interact_guit = False
+    
     tune = Gus.money
     alcool = sac.Alcool
     preservatif = sac.Capote
     #CREATION ET CARACTERISTIQUES PNJ
+    
+    speed_y = 0
+    speed_x = 1
+    
+    spawn_hookx = 7
+    spawn_hooky = 608
+    hook_right = hook_d[0]
+    hooker = pnj(spawn_hookx,spawn_hooky,screen_x,screen_y,hook_right,"right")
     
     ####LVL 2 EST
 
@@ -2122,40 +2133,75 @@ def nivo3(sac,action,Gus,tr):
             time += 1
             liste_mur = level_3N(screen,screen_x,screen_y)
                
-            # if rat2.side == "left":
-            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
-            # elif rat2.side == "right":
-            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_right,'right')
+            if hooker.movement == True:
+                hook_left = hook_l[a]            
+                hook_right = hook_d[a]
+            elif hooker.movement == False:
+                hook_left = hook_l[2]            
+                hook_right = hook_d[2]
                 
-            # speed_x,speed_y = rat2.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
-            # spawn_x,spawn_y = rat2.move(spawn_x,spawn_y,speed_x,speed_y)
+            if hooker.side == "left":
+                hooker = pnj(spawn_hookx,spawn_hooky,screen_x,screen_y,hook_left,'left')
+            elif hooker.side == "right":
+                hooker = pnj(spawn_hookx,spawn_hooky,screen_x,screen_y,hook_right,'right')
+            
+            speed_x,speed_y = hooker.collisions_pnj(liste_mur,speed_x,speed_y,hook_right,hook_left,0)
+            spawn_hookx,spawn_hooky = hooker.move(spawn_hookx,spawn_hooky,speed_x,speed_y)
             
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-    
-            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "left":
-            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
-            #         speed_x *= -1
-            #         speed_y *= -1
-            #         rat2.side = "right"
+
+            if hooker.rect.colliderect(rect_gugus) and hooker.side == "left":
+                if abs (hooker.rect.left - rect_gugus.right) <= 10:
+                    speed_x *= 0
+                    speed_y *= -1
+                    hooker.movement = False
+                    interact = True
+
+            if hooker.rect.colliderect(rect_gugus) and hooker.side == "right":
+                if abs (hooker.rect.right - rect_gugus.left) <= 10:
+                    speed_x = 0
+                    speed_y *= -1  
+                    hooker.movement = False
+                    interact = True
                     
-            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "right":
-            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
-            #         speed_x *= -1
-            #         speed_y *= -1
-            #         rat2.side = "left"
-                    
-            # if rect_gugus.colliderect(rat2.rect):
-            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
-            #         x_change = 0
-            #         rel_x = 0
-            # if rat2.rect.colliderect(rect_gugus):
-            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
-            #         x_change = 0
-            #         rel_x = 0           
+            if not hooker.rect.colliderect(rect_gugus) and hooker.side == "left":
+                if abs (hooker.rect.left - rect_gugus.right) <= 10:
+                    speed_x = -1
+                    speed_y *= -1
+                    hooker.side = "left"
+                    hooker.movement = True
+
+            if not hooker.rect.colliderect(rect_gugus) and hooker.side == "right":
+                if abs (hooker.rect.right - rect_gugus.left) <= 10:
+                    speed_x = 1
+                    speed_y *= -1
+                    hooker.side = "right" 
+                    hooker.movement = True
+                                        
+
+            if rect_gugus.colliderect(hooker.rect):
+                if abs (hooker.rect.left - rect_gugus.right) <= 10 and x_change > 0:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(hooker.rect):
+                if abs (hooker.rect.right - rect_gugus.left) <= 10 and x_change < 0:
+                    x_change = 0
+                    rel_x = 0     
+            if rect_gugus.colliderect(hooker.rect):
+                if abs (hooker.rect.bottom - rect_gugus.top) <= 10 and y_change < 0:
+                    y_change = 0
+                    rel_y = 0    
+            if rect_gugus.colliderect(hooker.rect):
+                if abs (hooker.rect.top - rect_gugus.bottom) <= 10 and y_change > 0:
+                    y_change = 0
+                    rel_y = 0   
+            if not rect_gugus.colliderect(hooker.rect):
+                interact = False 
+                
             screen_x += rel_x
             screen_y += rel_y
             
-            # screen.blit(rat2.image, rat2.rect)
+            screen.blit(hooker.image, hooker.rect)
         
             if y > 460:
                 Gus.level = 3.1
@@ -2209,9 +2255,15 @@ def nivo3(sac,action,Gus,tr):
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
-            pnj_batteur = batteur[a]
-            pnj_bass = bassist[a]
-            pnj_guit = guitar[a]
+            if tr.rythm == 0:
+                pnj_batteur = batteur[2]
+                pnj_bass = bassist[2]
+                pnj_guit = guitar[2]
+
+            elif tr.rythm == 1:                
+                pnj_batteur = batteur[a]
+                pnj_bass = bassist[a]
+                pnj_guit = guitar[a]
             
             rect_batteur = pnj_batteur.get_rect()
             rect_batteur.topleft=(320+screen_x,20+screen_y)
@@ -2221,26 +2273,67 @@ def nivo3(sac,action,Gus,tr):
             
             rect_guit = pnj_guit.get_rect()
             rect_guit.topleft=(400+screen_x,80+screen_y)
-                  
-            # if rect_gugus.colliderect(rect_concierge) and x_change > 0:
-            #     if abs (rect_concierge.left - rect_gugus.right) <= 10:
-            #         x_change = 0
-            #         rel_x = 0
-            # if rect_gugus.colliderect(rect_concierge) and x_change < 0:
-            #     if abs (rect_concierge.right - rect_gugus.left) <= 10:
-            #         x_change = 0
-            #         rel_x = 0   
-            # if rect_gugus.colliderect(rect_concierge) and y_change < 0:
-            #     if abs (rect_concierge.bottom - rect_gugus.top) <= 10:
-            #         y_change = 0
-            #         rel_y = 0
-            #         interact = True                    
-            # if rect_gugus.colliderect(rect_concierge) and y_change > 0:
-            #     if abs (rect_concierge.top - rect_gugus.bottom) <= 10:
-            #         y_change = 0
-            #         rel_y = 0  
-            # if not rect_gugus.colliderect(rect_concierge):
-            #     interact = False       
+            
+            if rect_gugus.colliderect(rect_batteur) and x_change > 0:
+                if abs (rect_batteur.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(rect_batteur) and x_change < 0:
+                if abs (rect_batteur.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0   
+            if rect_gugus.colliderect(rect_batteur) and y_change < 0:
+                if abs (rect_batteur.bottom - rect_gugus.top) <= 10:
+                    y_change = 0
+                    rel_y = 0
+                    interact = True                    
+            if rect_gugus.colliderect(rect_batteur) and y_change > 0:
+                if abs (rect_batteur.top - rect_gugus.bottom) <= 10:
+                    y_change = 0
+                    rel_y = 0  
+            if not rect_gugus.colliderect(rect_batteur):
+                interact = False 
+                
+            if rect_gugus.colliderect(rect_bass) and x_change > 0:
+                if abs (rect_bass.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(rect_bass) and x_change < 0:
+                if abs (rect_bass.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0   
+            if rect_gugus.colliderect(rect_bass) and y_change < 0:
+                if abs (rect_bass.bottom - rect_gugus.top) <= 10:
+                    y_change = 0
+                    rel_y = 0
+                    interact_bass = True                    
+            if rect_gugus.colliderect(rect_bass) and y_change > 0:
+                if abs (rect_bass.top - rect_gugus.bottom) <= 10:
+                    y_change = 0
+                    rel_y = 0  
+            if not rect_gugus.colliderect(rect_bass):
+                interact_bass = False 
+     
+            
+            if rect_gugus.colliderect(rect_guit) and x_change > 0:
+                if abs (rect_guit.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rect_gugus.colliderect(rect_guit) and x_change < 0:
+                if abs (rect_guit.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0   
+            if rect_gugus.colliderect(rect_guit) and y_change < 0:
+                if abs (rect_guit.bottom - rect_gugus.top) <= 10:
+                    y_change = 0
+                    rel_y = 0
+                    interact_guit = True                    
+            if rect_gugus.colliderect(rect_guit) and y_change > 0:
+                if abs (rect_guit.top - rect_gugus.bottom) <= 10:
+                    y_change = 0
+                    rel_y = 0  
+            if not rect_gugus.colliderect(rect_guit):
+                interact_guit = False 
                 
             screen_x += rel_x
             screen_y += rel_y
@@ -2330,5 +2423,5 @@ def nivo3(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(x,y)
+        
         clock.tick(100)

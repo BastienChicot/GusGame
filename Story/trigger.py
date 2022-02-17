@@ -140,6 +140,12 @@ class trigger():
         self.fin_nivo_bonus = False
         self.pos_bonus = -1
         
+        
+        ## LVL 3
+        ##########################♥
+        
+        self.rythm = 0
+        
     def update_items(self):
          self.give_money = self.pnj_bus
          self.drug_money = (0 + self.argent_vieille + self.argent_tox + 

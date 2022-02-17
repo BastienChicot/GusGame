@@ -87,15 +87,28 @@ bouteille = pygame.image.load("bank/pnj/bouteille.png")
 valise = pygame.image.load("bank/pnj/valise.png")
 poussette = pygame.image.load("bank/pnj/poussette.png")
 
+batteur0 = pygame.image.load("bank/pnj/batteur_0.png")
 batteur1 = pygame.image.load("bank/pnj/batteur_1.png")
 batteur2 = pygame.image.load("bank/pnj/batteur_2.png")
-batteur = [batteur1,batteur2]
+batteur = [batteur1,batteur2,batteur0]
 
+bass0 = pygame.image.load("bank/pnj/bassiste0.png")
 bass1 = pygame.image.load("bank/pnj/bassiste1.png")
 bass2 = pygame.image.load("bank/pnj/bassiste2.png")
-bassist = [bass1,bass2]
+bassist = [bass1,bass2,bass0]
 
+guit0 = pygame.image.load("bank/pnj/guitar0.png")
 guit1 = pygame.image.load("bank/pnj/guitar1.png")
 guit2 = pygame.image.load("bank/pnj/guitar2.png")
-guitar = [guit1,guit2]
+guitar = [guit1,guit2,guit0]
 
+
+hook_left1 = pygame.image.load("bank/pnj/hooker/hooker_l1.png")
+hook_left2 = pygame.image.load("bank/pnj/hooker/hooker_l2.png")
+hook_left0 = pygame.image.load("bank/pnj/hooker/hooker_l0.png")
+hook_right1 = pygame.image.load("bank/pnj/hooker/hooker_r1.png")
+hook_right2 = pygame.image.load("bank/pnj/hooker/hooker_r2.png")
+hook_right0 = pygame.image.load("bank/pnj/hooker/hooker_r0.png")
+
+hook_l = [hook_left1,hook_left2,hook_left0]
+hook_d = [hook_right1,hook_right2,hook_right0]

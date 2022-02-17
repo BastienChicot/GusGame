@@ -138,6 +138,9 @@ class sac_a_dos():
         self.Teuteu = 0
         self.Huile_rateau = 0
         
+        ##Nivo3
+        self.Rythme = 0
+        
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord
@@ -381,5 +384,3 @@ def border_start(screen_x,screen_y,x,y,start_x,start_y,display_width,display_hei
         y=y
         
     return(x,y,screen_x,screen_y)
-
-
