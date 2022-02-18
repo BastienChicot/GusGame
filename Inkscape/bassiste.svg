@@ -9,7 +9,7 @@
    id="svg10607"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="bassiste.svg"
-   inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\pnj\bassiste2.png"
+   inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\pnj\bassiste0.png"
    inkscape:export-xdpi="5.2576323"
    inkscape:export-ydpi="5.2576323"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.26393991"
-     inkscape:cx="575.88866"
-     inkscape:cy="354.2473"
+     inkscape:zoom="0.7465348"
+     inkscape:cx="602.78503"
+     inkscape:cy="474.86065"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -120,8 +120,8 @@
     <ellipse
        style="fill:#a05a2c;stroke-width:0.148272"
        id="path9819-9-7-8-1-9"
-       cx="-87.865555"
-       cy="198.08185"
+       cx="-44.626892"
+       cy="226.43507"
        rx="7.1103182"
        ry="5.4689283"
        transform="scale(-1,1)" />
@@ -200,15 +200,15 @@
     <ellipse
        style="fill:#a05a2c;stroke-width:0.398876"
        id="path9819-8-8-8-2"
-       cx="213.5473"
-       cy="85.620491"
+       cx="217.80029"
+       cy="26.078726"
        rx="12.424772"
        ry="22.649157"
        transform="matrix(0,1,1,0,0,0)" />
     <path
        id="path6217-9-9-3-7-8-0"
        style="fill:#005522;stroke-width:0.398876"
-       d="m 71.299868,169.37658 c 18.939448,46.9014 22.691814,78.26385 -21.295824,48.28271 C 18.263927,196.02583 0.29679584,198.19232 0.29679584,164.36498 c 0,-23.62658 16.98718916,-43.91336 40.14252516,-43.91336 23.155344,0 20.973482,24.44104 30.860547,48.92496 z"
+       d="M 71.299868,169.37658 C 58.344655,222.13624 75.562088,250.12134 31.57445,220.1402 -0.16566708,198.50674 11.638085,195.71141 9.1571776,166.13706 7.1821494,142.59317 17.283985,120.45162 40.439321,120.45162 c 23.155344,0 37.157245,23.28187 30.860547,48.92496 z"
        sodipodi:nodetypes="sssss" />
     <ellipse
        style="fill:#a05a2c;stroke-width:0.398876"
@@ -226,14 +226,14 @@
     <path
        id="rect1430-1-8-6-7-2"
        style="fill:#502d16;stroke-width:0.210089"
-       d="m 88.32241,52.883554 17.82038,-0.184012 14.5262,3.841392 C 105.1742,55.574283 89.787297,54.275311 72.864582,57.678852 72.980569,55.720793 87.704301,54.289716 88.32241,52.883414 Z"
+       d="m 89.826067,63.409151 17.820383,-0.184012 14.5262,3.841392 C 106.67786,66.09988 91.290954,64.800908 74.368239,68.204449 74.484226,66.24639 89.207958,64.815313 89.826067,63.409011 Z"
        sodipodi:nodetypes="ccccc"
        inkscape:transform-center-x="7.3899992"
        inkscape:transform-center-y="0.58885627" />
     <path
        id="rect1430-1-8-6-7-4-5"
        style="fill:#502d16;stroke-width:0.210089"
-       d="m 168.01867,47.016111 -13.81693,-0.195027 -11.26298,4.07153 c 12.01398,-1.024556 23.94396,-2.401362 37.06508,1.206093 -0.0828,-2.075361 -11.50592,-3.592177 -11.98517,-5.082743 z"
+       d="m 168.7705,62.804506 -13.81693,-0.195027 -11.26298,4.07153 c 12.01398,-1.024556 23.94396,-2.401362 37.06508,1.206093 -0.0828,-2.075361 -11.50592,-3.592177 -11.98517,-5.082743 z"
        sodipodi:nodetypes="ccccc"
        inkscape:transform-center-x="-5.7297903"
        inkscape:transform-center-y="0.62413651" />
@@ -287,7 +287,7 @@
     <path
        id="rect12747-2-4-7-8"
        style="fill:#1c1f24;stroke-width:0.398876"
-       d="m 145.04821,117.91609 c -8.01652,1.97115 -17.10956,1.62881 -25.68663,0 l -2.71448,2.67136 c 6.66156,-0.30524 17.63133,1.01864 31.96323,-0.86091 z"
+       d="m 145.04821,120.75866 c -8.01652,-1.97115 -17.10956,-1.62881 -25.68663,0 l -2.71448,-2.67136 c 6.66156,0.30524 17.63133,-1.01864 31.96323,0.86091 z"
        sodipodi:nodetypes="ccccc" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke-width:0.264583"

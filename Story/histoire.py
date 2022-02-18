@@ -1011,9 +1011,9 @@ def nivo2(sac,action,Gus,tr):
         if Gus.level == 2:
     
             if Gus.spawn == 1 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,226,225)
+                screen_x,screen_y,x,y = spawn_level(x,y,229,225)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,80)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,80)
         
             time += 1
             liste_mur = level_2(screen,screen_x,screen_y)
@@ -1063,11 +1063,11 @@ def nivo2(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,481)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,481)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,481)
+                screen_x,screen_y,x,y = spawn_level(x,y,1+gugus_width,481)
                         
             time += 1
             
@@ -1092,15 +1092,15 @@ def nivo2(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,481)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,481)
 
             elif Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,0+gugus_width,481)
+                screen_x,screen_y,x,y = spawn_level(x,y,1+gugus_width,481)
 
             if Gus.spawn == 3 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,190,12) 
+                screen_x,screen_y,x,y = spawn_level(x,y,191,12) 
 
             if Gus.spawn == 4 and time < 2:
                 
@@ -1163,11 +1163,11 @@ def nivo2(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,481)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,481)
                 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,112,651) 
+                screen_x,screen_y,x,y = spawn_level(x,y,111,651) 
                 
             time += 1
             
@@ -1256,7 +1256,7 @@ def nivo2(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,112,50)
+                screen_x,screen_y,x,y = spawn_level(x,y,111,50)
                         
             time += 1
             
@@ -1279,7 +1279,7 @@ def nivo2(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,190,655)
+                screen_x,screen_y,x,y = spawn_level(x,y,191,655)
                         
             time += 1
             
@@ -1983,6 +1983,7 @@ def nivo3(sac,action,Gus,tr):
     x_change = 0
     y_change = 0
     gugus = gugus_face
+    lassl = lassl_face
     
     screen_x = -225 + x
     screen_y = -225 + y 
@@ -2027,6 +2028,7 @@ def nivo3(sac,action,Gus,tr):
             a=1
             
         rect_gugus = gugus.get_rect() 
+        rect_lassl = lassl.get_rect()
         tr.update_items()
         Gus.update_items(tr)
         sac.update_items(tr)
@@ -2041,6 +2043,9 @@ def nivo3(sac,action,Gus,tr):
                     Gus.pause += 1    
                 if event.key == pygame.K_TAB:
                     other_s.play() 
+                if event.key == pygame.K_LCTRL:
+                    other_s.play()
+
             ############################
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:  
@@ -2089,46 +2094,55 @@ def nivo3(sac,action,Gus,tr):
                     x_change = 0
                     rel_x = 0
                     gugus = gugus_gauche 
+                    lassl = lassl_gauche
                     step_s.stop()
                 if event.key == pygame.K_RIGHT:
                     x_change = 0
                     rel_x = 0
-                    gugus = gugus_droite 
+                    gugus = gugus_droite
+                    lassl = lassl_droite
                     step_s.stop()
 
                 if event.key == pygame.K_UP:
                     y_change = 0
                     rel_y = 0
                     gugus = gugus_dos 
+                    lassl = lassl_dos
                     step_s.stop()
                     
                 if event.key == pygame.K_DOWN:
                     y_change = 0
                     rel_y = 0
                     gugus = gugus_face 
+                    lassl = lassl_face
                     step_s.stop()
                     
             ######################            
         keys=pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
             gugus=gugus_walkdown[a]
+            lassl=lassl_walkd[a]
         if keys[pygame.K_UP]:
             gugus=gugus_walkup[a]
+            lassl=lassl_walku[a]
         if keys[pygame.K_RIGHT]:
             gugus=gugus_walkright[a]
+            lassl=lassl_walkr[a]            
         if keys[pygame.K_LEFT]:
             gugus=gugus_walkleft[a]
+            lassl=lassl_walkl[a]
             
         rect_gugus.topleft = (x,y)
+        rect_lassl.topleft = (x,y)
                         
         if Gus.level == 3:
     
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,823,514)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,400,124)
+                screen_x,screen_y,x,y = spawn_level(x,y,401,124)
             elif Gus.spawn == 3 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,400,707-gugus_height)
+                screen_x,screen_y,x,y = spawn_level(x,y,401,707-gugus_height)
                 
             time += 1
             liste_mur = level_3N(screen,screen_x,screen_y)
@@ -2148,7 +2162,10 @@ def nivo3(sac,action,Gus,tr):
             speed_x,speed_y = hooker.collisions_pnj(liste_mur,speed_x,speed_y,hook_right,hook_left,0)
             spawn_hookx,spawn_hooky = hooker.move(spawn_hookx,spawn_hooky,speed_x,speed_y)
             
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            if Gus.perso == "gus":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            if Gus.perso == "lassl":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
 
             if hooker.rect.colliderect(rect_gugus) and hooker.side == "left":
                 if abs (hooker.rect.left - rect_gugus.right) <= 10:
@@ -2213,18 +2230,21 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,400,50)
+                screen_x,screen_y,x,y = spawn_level(x,y,401,50)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1000-gugus_width,174)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,174)
                         
             time += 1
             
             liste_mur = level_3C(screen,screen_x,screen_y)
         
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            
+            if Gus.perso == "gus":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            if Gus.perso == "lassl":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+
             screen_x += rel_x
             screen_y += rel_y
             
@@ -2243,18 +2263,21 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,30,174)
+                screen_x,screen_y,x,y = spawn_level(x,y,31,190)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,900,120)
+                screen_x,screen_y,x,y = spawn_level(x,y,901,230)
                         
             time += 1
             
             liste_mur = level_3E(screen,screen_x,screen_y)
         
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            
+            if Gus.perso == "gus":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            if Gus.perso == "lassl":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+
             if tr.rythm == 0:
                 pnj_batteur = batteur[2]
                 pnj_bass = bassist[2]
@@ -2355,18 +2378,21 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,910,142)
+                screen_x,screen_y,x,y = spawn_level(x,y,901,142)
                         
             time += 1
             
             liste_mur = level_3SE(screen,screen_x,screen_y)
         
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            
+            if Gus.perso == "gus":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            if Gus.perso == "lassl":
+                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+
             screen_x += rel_x
             screen_y += rel_y
             
-            if x > 350 and y < 120:
+            if x > 350 and y < 40:
                 Gus.level = 3.2
                 Gus.spawn = 2
                 time = 0
@@ -2402,8 +2428,11 @@ def nivo3(sac,action,Gus,tr):
             y -= rel_y
         
         ##OBJETS
-
-        screen.blit(gugus, rect_gugus)
+        
+        if Gus.perso == "gus":
+            screen.blit(gugus, rect_gugus)
+        elif Gus.perso == "lassl":
+            screen.blit(lassl, rect_lassl)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
@@ -2417,11 +2446,18 @@ def nivo3(sac,action,Gus,tr):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_TAB]:
             affich_sac(screen,sac)
+            
+        if keys[pygame.K_LCTRL]:
+            if Gus.perso == "gus":
+                Gus.perso = "lassl"
+            elif Gus.perso != "gus":
+                Gus.perso = "gus"
+        
         if (Gus.pause%2) == 1:
             pause(screen,gameExit,Gus,sac,tr)
         if Gus.pv == 0 or tr.game_over == True:
             game_over(screen)
 
         pygame.display.update()
-        
+        print(Gus.perso)
         clock.tick(100)

@@ -55,8 +55,35 @@ gugus_gauche1 = pygame.image.load('Gus/Gus_gauche_1.png')
 gugus_gauche2 = pygame.image.load('Gus/Gus_gauche_2.png')
 gugus_walkleft = [gugus_gauche1,gugus_gauche2]
 
-gugus_width = 48
-gugus_height = 52
+gugus_width = 42
+gugus_height = 44
+
+lassl_face = pygame.image.load('Gus/LassL/lassl.png')
+lassl_walkd1 = pygame.image.load('Gus/LassL/lassl_1.png')
+lassl_walkd2 = pygame.image.load('Gus/LassL/lassl_2.png')
+lassl_walkd = [lassl_walkd1,lassl_walkd2]
+
+lassl_dos = pygame.image.load('Gus/LassL/lassl_dos.png')
+lassl_walku1 = pygame.image.load('Gus/LassL/lassl_dos1.png')
+lassl_walku2 = pygame.image.load('Gus/LassL/lassl_dos2.png')
+lassl_walku = [lassl_walku1,lassl_walku2]
+
+lassl_droite = pygame.image.load('Gus/LassL/lassl_r.png')
+lassl_droite1 = pygame.image.load('Gus/LassL/lassl_r1.png')
+lassl_droite2 = pygame.image.load('Gus/LassL/lassl_r2.png')
+lassl_walkr = [lassl_droite1,lassl_droite2]
+
+lassl_gauche = pygame.image.load('Gus/LassL/lassl_l.png')
+lassl_gauche1 = pygame.image.load('Gus/LassL/lassl_l1.png')
+lassl_gauche2 = pygame.image.load('Gus/LassL/lassl_l2.png')
+lassl_walkl = [lassl_gauche1,lassl_gauche2]
+
+lassl_width = 36
+lassl_height = 62
+
+gugus_move1 = pygame.image.load('Gus/Gus_move1.png')
+gugus_move2 = pygame.image.load('Gus/Gus_move2.png')
+gugus_move = [gugus_move1, gugus_move2]
 
 fond_text = pygame.image.load("bank/image/zone_texte.png")
 sac_image = pygame.image.load("bank/image/sac.png")
