@@ -140,6 +140,8 @@ class sac_a_dos():
         
         ##Nivo3
         self.Rythme = 0
+        self.Argent_mac = 0
+        self.Planing = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn

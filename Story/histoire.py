@@ -2005,10 +2005,16 @@ def nivo3(sac,action,Gus,tr):
     hook_right = hook_d[0]
     hooker = pnj(spawn_hookx,spawn_hooky,screen_x,screen_y,hook_right,"right")
     
-    ####LVL 2 EST
-
     #INTERACTIONS
-
+    #LVL 3 N
+    
+    phrases_hooker = [["Eh gamin ! ","Tu saurais pas où je","pourrais me trouver ","des capotes?"],
+                      ["Tu pourrais me rendre",'un autre service ?', "Il faudrait apporter cet"," argent à mon chef.",
+                       "Il est dans la voiture"]]
+    phrases_mac = [["Yo Gus, Tu as", "vu mon employée ?"],
+                   ["Merci petit. Tu","travaille bien. Je","peux te confier son","planing?"]]
+    phrases_bus = []
+    
     #OBJETS NIVEAU
     #INTERACTIONS
     #ITEMS    
@@ -2028,7 +2034,7 @@ def nivo3(sac,action,Gus,tr):
             a=1
             
         rect_gugus = gugus.get_rect() 
-        rect_lassl = lassl.get_rect()
+        # rect_lassl = lassl.get_rect()
         tr.update_items()
         Gus.update_items(tr)
         sac.update_items(tr)
@@ -2076,15 +2082,36 @@ def nivo3(sac,action,Gus,tr):
                     action.click = True
                     click_.play()
                     #PERSONNES
-                    ###EST
-                         
+                    ###NORD
+                    if interact and Gus.level == 3 and tr.give_condom == False:
+                        tr.press_hook = 0
+                    if interact and Gus.level == 3 and tr.give_condom == True:
+                        tr.press_hook = 1
+                        sac.Argent_mac = 50
+                        
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == False:
+                        tr.press_mac = 0
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == True:
+                        tr.press_mac = 1
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
-                            
+                    if interact and Gus.level == 3 and tr.press_hook == 0:
+                        tr.capote_nn = 0 
+                        tr.capote_buro = 0 
+                        tr.capote_entree = 0 
+                        tr.capoteNord = 0
+                        tr.give_condom = True
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 50:
+                        tr.give_mac = True
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 0 and tr.press_mac == 1 and sac.Planing == 0:
+                        tr.take_plan = True
+                    
+                        
                 elif event.key != pygame.K_RETURN:
                 
                     action.change_level = False
@@ -2094,46 +2121,46 @@ def nivo3(sac,action,Gus,tr):
                     x_change = 0
                     rel_x = 0
                     gugus = gugus_gauche 
-                    lassl = lassl_gauche
+                    # lassl = lassl_gauche
                     step_s.stop()
                 if event.key == pygame.K_RIGHT:
                     x_change = 0
                     rel_x = 0
                     gugus = gugus_droite
-                    lassl = lassl_droite
+                    # lassl = lassl_droite
                     step_s.stop()
 
                 if event.key == pygame.K_UP:
                     y_change = 0
                     rel_y = 0
                     gugus = gugus_dos 
-                    lassl = lassl_dos
+                    # lassl = lassl_dos
                     step_s.stop()
                     
                 if event.key == pygame.K_DOWN:
                     y_change = 0
                     rel_y = 0
                     gugus = gugus_face 
-                    lassl = lassl_face
+                    # lassl = lassl_face
                     step_s.stop()
                     
             ######################            
         keys=pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
             gugus=gugus_walkdown[a]
-            lassl=lassl_walkd[a]
+            # lassl=lassl_walkd[a]
         if keys[pygame.K_UP]:
             gugus=gugus_walkup[a]
-            lassl=lassl_walku[a]
+            # lassl=lassl_walku[a]
         if keys[pygame.K_RIGHT]:
             gugus=gugus_walkright[a]
-            lassl=lassl_walkr[a]            
+            # lassl=lassl_walkr[a]            
         if keys[pygame.K_LEFT]:
             gugus=gugus_walkleft[a]
-            lassl=lassl_walkl[a]
+            # lassl=lassl_walkl[a]
             
         rect_gugus.topleft = (x,y)
-        rect_lassl.topleft = (x,y)
+        # rect_lassl.topleft = (x,y)
                         
         if Gus.level == 3:
     
@@ -2162,10 +2189,10 @@ def nivo3(sac,action,Gus,tr):
             speed_x,speed_y = hooker.collisions_pnj(liste_mur,speed_x,speed_y,hook_right,hook_left,0)
             spawn_hookx,spawn_hooky = hooker.move(spawn_hookx,spawn_hooky,speed_x,speed_y)
             
-            if Gus.perso == "gus":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            if Gus.perso == "lassl":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "gus":
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "lassl":
+            #     x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
 
             if hooker.rect.colliderect(rect_gugus) and hooker.side == "left":
                 if abs (hooker.rect.left - rect_gugus.right) <= 10:
@@ -2240,10 +2267,10 @@ def nivo3(sac,action,Gus,tr):
             
             liste_mur = level_3C(screen,screen_x,screen_y)
         
-            if Gus.perso == "gus":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            if Gus.perso == "lassl":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "gus":
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "lassl":
+            #     x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
 
             screen_x += rel_x
             screen_y += rel_y
@@ -2273,10 +2300,10 @@ def nivo3(sac,action,Gus,tr):
             
             liste_mur = level_3E(screen,screen_x,screen_y)
         
-            if Gus.perso == "gus":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            if Gus.perso == "lassl":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "gus":
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "lassl":
+            #     x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
 
             if tr.rythm == 0:
                 pnj_batteur = batteur[2]
@@ -2384,10 +2411,10 @@ def nivo3(sac,action,Gus,tr):
             
             liste_mur = level_3SE(screen,screen_x,screen_y)
         
-            if Gus.perso == "gus":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            if Gus.perso == "lassl":
-                x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "gus":
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            # if Gus.perso == "lassl":
+            #     x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
 
             screen_x += rel_x
             screen_y += rel_y
@@ -2397,7 +2424,38 @@ def nivo3(sac,action,Gus,tr):
                 Gus.spawn = 2
                 time = 0
           
-        ##INTERACTION LVL 2
+        ##INTERACTION LVL 3
+        if tr.give_mac == True:
+            sac.Argent_mac = 0
+        if tr.take_plan == True:
+            sac.Planing = 1
+        
+        ##NORD
+        if interact and Gus.level == 3:
+            zone_dialogue(screen,"Parler à la dame (A)",action,phrases_hooker[tr.press_hook],tr.press_hook,5)
+            
+            if sac.Capote > 0 and tr.press_hook == 0:
+                textsurface = myfont.render("Donner des capotes", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
+        elif 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 0:
+            zone_dialogue(screen,"Parler au dealer (A)",action,phrases_mac[tr.press_mac],tr.press_mac,5)
+            if tr.press_mac == 1 and sac.Planing == 0:
+                textsurface = myfont.render("Prendre le planing", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
+        elif 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac > 0 and tr.give_mac == False:
+            zone_dialogue(screen,"Parler au dealer (A)",action,phrases_mac[tr.press_mac],tr.press_mac,5)   
+            if sac.Argent_mac > 0 and tr.press_mac ==0:
+                textsurface = myfont.render("Donner l'argent", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+
         ##OBJET LVL 2
             
         if screen_x >= 0 and rel_x > 0:
@@ -2429,10 +2487,10 @@ def nivo3(sac,action,Gus,tr):
         
         ##OBJETS
         
-        if Gus.perso == "gus":
-            screen.blit(gugus, rect_gugus)
-        elif Gus.perso == "lassl":
-            screen.blit(lassl, rect_lassl)
+        # if Gus.perso == "gus":
+        screen.blit(gugus, rect_gugus)
+        # elif Gus.perso == "lassl":
+        #     screen.blit(lassl, rect_lassl)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
@@ -2447,11 +2505,11 @@ def nivo3(sac,action,Gus,tr):
         if keys[pygame.K_TAB]:
             affich_sac(screen,sac)
             
-        if keys[pygame.K_LCTRL]:
-            if Gus.perso == "gus":
-                Gus.perso = "lassl"
-            elif Gus.perso != "gus":
-                Gus.perso = "gus"
+        # if keys[pygame.K_LCTRL]:
+        #     if Gus.perso == "gus":
+        #         Gus.perso = "lassl"
+        #     elif Gus.perso != "gus":
+        #         Gus.perso = "gus"
         
         if (Gus.pause%2) == 1:
             pause(screen,gameExit,Gus,sac,tr)
@@ -2459,5 +2517,5 @@ def nivo3(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(Gus.perso)
+
         clock.tick(100)

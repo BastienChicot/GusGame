@@ -142,7 +142,14 @@ class trigger():
         
         
         ## LVL 3
-        ##########################♥
+        self.press_hook = -1
+        self.press_mac = -1
+        
+        #INTERACT LVL 3
+        self.give_condom = False
+        self.give_mac = False
+        self.take_plan = False
+        ##########################
         
         self.rythm = 0
         
