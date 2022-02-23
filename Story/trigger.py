@@ -145,10 +145,34 @@ class trigger():
         self.press_hook = -1
         self.press_mac = -1
         
+        self.press_lassl = -1
+        self.press_contr1 = -1
+        self.press_contr2 = -1
+        self.press_random_ticket = -1 
+        
+        ## OBJETS
+        self.press_trash = -1
+        self.press_trash2 = -1
+        
+        self.press_trash_metro1 = -1
+        self.press_trash_metro2 = -1
+        self.press_billeterie = -1
+        
+        self.capote_3 = 0
+        
+        self.argent_ticket_metro = 0
+        self.clope_metro = 0
+        
         #INTERACT LVL 3
         self.give_condom = False
         self.give_mac = False
         self.take_plan = False
+        
+        self.repair_distri = False
+        self.give_charism = False
+        self.find_fraudeur = False
+        self.achat_ticket = False
+        self.talk_contr2 = False
         ##########################
         
         self.rythm = 0

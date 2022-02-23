@@ -2010,11 +2010,21 @@ def nivo3(sac,action,Gus,tr):
     
     phrases_hooker = [["Eh gamin ! ","Tu saurais pas où je","pourrais me trouver ","des capotes?"],
                       ["Tu pourrais me rendre",'un autre service ?', "Il faudrait apporter cet"," argent à mon chef.",
-                       "Il est dans la voiture"]]
+                       "Il est dans sa voiture"],
+                      ["Oh la! J'ai personne","à voir aujourd'hui.","Aides moi à trouver","quelqu'un."]]
     phrases_mac = [["Yo Gus, Tu as", "vu mon employée ?"],
                    ["Merci petit. Tu","travaille bien. Je","peux te confier son","planing?"]]
-    phrases_bus = []
+    phrases_bus = [["J'ai pas le temps","de parler!"]]
     
+    #LVL 3 C
+    phrases_lassl = [["Yo Gus comment","tu vas?","T'as pas vu ma","pince à cheveux?"]]
+    
+    phrases_contr1 = [["Eh gamin, y'a mon","collègue qu'est pas","bien. C'est pas le","jour de m'embêter!"]]
+    
+    phrases_contr2 = [["Euh......bah... euheu","... mon... mon","....................","AAah ça va pas ouf....",
+                       "me manque un truc"]]
+    phrases_random1 =[["J'ai pas réussi à","prendre mon ticket."]]
+    phrases_billeterie = [["","C'est cassé !"],["","Tu as acheté un","ticket de métro"],["","Tu en as déjà un"]]
     #OBJETS NIVEAU
     #INTERACTIONS
     #ITEMS    
@@ -2088,11 +2098,40 @@ def nivo3(sac,action,Gus,tr):
                     if interact and Gus.level == 3 and tr.give_condom == True:
                         tr.press_hook = 1
                         sac.Argent_mac = 50
+                    if interact and Gus.level == 3 and sac.Planing == 1:
+                        tr.press_hook = 2
                         
-                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == False:
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == False and sac.Capote != 0:
                         tr.press_mac = 0
                     if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == True:
                         tr.press_mac = 1
+                    if 521+screen_x < x < 593+screen_x and 258+screen_y < y < 329+screen_y and Gus.level == 3:
+                        tr.press_conduct = 0                        
+                    
+                    if 689+screen_x < x < 736+screen_x and 565+screen_y < y < 650+screen_y and Gus.level == 3:
+                        tr.press_trash += 1
+                    if 300+screen_x < x < 335+screen_x and 120+screen_y < y < 150+screen_y and Gus.level == 3:
+                        tr.press_trash2 += 1
+                        
+                ##CENTRE
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1:
+                        tr.press_lassl = 0
+                        
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1:
+                        tr.press_contr1 = 0
+                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1:
+                        tr.press_contr2 = 0
+                        
+                    if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
+                        tr.press_random_ticket = 0
+
+                    if 700+screen_x < x < 745+screen_x and 75+screen_y < y < 100+screen_y and Gus.level == 3.1:
+                        tr.press_trash_metro1 += 1                        
+                    if 900+screen_x < x < 964+screen_x and 589+screen_y < y < 633+screen_y and Gus.level == 3.1:
+                        tr.press_trash_metro2 += 1
+                        
+                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1:
+                        tr.press_billeterie = 0
                         
                 elif event.key != pygame.K_a:
                 
@@ -2100,11 +2139,12 @@ def nivo3(sac,action,Gus,tr):
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
-                    if interact and Gus.level == 3 and tr.press_hook == 0:
+                    if interact and Gus.level == 3 and tr.press_hook == 0 and sac.Capote != 0:
                         tr.capote_nn = 0 
                         tr.capote_buro = 0 
                         tr.capote_entree = 0 
                         tr.capoteNord = 0
+                        tr.capote_3 = 0
                         tr.give_condom = True
                     if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 50:
                         tr.give_mac = True
@@ -2429,6 +2469,8 @@ def nivo3(sac,action,Gus,tr):
             sac.Argent_mac = 0
         if tr.take_plan == True:
             sac.Planing = 1
+        if tr.press_contr2 != -1:
+            tr.talk_contr2 = True
         
         ##NORD
         if interact and Gus.level == 3:
@@ -2455,8 +2497,40 @@ def nivo3(sac,action,Gus,tr):
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40)) 
+                
+        elif 521+screen_x < x < 593+screen_x and 258+screen_y < y < 329+screen_y and Gus.level == 3:
+            zone_dialogue(screen,"Parler au chauffeur (A)",action,phrases_bus[tr.press_conduct],tr.press_conduct,2)
+            
+        elif 689+screen_x < x < 736+screen_x and 565+screen_y < y < 650+screen_y and Gus.level == 3 and tr.talk_contr2 == True:
+            tr.press_trash = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash,"du charisme!")
+            sac.Charisme = 1
+        elif 300+screen_x < x < 335+screen_x and 120+screen_y < y < 150+screen_y and Gus.level == 3:
+            tr.press_trash2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash2,"un drôle de truc!")
+            tr.capote_3 = 1
+            
+        ##CENTRE
+        elif 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1:
+            zone_dialogue(screen,"Parler à celle-là (A)",action,phrases_lassl[tr.press_lassl],tr.press_lassl,5) 
+      
+        elif 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1:
+            zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr1[tr.press_contr1],tr.press_contr1,5)  
+            
+        elif 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1:
+            zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr2[tr.press_contr2],tr.press_contr2,5)
+            
+        elif 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
+            zone_dialogue(screen,"Parler à ce type (A)",action,phrases_random1[tr.press_random_ticket],tr.press_random_ticket,5)
 
-        ##OBJET LVL 2
+
+        elif 700+screen_x < x < 745+screen_x and 75+screen_y < y < 100+screen_y and Gus.level == 3.1:
+            tr.press_trash_metro1 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro1,"des clopes!")
+            tr.clope_metro = 3           
+        elif 900+screen_x < x < 964+screen_x and 589+screen_y < y < 633+screen_y and Gus.level == 3.1:
+            tr.press_trash_metro2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro2,"du papier à ticket!")
+            sac.Papier = 10
+            
+        elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1:
+            zone_dialogue(screen,"Acheter un ticket (A)",action,phrases_billeterie[tr.press_billeterie],tr.press_billeterie,5) 
             
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0

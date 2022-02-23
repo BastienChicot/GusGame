@@ -142,10 +142,12 @@ class sac_a_dos():
         self.Rythme = 0
         self.Argent_mac = 0
         self.Planing = 0
+        self.Papier = 0
+        self.Charisme = 0
         
     def update_items(self,tr):
-        self.Clopes = tr.clopesEst + tr.clopes_nn
-        self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord
+        self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro
+        self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord + tr.capote_3
         self.Seringue = tr.seringue_NE + tr.seringue_NO + tr.seringueN + tr.seringueO
         self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere
         self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
@@ -179,7 +181,7 @@ class Gus():
     def update_items(self,tr):
         self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
                       tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con + tr.ticket_bus +
-                      tr.argent_bonus)
+                      tr.argent_bonus + tr.argent_ticket_metro)
         
     def iter_objects(self):
         return (self.__dict__)  
