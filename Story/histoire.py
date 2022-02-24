@@ -2025,7 +2025,23 @@ def nivo3(sac,action,Gus,tr):
                        "me manque un truc"]]
     phrases_random1 =[["J'ai pas réussi à","prendre mon ticket."]]
     phrases_billeterie = [["","C'est cassé !"],["","Tu as acheté un","ticket de métro"],["","Tu en as déjà un"]]
-    #OBJETS NIVEAU
+    
+    #LVL 3 E
+    phrases_bassist = [["Notre batteur a perdu","son rythme. Tu peux","nous aider?"]]
+    
+    phrases_batteur = [["Et 1, et 2","et ... 3 je crois","et 1, 2, 3","...","C'est quoi la suite ? "]]
+    
+    phrases_guitar = [["Wow! C'est dur de jouer","sans rythme."]]
+    
+    phrases_fraudeur = [["J'aime beaucoup cette","station de métro."]]
+    
+    #LVL 3 SE
+    phrases_clodo = [["Mon carton"," commence à se faire","vieux..."]]
+    
+    phrases_depressif = [["Ohlala ça va pas","mais alors pas du ","tout..."]]
+    
+    machine_1 = [["Elle est cassée!"]]
+    #OBJETS NIVEA
     #INTERACTIONS
     #ITEMS    
     
@@ -2133,6 +2149,28 @@ def nivo3(sac,action,Gus,tr):
                     if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1:
                         tr.press_billeterie = 0
                         
+                ##EST
+                    if interact and Gus.level == 3.2:
+                        tr.press_batteur = 0
+                    if interact_bass and Gus.level == 3.2:
+                        tr.press_bassist = 0
+                    if interact_guit and Gus.level == 3.2:
+                        tr.press_guitar = 0
+                    if 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2:
+                        tr.press_fraudeur = 0
+                        
+                    if 695+screen_x < x < 725+screen_x and 80+screen_y < y < 100+screen_y and Gus.level == 3.2:
+                        tr.press_trash3 += 1
+                        
+                ##SUD EST
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3:
+                        tr.press_clodo = 0
+                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
+                        tr.depressif = 0
+                    if 590+screen_x < x < 690+screen_x and 75+screen_y < y < 109+screen_y and Gus.level == 3.3:
+                        tr.press_machine1 = 0
+
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
@@ -2150,6 +2188,17 @@ def nivo3(sac,action,Gus,tr):
                         tr.give_mac = True
                     if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 0 and tr.press_mac == 1 and sac.Planing == 0:
                         tr.take_plan = True
+
+                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and sac.Papier > 0:
+                        tr.repair_distri = True
+                        
+                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == True and sac.Papier == 0:
+                        sac.Ticket = 1
+                        tr.achat_ticket = True
+                        tr.argent_ticket_metro = -2
+                        
+                    if 700+screen_x < x < 800+screen_x and 80+screen_y < y < 125+screen_y and Gus.level == 3.3 :
+                        tr.press_machine2 += 1
                     
                         
                 elif event.key != pygame.K_RETURN:
@@ -2471,6 +2520,12 @@ def nivo3(sac,action,Gus,tr):
             sac.Planing = 1
         if tr.press_contr2 != -1:
             tr.talk_contr2 = True
+        if tr.repair_distri == True:
+            sac.Papier = 0
+            
+        if tr.press_machine2 != 0:
+            sac.Gateau = tr.press_machine2
+            tr.achat_gateau = (tr.press_machine2)* - 2
         
         ##NORD
         if interact and Gus.level == 3:
@@ -2529,8 +2584,64 @@ def nivo3(sac,action,Gus,tr):
             tr.press_trash_metro2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro2,"du papier à ticket!")
             sac.Papier = 10
             
-        elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1:
-            zone_dialogue(screen,"Acheter un ticket (A)",action,phrases_billeterie[tr.press_billeterie],tr.press_billeterie,5) 
+        elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == False:
+            zone_dialogue(screen,"Acheter un ticket (A)",action,phrases_billeterie[tr.press_billeterie],tr.press_billeterie,5)
+            
+            if sac.Papier > 0 :
+                textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
+        elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == True:
+            if tr.achat_ticket == False:
+                textsurface = myfont.render("Acheter un ticket", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+            if tr.achat_ticket == True:
+                textsurface = myfont.render("Tu as ton ticket", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+        ##EST
+        elif interact and Gus.level == 3.2:
+            zone_dialogue(screen,"Parler au batteur (A)",action,phrases_batteur[tr.press_batteur],tr.press_batteur,5) 
+            
+        elif interact_bass and Gus.level == 3.2:
+            zone_dialogue(screen,"Parler au bassiste (A)",action,phrases_bassist[tr.press_bassist],tr.press_bassist,5) 
+
+        elif interact_guit and Gus.level == 3.2:
+            zone_dialogue(screen,"Parler au guitariste (A)",action,phrases_guitar[tr.press_guitar],tr.press_guitar,5) 
+
+        elif 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2:
+            zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_fraudeur[tr.press_fraudeur],tr.press_fraudeur,5) 
+            
+        elif 695+screen_x < x < 725+screen_x and 80+screen_y < y < 100+screen_y and Gus.level == 3.2:
+            tr.press_trash3 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash3,"vieux sandwich!")       
+            sac.Sandwich = 1
+            
+        ##SUD EST
+        elif 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3:
+            zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo[tr.press_clodo],tr.press_clodo,5)
+            
+        elif 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
+            zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_depressif[tr.depressif],tr.depressif,5)
+
+        elif 590+screen_x < x < 690+screen_x and 75+screen_y < y < 109+screen_y and Gus.level == 3.3:
+            zone_dialogue(screen,"Acheter un truc (A)",action,machine_1[tr.press_machine1],tr.press_machine1,5)
+            
+        elif 700+screen_x < x < 800+screen_x and 80+screen_y < y < 125+screen_y and Gus.level == 3.3 :
+            textsurface = myfont.render("Acheter un truc", False, (110, 110, 110))
+            textsurface2 = myfont.render("       ENTER.", False, (110, 110, 110))
+            screen.blit(fond_text,(260,380))
+            screen.blit(textsurface,(280,400))
+            screen.blit(textsurface2,(280,420))   
+
+        elif 216+screen_x < x < 400+screen_x and 0+screen_y < y < 50+screen_y and Gus.level == 3.3 :
+            textsurface = myfont.render("C'est le plan de", False, (110, 110, 110))
+            textsurface2 = myfont.render("la ville.", False, (110, 110, 110))
+            screen.blit(fond_text,(260,380))
+            screen.blit(textsurface,(280,400))
+            screen.blit(textsurface2,(280,420))    
             
         if screen_x >= 0 and rel_x > 0:
             screen_x = 0

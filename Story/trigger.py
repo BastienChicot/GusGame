@@ -150,6 +150,16 @@ class trigger():
         self.press_contr2 = -1
         self.press_random_ticket = -1 
         
+        self.press_batteur = -1
+        self.press_bassist = -1
+        self.press_guitar = -1
+        self.press_fraudeur = -1
+        
+        self.press_clodo = -1
+        self.press_machine1 = -1
+        self.press_machine2 = 0
+        self.depressif = -1
+        
         ## OBJETS
         self.press_trash = -1
         self.press_trash2 = -1
@@ -162,7 +172,10 @@ class trigger():
         
         self.argent_ticket_metro = 0
         self.clope_metro = 0
+
+        self.press_trash3 = -1   
         
+        self.achat_gateau = 0
         #INTERACT LVL 3
         self.give_condom = False
         self.give_mac = False
