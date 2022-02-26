@@ -176,6 +176,7 @@ class trigger():
         self.press_trash3 = -1   
         
         self.achat_gateau = 0
+        self.gateau_offert = 0
         #INTERACT LVL 3
         self.give_condom = False
         self.give_mac = False
@@ -183,9 +184,14 @@ class trigger():
         
         self.repair_distri = False
         self.give_charism = False
+        self.give_ticket = False
         self.find_fraudeur = False
         self.achat_ticket = False
         self.talk_contr2 = False
+        
+        self.give_dwich = False
+        self.give_pince = False
+        self.give_lassl_gateau = False
         ##########################
         
         self.rythm = 0

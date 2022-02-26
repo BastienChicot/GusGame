@@ -423,7 +423,7 @@ def nivo1(sac,action,Gus,tr):
 
         elif 290+screen_x < x < 340+screen_x and 510+screen_y < y < 560+screen_y :
             
-            tr.pressed_cuisine1 = zone_interaction(screen,"Fouiller les tirroirs (A)",action,tr.pressed_cuisine1,"un tire-bouchon")
+            tr.pressed_cuisine1 = zone_interaction(screen,"Fouiller les tiroirs (A)",action,tr.pressed_cuisine1,"un tire-bouchon")
 
         elif 341+screen_x < x < 410+screen_x and 510+screen_y < y < 560+screen_y and sac.soupe_froide == 1:
             
@@ -444,7 +444,7 @@ def nivo1(sac,action,Gus,tr):
                 tr.pressed_four = 0
 
             if tr.pressed_mom == 0:
-                tr.pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,tr.pressed_four," ... rien ... Trouve d'abord quelque chose à chauffer!")
+                tr.pressed_four = zone_interaction(screen,"Fouiller le four (A)",action,tr.pressed_four," ... rien ")
                 sac.soupe_chaude = 0
                 tr.pressed_four = 0
     
@@ -1011,7 +1011,7 @@ def nivo2(sac,action,Gus,tr):
         if Gus.level == 2:
     
             if Gus.spawn == 1 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,229,225)
+                screen_x,screen_y,x,y = spawn_level(x,y,229,224)
             elif Gus.spawn == 2 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,80)
         
@@ -2017,13 +2017,21 @@ def nivo3(sac,action,Gus,tr):
     phrases_bus = [["J'ai pas le temps","de parler!"]]
     
     #LVL 3 C
-    phrases_lassl = [["Yo Gus comment","tu vas?","T'as pas vu ma","pince à cheveux?"]]
+    phrases_lassl = [["Yo Gus comment","tu vas?","T'as pas vu ma","pince à cheveux?"],
+                     ["T'as pas un petit","gâteau pour moi ?"],
+                     ["J'adore le groupe qui","joue dans cette station","Pourquoi ils ne","jouent pas ?"]]
     
-    phrases_contr1 = [["Eh gamin, y'a mon","collègue qu'est pas","bien. C'est pas le","jour de m'embêter!"]]
+    phrases_contr1 = [["Eh gamin, y'a mon","collègue qu'est pas","bien. C'est pas le","jour de m'embêter!"],
+                      ["T'as pas vu passer","un fraudeur ?"],
+                      ["On est mal, il n'y a","plus de papier dans le","distributeur."],
+                      ["Tu as besoin d'un","ticket pour passer."]]
     
     phrases_contr2 = [["Euh......bah... euheu","... mon... mon","....................","AAah ça va pas ouf....",
-                       "me manque un truc"]]
-    phrases_random1 =[["J'ai pas réussi à","prendre mon ticket."]]
+                       "me manque un truc"],
+                      ["Oh merci. Ca va aller","beaucoup mieux avec","ça. Je vais pouvoir me","concentrer sur cette",
+                       "histoire de fraudeur"]]
+    phrases_random1 =[["J'ai pas réussi à","prendre mon ticket."],
+                      ["Merci petit, je m'en","souviendrai."]]
     phrases_billeterie = [["","C'est cassé !"],["","Tu as acheté un","ticket de métro"],["","Tu en as déjà un"]]
     
     #LVL 3 E
@@ -2036,7 +2044,9 @@ def nivo3(sac,action,Gus,tr):
     phrases_fraudeur = [["J'aime beaucoup cette","station de métro."]]
     
     #LVL 3 SE
-    phrases_clodo = [["Mon carton"," commence à se faire","vieux..."]]
+    phrases_clodo = [["J'ai faim..."],
+                     ["Tiens, j'ai trouvé", "cette pince par terre"],
+                     ["Mon carton"," commence à se faire","vieux..."]]
     
     phrases_depressif = [["Ohlala ça va pas","mais alors pas du ","tout..."]]
     
@@ -2130,16 +2140,31 @@ def nivo3(sac,action,Gus,tr):
                         tr.press_trash2 += 1
                         
                 ##CENTRE
-                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1:
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_pince == False:
                         tr.press_lassl = 0
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_pince == True:
+                        tr.press_lassl = 1
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_lassl_gateau == True:
+                        tr.press_lassl = 2
                         
-                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1:
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == False:
                         tr.press_contr1 = 0
-                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1:
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == True and tr.repair_distri == True and sac.Ticket == 1:
+                        tr.press_contr1 = 1
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == True and tr.repair_distri == False:
+                        tr.press_contr1 = 2                        
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == True and tr.repair_distri == True and sac.Ticket == 0:
+                        tr.press_contr1 = 3
+                    
+                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == False:
                         tr.press_contr2 = 0
+                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == True:
+                        tr.press_contr2 = 1
                         
-                    if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
+                    if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1 and tr.give_ticket == False:
                         tr.press_random_ticket = 0
+                    if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1 and tr.give_ticket == True:
+                        tr.press_random_ticket = 1
 
                     if 700+screen_x < x < 745+screen_x and 75+screen_y < y < 100+screen_y and Gus.level == 3.1:
                         tr.press_trash_metro1 += 1                        
@@ -2163,8 +2188,14 @@ def nivo3(sac,action,Gus,tr):
                         tr.press_trash3 += 1
                         
                 ##SUD EST
-                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3:
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == False:
                         tr.press_clodo = 0
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == True and tr.give_pince ==False:
+                        tr.press_clodo = 1
+                        sac.Pince = 1
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == True and tr.give_pince == True:
+                        tr.press_clodo = 2
+
                     if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
                         tr.depressif = 0
                     if 590+screen_x < x < 690+screen_x and 75+screen_y < y < 109+screen_y and Gus.level == 3.3:
@@ -2189,17 +2220,38 @@ def nivo3(sac,action,Gus,tr):
                     if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 0 and tr.press_mac == 1 and sac.Planing == 0:
                         tr.take_plan = True
 
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_pince == False and sac.Pince == 1:
+                        tr.give_pince = True
+                        sac.Pince = 0
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_pince == True and sac.Gateau != 0:
+                        tr.give_lassl_gateau = True
+                        tr.gateau_offert = -1
+                        
                     if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and sac.Papier > 0:
                         tr.repair_distri = True
+                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == False and sac.Charisme == 1:
+                        tr.give_charism = True
+                        sac.Charisme = 0
                         
-                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == True and sac.Papier == 0:
+                    if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1 and sac.Ticket == 1 and tr.give_ticket == False:
+                        sac.Ticket = 0
+                        tr.achat_ticket = False
+                        tr.give_ticket = True
+                        
+                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == True and sac.Papier == 0 and tr.give_ticket == False:
                         sac.Ticket = 1
                         tr.achat_ticket = True
                         tr.argent_ticket_metro = -2
+                    if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == True and sac.Papier == 0 and tr.give_ticket == True:
+                        sac.Ticket = 1
+                        tr.achat_ticket = True
+                        tr.argent_ticket_metro = -4
                         
                     if 700+screen_x < x < 800+screen_x and 80+screen_y < y < 125+screen_y and Gus.level == 3.3 :
                         tr.press_machine2 += 1
-                    
+                        
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == False and sac.Sandwich != 0:
+                        tr.give_dwich = True
                         
                 elif event.key != pygame.K_RETURN:
                 
@@ -2350,7 +2402,7 @@ def nivo3(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,174)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,254)
                         
             time += 1
             
@@ -2379,11 +2431,11 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,31,190)
+                screen_x,screen_y,x,y = spawn_level(x,y,31,254)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,901,230)
+                screen_x,screen_y,x,y = spawn_level(x,y,901,352)
                         
             time += 1
             
@@ -2522,9 +2574,11 @@ def nivo3(sac,action,Gus,tr):
             tr.talk_contr2 = True
         if tr.repair_distri == True:
             sac.Papier = 0
+        if tr.give_dwich == True:
+            sac.Sandwich = 0
             
         if tr.press_machine2 != 0:
-            sac.Gateau = tr.press_machine2
+            sac.Gateau = tr.press_machine2 + tr.gateau_offert
             tr.achat_gateau = (tr.press_machine2)* - 2
         
         ##NORD
@@ -2556,7 +2610,7 @@ def nivo3(sac,action,Gus,tr):
         elif 521+screen_x < x < 593+screen_x and 258+screen_y < y < 329+screen_y and Gus.level == 3:
             zone_dialogue(screen,"Parler au chauffeur (A)",action,phrases_bus[tr.press_conduct],tr.press_conduct,2)
             
-        elif 689+screen_x < x < 736+screen_x and 565+screen_y < y < 650+screen_y and Gus.level == 3 and tr.talk_contr2 == True:
+        elif 689+screen_x < x < 736+screen_x and 565+screen_y < y < 650+screen_y and Gus.level == 3 and tr.talk_contr2 == True and tr.give_charism == False:
             tr.press_trash = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash,"du charisme!")
             sac.Charisme = 1
         elif 300+screen_x < x < 335+screen_x and 120+screen_y < y < 150+screen_y and Gus.level == 3:
@@ -2566,16 +2620,35 @@ def nivo3(sac,action,Gus,tr):
         ##CENTRE
         elif 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler à celle-là (A)",action,phrases_lassl[tr.press_lassl],tr.press_lassl,5) 
-      
+            if sac.Pince == 1 and tr.give_pince == False:
+                textsurface = myfont.render("Donner la pince", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+            if sac.Gateau != 0 and tr.give_pince == True and tr.give_lassl_gateau == False:
+                textsurface = myfont.render("Donner un gâteau", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
         elif 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr1[tr.press_contr1],tr.press_contr1,5)  
             
         elif 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr2[tr.press_contr2],tr.press_contr2,5)
+            if tr.give_charism == False and sac.Charisme == 1:
+                textsurface = myfont.render("Rendre son charisme", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
             
         elif 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler à ce type (A)",action,phrases_random1[tr.press_random_ticket],tr.press_random_ticket,5)
-
+            if tr.achat_ticket == True and sac.Ticket == 1 and tr.give_tivket == False:
+                textsurface = myfont.render("Donner un ticket", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
 
         elif 700+screen_x < x < 745+screen_x and 75+screen_y < y < 100+screen_y and Gus.level == 3.1:
             tr.press_trash_metro1 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro1,"des clopes!")
@@ -2622,6 +2695,11 @@ def nivo3(sac,action,Gus,tr):
         ##SUD EST
         elif 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3:
             zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo[tr.press_clodo],tr.press_clodo,5)
+            if sac.Sandwich == 1 and tr.give_dwich == False:
+                textsurface = myfont.render("Donner le sandwich", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
             
         elif 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
             zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_depressif[tr.depressif],tr.depressif,5)
@@ -2702,5 +2780,5 @@ def nivo3(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-
+        
         clock.tick(100)

@@ -147,6 +147,7 @@ class sac_a_dos():
         self.Charisme = 0
         self.Sandwich =0
         self.Gateau = 0
+        self.Pince = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro
