@@ -2024,24 +2024,31 @@ def nivo3(sac,action,Gus,tr):
     phrases_contr1 = [["Eh gamin, y'a mon","collègue qu'est pas","bien. C'est pas le","jour de m'embêter!"],
                       ["T'as pas vu passer","un fraudeur ?"],
                       ["On est mal, il n'y a","plus de papier dans le","distributeur."],
-                      ["Tu as besoin d'un","ticket pour passer."]]
+                      ["Tu as besoin d'un","ticket pour passer."],
+                      ["Quoi?? Il est juste là?","On va intervenir.","J'ai trouvé ça par terre","Je ne sais pas quoi",
+                       "en faire."]]
     
     phrases_contr2 = [["Euh......bah... euheu","... mon... mon","....................","AAah ça va pas ouf....",
                        "me manque un truc"],
                       ["Oh merci. Ca va aller","beaucoup mieux avec","ça. Je vais pouvoir me","concentrer sur cette",
-                       "histoire de fraudeur"]]
+                       "histoire de fraudeur"],
+                      ["Oh la la !! ","On va intervenir au ","plus vite."]]
     phrases_random1 =[["J'ai pas réussi à","prendre mon ticket."],
                       ["Merci petit, je m'en","souviendrai."]]
     phrases_billeterie = [["","C'est cassé !"],["","Tu as acheté un","ticket de métro"],["","Tu en as déjà un"]]
     
     #LVL 3 E
-    phrases_bassist = [["Notre batteur a perdu","son rythme. Tu peux","nous aider?"]]
+    phrases_bassist = [["Notre batteur a perdu","son rythme. Tu peux","nous aider?"],
+                       ["Tu veux chanter avec ","nous ?"]]
     
-    phrases_batteur = [["Et 1, et 2","et ... 3 je crois","et 1, 2, 3","...","C'est quoi la suite ? "]]
+    phrases_batteur = [["Et 1, et 2","et ... 3 je crois","et 1, 2, 3","...","C'est quoi la suite ? "],
+                       ["Allez, t'es chaud ?"]]
     
-    phrases_guitar = [["Wow! C'est dur de jouer","sans rythme."]]
+    phrases_guitar = [["Wow! C'est dur de jouer","sans rythme."],
+                      ["On veut bien un chanteur","si t'as rien d'autre","à faire..."]]
     
-    phrases_fraudeur = [["J'aime beaucoup cette","station de métro."]]
+    phrases_fraudeur = [["J'aime beaucoup cette","station de métro."],
+                        ["Les contrôleurs sont","vraiment stupides ici.","Ils ne m'ont même","pas contrôlé"]]
     
     #LVL 3 SE
     phrases_clodo = [["J'ai faim..."],
@@ -2155,11 +2162,16 @@ def nivo3(sac,action,Gus,tr):
                         tr.press_contr1 = 2                        
                     if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == True and tr.repair_distri == True and sac.Ticket == 0:
                         tr.press_contr1 = 3
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.denonce_fraude == True :
+                        tr.press_contr1 = 4
+                        sac.Rythme = 1
                     
                     if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == False:
                         tr.press_contr2 = 0
                     if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == True:
                         tr.press_contr2 = 1
+                    if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.denonce_fraude == True:
+                        tr.press_contr2 = 2
                         
                     if 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1 and tr.give_ticket == False:
                         tr.press_random_ticket = 0
@@ -2175,14 +2187,25 @@ def nivo3(sac,action,Gus,tr):
                         tr.press_billeterie = 0
                         
                 ##EST
-                    if interact and Gus.level == 3.2:
+                    if interact and Gus.level == 3.2 and tr.unlock_minigame1 == False:
                         tr.press_batteur = 0
-                    if interact_bass and Gus.level == 3.2:
+                    if interact and Gus.level == 3.2 and tr.unlock_minigame1 == True:
+                        tr.press_batteur = 1
+
+                    if interact_bass and Gus.level == 3.2 and tr.unlock_minigame1 == False:
                         tr.press_bassist = 0
-                    if interact_guit and Gus.level == 3.2:
+                    if interact_bass and Gus.level == 3.2 and tr.unlock_minigame1 == True:
+                        tr.press_bassist = 1
+
+                    if interact_guit and Gus.level == 3.2 and tr.unlock_minigame1 ==False:
                         tr.press_guitar = 0
+                    if interact_guit and Gus.level == 3.2 and tr.unlock_minigame1 ==True:
+                        tr.press_guitar = 1
+
                     if 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2:
                         tr.press_fraudeur = 0
+                    if 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2 and tr.give_lassl_gateau == True :
+                        tr.press_fraudeur = 1                    
                         
                     if 695+screen_x < x < 725+screen_x and 80+screen_y < y < 100+screen_y and Gus.level == 3.2:
                         tr.press_trash3 += 1
@@ -2229,6 +2252,9 @@ def nivo3(sac,action,Gus,tr):
                         
                     if 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and sac.Papier > 0:
                         tr.repair_distri = True
+                        
+                    if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.find_fraudeur == True:
+                        tr.denonce_fraude = True
                     if 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1 and tr.give_charism == False and sac.Charisme == 1:
                         tr.give_charism = True
                         sac.Charisme = 0
@@ -2246,6 +2272,15 @@ def nivo3(sac,action,Gus,tr):
                         sac.Ticket = 1
                         tr.achat_ticket = True
                         tr.argent_ticket_metro = -4
+
+                    if 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2 and tr.give_lassl_gateau == True and tr.find_fraudeur == False:
+                        tr.find_fraudeur = True
+                        
+                    if interact and Gus.level == 3.2 and sac.Rythme == 1:
+                        sac.Rythme = 0
+                        tr.rythm = 1
+                        tr.unlock_minigame1 = True
+
                         
                     if 700+screen_x < x < 800+screen_x and 80+screen_y < y < 125+screen_y and Gus.level == 3.3 :
                         tr.press_machine2 += 1
@@ -2308,7 +2343,7 @@ def nivo3(sac,action,Gus,tr):
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,823,514)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,401,124)
+                screen_x,screen_y,x,y = spawn_level(x,y,401,122)
             elif Gus.spawn == 3 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,401,707-gugus_height)
                 
@@ -2402,7 +2437,7 @@ def nivo3(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,254)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,228)
                         
             time += 1
             
@@ -2431,11 +2466,11 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,31,254)
+                screen_x,screen_y,x,y = spawn_level(x,y,31,228)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,901,352)
+                screen_x,screen_y,x,y = spawn_level(x,y,901,302)
                         
             time += 1
             
@@ -2633,7 +2668,12 @@ def nivo3(sac,action,Gus,tr):
                 
         elif 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr1[tr.press_contr1],tr.press_contr1,5)  
-            
+            if tr.find_fraudeur == True and sac.Rythme == 0:
+                textsurface = myfont.render("Dénoncer le fraudeur", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
         elif 828+screen_x < x < 882+screen_x and 519+screen_y < y < 558+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler au contrôleur (A)",action,phrases_contr2[tr.press_contr2],tr.press_contr2,5)
             if tr.give_charism == False and sac.Charisme == 1:
@@ -2641,7 +2681,12 @@ def nivo3(sac,action,Gus,tr):
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40))
-            
+            if tr.find_fraudeur == True and tr.press_contr2 != 2:
+                textsurface = myfont.render("Dénoncer le fraudeur", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
         elif 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler à ce type (A)",action,phrases_random1[tr.press_random_ticket],tr.press_random_ticket,5)
             if tr.achat_ticket == True and sac.Ticket == 1 and tr.give_tivket == False:
@@ -2677,17 +2722,47 @@ def nivo3(sac,action,Gus,tr):
                 screen.blit(textsurface,(x,y-60))
         ##EST
         elif interact and Gus.level == 3.2:
-            zone_dialogue(screen,"Parler au batteur (A)",action,phrases_batteur[tr.press_batteur],tr.press_batteur,5) 
+            zone_dialogue(screen,"Parler au batteur (A)",action,phrases_batteur[tr.press_batteur],tr.press_batteur,5)
+            if sac.Rythme == 1 and tr.score_music == 0:
+                textsurface = myfont.render("Donner le rythme", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
+            if tr.unlock_minigame1 == True :
+                textsurface = myfont.render("Chanter", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                  
             
         elif interact_bass and Gus.level == 3.2:
             zone_dialogue(screen,"Parler au bassiste (A)",action,phrases_bassist[tr.press_bassist],tr.press_bassist,5) 
-
+            if tr.unlock_minigame1 == True :
+                textsurface = myfont.render("Chanter", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))  
+                
         elif interact_guit and Gus.level == 3.2:
             zone_dialogue(screen,"Parler au guitariste (A)",action,phrases_guitar[tr.press_guitar],tr.press_guitar,5) 
-
+            if tr.unlock_minigame1 == True :
+                textsurface = myfont.render("Chanter", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))  
+                
         elif 312+screen_x < x < 365+screen_x and 530+screen_y < y < 590+screen_y and Gus.level == 3.2:
-            zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_fraudeur[tr.press_fraudeur],tr.press_fraudeur,5) 
-            
+            zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_fraudeur[tr.press_fraudeur],tr.press_fraudeur,5)
+            if tr.give_lassl_gateau == True and tr.find_fraudeur == False:
+                textsurface = myfont.render("Demander s'il a son ticket", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+            if tr.give_lassl_gateau == True and tr.find_fraudeur == True:
+                textsurface = myfont.render("Tu as trouvé le", False, (0, 0, 0))
+                textsurface2 = myfont.render("fraudeur.", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
         elif 695+screen_x < x < 725+screen_x and 80+screen_y < y < 100+screen_y and Gus.level == 3.2:
             tr.press_trash3 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash3,"vieux sandwich!")       
             sac.Sandwich = 1

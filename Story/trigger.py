@@ -186,6 +186,7 @@ class trigger():
         self.give_charism = False
         self.give_ticket = False
         self.find_fraudeur = False
+        self.denonce_fraude = False
         self.achat_ticket = False
         self.talk_contr2 = False
         
@@ -194,7 +195,10 @@ class trigger():
         self.give_lassl_gateau = False
         ##########################
         
+        self.score_music = 0
+        
         self.rythm = 0
+        self.unlock_minigame1 = False
         
     def update_items(self):
          self.give_money = self.pnj_bus
