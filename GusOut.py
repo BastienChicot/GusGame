@@ -5,7 +5,7 @@ Created on Tue Nov 23 16:02:54 2021
 @author: basti
 """
 import pygame
-import pandas as pd
+#import pandas as pd
 
 from Story.Fonctions import *
 from Story.histoire import *
@@ -29,6 +29,10 @@ def launch(Gus):
         nivo2(sac,action,Gus,tr)      
     if Gus.level == 0:
         bonus_level(sac,action,Gus,tr)
+    if Gus.level >= 3 and Gus.level < 4:
+        nivo3(sac,action,Gus,tr)
+    if Gus.level == 99:
+        music_level(sac,action,Gus,tr)
     if Gus.level >= 3 and Gus.level < 4:
         nivo3(sac,action,Gus,tr)
         

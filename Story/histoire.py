@@ -5,6 +5,8 @@ Created on Tue Nov 30 13:28:37 2021
 @author: basti
 """
 import pygame
+import random
+
 from Story.Fonctions import *
 from Level.Levels import *
 from settings import *
@@ -2280,7 +2282,9 @@ def nivo3(sac,action,Gus,tr):
                         sac.Rythme = 0
                         tr.rythm = 1
                         tr.unlock_minigame1 = True
-
+                        
+                    if (interact or interact_bass or interact_guit) and Gus.level == 3.2 and tr.unlock_minigame1 == True:
+                        Gus.level = 99
                         
                     if 700+screen_x < x < 800+screen_x and 80+screen_y < y < 125+screen_y and Gus.level == 3.3 :
                         tr.press_machine2 += 1
@@ -2471,7 +2475,10 @@ def nivo3(sac,action,Gus,tr):
             if Gus.spawn == 2 and time < 2:
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,901,302)
-                        
+                
+            if Gus.spawn == 3 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,229,228)                        
             time += 1
             
             liste_mur = level_3E(screen,screen_x,screen_y)
@@ -2857,3 +2864,224 @@ def nivo3(sac,action,Gus,tr):
         pygame.display.update()
         
         clock.tick(100)
+        
+def end_game(score):
+    final_font = pygame.font.SysFont('Corbel Bold', 50)
+    screen.fill((250,250,250))
+    
+    titer = final_font.render("Score :", False, (21, 21, 21))
+        
+    final_score = final_font.render(score, False, (21, 21, 21))
+    
+    screen.blit(titer,(100,200))
+    screen.blit(final_score,(100,300))
+    titr = final_font.render("Retour au jeu : ENTER", False, (21, 21, 21))
+    
+    screen.blit(titr,(100,450))
+    
+def music_level(sac,action,Gus,tr):
+    gameExit=False
+    
+    fond=pygame.image.load('Level/fond_minimusic.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    frame_count = Gus.frame
+    a=0
+    time = 0
+    
+    start_ticks=pygame.time.get_ticks()
+    score = 0
+    
+    total_score = 0
+    countdown = 63
+    
+    x = 140
+    y=400
+    
+    pressed = False
+    wrong = False
+    time = 0
+    done = 0
+
+    start_y = 0
+    
+    left = pygame.image.load("bank/image/left_arrow.png")
+    right = pygame.image.load("bank/image/right_arrow.png")
+    up = pygame.image.load("bank/image/up_arrow.png")
+    down = pygame.image.load("bank/image/down_arrow.png")
+    
+    left_tr = left.get_rect()
+    right_tr = right.get_rect()
+    up_tr = up.get_rect()
+    dw_tr = down.get_rect()
+    
+    liste_img = [left,right,up,down]
+    liste_tr = [left_tr,right_tr,up_tr,dw_tr]
+    
+    pick = random.randint(0, 3)
+    triangle = up_tr
+    
+    line = pygame.Rect(0,300,500,2)
+    zone = pygame.Rect(x-5, y, 50, 50)
+    
+    clock = pygame.time.Clock()
+    while not gameExit and Gus.level == 99:
+        
+        if countdown >= 0:
+        
+            if frame_count <= 30:
+                frame_count += 1
+            else:
+                frame_count = 0
+            
+            if frame_count <= 15:
+                a=0
+            elif frame_count > 15:
+                a=1
+        
+               
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True
+                   
+                  # Condition becomes true when keyboard is pressed   
+                if event.type == pygame.KEYDOWN:
+       
+                    if event.key == pygame.K_UP and start_y >= 300 and triangle == up_tr:
+                        pressed = True
+                    elif event.key != pygame.K_UP and start_y >= 500 and triangle == up_tr:
+                        time = 0
+                        pressed = False
+                    elif event.key == pygame.K_UP and start_y >= 300 and triangle != up_tr:
+                        wrong = True
+                        
+                    if event.key == pygame.K_DOWN and start_y >= 300 and triangle == dw_tr:
+                        pressed = True
+                    elif event.key != pygame.K_DOWN and start_y >= 500 and triangle == dw_tr:
+                        time = 0
+                        pressed = False
+                    elif event.key == pygame.K_DOWN and start_y >= 300 and triangle != dw_tr:
+                        wrong = True
+                        
+                    if event.key == pygame.K_LEFT and start_y >= 300 and triangle == left_tr:
+                        pressed = True
+                    elif event.key != pygame.K_LEFT and start_y >= 500 and triangle == left_tr:
+                        time = 0
+                        pressed = False
+                    elif event.key == pygame.K_LEFT and start_y >= 300 and triangle != left_tr:
+                        wrong = True
+                        
+                    if event.key == pygame.K_RIGHT and start_y >= 300 and triangle == right_tr:
+                        pressed = True
+                    elif event.key != pygame.K_RIGHT and start_y >= 500 and triangle == right_tr:
+                        time = 0
+                        pressed = False                                        
+                    elif event.key == pygame.K_RIGHT and start_y >= 300 and triangle != right_tr:
+                        wrong = True
+                        
+            if pressed == True:
+                time += 1
+                
+                if time == 1:
+                    score = 100-abs((start_y - y)/5)
+                elif time != 1:
+                    score = 0
+        
+            if wrong == True:
+                time += 1
+                done = 0
+                
+                if time == 1:
+                    score = -80
+                elif time != 1:
+                    score = 0
+                    
+            start_y += 2 + (done/8)
+            if start_y >= 500:
+                pressed = False
+                wrong = False
+                start_y = -50
+                time = 0
+                pick = random.randint(0, 3)
+                triangle = liste_tr[pick]
+                done += 1
+                
+            seconds=(pygame.time.get_ticks()-start_ticks)/1000
+            countdown = int(60 - seconds)
+            
+            screen.fill((0,0,0))
+            triangle.topleft = (140,start_y)        
+    
+            total_score += score
+            points = str(int(total_score))
+            
+            pnj_batteur = batteur[a]
+            pnj_bass = bassist[a]
+            pnj_guit = guitar[a]
+            
+            rect_batteur = pnj_batteur.get_rect()
+            rect_batteur.topleft=(270,20)
+            
+            rect_bass = pnj_bass.get_rect()
+            rect_bass.topleft=(200,50)
+            
+            rect_guit = pnj_guit.get_rect()
+            rect_guit.topleft=(350,80)
+            
+            gugus = gugus_move[a]
+            rect_gugus = gugus.get_rect()
+            rect_gugus.topleft = (250,150)
+            
+            screen.blit(fond, (0,0)) 
+            screen.blit(pnj_batteur, rect_batteur)
+            screen.blit(pnj_bass, rect_bass)
+            screen.blit(pnj_guit, rect_guit)        
+            screen.blit(gugus, rect_gugus)        
+            
+            pygame.draw.rect(screen, (250,250,0), zone)
+            pygame.draw.rect(screen, (250,0,0), line)        
+            pygame.draw.rect(screen, (250,250,250), triangle)
+            screen.blit(liste_img[pick],liste_tr[pick])
+            
+            titre = myfont.render("Time", False, (20, 20, 20))
+            textsurface = myfont.render(str(countdown), False, (20, 20, 20))
+            pts = myfont.render(points, False, (20, 20, 20))
+            
+            textsurface1 = myfont.render("Clique sur la flèche ", False, (0, 0, 0))
+            textsurface2 = myfont.render("lorsque celle-ci est ", False, (0, 0, 0))
+            textsurface25 = myfont.render("dans le carré jaune.", False, (0, 0, 0))            
+            textsurface3 = myfont.render("Score à battre :", False, (0, 0, 0))
+            if Gus.try_music == 1:
+                textsurface4 = myfont.render(" 2500", False, (0, 0, 0))
+            elif Gus.try_music != 1:
+                textsurface4 = myfont.render(str(Gus.pb_music), False, (0, 0, 0))
+
+            screen.blit(textsurface1,(250, 350))
+            screen.blit(textsurface2,(250,370)) 
+            screen.blit(textsurface25,(250,390)) 
+            screen.blit(textsurface3,(250, 415))
+            screen.blit(textsurface4,(325,435)) 
+    
+            screen.blit(titre,(20,20))
+            screen.blit(textsurface,(20,35))
+            screen.blit(pts,(20,50))
+        
+        elif countdown < 0:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        Gus.level = 3.2
+                        Gus.spawn = 3
+                        time = 0
+                        if points >= 2500 & Gus.try_music == 1:
+                            Gus.try_music = 2
+                        Gus.pb_music = points
+                                
+            end_game(points)
+
+            
+        pygame.display.update()
+        
+        clock.tick(100)        

@@ -181,6 +181,8 @@ class Gus():
         self.frame = 0
         self.spawn = 1
         self.perso = "gus"
+        self.try_music = 1
+        self.pb_music = 0
         
     def update_items(self,tr):
         self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
