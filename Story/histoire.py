@@ -2476,9 +2476,14 @@ def nivo3(sac,action,Gus,tr):
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,901,302)
                 
-            if Gus.spawn == 3 and time < 2:
-                
-                screen_x,screen_y,x,y = spawn_level(x,y,229,228)                        
+            if Gus.spawn == 3 :
+                if time < 200 and Gus.try_music == 2:
+                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
+                    textsurface = myfont.render("Tu récupère un carton", False, (0, 0, 0))
+                    screen.blit(textsurface,(x,y-60))
+                if time < 2 and Gus.try_music > 2:
+                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
+
             time += 1
             
             liste_mur = level_3E(screen,screen_x,screen_y)
@@ -2622,7 +2627,7 @@ def nivo3(sac,action,Gus,tr):
         if tr.press_machine2 != 0:
             sac.Gateau = tr.press_machine2 + tr.gateau_offert
             tr.achat_gateau = (tr.press_machine2)* - 2
-        
+    
         ##NORD
         if interact and Gus.level == 3:
             zone_dialogue(screen,"Parler à la dame (A)",action,phrases_hooker[tr.press_hook],tr.press_hook,5)
@@ -2874,10 +2879,10 @@ def end_game(score):
     final_score = final_font.render(score, False, (21, 21, 21))
     
     screen.blit(titer,(100,200))
-    screen.blit(final_score,(100,300))
+    screen.blit(final_score,(250,200))
     titr = final_font.render("Retour au jeu : ENTER", False, (21, 21, 21))
     
-    screen.blit(titr,(100,450))
+    screen.blit(titr,(100,300))
     
 def music_level(sac,action,Gus,tr):
     gameExit=False
@@ -3047,13 +3052,14 @@ def music_level(sac,action,Gus,tr):
             textsurface = myfont.render(str(countdown), False, (20, 20, 20))
             pts = myfont.render(points, False, (20, 20, 20))
             
-            textsurface1 = myfont.render("Clique sur la flèche ", False, (0, 0, 0))
+            textsurface1 = myfont.render("Appuies sur la flèche ", False, (0, 0, 0))
             textsurface2 = myfont.render("lorsque celle-ci est ", False, (0, 0, 0))
             textsurface25 = myfont.render("dans le carré jaune.", False, (0, 0, 0))            
-            textsurface3 = myfont.render("Score à battre :", False, (0, 0, 0))
             if Gus.try_music == 1:
-                textsurface4 = myfont.render(" 2500", False, (0, 0, 0))
+                textsurface3 = myfont.render("Score à battre :", False, (0, 0, 0))
+                textsurface4 = myfont.render(" 3000", False, (0, 0, 0))
             elif Gus.try_music != 1:
+                textsurface3 = myfont.render("Meilleur score :", False, (0, 0, 0))
                 textsurface4 = myfont.render(str(Gus.pb_music), False, (0, 0, 0))
 
             screen.blit(textsurface1,(250, 350))
@@ -3067,17 +3073,23 @@ def music_level(sac,action,Gus,tr):
             screen.blit(pts,(20,50))
         
         elif countdown < 0:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameExit = True 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
+                        if int(total_score) >= 3000 and Gus.try_music == 1:
+                            Gus.try_music = 2
+                            sac.Carton = 1
+                        if int(total_score) >= int(Gus.pb_music) and Gus.try_music >= 2:
+                            Gus.try_music +=1
+                            Gus.money += float(total_score/1000)
                         Gus.level = 3.2
                         Gus.spawn = 3
                         time = 0
-                        if points >= 2500 & Gus.try_music == 1:
-                            Gus.try_music = 2
-                        Gus.pb_music = points
+
+                        tr.money_win_music = int(total_score)
                                 
             end_game(points)
 

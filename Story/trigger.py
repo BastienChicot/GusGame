@@ -199,6 +199,8 @@ class trigger():
         
         self.rythm = 0
         self.unlock_minigame1 = False
+        self.valid_music = False
+        self.money_win_music = 0
         
     def update_items(self):
          self.give_money = self.pnj_bus

@@ -148,6 +148,7 @@ class sac_a_dos():
         self.Sandwich =0
         self.Gateau = 0
         self.Pince = 0
+        self.Carton = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro
@@ -187,7 +188,7 @@ class Gus():
     def update_items(self,tr):
         self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
                       tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con + tr.ticket_bus +
-                      tr.argent_bonus + tr.argent_ticket_metro + tr.achat_gateau)
+                      tr.argent_bonus + tr.argent_ticket_metro + tr.achat_gateau + tr.money_win_music)
         
     def iter_objects(self):
         return (self.__dict__)  
