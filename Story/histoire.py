@@ -2475,14 +2475,6 @@ def nivo3(sac,action,Gus,tr):
             if Gus.spawn == 2 and time < 2:
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,901,302)
-                
-            if Gus.spawn == 3 :
-                if time < 200 and Gus.try_music == 2:
-                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
-                    textsurface = myfont.render("Tu récupère un carton", False, (0, 0, 0))
-                    screen.blit(textsurface,(x,y-60))
-                if time < 2 and Gus.try_music > 2:
-                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
 
             time += 1
             
@@ -2492,7 +2484,14 @@ def nivo3(sac,action,Gus,tr):
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             # if Gus.perso == "lassl":
             #     x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_lassl,x_change,y_change,speed_move,rel_x,rel_y)
-
+            if Gus.spawn == 3 :
+                if time < 200 and Gus.try_music == 2:
+                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
+                    textsurface = myfont.render("Tu récupères un carton", False, (0, 0, 0))
+                    screen.blit(textsurface,(x,y-60))
+                if time < 2 and Gus.try_music > 2:
+                    screen_x,screen_y,x,y = spawn_level(x,y,229,228)
+                    
             if tr.rythm == 0:
                 pnj_batteur = batteur[2]
                 pnj_bass = bassist[2]
@@ -3082,18 +3081,20 @@ def music_level(sac,action,Gus,tr):
                         if int(total_score) >= 3000 and Gus.try_music == 1:
                             Gus.try_music = 2
                             sac.Carton = 1
-                        if int(total_score) >= int(Gus.pb_music) and Gus.try_music >= 2:
+                            Gus.pb_music = int(total_score)
+                        elif int(total_score) >= int(Gus.pb_music) and Gus.try_music >= 2:
                             Gus.try_music +=1
-                            Gus.money += float(total_score/1000)
+                            Gus.pb_music = int(total_score)
+                        if Gus.try_music > 2 :
+                            tr.money_win_music += int(total_score/1000)
                         Gus.level = 3.2
                         Gus.spawn = 3
                         time = 0
 
-                        tr.money_win_music = int(total_score)
-                                
+                              
             end_game(points)
 
             
         pygame.display.update()
-        
+        print(tr.money_win_music, Gus.try_music)
         clock.tick(100)        
