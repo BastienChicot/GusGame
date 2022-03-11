@@ -193,6 +193,11 @@ class trigger():
         self.give_dwich = False
         self.give_pince = False
         self.give_lassl_gateau = False
+        self.give_carton = False
+        self.gateau_clodo = False
+        self.propose_seringue = False
+        self.give_seringue = False
+        self.give_alcool = False
         ##########################
         
         self.score_music = 0
@@ -201,6 +206,10 @@ class trigger():
         self.unlock_minigame1 = False
         self.valid_music = False
         self.money_win_music = 0
+        self.ask_love = False
+        self.accord_mac = False
+        
+        self.argent_rdv_pute = 0
         
     def update_items(self):
          self.give_money = self.pnj_bus

@@ -2013,9 +2013,12 @@ def nivo3(sac,action,Gus,tr):
     phrases_hooker = [["Eh gamin ! ","Tu saurais pas où je","pourrais me trouver ","des capotes?"],
                       ["Tu pourrais me rendre",'un autre service ?', "Il faudrait apporter cet"," argent à mon chef.",
                        "Il est dans sa voiture"],
-                      ["Oh la! J'ai personne","à voir aujourd'hui.","Aides moi à trouver","quelqu'un."]]
+                      ["Oh la! J'ai personne","à voir aujourd'hui.","Aides moi à trouver","quelqu'un."],
+                      ["Ah bah ça tombe pas","trop mal, j'ai un ","trou dans mon agenda","mais je dois avoir","l'accord de mon mac"],
+                      ["C'est parti ! "]]
     phrases_mac = [["Yo Gus, Tu as", "vu mon employée ?"],
-                   ["Merci petit. Tu","travaille bien. Je","peux te confier son","planing?"]]
+                   ["Merci petit. Tu","travaille bien. Je","peux te confier son","planing?"],
+                   ["Oh tu lui as trouvé un","client. C'est cool,","prends ça et dis!","lui que c'est ok ","pour moi"]]
     phrases_bus = [["J'ai pas le temps","de parler!"]]
     
     #LVL 3 C
@@ -2055,9 +2058,15 @@ def nivo3(sac,action,Gus,tr):
     #LVL 3 SE
     phrases_clodo = [["J'ai faim..."],
                      ["Tiens, j'ai trouvé", "cette pince par terre"],
-                     ["Mon carton"," commence à se faire","vieux..."]]
+                     ["Mon carton"," commence à se faire","vieux..."],
+                     ["Ca c'est un beau carton","Merci petit!","T'as pas un truc à","manger ?" ],
+                     ["C'est encore pas ça","dont j'ai besoin...","Tu sais pas où trouver","quelque chose qui me","fasse planer ?"],
+                     ["Tu as des seringues !!??","Génial! Si tu me les","donnes, je te donnerai","des infos sur le gars là","bas"],
+                     ["Merci encore.","Bah le gars sur le banc","il est juste triste gamin.","T'es pas bien malin","toi"]]
     
-    phrases_depressif = [["Ohlala ça va pas","mais alors pas du ","tout..."]]
+    phrases_depressif = [["Ohlala ça va pas","mais alors pas du ","tout..."],
+                         ["J'ai besoin d'oublier","sinon je vais me jeter","sous le train..."],
+                         ["Eeheh merci...","ça vôa d'ja peu mieux","ùais sque jai bzoin","c'est d'lamouuuur"]]
     
     machine_1 = [["Elle est cassée!"]]
     #OBJETS NIVEA
@@ -2128,18 +2137,26 @@ def nivo3(sac,action,Gus,tr):
                     click_.play()
                     #PERSONNES
                     ###NORD
-                    if interact and Gus.level == 3 and tr.give_condom == False:
+                    if interact and Gus.level == 3 and tr.give_condom == False and sac.Planing == 0:
                         tr.press_hook = 0
-                    if interact and Gus.level == 3 and tr.give_condom == True:
+                    if interact and Gus.level == 3 and tr.give_condom == True and sac.Planing == 0:
                         tr.press_hook = 1
                         sac.Argent_mac = 50
-                    if interact and Gus.level == 3 and sac.Planing == 1:
+                    if interact and Gus.level == 3 and sac.Planing == 1 and tr.ask_love == False:
                         tr.press_hook = 2
+                    if interact and Gus.level == 3 and sac.Planing == 1 and tr.ask_love == True and tr.accord_mac == False:
+                        tr.press_hook = 3
+                    if interact and Gus.level == 3 and sac.Planing == 1 and tr.ask_love == True and tr.accord_mac == True:
+                        tr.press_hook = 4
                         
                     if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == False and sac.Capote != 0:
                         tr.press_mac = 0
-                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == True:
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == True and tr.ask_love == False:
                         tr.press_mac = 1
+                    if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and tr.give_mac == True and tr.ask_love == True:
+                        tr.press_mac = 2
+                        tr.accord_mac = True
+                        
                     if 521+screen_x < x < 593+screen_x and 258+screen_y < y < 329+screen_y and Gus.level == 3:
                         tr.press_conduct = 0                        
                     
@@ -2220,9 +2237,23 @@ def nivo3(sac,action,Gus,tr):
                         sac.Pince = 1
                     if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == True and tr.give_pince == True:
                         tr.press_clodo = 2
-
-                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_carton == True and tr.gateau_clodo == False:
+                        tr.press_clodo = 3
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.gateau_clodo == True and tr.propose_seringue == False:
+                        tr.press_clodo = 4
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.propose_seringue == True and tr.give_seringue == False:
+                        tr.press_clodo = 5
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.propose_seringue == True and tr.give_seringue == True:
+                        tr.press_clodo = 6
+                        
+                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3 and tr.give_seringue == False:
                         tr.depressif = 0
+                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3 and tr.give_seringue ==True and tr.give_alcool == False:
+                        tr.depressif = 1
+                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3 and tr.give_seringue ==True and tr.give_alcool == True:
+                        tr.depressif = 2
+                        tr.ask_love = True
+                    
                     if 590+screen_x < x < 690+screen_x and 75+screen_y < y < 109+screen_y and Gus.level == 3.3:
                         tr.press_machine1 = 0
 
@@ -2291,6 +2322,18 @@ def nivo3(sac,action,Gus,tr):
                         
                     if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_dwich == False and sac.Sandwich != 0:
                         tr.give_dwich = True
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_carton == False and sac.Carton != 0:
+                        tr.give_carton = True
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.give_carton == True and sac.Carton == 0 and sac.Gateau != 0:
+                        tr.gateau_clodo = True 
+                        tr.gateau_offert = -2
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.press_clodo == 4 and sac.Seringue != 0 :
+                        tr.propose_seringue = True        
+                    if 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3 and tr.propose_seringue == True and sac.Seringue != 0  and tr.press_clodo == 5:
+                        tr.give_seringue = True  
+
+                    if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3 and tr.depressif == 1:
+                        tr.give_alcool = True
                         
                 elif event.key != pygame.K_RETURN:
                 
@@ -2622,6 +2665,14 @@ def nivo3(sac,action,Gus,tr):
             sac.Papier = 0
         if tr.give_dwich == True:
             sac.Sandwich = 0
+        if tr.give_carton == True:
+            sac.Carton = 0
+        if tr.give_seringue == True:
+            sac.Seringue = 0
+        if tr.give_alcool == True:
+            sac.Alcool = 0
+        if tr.accord_mac == True:
+            tr.argent_rdv_pute = 5
             
         if tr.press_machine2 != 0:
             sac.Gateau = tr.press_machine2 + tr.gateau_offert
@@ -2700,7 +2751,7 @@ def nivo3(sac,action,Gus,tr):
                 
         elif 176+screen_x < x < 241+screen_x and 520+screen_y < y < 557+screen_y and Gus.level == 3.1:
             zone_dialogue(screen,"Parler à ce type (A)",action,phrases_random1[tr.press_random_ticket],tr.press_random_ticket,5)
-            if tr.achat_ticket == True and sac.Ticket == 1 and tr.give_tivket == False:
+            if tr.achat_ticket == True and sac.Ticket == 1 and tr.give_ticket == False:
                 textsurface = myfont.render("Donner un ticket", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
@@ -2780,16 +2831,41 @@ def nivo3(sac,action,Gus,tr):
             
         ##SUD EST
         elif 33+screen_x < x < 210+screen_x and 13+screen_y < y < 100+screen_y and Gus.level == 3.3:
-            zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo[tr.press_clodo],tr.press_clodo,5)
+            zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo[tr.press_clodo],tr.press_clodo,6)
             if sac.Sandwich == 1 and tr.give_dwich == False:
                 textsurface = myfont.render("Donner le sandwich", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40)) 
-            
+            if sac.Carton == 1 and tr.give_carton == False:
+                textsurface = myfont.render("Donner le carton", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+            if sac.Gateau != 0 and tr.gateau_clodo == False and tr.give_carton == True:
+                textsurface = myfont.render("Donner un gateau", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+            if tr.press_clodo == 4 and sac.Seringue != 0 and tr.propose_seringue == False:
+                textsurface = myfont.render("Proposer les seringues", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+            if tr.press_clodo == 5 and sac.Seringue != 0 and tr.propose_seringue == True:
+                textsurface = myfont.render("Donner les seringues", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         elif 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3:
             zone_dialogue(screen,"Parler au monsieur (A)",action,phrases_depressif[tr.depressif],tr.depressif,5)
-
+            if tr.depressif == 1 and sac.Alcool != 0 :
+                textsurface = myfont.render("Proposer de l'alcool", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+                
         elif 590+screen_x < x < 690+screen_x and 75+screen_y < y < 109+screen_y and Gus.level == 3.3:
             zone_dialogue(screen,"Acheter un truc (A)",action,machine_1[tr.press_machine1],tr.press_machine1,5)
             
@@ -3096,5 +3172,5 @@ def music_level(sac,action,Gus,tr):
 
             
         pygame.display.update()
-        print(tr.money_win_music, Gus.try_music)
+        
         clock.tick(100)        
