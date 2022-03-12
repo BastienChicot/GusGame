@@ -786,7 +786,7 @@ def level_3C(gameDisplay,screen_x,screen_y):
     mur3 = wall(606,0,87,102,screen_x,screen_y)
     mur4 = wall(-5,0,5,707,screen_x,screen_y)
     mur5 = wall(0,705,1000,5,screen_x,screen_y)
-    #mur6 = wall(990,0,10,710,screen_x,screen_y)
+    mur6 = wall(965,0,50,710,screen_x,screen_y)
 
     # PNJ
     mur7 = wall(0,147,217,35,screen_x,screen_y)
@@ -802,16 +802,16 @@ def level_3C(gameDisplay,screen_x,screen_y):
     mur13 = wall(690,75,43,10,screen_x,screen_y)
 
     #portiques
-    mur14 = wall(916,162,90,25,screen_x,screen_y)
-    mur15 = wall(916,240,90,25,screen_x,screen_y)
-    mur16 = wall(916,315,90,25,screen_x,screen_y)
-    mur17 = wall(916,391,90,25,screen_x,screen_y)
-    mur18 = wall(916,467,90,25,screen_x,screen_y)
+    mur14 = wall(916,162,90,20,screen_x,screen_y)
+    mur15 = wall(916,240,90,20,screen_x,screen_y)
+    mur16 = wall(916,315,90,20,screen_x,screen_y)
+    mur17 = wall(916,391,90,20,screen_x,screen_y)
+    mur18 = wall(916,467,90,20,screen_x,screen_y)
     mur19 = wall(916,544,90,30,screen_x,screen_y)
     mur20 = wall(948,592,70,47,screen_x,screen_y)
     
     liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,
-                 #mur6,
+                 mur6,
                  mur7,
                    mur8,mur9,mur10,mur11,mur12,
                    mur13,mur14,mur15,mur16,mur17,mur18,mur19,
@@ -827,6 +827,59 @@ def level_3C(gameDisplay,screen_x,screen_y):
     
     return(liste_mur) 
 
+def level_3Copen(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_3C.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #limites
+    mur0 = wall(0,0,295,50,screen_x,screen_y)
+    mur1 = wall(606,0,400,50,screen_x,screen_y)
+    mur2 = wall(205,0,87,102,screen_x,screen_y)
+    mur3 = wall(606,0,87,102,screen_x,screen_y)
+    mur4 = wall(-5,0,5,707,screen_x,screen_y)
+    mur5 = wall(0,705,1000,5,screen_x,screen_y)
+    mur6 = wall(965,0,50,320,screen_x,screen_y)
+    mur6bis = wall(965,395,50,350,screen_x,screen_y)
+
+    # PNJ
+    mur7 = wall(0,147,217,35,screen_x,screen_y)
+    mur8 = wall(119,123,36,30,screen_x,screen_y)
+    mur9 = wall(165,482,55,55,screen_x,screen_y)
+    mur10 = wall(845,469,45,68,screen_x,screen_y)
+    mur11 = wall(810,150,55,58,screen_x,screen_y)
+    
+    # Ticket
+    mur12 = wall(216,621,471,100,screen_x,screen_y)
+    
+    # #POUBELLE
+    mur13 = wall(690,75,43,10,screen_x,screen_y)
+
+    #portiques
+    mur14 = wall(916,162,90,20,screen_x,screen_y)
+    mur15 = wall(916,240,90,20,screen_x,screen_y)
+    mur16 = wall(916,315,90,20,screen_x,screen_y)
+    mur17 = wall(916,391,90,20,screen_x,screen_y)
+    mur18 = wall(916,467,90,20,screen_x,screen_y)
+    mur19 = wall(916,544,90,30,screen_x,screen_y)
+    mur20 = wall(948,592,70,47,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,
+                 mur6,mur6bis,
+                 mur7,
+                   mur8,mur9,mur10,mur11,mur12,
+                   mur13,mur14,mur15,mur16,mur17,mur18,mur19,
+                   mur20
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)
 def level_3E(gameDisplay,screen_x,screen_y):
     
     fond=pygame.image.load('Level/level_3E.jpg').convert()
@@ -834,7 +887,8 @@ def level_3E(gameDisplay,screen_x,screen_y):
     
     # Limites
     mur0 = wall(0,0,1000,50,screen_x,screen_y)
-    #mur1 = wall(0,0,10,707,screen_x,screen_y)
+    mur1 = wall(0,0,10,320,screen_x,screen_y)
+    mur1bis = wall(0,395,10,350,screen_x,screen_y)
     mur2 = wall(0,705,1000,5,screen_x,screen_y)
     mur3 = wall(995,0,10,707,screen_x,screen_y)
     mur4 = wall(810,158,34,580,screen_x,screen_y)
@@ -848,14 +902,14 @@ def level_3E(gameDisplay,screen_x,screen_y):
     mur8 = wall(190,683,586,50,screen_x,screen_y)
     
     #portiques
-    mur14 = wall(0,162,84,25,screen_x,screen_y)
-    mur15 = wall(0,240,84,25,screen_x,screen_y)
-    mur16 = wall(0,315,84,25,screen_x,screen_y)
-    mur17 = wall(0,391,84,25,screen_x,screen_y)
-    mur18 = wall(0,467,84,25,screen_x,screen_y)
+    mur14 = wall(0,162,84,20,screen_x,screen_y)
+    mur15 = wall(0,240,84,20,screen_x,screen_y)
+    mur16 = wall(0,315,84,20,screen_x,screen_y)
+    mur17 = wall(0,391,84,20,screen_x,screen_y)
+    mur18 = wall(0,467,84,20,screen_x,screen_y)
     mur19 = wall(0,544,84,30,screen_x,screen_y)
 
-    liste_mur = [mur0,#mur1,
+    liste_mur = [mur0,mur1,mur1bis,
                  mur2,mur3,mur4,mur5,mur6,mur7,mur8,
                    mur14,mur15,mur16,mur17,mur18,mur19
                   ]    
@@ -901,3 +955,37 @@ def level_3SE(gameDisplay,screen_x,screen_y):
 
     
     return(liste_mur) 
+
+def level_3SEmetro(gameDisplay,screen_x,screen_y):
+    
+    fond=pygame.image.load('Level/level_3SEmetro.jpg').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Boites aux lettres
+    mur0 = wall(0,0,849,50,screen_x,screen_y)
+    mur1 = wall(995,0,10,707,screen_x,screen_y)
+    mur2 = wall(-5,0,10,707,screen_x,screen_y)
+    mur3 = wall(0,536,1000,130,screen_x,screen_y)
+    mur4 = wall(805,0,56,368,screen_x,screen_y)
+    
+    #machines et clodo
+    mur5 = wall(590,0,220,90,screen_x,screen_y)
+    mur6 = wall(0,0,134,95,screen_x,screen_y)
+
+    # Bancs
+    mur7 = wall(60,347,215,50,screen_x,screen_y)
+    mur8 = wall(407,360,215,36,screen_x,screen_y)
+    
+    liste_mur = [mur0,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                   mur8
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur) 
+

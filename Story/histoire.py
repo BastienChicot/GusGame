@@ -2024,7 +2024,9 @@ def nivo3(sac,action,Gus,tr):
     #LVL 3 C
     phrases_lassl = [["Yo Gus comment","tu vas?","T'as pas vu ma","pince à cheveux?"],
                      ["T'as pas un petit","gâteau pour moi ?"],
-                     ["J'adore le groupe qui","joue dans cette station","Pourquoi ils ne","jouent pas ?"]]
+                     ["J'adore le groupe qui","joue dans cette station","Pourquoi ils ne","jouent pas ?"],
+                     ["T'as assuré avec le","groupe. Tu vas en","ville? On se reverra","peut-être là-bas." ],
+                     ["Le métro va partir ! "]]
     
     phrases_contr1 = [["Eh gamin, y'a mon","collègue qu'est pas","bien. C'est pas le","jour de m'embêter!"],
                       ["T'as pas vu passer","un fraudeur ?"],
@@ -2170,8 +2172,12 @@ def nivo3(sac,action,Gus,tr):
                         tr.press_lassl = 0
                     if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_pince == True:
                         tr.press_lassl = 1
-                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_lassl_gateau == True:
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_lassl_gateau == True and tr.unlock_minigame1 == False:
                         tr.press_lassl = 2
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.give_lassl_gateau == True and Gus.pb_music >= 3000:
+                        tr.press_lassl = 3
+                    if 112+screen_x < x < 155+screen_x and 166+screen_y < y < 200+screen_y and Gus.level == 3.1 and tr.ask_love == True and tr.accord_mac == True and tr.press_hook == 4:
+                        tr.press_lassl = 4
                         
                     if 804+screen_x < x < 857+screen_x and 200+screen_y < y < 220+screen_y and Gus.level == 3.1 and tr.give_charism == False:
                         tr.press_contr1 = 0
@@ -2335,6 +2341,9 @@ def nivo3(sac,action,Gus,tr):
                     if 134+screen_x < x < 195+screen_x and 380+screen_y < y < 412+screen_y and Gus.level == 3.3 and tr.depressif == 1:
                         tr.give_alcool = True
                         
+                    if 488+screen_y < y < 536+screen_y and tr.press_hook >= 4:
+                        Gus.level == 4
+                        
                 elif event.key != pygame.K_RETURN:
                 
                     action.change_level = False
@@ -2484,11 +2493,14 @@ def nivo3(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,228)
+                screen_x,screen_y,x,y = spawn_level(x,y,1001-gugus_width,339)
                         
             time += 1
             
-            liste_mur = level_3C(screen,screen_x,screen_y)
+            if sac.Ticket == 0:
+                liste_mur = level_3C(screen,screen_x,screen_y)
+            elif sac.Ticket != 0:
+                liste_mur = level_3Copen(screen,screen_x,screen_y)
         
             # if Gus.perso == "gus":
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
@@ -2498,7 +2510,7 @@ def nivo3(sac,action,Gus,tr):
             screen_x += rel_x
             screen_y += rel_y
             
-            if x > 470 :
+            if x > 470 and 320+screen_y < y < 395+screen_y:
                 Gus.level = 3.2
                 Gus.spawn = 1
                 time = 0
@@ -2513,11 +2525,11 @@ def nivo3(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,31,228)
+                screen_x,screen_y,x,y = spawn_level(x,y,31,338)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,901,302)
+                screen_x,screen_y,x,y = spawn_level(x,y,901,339)
 
             time += 1
             
@@ -2626,7 +2638,7 @@ def nivo3(sac,action,Gus,tr):
                 Gus.level = 3.3
                 Gus.spawn = 1
                 time = 0
-            if x < 0:
+            if x < 0 and 320+screen_y < y < 395+screen_y:
                 Gus.level = 3.1
                 Gus.spawn = 2
                 time = 0   
@@ -2639,7 +2651,10 @@ def nivo3(sac,action,Gus,tr):
                         
             time += 1
             
-            liste_mur = level_3SE(screen,screen_x,screen_y)
+            if tr.press_hook < 4:
+                liste_mur = level_3SE(screen,screen_x,screen_y)
+            elif tr.press_hook >= 4:
+                liste_mur = level_3SEmetro(screen,screen_x,screen_y)
         
             # if Gus.perso == "gus":
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
@@ -2875,7 +2890,14 @@ def nivo3(sac,action,Gus,tr):
             screen.blit(fond_text,(260,380))
             screen.blit(textsurface,(280,400))
             screen.blit(textsurface2,(280,420))   
-
+        
+        elif 488+screen_y < y < 536+screen_y and Gus.level == 3.3 and tr.press_hook >= 4:
+            textsurface = myfont.render("Prendre le métro", False, (110, 110, 110))
+            textsurface2 = myfont.render("       ENTER.", False, (110, 110, 110))
+            screen.blit(fond_text,(260,380))
+            screen.blit(textsurface,(280,400))
+            screen.blit(textsurface2,(280,420))   
+            
         elif 216+screen_x < x < 400+screen_x and 0+screen_y < y < 50+screen_y and Gus.level == 3.3 :
             textsurface = myfont.render("C'est le plan de", False, (110, 110, 110))
             textsurface2 = myfont.render("la ville.", False, (110, 110, 110))

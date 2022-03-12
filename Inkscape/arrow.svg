@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\image\down_arrow.png"
+   inkscape:export-xdpi="47.510639"
+   inkscape:export-ydpi="47.510639"
+   sodipodi:docname="arrow.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="8.446077"
+     inkscape:cx="78.024389"
+     inkscape:cy="46.471279"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.264586"
+       id="rect846"
+       width="8.5852556"
+       height="7.0011296"
+       x="-18.40494"
+       y="-20.281849"
+       transform="matrix(-0.00754889,-0.99997151,-0.99999837,0.00180767,0,0)"
+       inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\image\up_arrow.png"
+       inkscape:export-xdpi="47.510639"
+       inkscape:export-ydpi="47.510639" />
+    <path
+       id="rect848"
+       style="fill:#4d4d4d;stroke-width:0.264583"
+       d="M 27.35811,12.834485 16.684155,3.3777027 v 0 l 0.04946,9.4845903 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\image\up_arrow.png"
+       inkscape:export-xdpi="47.510639"
+       inkscape:export-ydpi="47.510639" />
+    <path
+       id="rect848-6"
+       style="fill:#4d4d4d;stroke-width:0.264583"
+       d="M 6.1091043,12.890101 16.684155,3.3777027 v 0 l 0.04946,9.4845903 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\basti\OneDrive\Bureau\Gus veut boire un coup\bank\image\up_arrow.png"
+       inkscape:export-xdpi="47.510639"
+       inkscape:export-ydpi="47.510639" />
+  </g>
+</svg>

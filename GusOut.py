@@ -35,6 +35,8 @@ def launch(Gus):
         music_level(sac,action,Gus,tr)
     if Gus.level >= 3 and Gus.level < 4:
         nivo3(sac,action,Gus,tr)
+    if Gus.level >= 4 and Gus.level < 5:
+        end_game("nivo 4")
         
 gameExit = False
 
