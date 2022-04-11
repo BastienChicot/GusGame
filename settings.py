@@ -139,3 +139,12 @@ hook_right0 = pygame.image.load("bank/pnj/hooker/hooker_r0.png")
 
 hook_l = [hook_left1,hook_left2,hook_left0]
 hook_d = [hook_right1,hook_right2,hook_right0]
+
+gus_fight_r1 = pygame.image.load("Gus/gus_fight/gus_fr1.png")
+gus_fight_r2 = pygame.image.load("Gus/gus_fight/gus_fr2.png")
+gus_fight_l1 = pygame.image.load("Gus/gus_fight/gus_lr1.png")
+gus_fight_l2 = pygame.image.load("Gus/gus_fight/gus_lr2.png")
+
+gus_fight_right = [gus_fight_r1,gus_fight_r2,gus_fight_r1,gus_fight_r2]
+gus_fight_left = [gus_fight_l1,gus_fight_l2,gus_fight_l1,gus_fight_l2]
+
