@@ -148,3 +148,13 @@ gus_fight_l2 = pygame.image.load("Gus/gus_fight/gus_lr2.png")
 gus_fight_right = [gus_fight_r1,gus_fight_r2,gus_fight_r1,gus_fight_r2]
 gus_fight_left = [gus_fight_l1,gus_fight_l2,gus_fight_l1,gus_fight_l2]
 
+gus_pch_r1 = pygame.image.load("Gus/gus_fight/gus_punch_r1.png")
+gus_pch_r2 = pygame.image.load("Gus/gus_fight/gus_punch_r2.png")
+gus_pch_l1 = pygame.image.load("Gus/gus_fight/gus_punch_l1.png")
+gus_pch_l2 = pygame.image.load("Gus/gus_fight/gus_punch_l2.png")
+
+gus_pch_r = [gus_pch_r1,gus_pch_r1,gus_pch_r2,gus_pch_r2]
+gus_pch_l = [gus_pch_l1,gus_pch_l1,gus_pch_l2,gus_pch_l2]
+
+
+

@@ -26,6 +26,8 @@ def boucle():
     rect_gugus = gugus.get_rect()
     frame_count = 0
     side = True
+    animation = False
+    type_anim ="none"
 
     left2 = gus_fight_l1
     
@@ -65,18 +67,22 @@ def boucle():
             frame_count += 1
         else:
             frame_count = 0
+            animation = False
+            type_anim = "none"
         
-        if frame_count <= 15:
+        if frame_count <= 15 and not animation:
             a=0
-        elif 15 < frame_count <= 30:
+        elif 15 < frame_count <= 30 and not animation:
             a=1
-        elif 30 < frame_count <= 45:
-            a=1
-        elif 45 < frame_count <= 60:
-            a=1
-           
-        rect_gugus = gugus.get_rect() 
-            
+        elif 30 < frame_count <= 45 and not animation:
+            a=2
+        elif 45 < frame_count <= 60 and not animation:
+            a=3
+        elif frame_count <= 30 and animation:
+            a = 0
+        elif 30 < frame_count <= 60 and animation:
+            a = 1
+                       
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
@@ -131,11 +137,15 @@ def boucle():
                     super_attack = False
         
         if side:
-            gugus=gus_fight_right[a]
+            if type_anim == "none":
+                gugus=gus_fight_right[a]
+            elif type_anim == "punch":
+                gugus = gus_pch_r[a]
         else:
-            gugus=gus_fight_left[a]
-        
-        rect_gugus = gugus.get_rect() 
+            if type_anim == "none":
+                gugus=gus_fight_left[a]
+            elif type_anim == "punch":
+                gugus = gus_pch_l[a]
         
         if (y < 230 and not rect_gugus.colliderect(triangle2)) or jump :
             air_time += 1
@@ -165,6 +175,7 @@ def boucle():
             if abs(rect_gugus.right - triangle2.left) <= 10 and move_x > 0:
                 move_x = 0
 
+
         if abs(rect_gugus.right - triangle2.left) <= 80 and move_x > 0 and y2-20 < y < y2+20:
             if 50 < x2 < 400:
                 x2 += move_x/4
@@ -182,12 +193,18 @@ def boucle():
             clean_hit += 1
             x2 -= 80
             opp_clean = 0
+            animation = True
+            type_anim = "punch"
+            frame_count = 1
         if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x != 0:
             triangle2_life -=5
             x2 += 80
             clean_hit += 1
             opp_clean = 0
-        
+            animation = True
+            type_anim = "punch"
+            frame_count = 1
+            
         ##COUP COMBO A ET Z
         if 80 < abs(rect_gugus.left - triangle2.right) < 120 and attack and move_x < 0 and super_attack:
             triangle2_life -= 10
@@ -302,6 +319,7 @@ def boucle():
         
 
         pygame.display.update()
+        print(animation,type_anim)
         clock.tick(100)        
         
 boucle()
