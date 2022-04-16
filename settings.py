@@ -157,4 +157,16 @@ gus_pch_r = [gus_pch_r1,gus_pch_r1,gus_pch_r2,gus_pch_r2]
 gus_pch_l = [gus_pch_l1,gus_pch_l1,gus_pch_l2,gus_pch_l2]
 
 
+gus_kick1 = pygame.image.load("Gus/gus_fight/gus_kick_r1.png")
+gus_kick2 = pygame.image.load("Gus/gus_fight/gus_kick_r2.png")
+gus_kick3 = pygame.image.load("Gus/gus_fight/gus_kick_r3.png")
+gus_kick4 = pygame.image.load("Gus/gus_fight/gus_kick_r4.png")
+
+gus_kick1_l = pygame.transform.flip(gus_kick1, True, False)
+gus_kick2_l = pygame.transform.flip(gus_kick2, True, False)
+gus_kick3_l = pygame.transform.flip(gus_kick3, True, False)
+gus_kick4_l = pygame.transform.flip(gus_kick4, True, False)
+
+gus_kick_r = [gus_kick1,gus_kick2,gus_kick3,gus_kick4]
+gus_kick_l = [gus_kick1_l,gus_kick2_l,gus_kick3_l,gus_kick4_l]
 

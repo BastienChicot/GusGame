@@ -78,10 +78,18 @@ def boucle():
             a=2
         elif 45 < frame_count <= 60 and not animation:
             a=3
-        elif frame_count <= 30 and animation:
+        elif frame_count <= 30 and animation and type_anim == "punch":
             a = 0
-        elif 30 < frame_count <= 60 and animation:
+        elif 30 < frame_count <= 60 and animation and type_anim == "punch":
             a = 1
+        elif frame_count <= 15 and animation and type_anim == "kick":
+            a = 0
+        elif 15 < frame_count <= 30 and animation and type_anim == "kick":
+            a = 1
+        elif 30 < frame_count <= 45 and animation and type_anim == "kick":
+            a = 2
+        elif 45 < frame_count <= 60 and animation and type_anim == "kick":
+            a = 3
                        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -141,11 +149,16 @@ def boucle():
                 gugus=gus_fight_right[a]
             elif type_anim == "punch":
                 gugus = gus_pch_r[a]
+            elif type_anim == "kick":
+                gugus = gus_kick_r[a]
+
         else:
             if type_anim == "none":
                 gugus=gus_fight_left[a]
             elif type_anim == "punch":
                 gugus = gus_pch_l[a]
+            elif type_anim == "kick":
+                gugus = gus_kick_l[a]
         
         if (y < 230 and not rect_gugus.colliderect(triangle2)) or jump :
             air_time += 1
@@ -191,14 +204,14 @@ def boucle():
         if abs(rect_gugus.left - triangle2.right) <= 5 and attack and move_x != 0:
             triangle2_life -=5
             clean_hit += 1
-            x2 -= 80
+            x2 -= 20
             opp_clean = 0
             animation = True
             type_anim = "punch"
             frame_count = 1
         if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x != 0:
             triangle2_life -=5
-            x2 += 80
+            x2 += 20
             clean_hit += 1
             opp_clean = 0
             animation = True
@@ -209,13 +222,19 @@ def boucle():
         if 80 < abs(rect_gugus.left - triangle2.right) < 120 and attack and move_x < 0 and super_attack:
             triangle2_life -= 10
             clean_hit += 1
-            x -= abs(rect_gugus.left - triangle2.right)
+            x += 10
             opp_clean = 0
+            animation = True
+            type_anim = "kick"
+            frame_count = 1
         if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x > 0 and super_attack:
             triangle2_life -= 10
-            x += abs(triangle.right - triangle2.left)
+            x -= 10
             clean_hit += 1
             opp_clean = 0
+            animation = True
+            type_anim = "kick"
+            frame_count = 1
 
         ##SUPER COUP AVEC Z
         if abs(rect_gugus.left - triangle2.right) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
@@ -253,13 +272,13 @@ def boucle():
             hit = False
 
         ##CORP A CORP           
-        if abs(rect_gugus.left - triangle2.right) <= 5 and hit:
+        if abs(rect_gugus.left - triangle2.right) <= 1 and hit:
             triangle_life -=5
             x += 80
             clean_hit = 0
             opp_clean += 1
             
-        if abs(rect_gugus.right - triangle2.left) <= 5 and hit:
+        if abs(rect_gugus.right - triangle2.left) <= 1 and hit:
             triangle_life -=5
             x -= 80
             clean_hit = 0
@@ -319,7 +338,7 @@ def boucle():
         
 
         pygame.display.update()
-        print(animation,type_anim)
+
         clock.tick(100)        
         
 boucle()
