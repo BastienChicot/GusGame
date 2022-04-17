@@ -78,17 +78,14 @@ def boucle():
             a=2
         elif 45 < frame_count <= 60 and not animation:
             a=3
-        elif frame_count <= 30 and animation and type_anim == "punch":
+
+        elif frame_count <= 15 and animation:
             a = 0
-        elif 30 < frame_count <= 60 and animation and type_anim == "punch":
+        elif 15 < frame_count <= 30 and animation:
             a = 1
-        elif frame_count <= 15 and animation and type_anim == "kick":
-            a = 0
-        elif 15 < frame_count <= 30 and animation and type_anim == "kick":
-            a = 1
-        elif 30 < frame_count <= 45 and animation and type_anim == "kick":
+        elif 30 < frame_count <= 45 and animation :
             a = 2
-        elif 45 < frame_count <= 60 and animation and type_anim == "kick":
+        elif 45 < frame_count <= 60 and animation:
             a = 3
                        
         for event in pygame.event.get():
@@ -151,6 +148,10 @@ def boucle():
                 gugus = gus_pch_r[a]
             elif type_anim == "kick":
                 gugus = gus_kick_r[a]
+            elif type_anim == "super_punch":
+                gugus = gus_sp_r[a]
+            elif type_anim =="jump_punch":
+                gugus = gus_jp_r[a]
 
         else:
             if type_anim == "none":
@@ -159,7 +160,11 @@ def boucle():
                 gugus = gus_pch_l[a]
             elif type_anim == "kick":
                 gugus = gus_kick_l[a]
-        
+            elif type_anim == "super_punch":
+                gugus = gus_sp_l[a]
+            elif type_anim =="jump_punch":
+                gugus = gus_jp_l[a]
+                
         if (y < 230 and not rect_gugus.colliderect(triangle2)) or jump :
             air_time += 1
  
@@ -219,7 +224,7 @@ def boucle():
             frame_count = 1
             
         ##COUP COMBO A ET Z
-        if 80 < abs(rect_gugus.left - triangle2.right) < 120 and attack and move_x < 0 and super_attack:
+        if abs(rect_gugus.left - triangle2.right) <= 5 and attack and move_x != 0 and super_attack:
             triangle2_life -= 10
             clean_hit += 1
             x += 10
@@ -227,7 +232,7 @@ def boucle():
             animation = True
             type_anim = "kick"
             frame_count = 1
-        if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x > 0 and super_attack:
+        if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x != 0 and super_attack:
             triangle2_life -= 10
             x -= 10
             clean_hit += 1
@@ -242,23 +247,36 @@ def boucle():
             clean_hit = 0
             x2 -= 120
             opp_clean = 0
+            animation = True
+            type_anim = "super_punch"
+            frame_count = 1
         if abs(rect_gugus.right - triangle2.left) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
             triangle2_life -=15
             x2 += 120
             clean_hit = 0
             opp_clean = 0
-        
+            animation = True
+            type_anim = "super_punch"
+            frame_count = 1
+            
         ##COUP SAUTE
-        if abs(rect_gugus.left - triangle2.right) <= 5 and attack and air_time > 45:
+        if abs(rect_gugus.left - triangle2.right) <= 15 and attack and 10 < air_time < 35:
             triangle2_life -= 10
             clean_hit += 1
             opp_clean = 0
             x2 -= 50
-        if abs(rect_gugus.right - triangle2.left) <= 5 and attack and air_time > 45:
+            animation = True
+            type_anim = "jump_punch"
+            frame_count = 1
+            
+        if abs(rect_gugus.right - triangle2.left) <= 15 and attack and 10 < air_time < 35:
             triangle2_life -=10
             x2 += 50
             clean_hit += 1
             opp_clean = 0
+            animation = True
+            type_anim = "jump_punch"
+            frame_count = 1
             
         ##COUP ADVERSAIRE
         if rect_gugus.colliderect(triangle2):
@@ -338,7 +356,7 @@ def boucle():
         
 
         pygame.display.update()
-
+        
         clock.tick(100)        
         
 boucle()

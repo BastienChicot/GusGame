@@ -170,3 +170,25 @@ gus_kick4_l = pygame.transform.flip(gus_kick4, True, False)
 gus_kick_r = [gus_kick1,gus_kick2,gus_kick3,gus_kick4]
 gus_kick_l = [gus_kick1_l,gus_kick2_l,gus_kick3_l,gus_kick4_l]
 
+gus_sp1 = pygame.image.load("Gus/gus_fight/gus_super_punch2.png")
+gus_sp2 = pygame.image.load("Gus/gus_fight/gus_super_punch1.png")
+
+gus_sp1_l = pygame.transform.flip(gus_sp1, True, False)
+gus_sp2_l = pygame.transform.flip(gus_sp2, True, False)
+
+gus_sp_r = [gus_sp1,gus_sp1,gus_sp2,gus_sp2]
+gus_sp_l = [gus_sp1_l,gus_sp1_l,gus_sp2_l,gus_sp2_l]
+
+gus_jp1 = pygame.image.load("Gus/gus_fight/gus_jp1.png")
+gus_jp2 = pygame.image.load("Gus/gus_fight/gus_jp2.png")
+gus_jp3 = pygame.image.load("Gus/gus_fight/gus_jp3.png")
+gus_jp4 = pygame.image.load("Gus/gus_fight/gus_jp4.png")
+
+gus_jp1_l = pygame.transform.flip(gus_jp1, True, False)
+gus_jp2_l = pygame.transform.flip(gus_jp2, True, False)
+gus_jp3_l = pygame.transform.flip(gus_jp3, True, False)
+gus_jp4_l = pygame.transform.flip(gus_jp4, True, False)
+
+gus_jp_r = [gus_jp1,gus_jp2,gus_jp3,gus_jp4]
+gus_jp_l = [gus_jp1_l,gus_jp2_l,gus_jp3_l,gus_jp4_l]
+
