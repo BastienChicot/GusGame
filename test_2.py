@@ -29,18 +29,16 @@ def boucle():
     animation = False
     type_anim ="none"
 
-    left2 = gus_fight_l1
+    fightr = fighter_1_r[0]
     
-    left_tr2 = left2.get_rect()
-    
-    triangle2 = left_tr2
-    image2 = left2
+    fightrect = fightr.get_rect()
+
     
     x = 150
     y = 230
     
     x2 = 300
-    y2 = 230
+    y2 = 214
     
     move_y = 0
     move_x = 0
@@ -57,8 +55,8 @@ def boucle():
     opp_clean = 0
     clean_hit = 0
     
-    triangle_life = 100
-    triangle2_life = 100
+    gus_life = 100
+    fighter_life = 100
     
     clock = pygame.time.Clock()
     while not gameExit:
@@ -152,6 +150,10 @@ def boucle():
                 gugus = gus_sp_r[a]
             elif type_anim =="jump_punch":
                 gugus = gus_jp_r[a]
+            elif type_anim =="adv_c2c":
+                gugus = gus_ouille_r[a]
+            elif type_anim =="adv_sp":
+                gugus = gus_ouille_r[a]
 
         else:
             if type_anim == "none":
@@ -164,12 +166,16 @@ def boucle():
                 gugus = gus_sp_l[a]
             elif type_anim =="jump_punch":
                 gugus = gus_jp_l[a]
+            elif type_anim =="adv_c2c":
+                gugus = gus_ouille_l[a]
+            elif type_anim =="adv_sp":
+                gugus = gus_ouille_l[a]
                 
-        if (y < 230 and not rect_gugus.colliderect(triangle2)) or jump :
+        if (y < 230 and not rect_gugus.colliderect(fightrect)) or jump :
             air_time += 1
  
         if jump : 
-            move_y = -(25/air_time)
+            move_y = -(30/air_time)
             
         if y < 230 and air_time > 30:
             move_y = 3
@@ -181,41 +187,41 @@ def boucle():
             jump = False
             air_time = 1
             
-        if rect_gugus.colliderect(triangle2):
-            if abs(rect_gugus.bottom - triangle2.top) <= 10 and move_y > 0:
+        if rect_gugus.colliderect(fightrect):
+            if abs(rect_gugus.bottom - fightrect.top) <= 10 and move_y > 0:
                 move_y = 0
                 air_time = 1
                 jump = False
-            if abs(rect_gugus.top - triangle2.bottom) <= 10 and move_y < 0:
+            if abs(rect_gugus.top - fightrect.bottom) <= 10 and move_y < 0:
                 move_y = 0
-            if abs(rect_gugus.left - triangle2.right) <= 10 and move_x < 0:
+            if abs(rect_gugus.left - fightrect.right) <= 10 and move_x < 0:
                 move_x = 0             
-            if abs(rect_gugus.right - triangle2.left) <= 10 and move_x > 0:
+            if abs(rect_gugus.right - fightrect.left) <= 10 and move_x > 0:
                 move_x = 0
 
 
-        if abs(rect_gugus.right - triangle2.left) <= 80 and move_x > 0 and y2-20 < y < y2+20:
+        if abs(rect_gugus.right - fightrect.left) <= 80 and move_x > 0 and y2-20 < y < y2+20:
             if 50 < x2 < 400:
                 x2 += move_x/4
             elif x2 >= 400 :
                 x2 -= move_x
-        if abs(rect_gugus.left - triangle2.right) <= 80 and move_x < 0 and y2-20 < y < y2+20:
+        if abs(rect_gugus.left - fightrect.right) <= 80 and move_x < 0 and y2-20 < y < y2+20:
             if 50 < x2 < 400:
                 x2 += move_x/4
             elif x2 <= 50 :
                 x2 -= move_x
             
         ##COUP SIMPLE AVEC A
-        if abs(rect_gugus.left - triangle2.right) <= 5 and attack and move_x != 0:
-            triangle2_life -=5
+        if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0:
+            fighter_life -=5
             clean_hit += 1
             x2 -= 20
             opp_clean = 0
             animation = True
             type_anim = "punch"
             frame_count = 1
-        if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x != 0:
-            triangle2_life -=5
+        if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0:
+            fighter_life -=5
             x2 += 20
             clean_hit += 1
             opp_clean = 0
@@ -224,17 +230,17 @@ def boucle():
             frame_count = 1
             
         ##COUP COMBO A ET Z
-        if abs(rect_gugus.left - triangle2.right) <= 5 and attack and move_x != 0 and super_attack:
-            triangle2_life -= 10
+        if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0 and super_attack:
+            fighter_life -= 10
             clean_hit += 1
-            x += 10
+            x += 20
             opp_clean = 0
             animation = True
             type_anim = "kick"
             frame_count = 1
-        if abs(rect_gugus.right - triangle2.left) <= 5 and attack and move_x != 0 and super_attack:
-            triangle2_life -= 10
-            x -= 10
+        if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0 and super_attack:
+            fighter_life -= 10
+            x -= 20
             clean_hit += 1
             opp_clean = 0
             animation = True
@@ -242,16 +248,16 @@ def boucle():
             frame_count = 1
 
         ##SUPER COUP AVEC Z
-        if abs(rect_gugus.left - triangle2.right) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
-            triangle2_life -=15
+        if abs(rect_gugus.left - fightrect.right) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
+            fighter_life -=15
             clean_hit = 0
             x2 -= 120
             opp_clean = 0
             animation = True
             type_anim = "super_punch"
             frame_count = 1
-        if abs(rect_gugus.right - triangle2.left) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
-            triangle2_life -=15
+        if abs(rect_gugus.right - fightrect.left) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
+            fighter_life -=15
             x2 += 120
             clean_hit = 0
             opp_clean = 0
@@ -260,8 +266,8 @@ def boucle():
             frame_count = 1
             
         ##COUP SAUTE
-        if abs(rect_gugus.left - triangle2.right) <= 15 and attack and 10 < air_time < 35:
-            triangle2_life -= 10
+        if abs(rect_gugus.left - fightrect.right) <= 15 and attack and 10 < air_time < 35:
+            fighter_life -= 10
             clean_hit += 1
             opp_clean = 0
             x2 -= 50
@@ -269,8 +275,8 @@ def boucle():
             type_anim = "jump_punch"
             frame_count = 1
             
-        if abs(rect_gugus.right - triangle2.left) <= 15 and attack and 10 < air_time < 35:
-            triangle2_life -=10
+        if abs(rect_gugus.right - fightrect.left) <= 15 and attack and 10 < air_time < 35:
+            fighter_life -=10
             x2 += 50
             clean_hit += 1
             opp_clean = 0
@@ -279,9 +285,9 @@ def boucle():
             frame_count = 1
             
         ##COUP ADVERSAIRE
-        if rect_gugus.colliderect(triangle2):
+        if rect_gugus.colliderect(fightrect):
             collision = True
-        elif not rect_gugus.colliderect(triangle2):
+        elif not rect_gugus.colliderect(fightrect):
             collision = False
             
         if collision and move_x == 0 and not attack and not jump:
@@ -290,30 +296,42 @@ def boucle():
             hit = False
 
         ##CORP A CORP           
-        if abs(rect_gugus.left - triangle2.right) <= 1 and hit:
-            triangle_life -=5
+        if abs(rect_gugus.left - fightrect.right) <= 1 and hit:
+            gus_life -=5
             x += 80
             clean_hit = 0
             opp_clean += 1
+            animation = True
+            type_anim = "adv_c2c"
+            frame_count = 1            
             
-        if abs(rect_gugus.right - triangle2.left) <= 1 and hit:
-            triangle_life -=5
+        if abs(rect_gugus.right - fightrect.left) <= 1 and hit:
+            gus_life -=5
             x -= 80
             clean_hit = 0
             opp_clean += 1
+            animation = True
+            type_anim = "adv_c2c"
+            frame_count = 1            
             
         ##SUPER COUP ADVERSAIRE
-        if abs(rect_gugus.left - triangle2.right) <= 5 and hit and opp_clean == 3:
-            triangle_life -= 10
+        if abs(rect_gugus.left - fightrect.right) <= 5 and hit and opp_clean == 3:
+            gus_life -= 10
             x += 100
             clean_hit = 0
             opp_clean = 0
+            animation = True
+            type_anim = "adv_sp"
+            frame_count = 1            
             
-        if abs(rect_gugus.right - triangle2.left) <= 5 and hit and opp_clean == 3:
-            triangle_life -=10
+        if abs(rect_gugus.right - fightrect.left) <= 5 and hit and opp_clean == 3:
+            gus_life -=10
             x -= 100
             clean_hit = 0
             opp_clean = 0
+            animation = True
+            type_anim = "adv_sp"
+            frame_count = 1            
             
         ##COMBO ADVERSAIRE
         ##PROJECTILE??           
@@ -321,10 +339,13 @@ def boucle():
         if move_x == 0 and not jump:
             if x2 > x and not collision and x2 > 50:
                 x2 -= 0.5
+                fightr = fighter_1_r[a]
             elif x2 < x and not collision and x2 < 400:
                 x2 += 0.5
+                fightr = fighter_1_l[a]
             else:
                 x2 = x2
+                fightr = fighter_1_r[a]
             
         x += move_x
         y += move_y  
@@ -341,17 +362,17 @@ def boucle():
         screen.fill((0,0,0))
         
         rect_gugus.topleft = (x,y)        
-        triangle2.topleft = (x2,y2)        
+        fightrect.topleft = (x2,y2)        
 
         screen.blit(gugus,rect_gugus)
-        screen.blit(image2,triangle2)
+        screen.blit(fightr,fightrect)
         
-        life = myfont.render(str(triangle_life), False, (210, 210, 210))
+        life = myfont.render(str(gus_life), False, (210, 210, 210))
         screen.blit(life,(20,35))
         super_power = myfont.render(str(clean_hit), False, (210, 210, 210))
         screen.blit(super_power,(20,65))
 
-        textsurface = myfont.render(str(triangle2_life), False, (210, 210, 210))
+        textsurface = myfont.render(str(fighter_life), False, (210, 210, 210))
         screen.blit(textsurface,(460,35))
         
 

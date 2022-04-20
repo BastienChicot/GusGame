@@ -192,3 +192,20 @@ gus_jp4_l = pygame.transform.flip(gus_jp4, True, False)
 gus_jp_r = [gus_jp1,gus_jp2,gus_jp3,gus_jp4]
 gus_jp_l = [gus_jp1_l,gus_jp2_l,gus_jp3_l,gus_jp4_l]
 
+gus_ouille1 = pygame.image.load("Gus/gus_fight/gus_hitted1.png")
+gus_ouille2 = pygame.image.load("Gus/gus_fight/gus_hitted2.png")
+
+gus_ouille1_l = pygame.transform.flip(gus_ouille1, True, False)
+gus_ouille2_l = pygame.transform.flip(gus_ouille2, True, False)
+
+gus_ouille_r = [gus_ouille1,gus_ouille1,gus_ouille2,gus_ouille2]
+gus_ouille_l = [gus_ouille1_l,gus_ouille1_l,gus_ouille2_l,gus_ouille2_l]
+
+
+fighter_r1 = pygame.image.load("Gus/fighter_1/fighter_1.png")
+fighter_r2 = pygame.image.load("Gus/fighter_1/fighter_1_2.png")
+fighter_l1 = pygame.transform.flip(fighter_r1, True, False)
+fighter_l2 = pygame.transform.flip(fighter_r2, True, False)
+
+fighter_1_r = [fighter_r1,fighter_r2,fighter_r1,fighter_r2]
+fighter_1_l = [fighter_l1,fighter_l2,fighter_l1,fighter_l2]
