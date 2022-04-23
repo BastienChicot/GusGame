@@ -339,14 +339,45 @@ def boucle():
         if move_x == 0 and not jump:
             if x2 > x and not collision and x2 > 50:
                 x2 -= 0.5
-                fightr = fighter_1_r[a]
+                if type_anim == "none":
+                    fightr = fighter_1_r[a]
+                elif type_anim == "adv_c2c":
+                    fightr = fighter_pch_r[a]
+                elif type_anim == "adv_sp":
+                    fightr = fighter_sp_r[a]
+                elif type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch":
+                    fightr = fighter_ouille_r[a]
+
             elif x2 < x and not collision and x2 < 400:
                 x2 += 0.5
-                fightr = fighter_1_l[a]
+                if type_anim == "none":
+                    fightr = fighter_1_l[a]
+                elif type_anim == "adv_c2c":
+                    fightr = fighter_pch_l[a]
+                elif type_anim == "adv_sp":
+                    fightr = fighter_sp_l[a]
+                elif type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch":
+                    fightr = fighter_ouille_l[a]
+
             else:
                 x2 = x2
-                fightr = fighter_1_r[a]
-            
+                if type_anim == "none" and side:
+                    fightr = fighter_1_r[a]
+                elif type_anim == "none" and not side:
+                    fightr = fighter_1_l[a]
+                elif type_anim == "adv_c2c" and side:
+                    fightr = fighter_pch_r[a]
+                elif type_anim == "adv_c2c" and not side:
+                    fightr = fighter_pch_l[a]
+                elif type_anim == "adv_sp" and side:
+                    fightr = fighter_sp_r[a]
+                elif type_anim == "adv_sp" and not side:
+                    fightr = fighter_sp_l[a]
+                elif (type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch") and side:
+                    fightr = fighter_ouille_r[a]
+                elif (type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch") and not side:
+                    fightr = fighter_ouille_l[a]
+                   
         x += move_x
         y += move_y  
 
@@ -363,7 +394,9 @@ def boucle():
         
         rect_gugus.topleft = (x,y)        
         fightrect.topleft = (x2,y2)        
-
+        
+        lvl = lvl_fight[a]
+        screen.blit(lvl,(0,0))
         screen.blit(gugus,rect_gugus)
         screen.blit(fightr,fightrect)
         

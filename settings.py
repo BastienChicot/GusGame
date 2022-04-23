@@ -209,3 +209,34 @@ fighter_l2 = pygame.transform.flip(fighter_r2, True, False)
 
 fighter_1_r = [fighter_r1,fighter_r2,fighter_r1,fighter_r2]
 fighter_1_l = [fighter_l1,fighter_l2,fighter_l1,fighter_l2]
+
+fighter_pch_r1 = pygame.image.load("Gus/fighter_1/fighter_1_punch1.png")
+fighter_pch_r2 = pygame.image.load("Gus/fighter_1/fighter_1_punch2.png")
+fighter_pch_l1 = pygame.transform.flip(fighter_pch_r1, True, False)
+fighter_pch_l2 = pygame.transform.flip(fighter_pch_r2, True, False)
+
+fighter_pch_r = [fighter_pch_r2,fighter_pch_r2,fighter_pch_r1,fighter_pch_r1]
+fighter_pch_l = [fighter_pch_l2,fighter_pch_l2,fighter_pch_l1,fighter_pch_l1]
+
+fighter_sp_r1 = pygame.image.load("Gus/fighter_1/fighter_1_sp1.png")
+fighter_sp_r2 = pygame.image.load("Gus/fighter_1/fighter_1_sp2.png")
+fighter_sp_l1 = pygame.transform.flip(fighter_sp_r1, True, False)
+fighter_sp_l2 = pygame.transform.flip(fighter_sp_r2, True, False)
+
+fighter_sp_r = [fighter_sp_r1,fighter_sp_r1,fighter_sp_r2,fighter_sp_r2]
+fighter_sp_l = [fighter_sp_l1,fighter_sp_l1,fighter_sp_l2,fighter_sp_l2]
+
+fighter_ouille_r1 = pygame.image.load("Gus/fighter_1/fighter_1_ouille1.png")
+fighter_ouille_r2 = pygame.image.load("Gus/fighter_1/fighter_1_ouille2.png")
+fighter_ouille_l1 = pygame.transform.flip(fighter_ouille_r1, True, False)
+fighter_ouille_l2 = pygame.transform.flip(fighter_ouille_r2, True, False)
+
+fighter_ouille_r = [fighter_ouille_r1,fighter_ouille_r1,fighter_ouille_r2,fighter_ouille_r2]
+fighter_ouille_l = [fighter_ouille_l1,fighter_ouille_l1,fighter_ouille_l2,fighter_ouille_l2]
+
+lvl_fight1=pygame.image.load('Level/fight_lvl1.jpg')
+lvl_fight2=pygame.image.load('Level/fight_lvl2.jpg')
+lvl_fight3=pygame.image.load('Level/fight_lvl3.jpg')
+lvl_fight4=pygame.image.load('Level/fight_lvl4.jpg')
+
+lvl_fight = [lvl_fight1,lvl_fight2,lvl_fight3,lvl_fight4]
