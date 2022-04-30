@@ -36,8 +36,11 @@ def launch(Gus):
     if Gus.level >= 3 and Gus.level < 4:
         nivo3(sac,action,Gus,tr)
     if Gus.level >= 4 and Gus.level < 5:
-        end_game("nivo 4")
-        
+        nivo4(sac,action,Gus,tr)
+    if Gus.level == 1000:
+        nivo_fight(sac,action,Gus,tr)        
+    if Gus.level >= 4 and Gus.level < 5:
+        nivo4(sac,action,Gus,tr)        
 gameExit = False
 
 while not gameExit:
@@ -74,7 +77,7 @@ while not gameExit:
     if keys[pygame.K_q]:
         other_s.play()
         pygame.quit() 
-        
+    
     pygame.display.update()
 
 

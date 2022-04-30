@@ -211,6 +211,13 @@ class trigger():
         
         self.argent_rdv_pute = 0
         
+        ##Lvl 4
+        self.barre_cereal = -1
+        
+        self.eat_barre = False
+        
+        self.fight = False
+        
     def update_items(self):
          self.give_money = self.pnj_bus
          self.drug_money = (0 + self.argent_vieille + self.argent_tox + 

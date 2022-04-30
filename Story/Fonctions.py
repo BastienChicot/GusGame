@@ -150,6 +150,9 @@ class sac_a_dos():
         self.Pince = 0
         self.Carton = 0
         
+        ##Nivo4
+        self.Barre_Cereales = 0
+        
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord + tr.capote_3

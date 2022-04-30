@@ -413,5 +413,5 @@ def boucle():
         
         clock.tick(100)        
         
-boucle()
-pygame.quit()
+# boucle()
+# pygame.quit()

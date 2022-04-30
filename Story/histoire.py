@@ -10,6 +10,7 @@ import random
 from Story.Fonctions import *
 from Level.Levels import *
 from settings import *
+import numpy as np
 
 pygame.init()
 pygame.font.init()
@@ -2342,7 +2343,8 @@ def nivo3(sac,action,Gus,tr):
                         tr.give_alcool = True
                         
                     if 488+screen_y < y < 536+screen_y and tr.press_hook >= 4:
-                        Gus.level == 4
+                        Gus.level = 4
+                        Gus.spawn = 1
                         
                 elif event.key != pygame.K_RETURN:
                 
@@ -3196,3 +3198,632 @@ def music_level(sac,action,Gus,tr):
         pygame.display.update()
         
         clock.tick(100)        
+
+def nivo4(sac,action,Gus,tr):
+    pygame.init()
+    speed_move = Gus.speed
+    frame_count = Gus.frame
+    a=0
+    time = 0
+    x =  (display_width-gugus_width)/2
+    y = (display_height-gugus_height)/2  
+    rel_x = 0 
+    rel_y = 0
+    x_change = 0
+    y_change = 0
+    gugus = gugus_face
+    
+    screen_x = -225 + x
+    screen_y = -225 + y 
+    
+    interact = False
+    tune = Gus.money
+    alcool = sac.Alcool
+    preservatif = sac.Capote   
+    
+    gameExit = False
+    
+    while not gameExit and Gus.level >= 4 and Gus.level < 5:
+                    
+        if frame_count <= 30:
+            frame_count += 1
+        else:
+            frame_count = 0
+        
+        if frame_count <= 15:
+            a=0
+        elif frame_count > 15:
+            a=1
+            
+        rect_gugus = gugus.get_rect() 
+        tr.update_items()
+        Gus.update_items(tr)
+        sac.update_items(tr)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    other_s.play()
+                    Gus.pause += 1    
+                if event.key == pygame.K_TAB:
+                    other_s.play() 
+            ############################
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:  
+                    x_change = -speed_move
+                    rel_x = speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_RIGHT:
+                    x_change = speed_move
+                    rel_x = -speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_UP:
+                    y_change = -speed_move
+                    rel_y = speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_DOWN:
+                    y_change = speed_move
+                    rel_y = -speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                if event.key == pygame.K_a and not action.click:
+                    action.click = True
+                    click_.play()
+                    
+                    if 655+screen_x < x < 711+screen_x and 326+screen_y < y < 398+screen_y and Gus.level == 4:
+                        tr.barre_cereal += 1
+                    #PERSONNES
+                    ###EST
+                         
+                elif event.key != pygame.K_a:
+                
+                    action.click = False
+                
+                if event.key == pygame.K_RETURN:
+                    enter_s.play()
+                    if 710+screen_x < x < 800+screen_x and 326+screen_y < y < 398+screen_y and Gus.level == 4 and sac.Barre_Cereales == 1:
+                        tr.eat_barre = True
+                        Gus.spawn = 2
+                        time = 0
+                    
+                    if 856+screen_x < x < 952+screen_x and 410+screen_y < y < 469+screen_y and Gus.level == 4:
+                        Gus.level = 1000
+                                            
+
+                elif event.key != pygame.K_RETURN:
+                
+                    action.change_level = False
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_gauche 
+                    step_s.stop()
+                if event.key == pygame.K_RIGHT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_droite 
+                    step_s.stop()
+
+                if event.key == pygame.K_UP:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_dos 
+                    step_s.stop()
+                    
+                if event.key == pygame.K_DOWN:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_face 
+                    step_s.stop()
+                    
+            ######################            
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            gugus=gugus_walkdown[a]
+        if keys[pygame.K_UP]:
+            gugus=gugus_walkup[a]
+        if keys[pygame.K_RIGHT]:
+            gugus=gugus_walkright[a]
+        if keys[pygame.K_LEFT]:
+            gugus=gugus_walkleft[a]
+            
+        rect_gugus.topleft = (x,y)
+                        
+        if Gus.level == 4:
+    
+            if Gus.spawn == 1 and time < 2:
+                screen_x,screen_y,x,y = spawn_level(x,y,159,340)
+            elif Gus.spawn == 2 and time < 2:
+                screen_x,screen_y,x,y = spawn_level(x,y,769,367)
+        
+            time += 1
+            liste_mur = level_4(screen,screen_x,screen_y)
+            
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+               
+        
+        ##INTERACTION LVL 2
+        if tr.eat_barre == True and time == 1 and sac.Barre_Cereales == 1:
+            if Gus.pv >= 80:
+                Gus.pv = 100
+                sac.Barre_Cereales == 0
+            elif Gus.pv < 80:
+                Gus.pv += 20
+                sac.Barre_Cereales == 1
+                
+        ##OBJET LVL 2
+        if 655+screen_x < x < 711+screen_x and 326+screen_y < y < 398+screen_y and Gus.level == 4:
+            tr.barre_cereal = zone_interaction(screen,"Qu'est-ce que c'est? (A)",action,tr.barre_cereal,"une barre de céréales!")
+            sac.Barre_Cereales = 1
+            
+        elif 710+screen_x < x < 800+screen_x and 326+screen_y < y < 398+screen_y and Gus.level == 4 and sac.Barre_Cereales == 1 and tr.eat_barre == False:
+            textsurface = myfont.render("Manger la barre de céréales", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+            screen.blit(textsurface2,(x+35,y-40))            
+
+        elif 856+screen_x < x < 952+screen_x and 410+screen_y < y < 469+screen_y and Gus.level == 4:
+            textsurface = myfont.render("Donnes moi ton sac !! ", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x-100,y-60))
+            screen.blit(textsurface2,(x,y-40))  
+            
+        if screen_x >= 0 and rel_x > 0:
+            screen_x = 0
+            x -= rel_x
+        elif screen_x <= display_width - 1000 and rel_x < 0 :
+            screen_x = display_width - 1000
+            x -= rel_x
+        if screen_y >= 0 and rel_y > 0 :
+            screen_y = 0
+            y  -= rel_y
+        elif screen_y <= display_height - 707 and rel_y < 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+            
+        if x < (display_width-gugus_width)/2 and rel_x < 0:
+            screen_x = 0
+            x -= rel_x
+        elif x > (display_width-gugus_width)/2 and rel_x > 0:
+            screen_x = display_width - 1000
+            x -= rel_x
+            
+        if y < (display_height-gugus_height)/2 and rel_y < 0:
+            screen_y = 0
+            y -= rel_y
+        elif y > (display_height-gugus_height)/2 and rel_y > 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+        
+        ##OBJETS
+
+        screen.blit(gugus, rect_gugus)
+        
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (220, 220, 220))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
+        lvl = Gus_font.render("Niveau : " + str(int(Gus.level)), False, (220, 220, 220))
+    
+        screen.blit(pv , (10,20))
+        screen.blit(lvl , (10,45))
+        screen.blit(argent , (10,70))
+        screen.blit(sac_tab , (10,450))
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            affich_sac(screen,sac)
+        if (Gus.pause%2) == 1:
+            pause(screen,gameExit,Gus,sac,tr)
+        if Gus.pv == 0 or tr.game_over == True:
+            game_over(screen)
+
+        pygame.display.update()
+        
+        clock.tick(100)    
+
+def nivo_fight(sac,action,Gus,tr):
+    gameExit=False
+      
+    a = 0
+    gugus = gus_fight_right[0]
+    rect_gugus = gugus.get_rect()
+    frame_count = 0
+    side = True
+    animation = False
+    type_anim ="none"
+
+    fightr = fighter_1_r[0]
+    
+    fightrect = fightr.get_rect()
+    
+    lvl = lvl_fight[0]
+    
+    x = 150
+    y = 230
+    
+    x2 = 300
+    y2 = 214
+    
+    move_y = 0
+    move_x = 0
+    air_time = 1
+    
+    jump = False
+    fall = False
+    
+    attack = False
+    super_attack = False
+    hit = False
+    collision = False
+    
+    opp_clean = 0
+    clean_hit = 0
+    
+    gus_life = 100
+    fighter_life = 100
+    
+    clock = pygame.time.Clock()
+    
+    while not gameExit and Gus.level == 1000:
+        
+        if frame_count <= 60:
+            frame_count += 1
+        else:
+            frame_count = 0
+            animation = False
+            type_anim = "none"
+        
+        if frame_count <= 15 and not animation:
+            a=0
+        elif 15 < frame_count <= 30 and not animation:
+            a=1
+        elif 30 < frame_count <= 45 and not animation:
+            a=2
+        elif 45 < frame_count <= 60 and not animation:
+            a=3
+
+        elif frame_count <= 15 and animation:
+            a = 0
+        elif 15 < frame_count <= 30 and animation:
+            a = 1
+        elif 30 < frame_count <= 45 and animation :
+            a = 2
+        elif 45 < frame_count <= 60 and animation:
+            a = 3
+                       
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+               
+              # Condition becomes true when keyboard is pressed   
+            if event.type == pygame.KEYDOWN:
+   
+                if event.key == pygame.K_UP :
+
+                    jump = True
+                    
+                if event.key == pygame.K_DOWN :
+                    fall = True
+                    
+                if event.key == pygame.K_LEFT :
+                    move_x = -2
+                    side = False
+                    
+                if event.key == pygame.K_RIGHT :
+                    move_x = 2
+                    side = True
+                    
+                if event.key == pygame.K_a :
+                    attack = True
+                if event.key == pygame.K_z :
+                    super_attack = True         
+                    
+            if event.type == pygame.KEYUP:
+   
+                if event.key == pygame.K_UP :
+                    jump = False
+                    
+                if event.key == pygame.K_DOWN :
+                    fall = False
+                    
+                if event.key == pygame.K_LEFT :
+                    move_x = 0
+
+                if event.key == pygame.K_RIGHT :
+                    move_x = 0
+
+                if event.key == pygame.K_a :
+                    attack = False
+                if event.key == pygame.K_z :
+                    super_attack = False
+        
+        if side:
+            if type_anim == "none":
+                gugus=gus_fight_right[a]
+            elif type_anim == "punch":
+                gugus = gus_pch_r[a]
+            elif type_anim == "kick":
+                gugus = gus_kick_r[a]
+            elif type_anim == "super_punch":
+                gugus = gus_sp_r[a]
+            elif type_anim =="jump_punch":
+                gugus = gus_jp_r[a]
+            elif type_anim =="adv_c2c":
+                gugus = gus_ouille_r[a]
+            elif type_anim =="adv_sp":
+                gugus = gus_ouille_r[a]
+
+        else:
+            if type_anim == "none":
+                gugus=gus_fight_left[a]
+            elif type_anim == "punch":
+                gugus = gus_pch_l[a]
+            elif type_anim == "kick":
+                gugus = gus_kick_l[a]
+            elif type_anim == "super_punch":
+                gugus = gus_sp_l[a]
+            elif type_anim =="jump_punch":
+                gugus = gus_jp_l[a]
+            elif type_anim =="adv_c2c":
+                gugus = gus_ouille_l[a]
+            elif type_anim =="adv_sp":
+                gugus = gus_ouille_l[a]
+                
+        if (y < 230 and not rect_gugus.colliderect(fightrect)) or jump :
+            air_time += 1
+ 
+        if jump : 
+            move_y = -(30/air_time)
+            
+        if y < 230 and air_time > 30:
+            move_y = 3
+        elif y < 230 and fall :
+            move_y = 5
+        elif y >= 230 and not jump:
+            move_y = 0
+            y = 230
+            jump = False
+            air_time = 1
+            
+        if rect_gugus.colliderect(fightrect):
+            if abs(rect_gugus.bottom - fightrect.top) <= 10 and move_y > 0:
+                move_y = 0
+                air_time = 1
+                jump = False
+            if abs(rect_gugus.top - fightrect.bottom) <= 10 and move_y < 0:
+                move_y = 0
+            if abs(rect_gugus.left - fightrect.right) <= 10 and move_x < 0:
+                move_x = 0             
+            if abs(rect_gugus.right - fightrect.left) <= 10 and move_x > 0:
+                move_x = 0
+
+
+        if abs(rect_gugus.right - fightrect.left) <= 80 and move_x > 0 and y2-20 < y < y2+20:
+            if 50 < x2 < 400:
+                x2 += move_x/4
+            elif x2 >= 400 :
+                x2 -= move_x
+        if abs(rect_gugus.left - fightrect.right) <= 80 and move_x < 0 and y2-20 < y < y2+20:
+            if 50 < x2 < 400:
+                x2 += move_x/4
+            elif x2 <= 50 :
+                x2 -= move_x
+            
+        ##COUP SIMPLE AVEC A
+        if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0:
+            fighter_life -=5
+            clean_hit += 1
+            x2 -= 20
+            opp_clean = 0
+            animation = True
+            type_anim = "punch"
+            frame_count = 1
+        if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0:
+            fighter_life -=5
+            x2 += 20
+            clean_hit += 1
+            opp_clean = 0
+            animation = True
+            type_anim = "punch"
+            frame_count = 1
+            
+        ##COUP COMBO A ET Z
+        if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0 and super_attack:
+            fighter_life -= 10
+            clean_hit += 1
+            x += 20
+            opp_clean = 0
+            animation = True
+            type_anim = "kick"
+            frame_count = 1
+        if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0 and super_attack:
+            fighter_life -= 10
+            x -= 20
+            clean_hit += 1
+            opp_clean = 0
+            animation = True
+            type_anim = "kick"
+            frame_count = 1
+
+        ##SUPER COUP AVEC Z
+        if abs(rect_gugus.left - fightrect.right) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
+            fighter_life -=15
+            clean_hit = 0
+            x2 -= 120
+            opp_clean = 0
+            animation = True
+            type_anim = "super_punch"
+            frame_count = 1
+        if abs(rect_gugus.right - fightrect.left) <= 5 and super_attack and move_x != 0 and clean_hit >= 5:
+            fighter_life -=15
+            x2 += 120
+            clean_hit = 0
+            opp_clean = 0
+            animation = True
+            type_anim = "super_punch"
+            frame_count = 1
+            
+        ##COUP SAUTE
+        if abs(rect_gugus.left - fightrect.right) <= 15 and attack and 10 < air_time < 35:
+            fighter_life -= 10
+            clean_hit += 1
+            opp_clean = 0
+            x2 -= 50
+            animation = True
+            type_anim = "jump_punch"
+            frame_count = 1
+            
+        if abs(rect_gugus.right - fightrect.left) <= 15 and attack and 10 < air_time < 35:
+            fighter_life -=10
+            x2 += 50
+            clean_hit += 1
+            opp_clean = 0
+            animation = True
+            type_anim = "jump_punch"
+            frame_count = 1
+            
+        ##COUP ADVERSAIRE
+        if rect_gugus.colliderect(fightrect):
+            collision = True
+        elif not rect_gugus.colliderect(fightrect):
+            collision = False
+            
+        if collision and move_x == 0 and not attack and not jump:
+            hit = True
+        else:
+            hit = False
+
+        ##CORP A CORP           
+        if abs(rect_gugus.left - fightrect.right) <= 1 and hit:
+            Gus.pv -=5
+            x += 80
+            clean_hit = 0
+            opp_clean += 1
+            animation = True
+            type_anim = "adv_c2c"
+            frame_count = 1            
+            
+        if abs(rect_gugus.right - fightrect.left) <= 1 and hit:
+            Gus.pv -=5
+            x -= 80
+            clean_hit = 0
+            opp_clean += 1
+            animation = True
+            type_anim = "adv_c2c"
+            frame_count = 1            
+            
+        ##SUPER COUP ADVERSAIRE
+        if abs(rect_gugus.left - fightrect.right) <= 5 and hit and opp_clean == 3:
+            Gus.pv -= 10
+            x += 100
+            clean_hit = 0
+            opp_clean = 0
+            animation = True
+            type_anim = "adv_sp"
+            frame_count = 1            
+            
+        if abs(rect_gugus.right - fightrect.left) <= 5 and hit and opp_clean == 3:
+            Gus.pv -=10
+            x -= 100
+            clean_hit = 0
+            opp_clean = 0
+            animation = True
+            type_anim = "adv_sp"
+            frame_count = 1            
+            
+        ##COMBO ADVERSAIRE
+        ##PROJECTILE??           
+                
+        if move_x == 0 and not jump:
+            if x2 > x and not collision and x2 > 50:
+                x2 -= 0.5
+                if type_anim == "none":
+                    fightr = fighter_1_r[a]
+                elif type_anim == "adv_c2c":
+                    fightr = fighter_pch_r[a]
+                elif type_anim == "adv_sp":
+                    fightr = fighter_sp_r[a]
+                elif type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch":
+                    fightr = fighter_ouille_r[a]
+
+            elif x2 < x and not collision and x2 < 400:
+                x2 += 0.5
+                if type_anim == "none":
+                    fightr = fighter_1_l[a]
+                elif type_anim == "adv_c2c":
+                    fightr = fighter_pch_l[a]
+                elif type_anim == "adv_sp":
+                    fightr = fighter_sp_l[a]
+                elif type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch":
+                    fightr = fighter_ouille_l[a]
+
+            else:
+                x2 = x2
+                if type_anim == "none" and side:
+                    fightr = fighter_1_r[a]
+                elif type_anim == "none" and not side:
+                    fightr = fighter_1_l[a]
+                elif type_anim == "adv_c2c" and side:
+                    fightr = fighter_pch_r[a]
+                elif type_anim == "adv_c2c" and not side:
+                    fightr = fighter_pch_l[a]
+                elif type_anim == "adv_sp" and side:
+                    fightr = fighter_sp_r[a]
+                elif type_anim == "adv_sp" and not side:
+                    fightr = fighter_sp_l[a]
+                elif (type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch") and side:
+                    fightr = fighter_ouille_r[a]
+                elif (type_anim == "punch" or type_anim == "kick" or type_anim == "super_punch" or type_anim == "jump_punch") and not side:
+                    fightr = fighter_ouille_l[a]
+                   
+        x += move_x
+        y += move_y  
+
+        if x > 450 :
+            x=450
+        if x < 0:
+            x = 0
+        if x2 > 480:
+            x2 = 480
+        if x2 < 20:
+            x2 = 20
+        
+        screen.fill((0,0,0))
+        
+        rect_gugus.topleft = (x,y)        
+        fightrect.topleft = (x2,y2)        
+        
+        lvl = lvl_fight[a]
+        screen.blit(lvl,(0,0))
+        screen.blit(gugus,rect_gugus)
+        screen.blit(fightr,fightrect)
+        
+        super_power = myfont.render(str(clean_hit), False, (210, 210, 210))
+        screen.blit(super_power,(20,65))
+        
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (220, 220, 220))
+        lvl = Gus_font.render("Niveau : FIGHT!", False, (220, 220, 220))
+    
+        screen.blit(pv , (20,35))
+        screen.blit(lvl , (20,95))
+        
+        textsurface = myfont.render(str(fighter_life), False, (210, 210, 210))
+        screen.blit(textsurface,(460,35))
+        
+        pygame.display.update()
+        
+        clock.tick(100)            
