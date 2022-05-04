@@ -39,8 +39,9 @@ def launch(Gus):
         nivo4(sac,action,Gus,tr)
     if Gus.level == 1000:
         nivo_fight(sac,action,Gus,tr)        
-    if Gus.level >= 4 and Gus.level < 5:
-        nivo4(sac,action,Gus,tr)        
+    if Gus.level >= 5 and Gus.level < 6:
+        end_game("lvl 5")
+        
 gameExit = False
 
 while not gameExit:

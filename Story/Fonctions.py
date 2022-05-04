@@ -154,7 +154,7 @@ class sac_a_dos():
         self.Barre_Cereales = 0
         
     def update_items(self,tr):
-        self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro
+        self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro + tr.clope_trome
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord + tr.capote_3
         self.Seringue = tr.seringue_NE + tr.seringue_NO + tr.seringueN + tr.seringueO
         self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere

@@ -240,3 +240,12 @@ lvl_fight3=pygame.image.load('Level/fight_lvl3.jpg')
 lvl_fight4=pygame.image.load('Level/fight_lvl4.jpg')
 
 lvl_fight = [lvl_fight1,lvl_fight2,lvl_fight3,lvl_fight4]
+
+power_bar0 = pygame.image.load("bank/image/super_power0.png")
+power_bar1 = pygame.image.load("bank/image/super_power1.png")
+power_bar2 = pygame.image.load("bank/image/super_power2.png")
+power_bar3 = pygame.image.load("bank/image/super_power3.png")
+power_bar4 = pygame.image.load("bank/image/super_power4.png")
+power_bar5 = pygame.image.load("bank/image/super_power5.png")
+power_bar = [power_bar0,power_bar1,power_bar2,power_bar3,power_bar4,power_bar5]
+

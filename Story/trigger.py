@@ -216,6 +216,9 @@ class trigger():
         
         self.eat_barre = False
         
+        self.press_clope_trom = -1
+        self.clope_trome = 0
+        
         self.fight = False
         
     def update_items(self):
