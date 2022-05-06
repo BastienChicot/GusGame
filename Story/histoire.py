@@ -3634,7 +3634,8 @@ def nivo_fight(sac,action,Gus,tr):
             ##COUP SIMPLE AVEC A
             if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0:
                 fighter_life -=5
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 x2 -= 20
                 opp_clean = 0
                 animation = True
@@ -3643,7 +3644,8 @@ def nivo_fight(sac,action,Gus,tr):
             if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0:
                 fighter_life -=5
                 x2 += 20
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 opp_clean = 0
                 animation = True
                 type_anim = "punch"
@@ -3652,7 +3654,8 @@ def nivo_fight(sac,action,Gus,tr):
             ##COUP COMBO A ET Z
             if abs(rect_gugus.left - fightrect.right) <= 5 and attack and move_x != 0 and super_attack:
                 fighter_life -= 10
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 x += 20
                 opp_clean = 0
                 animation = True
@@ -3661,7 +3664,8 @@ def nivo_fight(sac,action,Gus,tr):
             if abs(rect_gugus.right - fightrect.left) <= 5 and attack and move_x != 0 and super_attack:
                 fighter_life -= 10
                 x -= 20
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 opp_clean = 0
                 animation = True
                 type_anim = "kick"
@@ -3688,7 +3692,8 @@ def nivo_fight(sac,action,Gus,tr):
             ##COUP SAUTE
             if abs(rect_gugus.left - fightrect.right) <= 15 and attack and 10 < air_time < 35:
                 fighter_life -= 10
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 opp_clean = 0
                 x2 -= 50
                 animation = True
@@ -3698,7 +3703,8 @@ def nivo_fight(sac,action,Gus,tr):
             if abs(rect_gugus.right - fightrect.left) <= 15 and attack and 10 < air_time < 35:
                 fighter_life -=10
                 x2 += 50
-                clean_hit += 1
+                if clean_hit < 5:
+                    clean_hit += 1
                 opp_clean = 0
                 animation = True
                 type_anim = "jump_punch"

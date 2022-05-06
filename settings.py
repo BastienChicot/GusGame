@@ -26,6 +26,28 @@ other_s.set_volume(0.1)
 find_s = pygame.mixer.Sound(find_path)
 find_s.set_volume(0.15)
 
+#####PLAYLIST#####
+playlist = list()
+
+playlist.append("bank/musiques/Gus_track_13.wav")
+playlist.append("bank/musiques/Gus_track_12.wav")
+playlist.append("bank/musiques/Gus_track_11.wav")
+playlist.append("bank/musiques/Gus_track_9.wav")
+playlist.append("bank/musiques/Gus_track_8.wav")
+playlist.append("bank/musiques/Gus_track_7.wav")
+playlist.append("bank/musiques/Gus_track_6.wav")
+playlist.append("bank/musiques/Gus_track_5.wav")
+playlist.append("bank/musiques/Gus_track_2.wav")
+playlist.append("bank/musiques/Gus_track_1.wav")
+
+pygame.mixer.music.load ( playlist.pop() )  # Get the first track from the playlist
+pygame.mixer.music.queue ( playlist.pop() ) # Queue the 2nd song
+pygame.mixer.music.set_endevent ( pygame.USEREVENT )    # Setup the end track event
+pygame.mixer.music.play()           # Play the music
+
+
+pygame.mixer.music.set_volume(0.025)
+
 display_width = 500
 display_height = 500
 
