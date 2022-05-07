@@ -17,7 +17,6 @@ pygame.mixer.init()
 pygame.init()
 pygame.font.init()
 pygame.mixer.pre_init(44100, -16, 1, 4096)
-pygame.mixer.init()
 
 Gus = Gus()
 sac = sac_a_dos()
@@ -25,10 +24,12 @@ action=action_key()
 tr = trigger()
 
 current=0
-queued=1
 
 def launch(Gus):
-
+    
+    pygame.mixer.music.load ( playlist[Gus.current])
+    pygame.mixer.music.play() 
+    
     if Gus.level == 1:
         nivo1(sac,action,Gus,tr)
     if Gus.level >= 2 and Gus.level < 3:
@@ -45,27 +46,19 @@ def launch(Gus):
         nivo4(sac,action,Gus,tr)
     if Gus.level == 1000:
         pygame.mixer.music.load("bank/musiques/Gus_track_13.wav")
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(-1)
         nivo_fight(sac,action,Gus,tr)        
     if Gus.level >= 5 and Gus.level < 6:
         end_game("lvl 5")
         
+        
 gameExit = False
 
-while not gameExit:
-    a = pygame.mixer.music.get_busy()
-    pygame.mixer.music.load ( playlist[current])  # Get the first track from the playlist
-    pygame.mixer.music.queue ( playlist[queued] ) # Queue the 2nd song
-    pygame.mixer.music.play()    
+while not gameExit:   
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            gameExit = True
-
-    if not pygame.mixer.music.get_busy():
-        current+=2
-        queued+=2
-       
+            gameExit = True       
 
     demarrer = pygame.Rect(25,25,450,130)
     charger = pygame.Rect(25,180,450,130)
@@ -96,9 +89,10 @@ while not gameExit:
     if keys[pygame.K_q]:
         other_s.play()
         pygame.quit() 
-    print(a)
+
     pygame.display.update()
 
 
 pygame.quit()
 quit()
+

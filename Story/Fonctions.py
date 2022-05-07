@@ -187,6 +187,7 @@ class Gus():
         self.perso = "gus"
         self.try_music = 1
         self.pb_music = 0
+        self.current = 0
         
     def update_items(self,tr):
         self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +

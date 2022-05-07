@@ -14,7 +14,7 @@ import numpy as np
 
 pygame.init()
 pygame.font.init()
-
+pygame.mixer.init()
 
 myfont = pygame.font.SysFont('corbel', 20, bold=True)
 Gus_font = pygame.font.SysFont('corbel', 16, bold=True)
@@ -61,6 +61,15 @@ def nivo1(sac,action,Gus,tr):
     
     while not gameExit and Gus.level == 1:
         
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+            
         if frame_count <= 30:
             frame_count += 1
         else:
@@ -703,7 +712,16 @@ def nivo2(sac,action,Gus,tr):
     gameExit = False
     
     while not gameExit and Gus.level >= 2 and Gus.level < 3:
-        
+
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+            
         if gus_run:
             speed_move = 3
         else:
@@ -1682,6 +1700,16 @@ def bonus_level(sac,action,Gus,tr):
     gameExit = False
     
     while not gameExit and Gus.level == 0:
+        
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+            
         seconds=(pygame.time.get_ticks()-start_ticks)/1000
             
         countdown = int(130 - seconds)
@@ -2079,6 +2107,15 @@ def nivo3(sac,action,Gus,tr):
     gameExit = False
     
     while not gameExit and Gus.level >= 3 and Gus.level < 4:
+        
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()        
                     
         if frame_count <= 30:
             frame_count += 1
@@ -3224,6 +3261,15 @@ def nivo4(sac,action,Gus,tr):
     gameExit = False
     
     while not gameExit and Gus.level >= 4 and Gus.level < 5:
+        
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()        
                     
         if frame_count <= 30:
             frame_count += 1
