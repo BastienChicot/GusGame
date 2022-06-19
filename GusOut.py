@@ -49,7 +49,7 @@ def launch(Gus):
         pygame.mixer.music.play(-1)
         nivo_fight(sac,action,Gus,tr)        
     if Gus.level >= 5 and Gus.level < 6:
-        end_game("lvl 5")
+        nivo5(sac,action,Gus,tr)
         
         
 gameExit = False

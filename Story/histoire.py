@@ -3953,4 +3953,486 @@ def nivo_fight(sac,action,Gus,tr):
             
         pygame.display.update()
         
-        clock.tick(100)            
+        clock.tick(100)    
+
+def nivo5(sac,action,Gus,tr):
+    pygame.init()
+    speed_move = Gus.speed
+    frame_count = Gus.frame
+    a=0
+    time = 0
+    x =  (display_width-gugus_width)/2
+    y = (display_height-gugus_height)/2  
+    rel_x = 0 
+    rel_y = 0
+    x_change = 0
+    y_change = 0
+    gugus = gugus_face
+    
+    screen_x = -225 + x
+    screen_y = -225 + y 
+    
+    interact = False
+    tune = Gus.money
+    alcool = sac.Alcool
+    preservatif = sac.Capote
+    #CREATION ET CARACTERISTIQUES PNJ
+
+    #INTERACTIONS
+
+    #OBJETS NIVEAU
+    #INTERACTIONS
+    #ITEMS    
+    
+    gameExit = False
+    
+    while not gameExit and Gus.level >= 5 and Gus.level < 6:
+
+        if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
+            Gus.current+=1
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+        elif not pygame.mixer.music.get_busy() and Gus.current > len(playlist):
+            Gus.current=0
+            pygame.mixer.music.load ( playlist[Gus.current])
+            pygame.mixer.music.play()
+                    
+        if frame_count <= 30:
+            frame_count += 1
+        else:
+            frame_count = 0
+        
+        if frame_count <= 15:
+            a=0
+        elif frame_count > 15:
+            a=1
+            
+        rect_gugus = gugus.get_rect() 
+        tr.update_items()
+        Gus.update_items(tr)
+        sac.update_items(tr)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    other_s.play()
+                    Gus.pause += 1    
+                if event.key == pygame.K_TAB:
+                    other_s.play() 
+            ############################
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:  
+                    x_change = -speed_move
+                    rel_x = speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_RIGHT:
+                    x_change = speed_move
+                    rel_x = -speed_move
+                    y_change = 0
+                    rel_y = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_UP:
+                    y_change = -speed_move
+                    rel_y = speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                elif event.key == pygame.K_DOWN:
+                    y_change = speed_move
+                    rel_y = -speed_move
+                    x_change = 0
+                    rel_x = 0
+                    step_s.play(-1)
+                if event.key == pygame.K_a and not action.click:
+                    action.click = True
+                    click_.play()
+                    #PERSONNES
+                    ###EST
+                         
+                elif event.key != pygame.K_a:
+                
+                    action.click = False
+                
+                if event.key == pygame.K_RETURN:
+                    enter_s.play()
+                            
+                elif event.key != pygame.K_RETURN:
+                
+                    action.change_level = False
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_gauche 
+                    step_s.stop()
+                if event.key == pygame.K_RIGHT:
+                    x_change = 0
+                    rel_x = 0
+                    gugus = gugus_droite 
+                    step_s.stop()
+
+                if event.key == pygame.K_UP:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_dos 
+                    step_s.stop()
+                    
+                if event.key == pygame.K_DOWN:
+                    y_change = 0
+                    rel_y = 0
+                    gugus = gugus_face 
+                    step_s.stop()
+                    
+            ######################            
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            gugus=gugus_walkdown[a]
+        if keys[pygame.K_UP]:
+            gugus=gugus_walkup[a]
+        if keys[pygame.K_RIGHT]:
+            gugus=gugus_walkright[a]
+        if keys[pygame.K_LEFT]:
+            gugus=gugus_walkleft[a]
+            
+        rect_gugus.topleft = (x,y)
+                        
+        if Gus.level == 5:
+    
+            if Gus.spawn == 1 and time < 2:
+                screen_x,screen_y,x,y = spawn_level(x,y,705,461)
+            elif Gus.spawn == 2 and time < 2:
+                screen_x,screen_y,x,y = spawn_level(x,y,379,114)
+        
+            time += 1
+            liste_mur = level_5M(screen,screen_x,screen_y)
+               
+            # if rat2.side == "left":
+            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
+            # elif rat2.side == "right":
+            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_right,'right')
+                
+            # speed_x,speed_y = rat2.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
+            # spawn_x,spawn_y = rat2.move(spawn_x,spawn_y,speed_x,speed_y)
+            
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+    
+            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "left":
+            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
+            #         speed_x *= -1
+            #         speed_y *= -1
+            #         rat2.side = "right"
+                    
+            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "right":
+            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
+            #         speed_x *= -1
+            #         speed_y *= -1
+            #         rat2.side = "left"
+                    
+            # if rect_gugus.colliderect(rat2.rect):
+            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
+            #         x_change = 0
+            #         rel_x = 0
+            # if rat2.rect.colliderect(rect_gugus):
+            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
+            #         x_change = 0
+            #         rel_x = 0           
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            # screen.blit(rat2.image, rat2.rect)
+        
+            if x < 210 and y < 130:
+                Gus.level = 5.1
+                Gus.spawn = 1
+                time = 0
+
+            
+        elif Gus.level == 5.1:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y =0,0,250,250
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,556,335)
+                        
+            time += 1
+            
+            liste_mur = level_5_esc1(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            x += rel_x
+            y += rel_y
+            
+            if y < 335 and x < 500 :
+                Gus.level = 5
+                Gus.spawn = 2
+                time = 0
+            if y > 335 and x < 500:
+                Gus.level = 5.2
+                Gus.spawn = 1
+                time = 0            
+
+        elif Gus.level == 5.2:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,34,164)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,34,291)
+                        
+            time += 1
+            
+            liste_mur = level_5_esc2(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if y < 250 and x < 200 :
+                Gus.level = 5.1
+                Gus.spawn = 2
+                time = 0
+            if y > 250 and x < 200:
+                Gus.level = 5.3
+                Gus.spawn = 1
+                time = 0  
+
+        elif Gus.level == 5.3:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,999 - gugus_width,200)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,109,408)
+                        
+            time += 1
+            
+            liste_mur = level_5N(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if x > 998 :
+                Gus.level = 5.2
+                Gus.spawn = 2
+                time = 0
+            if y > 220 and x < 0:
+                Gus.level = 5.4
+                Gus.spawn = 1
+                time = 0 
+
+        elif Gus.level == 5.4:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,765,406)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,415,630)
+                        
+            time += 1
+            
+            liste_mur = level_5NO(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if x > 998 and y > 220:
+                Gus.level = 5.3
+                Gus.spawn = 2
+                time = 0
+            if y > 707 :
+                Gus.level = 5.5
+                Gus.spawn = 1
+                time = 0       
+                
+        elif Gus.level == 5.5:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,415,66)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,621,610)
+
+            if Gus.spawn == 3 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,881,426)
+                        
+            time += 1
+            
+            liste_mur = level_5O(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if y < 20 :
+                Gus.level = 5.4
+                Gus.spawn = 2
+                time = 0
+            if y > 705 :
+                Gus.level = 5.6
+                Gus.spawn = 2
+                time = 0
+            if x > 995:
+                Gus.level = 5.7
+                Gus.spawn = 1
+                time = 0 
+                
+        elif Gus.level == 5.6:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,651,20)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,899,85)
+                        
+            time += 1
+            
+            liste_mur = level_5SO(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if y < 5 :
+                Gus.level = 5.5
+                Gus.spawn = 2
+                time = 0
+            if x > 995 :
+                Gus.level = 5.8
+                Gus.spawn = 1
+                time = 0
+                
+        elif Gus.level == 5.7:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,21,426)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,660,615)
+                        
+            time += 1
+            
+            liste_mur = level_5C(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if x < 5 :
+                Gus.level = 5.5
+                Gus.spawn = 3
+                time = 0
+            if y > 705 :
+                Gus.level = 5.8
+                Gus.spawn = 2
+                time = 0
+
+        elif Gus.level == 5.8:
+            
+            if Gus.spawn == 1 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,11,140)
+
+            if Gus.spawn == 2 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,660,15)
+                        
+            time += 1
+            
+            liste_mur = level_5S(screen,screen_x,screen_y)
+        
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            
+            screen_x += rel_x
+            screen_y += rel_y
+            
+            if x < 5 :
+                Gus.level = 5.6
+                Gus.spawn = 2
+                time = 0
+            if y < 5 :
+                Gus.level = 5.7
+                Gus.spawn = 2
+                time = 0
+                
+        if screen_x >= 0 and rel_x > 0:
+            screen_x = 0
+            x -= rel_x
+        elif screen_x <= display_width - 1000 and rel_x < 0 :
+            screen_x = display_width - 1000
+            x -= rel_x
+        if screen_y >= 0 and rel_y > 0 :
+            screen_y = 0
+            y  -= rel_y
+        elif screen_y <= display_height - 707 and rel_y < 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+            
+        if x < (display_width-gugus_width)/2 and rel_x < 0:
+            screen_x = 0
+            x -= rel_x
+        elif x > (display_width-gugus_width)/2 and rel_x > 0:
+            screen_x = display_width - 1000
+            x -= rel_x
+            
+        if y < (display_height-gugus_height)/2 and rel_y < 0:
+            screen_y = 0
+            y -= rel_y
+        elif y > (display_height-gugus_height)/2 and rel_y > 0:
+            screen_y = display_height - 707 
+            y -= rel_y
+        
+        ##OBJETS
+
+        screen.blit(gugus, rect_gugus)
+        
+        pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
+        argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
+        lvl = Gus_font.render("Niveau : " + str(int(Gus.level)), False, (78, 22, 9))
+    
+        screen.blit(pv , (10,20))
+        screen.blit(lvl , (10,45))
+        screen.blit(argent , (10,70))
+        screen.blit(sac_tab , (10,450))
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            affich_sac(screen,sac)
+        if (Gus.pause%2) == 1:
+            pause(screen,gameExit,Gus,sac,tr)
+        if Gus.pv == 0 or tr.game_over == True:
+            game_over(screen)
+
+        pygame.display.update()
+        print(x,y)
+        clock.tick(100)        
