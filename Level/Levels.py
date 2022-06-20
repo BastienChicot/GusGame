@@ -1072,7 +1072,7 @@ def level_5_esc1(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #Limites
-    mur0 = wall(0,0,1000,2,screen_x,screen_y)
+    mur0 = wall(0,0,1000,2,0,0)
     # mur1 = wall(0,468,1000,200,screen_x,screen_y)
     # mur9 = wall(-1,0,4,707,screen_x,screen_y)
     # mur10 = wall(998,0,4,707,screen_x,screen_y)
@@ -1101,7 +1101,7 @@ def level_5_esc1(gameDisplay,screen_x,screen_y):
         pygame.draw.rect(gameDisplay,black,mur)
     
     #PNJ
-    gameDisplay.blit(fond, (screen_x,screen_y)) 
+    gameDisplay.blit(fond, (0,0)) 
 
     
     return(liste_mur)   
@@ -1111,7 +1111,7 @@ def level_5_esc2(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #Limites
-    mur0 = wall(0,0,1000,2,screen_x,screen_y)
+    mur0 = wall(0,0,1000,2,0,0)
     # mur1 = wall(0,468,1000,200,screen_x,screen_y)
     # mur9 = wall(-1,0,4,707,screen_x,screen_y)
     # mur10 = wall(998,0,4,707,screen_x,screen_y)
@@ -1140,7 +1140,7 @@ def level_5_esc2(gameDisplay,screen_x,screen_y):
         pygame.draw.rect(gameDisplay,black,mur)
     
     #PNJ
-    gameDisplay.blit(fond, (screen_x,screen_y)) 
+    gameDisplay.blit(fond, (0,0)) 
 
     
     return(liste_mur)            

@@ -3959,6 +3959,7 @@ def nivo5(sac,action,Gus,tr):
     pygame.init()
     speed_move = Gus.speed
     frame_count = Gus.frame
+    lvl_move = True
     a=0
     time = 0
     x =  (display_width-gugus_width)/2
@@ -4103,11 +4104,13 @@ def nivo5(sac,action,Gus,tr):
         rect_gugus.topleft = (x,y)
                         
         if Gus.level == 5:
+            
+            lvl_move = True
     
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,705,461)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,379,114)
+                screen_x,screen_y,x,y = spawn_level(x,y,380,114)
         
             time += 1
             liste_mur = level_5M(screen,screen_x,screen_y)
@@ -4147,7 +4150,7 @@ def nivo5(sac,action,Gus,tr):
             
             # screen.blit(rat2.image, rat2.rect)
         
-            if x < 210 and y < 130:
+            if x < 229 and y < 130:
                 Gus.level = 5.1
                 Gus.spawn = 1
                 time = 0
@@ -4155,9 +4158,11 @@ def nivo5(sac,action,Gus,tr):
             
         elif Gus.level == 5.1:
             
+            lvl_move = False
+            
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y =0,0,250,250
+                screen_x,screen_y,x,y = spawn_level(x,y,156,135)
 
             if Gus.spawn == 2 and time < 2:
                 
@@ -4169,27 +4174,29 @@ def nivo5(sac,action,Gus,tr):
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
-            x += rel_x
-            y += rel_y
+            x -= rel_x
+            y -= rel_y
             
-            if y < 335 and x < 500 :
+            if y < 270 and x > 290 :
                 Gus.level = 5
                 Gus.spawn = 2
                 time = 0
-            if y > 335 and x < 500:
+            if y > 270 and x > 290:
                 Gus.level = 5.2
                 Gus.spawn = 1
                 time = 0            
 
         elif Gus.level == 5.2:
             
+            lvl_move = False
+
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,34,164)
+                screen_x,screen_y,x,y = spawn_level(x,y,291,131)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,34,291)
+                screen_x,screen_y,x,y = spawn_level(x,y,285,342)
                         
             time += 1
             
@@ -4197,19 +4204,21 @@ def nivo5(sac,action,Gus,tr):
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
-            screen_x += rel_x
-            screen_y += rel_y
+            x -= rel_x
+            y -= rel_y
             
-            if y < 250 and x < 200 :
+            if y < 270 and x < 255 :
                 Gus.level = 5.1
                 Gus.spawn = 2
                 time = 0
-            if y > 250 and x < 200:
+            if y > 270 and x < 255:
                 Gus.level = 5.3
                 Gus.spawn = 1
                 time = 0  
 
         elif Gus.level == 5.3:
+            
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
@@ -4228,7 +4237,7 @@ def nivo5(sac,action,Gus,tr):
             screen_x += rel_x
             screen_y += rel_y
             
-            if x > 998 :
+            if x > 480 :
                 Gus.level = 5.2
                 Gus.spawn = 2
                 time = 0
@@ -4238,6 +4247,8 @@ def nivo5(sac,action,Gus,tr):
                 time = 0 
 
         elif Gus.level == 5.4:
+
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
@@ -4256,16 +4267,18 @@ def nivo5(sac,action,Gus,tr):
             screen_x += rel_x
             screen_y += rel_y
             
-            if x > 998 and y > 220:
+            if x > 480 and y > 220:
                 Gus.level = 5.3
                 Gus.spawn = 2
                 time = 0
-            if y > 707 :
+            if y > 480 :
                 Gus.level = 5.5
                 Gus.spawn = 1
                 time = 0       
                 
         elif Gus.level == 5.5:
+
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
@@ -4292,20 +4305,22 @@ def nivo5(sac,action,Gus,tr):
                 Gus.level = 5.4
                 Gus.spawn = 2
                 time = 0
-            if y > 705 :
+            if y > 495 :
                 Gus.level = 5.6
                 Gus.spawn = 2
                 time = 0
-            if x > 995:
+            if x > 495:
                 Gus.level = 5.7
                 Gus.spawn = 1
                 time = 0 
                 
         elif Gus.level == 5.6:
+
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,651,20)
+                screen_x,screen_y,x,y = spawn_level(x,y,651,21)
 
             if Gus.spawn == 2 and time < 2:
                 
@@ -4324,12 +4339,14 @@ def nivo5(sac,action,Gus,tr):
                 Gus.level = 5.5
                 Gus.spawn = 2
                 time = 0
-            if x > 995 :
+            if x > 480 :
                 Gus.level = 5.8
                 Gus.spawn = 1
                 time = 0
                 
         elif Gus.level == 5.7:
+
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
@@ -4352,12 +4369,14 @@ def nivo5(sac,action,Gus,tr):
                 Gus.level = 5.5
                 Gus.spawn = 3
                 time = 0
-            if y > 705 :
+            if y > 480 :
                 Gus.level = 5.8
                 Gus.spawn = 2
                 time = 0
 
         elif Gus.level == 5.8:
+
+            lvl_move = True
             
             if Gus.spawn == 1 and time < 2:
                 
@@ -4385,30 +4404,30 @@ def nivo5(sac,action,Gus,tr):
                 Gus.spawn = 2
                 time = 0
                 
-        if screen_x >= 0 and rel_x > 0:
+        if screen_x >= 0 and rel_x > 0  and lvl_move:
             screen_x = 0
             x -= rel_x
-        elif screen_x <= display_width - 1000 and rel_x < 0 :
+        elif screen_x <= display_width - 1000 and rel_x < 0 and lvl_move :
             screen_x = display_width - 1000
             x -= rel_x
-        if screen_y >= 0 and rel_y > 0 :
+        if screen_y >= 0 and rel_y > 0 and lvl_move :
             screen_y = 0
             y  -= rel_y
-        elif screen_y <= display_height - 707 and rel_y < 0:
+        elif screen_y <= display_height - 707 and rel_y < 0 and lvl_move:
             screen_y = display_height - 707 
             y -= rel_y
             
-        if x < (display_width-gugus_width)/2 and rel_x < 0:
+        if x < (display_width-gugus_width)/2 and rel_x < 0 and lvl_move:
             screen_x = 0
             x -= rel_x
-        elif x > (display_width-gugus_width)/2 and rel_x > 0:
+        elif x > (display_width-gugus_width)/2 and rel_x > 0 and lvl_move:
             screen_x = display_width - 1000
             x -= rel_x
             
-        if y < (display_height-gugus_height)/2 and rel_y < 0:
+        if y < (display_height-gugus_height)/2 and rel_y < 0 and lvl_move:
             screen_y = 0
             y -= rel_y
-        elif y > (display_height-gugus_height)/2 and rel_y > 0:
+        elif y > (display_height-gugus_height)/2 and rel_y > 0 and lvl_move:
             screen_y = display_height - 707 
             y -= rel_y
         
@@ -4434,5 +4453,5 @@ def nivo5(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(x,y)
+        print(rel_x,rel_y,x,y)
         clock.tick(100)        
