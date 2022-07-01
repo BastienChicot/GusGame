@@ -3978,6 +3978,19 @@ def nivo5(sac,action,Gus,tr):
     alcool = sac.Alcool
     preservatif = sac.Capote
     #CREATION ET CARACTERISTIQUES PNJ
+    
+    rat_left = pygame.image.load('bank/pnj/rat_g.png')
+    
+    speed_y = 0
+    speed_x = -1
+    
+    spawn_x = 410
+    spawn_y = 470
+    spawnx_esc = 490
+    spawny_esc = 530
+       
+    rat_m = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left') 
+    rat_esc = pnj(spawnx_esc,spawny_esc,screen_x,screen_y,rat_left,'left') 
 
     #INTERACTIONS
 
@@ -4110,45 +4123,46 @@ def nivo5(sac,action,Gus,tr):
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,705,461)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,380,114)
+                screen_x,screen_y,x,y = spawn_level(x,y,229,95)
         
             time += 1
             liste_mur = level_5M(screen,screen_x,screen_y)
                
-            # if rat2.side == "left":
-            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
-            # elif rat2.side == "right":
-            #     rat2 = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_right,'right')
+            if rat_m.side == "left":
+                rat_m = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left')
+            elif rat_m.side == "right":
+                rat_m = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_right,'right')
                 
-            # speed_x,speed_y = rat2.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
-            # spawn_x,spawn_y = rat2.move(spawn_x,spawn_y,speed_x,speed_y)
+            speed_x,speed_y = rat_m.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
+            spawn_x,spawn_y = rat_m.move(spawn_x,spawn_y,speed_x,speed_y)
             
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
     
-            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "left":
-            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
-            #         speed_x *= -1
-            #         speed_y *= -1
-            #         rat2.side = "right"
+            if rat_m.rect.colliderect(rect_gugus) and rat_m.side == "left":
+                if abs (rat_m.rect.left - rect_gugus.right) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_m.side = "right"
                     
-            # if rat2.rect.colliderect(rect_gugus) and rat2.side == "right":
-            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
-            #         speed_x *= -1
-            #         speed_y *= -1
-            #         rat2.side = "left"
+            if rat_m.rect.colliderect(rect_gugus) and rat_m.side == "right":
+                if abs (rat_m.rect.right - rect_gugus.left) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_m.side = "left"
                     
-            # if rect_gugus.colliderect(rat2.rect):
-            #     if abs (rat2.rect.left - rect_gugus.right) <= 10:
-            #         x_change = 0
-            #         rel_x = 0
-            # if rat2.rect.colliderect(rect_gugus):
-            #     if abs (rat2.rect.right - rect_gugus.left) <= 10:
-            #         x_change = 0
-            #         rel_x = 0           
+            if rect_gugus.colliderect(rat_m.rect):
+                if abs (rat_m.rect.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rat_m.rect.colliderect(rect_gugus):
+                if abs (rat_m.rect.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0  
+                    
             screen_x += rel_x
             screen_y += rel_y
             
-            # screen.blit(rat2.image, rat2.rect)
+            screen.blit(rat_m.image, rat_m.rect)
         
             if x < 229 and y < 130:
                 Gus.level = 5.1
@@ -4162,26 +4176,26 @@ def nivo5(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,156,135)
+                screen_x,screen_y,x,y = spawn_level(x,y,166,335)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,556,335)
+                screen_x,screen_y,x,y = spawn_level(x,y,166,545)
                         
             time += 1
             
             liste_mur = level_5_esc1(screen,screen_x,screen_y)
         
-            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
+            x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y) 
             
             x -= rel_x
             y -= rel_y
             
-            if y < 270 and x > 290 :
+            if y < 270 and x > 265 :
                 Gus.level = 5
                 Gus.spawn = 2
                 time = 0
-            if y > 270 and x > 290:
+            if y > 270 and x > 265:
                 Gus.level = 5.2
                 Gus.spawn = 1
                 time = 0            
@@ -4192,20 +4206,52 @@ def nivo5(sac,action,Gus,tr):
 
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,291,131)
+                screen_x,screen_y,x,y = spawn_level(x,y,291,145)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,285,342)
+                screen_x,screen_y,x,y = spawn_level(x,y,285,545)
                         
             time += 1
             
             liste_mur = level_5_esc2(screen,screen_x,screen_y)
-        
+            
+            if rat_esc.side == "left":
+                rat_esc = pnj(spawnx_esc,spawny_esc,screen_x,screen_y,rat_left,'left')
+            elif rat_esc.side == "right":
+                rat_esc = pnj(spawnx_esc,spawny_esc,screen_x,screen_y,rat_right,'right')
+                
+            speed_x,speed_y = rat_esc.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
+            spawnx_esc,spawny_esc = rat_esc.move(spawnx_esc,spawny_esc,speed_x,speed_y)
+            
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
             
+                        
+            if rat_esc.rect.colliderect(rect_gugus) and rat_esc.side == "left":
+                if abs (rat_esc.rect.left - rect_gugus.right) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_esc.side = "right"
+                    
+            if rat_esc.rect.colliderect(rect_gugus) and rat_esc.side == "right":
+                if abs (rat_esc.rect.right - rect_gugus.left) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_esc.side = "left"
+                    
+            if rect_gugus.colliderect(rat_esc.rect):
+                if abs (rat_esc.rect.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rat_esc.rect.colliderect(rect_gugus):
+                if abs (rat_esc.rect.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0 
+                    
             x -= rel_x
             y -= rel_y
+            
+            screen.blit(rat_esc.image, rat_esc.rect)
             
             if y < 270 and x < 255 :
                 Gus.level = 5.1
@@ -4453,5 +4499,5 @@ def nivo5(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(rel_x,rel_y,x,y)
+        print(x)
         clock.tick(100)        
