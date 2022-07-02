@@ -39,7 +39,7 @@ playlist.append("bank/musiques/Gus_track_9.wav")
 playlist.append("bank/musiques/Gus_track_11.wav")
 playlist.append("bank/musiques/Gus_track_12.wav")
 
-pygame.mixer.music.set_volume(0.025)
+pygame.mixer.music.set_volume(0.0)
 
 display_width = 500
 display_height = 500

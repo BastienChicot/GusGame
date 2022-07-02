@@ -4272,7 +4272,7 @@ def nivo5(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,109,408)
+                screen_x,screen_y,x,y = spawn_level(x,y,109,407)
                         
             time += 1
             
@@ -4298,11 +4298,11 @@ def nivo5(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,765,406)
+                screen_x,screen_y,x,y = spawn_level(x,y,765,407)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,415,630)
+                screen_x,screen_y,x,y = spawn_level(x,y,415,631)
                         
             time += 1
             
@@ -4332,11 +4332,11 @@ def nivo5(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,621,610)
+                screen_x,screen_y,x,y = spawn_level(x,y,621,611)
 
             if Gus.spawn == 3 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,881,426)
+                screen_x,screen_y,x,y = spawn_level(x,y,881,425)
                         
             time += 1
             
@@ -4366,11 +4366,11 @@ def nivo5(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,651,21)
+                screen_x,screen_y,x,y = spawn_level(x,y,651,28)
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,899,85)
+                screen_x,screen_y,x,y = spawn_level(x,y,899,86)
                         
             time += 1
             
@@ -4499,5 +4499,5 @@ def nivo5(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(x)
+        print(x,y,Gus.spawn)
         clock.tick(100)        
