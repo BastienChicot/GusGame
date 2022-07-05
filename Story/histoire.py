@@ -3996,7 +3996,7 @@ def nivo5(sac,action,Gus,tr):
 
     #OBJETS NIVEAU
     #INTERACTIONS
-    #ITEMS    
+    phrases_dame_5m = [["Hey gamin, t'as pas","quelques vêtements de","rechange ?"]]
     
     gameExit = False
     
@@ -4065,8 +4065,19 @@ def nivo5(sac,action,Gus,tr):
                 if event.key == pygame.K_a and not action.click:
                     action.click = True
                     click_.play()
-                    #PERSONNES
-                    ###EST
+                    
+                    # 5 METRO
+                    if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
+                         tr.press_mach1 += 1 
+                    if 100+screen_x < x < 201+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
+                         tr.press_mach2 += 1 
+                    if 220+screen_x < x < 255+screen_x and 230+screen_y < y < 294+screen_y and Gus.level == 5:
+                        tr.cig_5m += 1
+                    if 908+screen_x < x < 961+screen_x and 86+screen_y < y < 158+screen_y and Gus.level == 5:
+                        tr.poubelle_5m += 1
+                        
+                    if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0 :
+                        tr.dame_5m = 0
                          
                 elif event.key != pygame.K_a:
                 
@@ -4074,6 +4085,15 @@ def nivo5(sac,action,Gus,tr):
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
+                    # if interact and Gus.level == 3 and tr.press_hook == 0 and sac.Capote != 0:
+                    #     tr.capote_nn = 0 
+                    #     tr.capote_buro = 0 
+                    #     tr.capote_entree = 0 
+                    #     tr.capoteNord = 0
+                    #     tr.capote_3 = 0
+                    #     tr.give_condom = True
+                    # if 826+screen_x < x < 907+screen_x and 522+screen_y < y < 576+screen_y and Gus.level == 3 and sac.Argent_mac == 50:
+                    #     tr.give_mac = True
                             
                 elif event.key != pygame.K_RETURN:
                 
@@ -4123,7 +4143,7 @@ def nivo5(sac,action,Gus,tr):
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,705,461)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,229,95)
+                screen_x,screen_y,x,y = spawn_level(x,y,229,100)
         
             time += 1
             liste_mur = level_5M(screen,screen_x,screen_y)
@@ -4450,12 +4470,32 @@ def nivo5(sac,action,Gus,tr):
                 Gus.spawn = 2
                 time = 0
                 
-        # if 900+screen_x < x < 964+screen_x and 589+screen_y < y < 633+screen_y and Gus.level == 3.1:
-        #     tr.press_trash_metro2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro2,"du papier à ticket!")
-        #     sac.Papier = 10
+        
+        if tr.press_mach1 != -1 and tr.press_mach2 == -1:
+            sac.Soda = 1
+        elif tr.press_mach1 == -1 and tr.press_mach2 != -1:
+            sac.Soda = 1
+        elif tr.press_mach1 != -1 and tr.press_mach2 != -1:
+            sac.Soda = 2
+        else:
+            sac.Soda = 0
+        
+        tr.argent_mach_5m = sac.Soda * -1.5
+        
+        #LEVEL  METRO
+        if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
+            tr.press_mach1 = zone_interaction(screen,"Acheter un truc (A)",action,tr.press_mach1,"une bouteille de soda")
+        elif 100+screen_x < x < 201+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
+            tr.press_mach2 = zone_interaction(screen,"Acheter un truc (A)",action,tr.press_mach2,"une bouteille de soda")
+        elif 220+screen_x < x < 255+screen_x and 230+screen_y < y < 294+screen_y and Gus.level == 5:
+            tr.cig_5m = zone_interaction(screen,"Qu'est-ce que c'est ? (A)",action,tr.cig_5m,"quelques clopes !")
+            tr.clope_5m = 5
+        elif 908+screen_x < x < 961+screen_x and 86+screen_y < y < 158+screen_y and Gus.level == 5:
+            tr.poubelle_5m = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poubelle_5m,"50 ç !")
+            tr.money_5m = 0.5
             
-        # elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == False:
-        #     zone_dialogue(screen,"Acheter un ticket (A)",action,phrases_billeterie[tr.press_billeterie],tr.press_billeterie,5)
+        elif 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0:
+            zone_dialogue(screen,"Parler à la dame (A)",action,phrases_dame_5m[tr.dame_5m],tr.dame_5m,5)
             
         #     if sac.Papier > 0 :
         #         textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))

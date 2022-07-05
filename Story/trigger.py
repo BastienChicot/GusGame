@@ -223,7 +223,80 @@ class trigger():
         
         
         ##NIVO 5
+        #5 metro
         
+        self.press_mach1 = -1
+        self.press_mach2 = -1
+        self.argent_mach_5m = 0
+        self.cig_5m = -1
+        self.clope_5m = 0
+        self.poubelle_5m = -1
+        self.money_5m = 0
+        
+        self.dame_5m = -1
+        self.pnj_assis_5m = -1
+        self.pnj_machine_5m = -1
+        self.pnj_banc_5m = -1
+        self.chauve = -1
+        
+        # 5 esc 1
+        
+        self.poub_esc1 = -1
+        
+        # 5 esc 2
+        
+        self.clodo_5m = -1
+        
+        # 5 Nord
+        
+        self.capote_5n = 0
+        self.poub_5n = -1
+        self.sac_5n = -1
+        self.carton_5n = -1
+        self.teille_5n = 0
+        self.cachet_5n = -1
+        
+        self.controleur_5n = -1
+        self.lassl_5n = -1
+        self.pnj_5n = -1
+        
+        # 5 Nord Ouest
+        
+        self.mach_tick1 = -1
+        self.mach_tick2 = -1
+        self.controleur_5no = -1
+        self.pnj_5no = -1
+        
+        # 5 Ouest
+        self.poub_5o = -1
+        
+        # 5 Sud Ouest
+        self.seringue_5so = 0
+        self.distrib_5so = -1
+        self.poub_5so = -1
+        self.sac_5so = -1
+        self.meuble_5so = -1
+        
+        self.tab_5so = -1
+        self.pnj_stand_5so = -1
+        
+        # 5 Centre
+        self.etag_5c1 = -1
+        self.etag_5c2 = -1
+        self.etag_5c3 = -1
+        self.etag_5c4 = -1
+        
+        self.caisse_5c = -1
+        self.pnj_mag_5c = -1
+        self.pnj_allee_5c = -1
+        
+        # 5 Sud
+        
+        self.caisse_5s = -1
+        self.pnj_jeu_5s = -1
+        self.vigil_5s = -1
+        self.etag_5s = -1
+        self.bac_5s = -1
         
     def update_items(self):
          self.give_money = self.pnj_bus
