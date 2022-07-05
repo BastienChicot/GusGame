@@ -3997,6 +3997,27 @@ def nivo5(sac,action,Gus,tr):
     #OBJETS NIVEAU
     #INTERACTIONS
     phrases_dame_5m = [["Hey gamin, t'as pas","quelques vêtements de","rechange ?"]]
+    phrases_assis_5m = [["Tu vois pas que","je suis en train","de lire ?"]]
+    phrases_machine_5m = [["Il parait que mon","frère vit ici...","Mais je ne vois pas","d'appartement dans le","coin..."]]
+    phrases_banc_5m = [["Quand partira le","prochain métro ?"]]
+    phrases_chauve_5m = [["Euh ....","Que? Jô nô parlé","pass ton linguea..."]]
+    
+    phrases_clodo_5m = [["Héééé toi !!","T'as pas une p'tite","pièce ou un ticket ?"]]
+    
+    phrases_controleur_5n = [["T'as bien ton ticket","petit ?"]]
+    phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"]]
+    phrases_pnj_5n = [["J'ai plus de café","dans ma tasse..."]]
+    
+    phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "]]
+    phrases_pnj_5no = [["Je flippe à fond!"]]
+    
+    phrases_stand_5o = [["On cherche des ","candidats pour l'armée.","Tu en connais ?"]]
+    
+    phrases_etagere = [["Hé ! Je te vois !", "T'essayes de voler ","quoi là ??"], 
+                       ["Non, ils sont","vraiment trop moches !"]]
+    phrases_caisse_5c = [["Je peux vous ","aider ?"]]
+    phrases_mag_5c = [["J'adore ce magasin."]]
+    phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."]]
     
     gameExit = False
     
@@ -4078,14 +4099,112 @@ def nivo5(sac,action,Gus,tr):
                         
                     if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0 :
                         tr.dame_5m = 0
-                         
+                    
+                    if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5:
+                        tr.pnj_assis_5m = 0
+                        
+                    if 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
+                        tr.pnj_machine_5m = 0
+
+                    if 715+screen_x < x < 777+screen_x and 329+screen_y < y < 430+screen_y and Gus.level == 5:
+                        tr.pnj_banc_5m = 0
+
+                    if 664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y and Gus.level == 5:
+                        tr.chauve = 0
+                        
+                    # 5 ESCALIER 1
+                    if 6 < x < 69 and 148 < y < 238 and Gus.level == 5.1 :
+                        tr.poub_esc1 += 1
+                        
+                    # 5 ESCALIER 2
+                    if 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 :
+                        tr.clodo_5m = 0
+                        
+                    # 5 NORD
+                    if 404+screen_x < x < 478+screen_x and 140+screen_y < y < 207+screen_y and Gus.level == 5.3 :
+                        tr.press_capote_5n += 1
+                    if 670+screen_x < x < 739+screen_x and 600+screen_y < y < 700+screen_y and Gus.level == 5.3 :
+                        tr.poub_5n += 1
+                    if 761+screen_x < x < 822+screen_x and 573+screen_y < y < 667+screen_y and Gus.level == 5.3 :
+                        tr.sac_5n += 1
+                    if 824+screen_x < x < 930+screen_x and 618+screen_y < y < 700+screen_y and Gus.level == 5.3 and sac.Mort_aux_rats != 0:
+                        tr.carton_5n += 1
+                    if 646+screen_x < x < 710+screen_x and 420+screen_y < y < 482+screen_y and Gus.level == 5.3 :
+                        tr.teille_5n += 1
+                    if 0+screen_x < x < 110+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.3 :
+                        tr.cachet_5n += 1
+                        
+                    if 256+screen_x < x < 334+screen_x and 460+screen_y < y < 538+screen_y and Gus.level == 5.3 :
+                        tr.controleur_5n = 0
+                        
+                    if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
+                        tr.lassl_5n = 0
+                        
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
+                        tr.pnj_5n = 0
+                        
+                    # 5 NORD OUEST
+                    if 125+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y and Gus.level == 5.4 and sac.Ticket == 0:
+                        tr.mach_tick1 += 1
+                    if 125+screen_x < x < 215+screen_x and 438+screen_y < y < 553+screen_y and Gus.level == 5.4 and sac.Ticket == 0:
+                        tr.mach_tick2 += 1
+                        
+                    if 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
+                        tr.controleur_5no = 0
+                    
+                    if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
+                        tr.pnj_5no = 0
+                        
+                    # 5 OUEST
+                    if 693+screen_x < x < 760+screen_x and 100+screen_y < y < 170+screen_y and Gus.level == 5.5 :
+                        tr.poub_5o += 1
+                    
+                    # 5 SUD OUEST
+                    if 195+screen_x < x < 260+screen_x and 585+screen_y < y < 675+screen_y and Gus.level == 5.6 :
+                        tr.press_seringue_5so += 1
+                    if 345+screen_x < x < 430+screen_x and 130+screen_y < y < 210+screen_y and Gus.level == 5.6 :
+                        tr.distrib_5so += 1
+                    if 586+screen_x < x < 677+screen_x and 250+screen_y < y < 305+screen_y and Gus.level == 5.6 :
+                        tr.poub_5so += 1   
+                    if 550+screen_x < x < 675+screen_x and 614+screen_y < y < 675+screen_y and Gus.level == 5.6 :
+                        tr.sac_5so += 1
+                    if 395+screen_x < x < 524+screen_x and 595+screen_y < y < 672+screen_y and Gus.level == 5.6 and sac.Cle_meuble == 1:
+                        tr.meuble_5so += 1
+                        
+                    if 720+screen_x < x < 975+screen_x and 390+screen_y < y < 525+screen_y and Gus.level == 5.6 :
+                        tr.pnj_stand_5so = 0
+                        
+                    # 5 CENTRE
+                    
+                    if 346+screen_x < x < 492+screen_x and 60+screen_y < y < 150+screen_y and Gus.level == 5.7 :
+                        if tr.caisse_occupee_5c == True:
+                            tr.etag_5c2 += 1
+                        elif tr.caisse_occupee_5c == False:
+                            tr.etag_5c2 = -1
+                    if 40+screen_x < x < 435+screen_x and 525+screen_y < y < 616+screen_y and Gus.level == 5.7 :
+                        tr.etag_5c1 += 1
+                        
+                    if 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7:
+                        tr.caisse_5c = 0
+                    
+                    if 730+screen_x < x < 834+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.7 :
+                        tr.pnj_mag_5c = 0
+                        
+                    if 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
+                        tr.pnj_allee_5c = 0
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
-                    # if interact and Gus.level == 3 and tr.press_hook == 0 and sac.Capote != 0:
+                    if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
+                        tr.affich_plan += 1
+                    if 886+screen_x < x < 984+screen_x and 260+screen_y < y < 380+screen_y and Gus.level == 5.6 :
+                        tr.tab_5so = 0
+                    if 834+screen_x < x < 935+screen_x and 60+screen_y < y < 190+screen_y and Gus.level == 5.7 :
+                        tr.disparu += 1
                     #     tr.capote_nn = 0 
                     #     tr.capote_buro = 0 
                     #     tr.capote_entree = 0 
@@ -4479,8 +4598,23 @@ def nivo5(sac,action,Gus,tr):
             sac.Soda = 2
         else:
             sac.Soda = 0
-        
+            
+        if tr.mach_tick1 != -1 and tr.mach_tick2 == -1:
+            sac.Ticket = 1
+            tr.argent_ticket2 = -1
+        elif tr.mach_tick1 == -1 and tr.mach_tick2 != -1:
+            sac.Ticket = 1
+            tr.argent_ticket2 = -1
+        elif tr.mach_tick1 != -1 and tr.mach_tick2 != -1:
+            sac.Ticket = 1
+            tr.argent_ticket2 = -2
+            
         tr.argent_mach_5m = sac.Soda * -1.5
+        
+        if tr.press_capote_5n != -1:
+            tr.capote_5n = 1
+        if sac.Contrat == 1 and tr.carton_5n != -1:
+            sac.Mort_aux_rats = 0
         
         #LEVEL  METRO
         if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
@@ -4497,6 +4631,168 @@ def nivo5(sac,action,Gus,tr):
         elif 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0:
             zone_dialogue(screen,"Parler à la dame (A)",action,phrases_dame_5m[tr.dame_5m],tr.dame_5m,5)
             
+        elif 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5:
+            zone_dialogue(screen,"Parler à la dame (A)",action,phrases_assis_5m[tr.pnj_assis_5m],tr.pnj_assis_5m,5)
+            
+        elif 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
+            zone_dialogue(screen,"Parler (A)",action,phrases_machine_5m[tr.pnj_machine_5m],tr.pnj_machine_5m,5)
+
+        elif 715+screen_x < x < 777+screen_x and 329+screen_y < y < 470+screen_y and Gus.level == 5:
+            zone_dialogue(screen,"Parler (A)",action,phrases_banc_5m[tr.pnj_banc_5m],tr.pnj_banc_5m,5) 
+            
+        elif 664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y and Gus.level == 5:
+            zone_dialogue(screen,"Parler (A)",action,phrases_chauve_5m[tr.chauve],tr.chauve,5) 
+
+        #LEVEL ESCALIER 1
+        elif 6 < x < 69 and 148 < y < 238 and Gus.level == 5.1 :
+            tr.poub_esc1 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_esc1,"une carte mère ??")
+            sac.Carte_Mere = 1
+            
+        #LEVEL ESCALIER 2
+        elif 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 :
+            zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo_5m[tr.clodo_5m],tr.clodo_5m,5) 
+
+        #LEVEL NORD
+        elif 404+screen_x < x < 478+screen_x and 140+screen_y < y < 207+screen_y and Gus.level == 5.3 :
+            tr.press_capote_5n = zone_interaction(screen,"Qu'est-ce que c'est (A)",action,tr.press_capote_5n,"une capote.")
+            
+        elif 670+screen_x < x < 739+screen_x and 600+screen_y < y < 700+screen_y and Gus.level == 5.3 :
+            tr.poub_5n = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_5n,"une paire de ciseaux.")
+            sac.Ciseaux = 1
+            
+        elif 761+screen_x < x < 822+screen_x and 573+screen_y < y < 667+screen_y and Gus.level == 5.3 :
+            tr.sac_5n = zone_interaction(screen,"Fouiller le sac (A)",action,tr.sac_5n,"un CD.")
+            sac.CD = 1
+            
+        elif 824+screen_x < x < 930+screen_x and 618+screen_y < y < 700+screen_y and Gus.level == 5.3 :
+            if sac.Mort_aux_rats == 1 :
+                tr.carton_5n = zone_interaction(screen,"Fouiller le carton (A)",action,tr.carton_5n,"un contrat bizarre.")  
+                sac.Contrat = 1
+            elif sac.Mort_aux_rats == 0 :
+                textsurface = myfont.render("Ah beurk ! C'est ", False, (0, 0, 0))
+                textsurface2 = myfont.render("plein de rats", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x,y-40))
+                
+        elif 646+screen_x < x < 710+screen_x and 420+screen_y < y < 482+screen_y and Gus.level == 5.3 :
+            tr.teille_5n = zone_interaction(screen,"Qu'est-ce que c'est ? (A)",action,tr.teille_5n,"une bouteille.")
+            tr.bouteille_5n = 1
+            
+        elif 0+screen_x < x < 110+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.3 :
+            tr.cachet_5n = zone_interaction(screen,"Qu'est-ce que c'est ? (A)",action,tr.cachet_5n,"des cachets.")
+            sac.Cachets = 5
+            
+        elif 256+screen_x < x < 334+screen_x and 460+screen_y < y < 538+screen_y and Gus.level == 5.3:
+            zone_dialogue(screen,"Parler (A)",action,phrases_controleur_5n[tr.controleur_5n],tr.controleur_5n,5)
+            
+        elif 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_lassl_5n[tr.lassl_5n],tr.lassl_5n,5)
+            
+        elif 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5n[tr.pnj_5n],tr.pnj_5n,5)
+
+        #LEVEL NORD OUEST
+        elif 125+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y and Gus.level == 5.4 :
+            if sac.Ticket == 0:
+                tr.mach_tick1 = zone_interaction(screen,"Acheter un ticket (A)",action,tr.mach_tick1,"un ticket")
+            else :
+                textsurface = myfont.render("J'ai déjà mon ticket", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                
+        elif 125+screen_x < x < 215+screen_x and 438+screen_y < y < 553+screen_y and Gus.level == 5.4:
+            if sac.Ticket == 0:
+                tr.mach_tick2 = zone_interaction(screen,"Acheter un ticket (A)",action,tr.mach_tick2,"un ticket")
+            else :
+                textsurface = myfont.render("J'ai déjà mon ticket", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+            
+        elif 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_controleur_5no[tr.controleur_5no],tr.controleur_5no,5)
+            
+        elif 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5no[tr.pnj_5no],tr.pnj_5no,5)
+            
+            
+        #LEVEL OUEST
+        elif 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
+            textsurface = myfont.render("Voir le plan", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+            screen.blit(textsurface2,(x+35,y-40))
+            
+        elif 693+screen_x < x < 760+screen_x and 100+screen_y < y < 170+screen_y and Gus.level == 5.5 :
+            tr.poub_5o = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_5o,"une clé USB")
+            sac.Cle_USB = 1
+        
+        #LEVEL SUD OUEST
+        elif 195+screen_x < x < 260+screen_x and 585+screen_y < y < 675+screen_y and Gus.level == 5.6 :
+            tr.press_seringue_5so = zone_interaction(screen,"Qu'est-ce que c'est ? (A)",action,tr.press_seringue_5so,"une seringue ! ")
+            tr.seringue_5so = 1
+        elif 345+screen_x < x < 430+screen_x and 130+screen_y < y < 210+screen_y and Gus.level == 5.6 :
+            tr.distrib_5so = zone_interaction(screen,"Acheter un truc (A)",action,tr.distrib_5so,"un masque")
+            sac.Masque = 1 
+            tr.argent_mask = -0.5
+        elif 586+screen_x < x < 677+screen_x and 250+screen_y < y < 305+screen_y and Gus.level == 5.6 :
+            tr.poub_5so = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_5so,"... Beurkkkk!!!")
+        elif 550+screen_x < x < 675+screen_x and 614+screen_y < y < 675+screen_y and Gus.level == 5.6 :
+            tr.sac_5so =  zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_5so,"de la mort aux rats")  
+            sac.Mort_aux_rats = 1
+        elif 395+screen_x < x < 524+screen_x and 595+screen_y < y < 672+screen_y and Gus.level == 5.6 :
+            if sac.Cle_meuble == 1:
+                tr.meuble_5so =  zone_interaction(screen,"Fouiller le meuble (A)",action,tr.meuble_5so,"un chargeur ! ")             
+            else :
+                textsurface = myfont.render("C'est fermé", False, (220, 120, 0))
+                textsurface2 = myfont.render("à clé !", False, (220, 120, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x,y-40))
+        elif 170+screen_x < x < 255+screen_x and 350+screen_y < y < 430+screen_y and Gus.level == 5.6 :
+            textsurface = myfont.render("C'est dégueu !", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+        elif 886+screen_x < x < 984+screen_x and 260+screen_y < y < 380+screen_y and Gus.level == 5.6 :
+            if tr.tab_5so == -1:
+                textsurface = myfont.render("Lire le tableau", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40))  
+            elif tr.tab_5so == 0:
+                textsurface = myfont.render("Un concours de jongles", False, (0, 0, 0))
+                textsurface2 = myfont.render("en ville ?", False, (0, 0, 0))
+                screen.blit(textsurface,(x-120,y-60))
+                screen.blit(textsurface2,(x-120,y-40))  
+            
+        elif 720+screen_x < x < 975+screen_x and 390+screen_y < y < 525+screen_y and Gus.level == 5.6 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_stand_5o[tr.pnj_stand_5so],tr.pnj_stand_5so,5)  
+            
+        #LEVEL CENTRE
+        elif 346+screen_x < x < 492+screen_x and 60+screen_y < y < 150+screen_y and Gus.level == 5.7 :
+            if tr.caisse_occupee_5c == True :                
+                tr.etag_5c2 =  zone_interaction(screen,"Voler un vêtement (A)",action,tr.etag_5c2,"des habits !")
+                sac.Habits = 1
+            elif tr.caisse_occupee_5c == False : 
+                zone_dialogue(screen,"Voler un vêtement (A)",action,phrases_etagere[0],0,5) 
+                
+        elif 40+screen_x < x < 435+screen_x and 525+screen_y < y < 616+screen_y and Gus.level == 5.7 :
+            tr.etag_5c1 =  zone_interaction(screen,"Fouiller le présentoire (A)",action,tr.etag_5c1,"les horaires du métro !")
+            sac.Horaires_metro = 1
+            
+        elif 650+screen_x < x < 780+screen_x and 240+screen_y < y < 345+screen_y and Gus.level == 5.7 :
+            zone_dialogue(screen,"Voler un vêtement (A)",action,phrases_etagere[1],0,5) 
+            
+        elif 834+screen_x < x < 935+screen_x and 60+screen_y < y < 190+screen_y and Gus.level == 5.7 :
+            textsurface = myfont.render("Se cacher", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x-100,y-60))
+            screen.blit(textsurface2,(x-65,y-40))
+            
+        elif 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7:
+            zone_dialogue(screen,"Parler (A)",action,phrases_caisse_5c[tr.caisse_5c],tr.caisse_5c,5)
+            
+        elif 730+screen_x < x < 834+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.7 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_mag_5c[tr.pnj_mag_5c],tr.pnj_mag_5c,5)
+
+        elif 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_allee_5c[tr.pnj_allee_5c],tr.pnj_allee_5c,5)
+
         #     if sac.Papier > 0 :
         #         textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))
         #         textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
@@ -4531,8 +4827,9 @@ def nivo5(sac,action,Gus,tr):
             y -= rel_y
         
         ##OBJETS
-
-        screen.blit(gugus, rect_gugus)
+        
+        if tr.disparu%2 != 1:
+            screen.blit(gugus, rect_gugus)
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
@@ -4548,6 +4845,8 @@ def nivo5(sac,action,Gus,tr):
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
             pause(screen,gameExit,Gus,sac,tr)
+        if tr.affich_plan%2 == 1:
+            affichage_plan(screen,gameExit)
         if Gus.pv == 0 or tr.game_over == True:
             game_over(screen)
 

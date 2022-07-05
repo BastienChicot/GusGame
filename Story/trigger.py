@@ -248,12 +248,13 @@ class trigger():
         self.clodo_5m = -1
         
         # 5 Nord
-        
+        self.press_capote_5n = -1
         self.capote_5n = 0
         self.poub_5n = -1
         self.sac_5n = -1
         self.carton_5n = -1
-        self.teille_5n = 0
+        self.teille_5n = -1
+        self.bouteille_5n = 0
         self.cachet_5n = -1
         
         self.controleur_5n = -1
@@ -264,15 +265,21 @@ class trigger():
         
         self.mach_tick1 = -1
         self.mach_tick2 = -1
+        self.argent_ticket2 = 0
         self.controleur_5no = -1
         self.pnj_5no = -1
+        
+        # 5 Ouest
+        self.affich_plan = 0
         
         # 5 Ouest
         self.poub_5o = -1
         
         # 5 Sud Ouest
+        self.press_seringue_5so = -1
         self.seringue_5so = 0
         self.distrib_5so = -1
+        self.argent_mask = 0
         self.poub_5so = -1
         self.sac_5so = -1
         self.meuble_5so = -1
@@ -289,6 +296,10 @@ class trigger():
         self.caisse_5c = -1
         self.pnj_mag_5c = -1
         self.pnj_allee_5c = -1
+        
+        
+        self.caisse_occupee_5c = False
+        self.disparu = 0
         
         # 5 Sud
         

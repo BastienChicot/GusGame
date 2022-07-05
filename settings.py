@@ -264,3 +264,5 @@ power_bar4 = pygame.image.load("bank/image/super_power4.png")
 power_bar5 = pygame.image.load("bank/image/super_power5.png")
 power_bar = [power_bar0,power_bar1,power_bar2,power_bar3,power_bar4,power_bar5]
 
+plan = pygame.image.load("bank/image/plan_metro.png")
+

@@ -29,7 +29,7 @@ Created on Tue Jul  5 10:16:38 2022
 #PNJ banc
 715+screen_x < x < 777+screen_x and 329+screen_y < y < 470+screen_y
 #PNJ chauve
-664+screen_x < x < 75+screen_x and 738+screen_y < y < 150+screen_y
+664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y
 
 # 5 ESC 1
 
@@ -69,9 +69,9 @@ Created on Tue Jul  5 10:16:38 2022
 # 5 NO
 
 #Machine 1 
-135+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y
+125+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y
 #Machine 2 
-135+screen_x < x < 215+screen_x and 438+screen_y < y < 553+screen_y
+125+screen_x < x < 215+screen_x and 438+screen_y < y < 553+screen_y
 
 #Controleur
 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y

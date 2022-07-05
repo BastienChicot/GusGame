@@ -156,12 +156,23 @@ class sac_a_dos():
         ##Nivo5
         self.Soda = 0
         self.Habits = 0
+        self.Carte_Mere = 0
+        self.Ciseaux = 0
+        self.CD = 0
+        self.Mort_aux_rats = 0
+        self.Contrat = 0
+        self.Cachets = 0
+        self.Cle_USB = 0
+        self.Masque = 0
+        self.Cle_meuble = 0
+        self.Chargeur = 0
+        self.Horaires_metro = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro + tr.clope_trome + tr.clope_5m
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord + tr.capote_3 + tr.capote_5n
         self.Seringue = tr.seringue_NE + tr.seringue_NO + tr.seringueN + tr.seringueO + tr.seringue_5so
-        self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere + tr.teille_5n
+        self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere + tr.bouteille_5n
         self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
         tr.torchon_entre + tr.torchon_mom)
         
@@ -197,7 +208,7 @@ class Gus():
         self.money = (0.1 + tr.argent_poub + tr.tune_buro + tr.tune_entre + tr.tune_ch +
                       tr.give_money + tr.drug_money + tr.argent_teu + tr.argent_con + tr.ticket_bus +
                       tr.argent_bonus + tr.argent_ticket_metro + tr.achat_gateau + tr.money_win_music +
-                      tr.argent_rdv_pute + tr.money_5m)
+                      tr.argent_rdv_pute + tr.money_5m + tr.argent_ticket2 + tr.argent_mask)
         
     def iter_objects(self):
         return (self.__dict__)  
@@ -328,7 +339,7 @@ def affich_sac(screen,sac):
         screen.blit(textsurface,(j,i))
         i += 20
         if i > 335:
-            j += 150
+            j += 145
             i = 220
 
 def pause(screen,gameExit,Gus,sac,tr):
@@ -358,6 +369,11 @@ def pause(screen,gameExit,Gus,sac,tr):
     if keys[pygame.K_q]: 
         other_s.play()
         pygame.quit()
+        
+def affichage_plan (screen,gameExit):
+    keys=pygame.key.get_pressed()
+    
+    screen.blit(plan, (50 , 50))
 
 def load(Gus,sac,tr):
     with open('Story/saves/Gus.pkl', 'rb') as f:

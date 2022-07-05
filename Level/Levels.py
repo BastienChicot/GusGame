@@ -1053,11 +1053,12 @@ def level_5M(gameDisplay,screen_x,screen_y):
     mur7 = wall(720,285,47,55,screen_x,screen_y)
     mur8 = wall(0,340,55,65,screen_x,screen_y)
     mur11 = wall(692,38,43,50,screen_x,screen_y)
+    mur12 = wall(273,212,64,64,screen_x,screen_y)
         
     liste_mur = [mur0,
                   mur1,mur2,mur3,mur4,mur5,mur6,mur7,
                      mur8,mur9,mur10,
-                     mur11
+                     mur11,mur12
                   ]    
 
     for mur in liste_mur:
