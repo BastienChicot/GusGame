@@ -1320,28 +1320,32 @@ def level_5C(gameDisplay,screen_x,screen_y):
     
     #Limites
     mur0 = wall(0,0,1000,2,screen_x,screen_y)
-    # mur1 = wall(0,468,1000,200,screen_x,screen_y)
-    # mur9 = wall(-1,0,4,707,screen_x,screen_y)
-    # mur10 = wall(998,0,4,707,screen_x,screen_y)
+    mur1 = wall(995,0,5,707,screen_x,screen_y)
+    mur9 = wall(0,0,2,298,screen_x,screen_y)
+    mur10 = wall(0,536,2,200,screen_x,screen_y)
+    mur11 = wall(0,574,437,137,screen_x,screen_y)    
+    mur12 = wall(700,705,400,5,screen_x,screen_y)
 
-    #Sièges
-    # mur2 = wall(0,279,142,50,screen_x,screen_y)
-    # mur3 = wall(245,279,800,50,screen_x,screen_y)
-    # mur4 = wall(0,388,86,60,screen_x,screen_y)
-    # mur5 = wall(86,412,69,65,screen_x,screen_y)
-    # mur6 = wall(247,413,73,65,screen_x,screen_y)
-    # mur7 = wall(380,412,294,65,screen_x,screen_y)
-    # mur8 = wall(706,412,70,65,screen_x,screen_y)
     
-    # #gens
-    # mur11 = wall(531,392,40,20,screen_x,screen_y)    
-    # mur12 = wall(827,300,52,55,screen_x,screen_y)
-    # mur13 = wall(917,380,62,88,screen_x,screen_y)
+    #Vitrines
+    mur2 = wall(0,0,250,225,screen_x,screen_y)
+    mur3 = wall(412,380,590,10,screen_x,screen_y)
     
+    #Rayons
+    mur4 = wall(348,0,371,60,screen_x,screen_y)
+    mur5 = wall(926,0,75,395,screen_x,screen_y)
+    mur6 = wall(905,66,27,273,screen_x,screen_y)
+    mur7 = wall(479,78,101,90,screen_x,screen_y)
+    mur8 = wall(661,200,109,90,screen_x,screen_y)
+    
+    #PNJ
+    mur13 = wall(777,40,62,60,screen_x,screen_y)    
+    mur14 = wall(862,447,55,60,screen_x,screen_y)    
+
     liste_mur = [mur0
-                 # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
-                 #   mur8,mur9,mur10,
-                 #   mur11,mur12,mur13
+                  ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                    mur8,mur9,mur10,
+                    mur11,mur12,mur13,mur14
                   ]    
 
     for mur in liste_mur:
@@ -1358,29 +1362,29 @@ def level_5S(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #Limites
-    mur0 = wall(0,0,1000,2,screen_x,screen_y)
-    # mur1 = wall(0,468,1000,200,screen_x,screen_y)
-    # mur9 = wall(-1,0,4,707,screen_x,screen_y)
-    # mur10 = wall(998,0,4,707,screen_x,screen_y)
+    mur0 = wall(0,0,437,100,screen_x,screen_y)
+    mur1 = wall(700,0,300,2,screen_x,screen_y)
+    mur9 = wall(0,285,35,425,screen_x,screen_y)
+    mur10 = wall(967,0,33,707,screen_x,screen_y)
+    mur11 = wall(0,669,1000,40,screen_x,screen_y)    
 
-    #Sièges
-    # mur2 = wall(0,279,142,50,screen_x,screen_y)
-    # mur3 = wall(245,279,800,50,screen_x,screen_y)
-    # mur4 = wall(0,388,86,60,screen_x,screen_y)
-    # mur5 = wall(86,412,69,65,screen_x,screen_y)
-    # mur6 = wall(247,413,73,65,screen_x,screen_y)
-    # mur7 = wall(380,412,294,65,screen_x,screen_y)
-    # mur8 = wall(706,412,70,65,screen_x,screen_y)
+    #Meubles
+    mur2 = wall(0,512,261,102,screen_x,screen_y)
+    mur3 = wall(376,650,425,25,screen_x,screen_y)
+    mur4 = wall(466,470,205,105,screen_x,screen_y)
+    mur5 = wall(216,174,787,120,screen_x,screen_y)
+    mur6 = wall(280,280,695,57,screen_x,screen_y)
+    mur7 = wall(736,288,194,68,screen_x,screen_y)
     
-    # #gens
-    # mur11 = wall(531,392,40,20,screen_x,screen_y)    
-    # mur12 = wall(827,300,52,55,screen_x,screen_y)
-    # mur13 = wall(917,380,62,88,screen_x,screen_y)
+    #PNJ
+    mur8 = wall(884,384,50,55,screen_x,screen_y)
+    mur12 = wall(693,590,51,60,screen_x,screen_y)
+    mur13 = wall(920,33,58,72,screen_x,screen_y)
     
     liste_mur = [mur0
-                 # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
-                 #   mur8,mur9,mur10,
-                 #   mur11,mur12,mur13
+                  ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                    mur8,mur9,mur10,
+                    mur11,mur12,mur13
                   ]    
 
     for mur in liste_mur:

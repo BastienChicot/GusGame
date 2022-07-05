@@ -4450,6 +4450,19 @@ def nivo5(sac,action,Gus,tr):
                 Gus.spawn = 2
                 time = 0
                 
+        # if 900+screen_x < x < 964+screen_x and 589+screen_y < y < 633+screen_y and Gus.level == 3.1:
+        #     tr.press_trash_metro2 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.press_trash_metro2,"du papier à ticket!")
+        #     sac.Papier = 10
+            
+        # elif 235+screen_x < x < 668+screen_x and 570+screen_y < y < 633+screen_y and Gus.level == 3.1 and tr.repair_distri == False:
+        #     zone_dialogue(screen,"Acheter un ticket (A)",action,phrases_billeterie[tr.press_billeterie],tr.press_billeterie,5)
+            
+        #     if sac.Papier > 0 :
+        #         textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))
+        #         textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+        #         screen.blit(textsurface,(x,y-60))
+        #         screen.blit(textsurface2,(x+35,y-40)) 
+                
         if screen_x >= 0 and rel_x > 0  and lvl_move:
             screen_x = 0
             x -= rel_x
