@@ -167,6 +167,8 @@ class sac_a_dos():
         self.Cle_meuble = 0
         self.Chargeur = 0
         self.Horaires_metro = 0
+        self.Stylo = 0
+        self.Jeu = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro + tr.clope_trome + tr.clope_5m

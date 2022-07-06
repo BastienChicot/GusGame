@@ -3973,7 +3973,7 @@ def nivo5(sac,action,Gus,tr):
     screen_x = -225 + x
     screen_y = -225 + y 
     
-    interact = False
+    jeu_voit = False
     tune = Gus.money
     alcool = sac.Alcool
     preservatif = sac.Capote
@@ -4018,6 +4018,11 @@ def nivo5(sac,action,Gus,tr):
     phrases_caisse_5c = [["Je peux vous ","aider ?"]]
     phrases_mag_5c = [["J'adore ce magasin."]]
     phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."]]
+    
+    phrases_caisse_5s = [["J'en ai marre de","ce travail !"]]
+    phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
+                      ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"]]
+    phrases_vigil_5s = [["On est en vigilance","rouge écarlate !", "Personne ne sort ","d'ici !"]]
     
     gameExit = False
     
@@ -4193,6 +4198,27 @@ def nivo5(sac,action,Gus,tr):
                     if 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
                         tr.pnj_allee_5c = 0
                         
+                    # 5 SUD
+                    if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
+                        tr.caisse_5s = 0
+                    
+                    if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 :
+                        if sac.Jeu == 1 :
+                            tr.pnj_jeu_5s = 1
+                        elif sac.Jeu == 0 :
+                            tr.pnj_jeu_5s = 0
+                        
+                    if 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
+                        tr.vigil_5s = 0
+                        
+                    if 560+screen_x < x < 706+screen_x and 315+screen_y < y < 395+screen_y and Gus.level == 5.8 :
+                        tr.etag_5s += 1
+                    if 485+screen_x < x < 650+screen_x and 400+screen_y < y < 480+screen_y and Gus.level == 5.8 :
+                        if tr.caisse_5s_occupe == True :
+                            tr.bac_5s += 1
+                        elif tr.caisse_5s_occupe == False :
+                            tr.bac_5s = -1
+                    
                 elif event.key != pygame.K_a:
                 
                     action.click = False
@@ -4205,6 +4231,8 @@ def nivo5(sac,action,Gus,tr):
                         tr.tab_5so = 0
                     if 834+screen_x < x < 935+screen_x and 60+screen_y < y < 190+screen_y and Gus.level == 5.7 :
                         tr.disparu += 1
+                    if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 and tr.pnj_jeu_5s > 0:
+                        jeu_voit = True
                     #     tr.capote_nn = 0 
                     #     tr.capote_buro = 0 
                     #     tr.capote_entree = 0 
@@ -4569,7 +4597,7 @@ def nivo5(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,660,15)
+                screen_x,screen_y,x,y = spawn_level(x,y,660,16)
                         
             time += 1
             
@@ -4792,6 +4820,33 @@ def nivo5(sac,action,Gus,tr):
 
         elif 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
             zone_dialogue(screen,"Parler (A)",action,phrases_allee_5c[tr.pnj_allee_5c],tr.pnj_allee_5c,5)
+            
+        #LEVEL SUD
+        elif 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_caisse_5s[tr.caisse_5s],tr.caisse_5s,5)
+            
+        elif 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_jeu_5s[tr.pnj_jeu_5s],tr.pnj_jeu_5s,5)
+            if tr.pnj_jeu_5s == 1:
+                textsurface = myfont.render("Jouer au jeu", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40)) 
+                
+        elif 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
+            zone_dialogue(screen,"Parler (A)",action,phrases_vigil_5s[tr.vigil_5s],tr.vigil_5s,5)
+            
+        elif 560+screen_x < x < 706+screen_x and 315+screen_y < y < 395+screen_y and Gus.level == 5.8 :
+            tr.etag_5s =  zone_interaction(screen,"Fouiller l'étagère (A)",action,tr.etag_5s,"un stylo !")
+            sac.Stylo = 1
+            
+        elif 485+screen_x < x < 650+screen_x and 400+screen_y < y < 480+screen_y and Gus.level == 5.8 :
+            if tr.caisse_5s_occupe == True :
+                tr.bac_5s = zone_interaction(screen,"Fouiller le bac (A)",action,tr.etag_5s,"un jeu-vidéo !")
+                sac.Jeu = 1
+            elif tr.caisse_5s_occupe == False :
+                zone_dialogue(screen,"Fouiller le bac (A)",action,phrases_etagere[0],0,5) 
+            
 
         #     if sac.Papier > 0 :
         #         textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))

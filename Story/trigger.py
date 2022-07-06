@@ -309,6 +309,8 @@ class trigger():
         self.etag_5s = -1
         self.bac_5s = -1
         
+        self.caisse_5s_occupe = False
+        
     def update_items(self):
          self.give_money = self.pnj_bus
          self.drug_money = (0 + self.argent_vieille + self.argent_tox + 
