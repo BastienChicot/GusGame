@@ -3533,6 +3533,8 @@ def nivo_fight(sac,action,Gus,tr):
     
     while not gameExit and Gus.level == 1000:
         
+        sac.Planing = 0
+        
         if Gus.pv > 0 and fighter_life > 0:
             if frame_count <= 60:
                 frame_count += 1
@@ -4005,7 +4007,8 @@ def nivo5(sac,action,Gus,tr):
     phrases_clodo_5m = [["Héééé toi !!","T'as pas une p'tite","pièce ou un ticket ?"]]
     
     phrases_controleur_5n = [["T'as bien ton ticket","petit ?"]]
-    phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"]]
+    phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"],
+                        ["Tiens ! J'ai trouvé","ce truc sur :","'Comment réparer un","ordinateur tout seul'."]]
     phrases_pnj_5n = [["J'ai plus de café","dans ma tasse..."]]
     
     phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "]]
@@ -4015,7 +4018,12 @@ def nivo5(sac,action,Gus,tr):
     
     phrases_etagere = [["Hé ! Je te vois !", "T'essayes de voler ","quoi là ??"], 
                        ["Non, ils sont","vraiment trop moches !"]]
-    phrases_caisse_5c = [["Je peux vous ","aider ?"]]
+    phrases_caisse_5c = [["Je peux vous ","aider ?"],
+                         ["Hey ! C'est toi qui","m'a coupé internet ?","Bouges pas.","J'appelle le vigile"],
+                         ["Je comprend pas,","mon ordinateur ne","marche plus. J'ai","remis internet mais","plus rien ne marche..."],
+                         ["Ah ! C'est un problème","de carte mère !","T'en as une sur toi ?"],
+                         ["Super, une carte mère","J'ai aucune idée de","ce à quoi ça sert","ni où ça va ..."],
+                         ["Tu peux me changer","la carte mère ?","Merci beaucoup, je","vais pouvoir travailler."]]
     phrases_mag_5c = [["J'adore ce magasin."]]
     phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."]]
     
@@ -4063,7 +4071,8 @@ def nivo5(sac,action,Gus,tr):
                 if event.key == pygame.K_TAB:
                     other_s.play() 
             ############################
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and tr.game_over == False :
+
                 if event.key == pygame.K_LEFT:  
                     x_change = -speed_move
                     rel_x = speed_move
@@ -4143,7 +4152,10 @@ def nivo5(sac,action,Gus,tr):
                         tr.controleur_5n = 0
                         
                     if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
-                        tr.lassl_5n = 0
+                        if sac.Capote >= 1 and tr.give_capote_lassl == False and Gus.savoir_info == False:
+                            tr.lassl_5n = 0
+                        if tr.give_capote_lassl == True and Gus.savoir_info == True:
+                            tr.lassl_5n = 1
                         
                     if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
                         tr.pnj_5n = 0
@@ -4190,8 +4202,19 @@ def nivo5(sac,action,Gus,tr):
                         tr.etag_5c1 += 1
                         
                     if 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7:
-                        tr.caisse_5c = 0
-                    
+                        if tr.ordi_vendeuse == False and tr.recherche == False and tr.coupe_cable == False:
+                            tr.caisse_5c = 0
+                        if tr.ordi_vendeuse == True and tr.recherche == True and tr.coupe_cable == True:
+                            tr.caisse_5c = 1
+                        if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == False and sac.Carte_Mere == 0:
+                            tr.caisse_5c = 2
+                        if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True and sac.Carte_Mere == 0 and tr.caisse_occupee_5c == False:
+                            tr.caisse_5c = 3
+                        if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == False and sac.Carte_Mere == 1 and tr.caisse_occupee_5c == False:
+                            tr.caisse_5c = 4
+                        if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True and sac.Carte_Mere == 1 and tr.caisse_occupee_5c == False:
+                            tr.caisse_5c = 5
+                            
                     if 730+screen_x < x < 834+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.7 :
                         tr.pnj_mag_5c = 0
                         
@@ -4225,14 +4248,30 @@ def nivo5(sac,action,Gus,tr):
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
+                    if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
+                        if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
+                            tr.give_capote_lassl = True
+                    
                     if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
                         tr.affich_plan += 1
                     if 886+screen_x < x < 984+screen_x and 260+screen_y < y < 380+screen_y and Gus.level == 5.6 :
                         tr.tab_5so = 0
                     if 834+screen_x < x < 935+screen_x and 60+screen_y < y < 190+screen_y and Gus.level == 5.7 :
                         tr.disparu += 1
+                        timing = time
+                    if 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7 and sac.Ciseaux == 1 and tr.ordi_vendeuse == False :
+                        tr.coupe_cable = True
+                        
+                        tr.recherche = True
+                        countdown = (time+10)/60
+
+                    if 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7 and sac.Carte_Mere == 1 and tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True:
+                        tr.repare_ordi = True
+                                                
                     if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 and tr.pnj_jeu_5s > 0:
                         jeu_voit = True
+                    
+
                     #     tr.capote_nn = 0 
                     #     tr.capote_buro = 0 
                     #     tr.capote_entree = 0 
@@ -4643,6 +4682,36 @@ def nivo5(sac,action,Gus,tr):
             tr.capote_5n = 1
         if sac.Contrat == 1 and tr.carton_5n != -1:
             sac.Mort_aux_rats = 0
+            
+        if tr.coupe_cable == True:
+            tr.ordi_vendeuse = True
+            sac.Ciseaux = 0
+            
+        if tr.recherche == True :
+            textsurface = myfont.render("Tu devrais ", False, (200, 0, 0))
+            textsurface2 = myfont.render("te cacher.", False, (200, 0, 0))
+            screen.blit(textsurface,(x,y+60))
+            screen.blit(textsurface2,(x,y+80)) 
+            
+            if tr.caisse_5c == 0 and tr.disparu%2 != 1:
+                research = 30 + (countdown-(time/60))
+                temps = myfont.render(str(int(research)), False, (22, 22, 9))
+                screen.blit(temps , (x,y+100))
+            elif tr.caisse_5c == 1 and tr.disparu%2 != 1:
+                research = 15 + (countdown-(time/60))
+                temps = myfont.render(str(int(research)), False, (22, 22, 9))
+                screen.blit(temps , (x,y+100))
+            
+            if int(research) <= 0:
+                tr.game_over = True
+                
+        if tr.give_capote_lassl == True:
+            Gus.savoir_info = True
+            sac.Capote = 0
+            
+        if tr.repare_ordi == True:
+            tr.caisse_occupee_5c = True
+            sac.Carte_Mere = 0
         
         #LEVEL  METRO
         if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
@@ -4715,6 +4784,11 @@ def nivo5(sac,action,Gus,tr):
             
         elif 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
             zone_dialogue(screen,"Parler (A)",action,phrases_lassl_5n[tr.lassl_5n],tr.lassl_5n,5)
+            if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
+                textsurface = myfont.render("Donner des capotes", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
             
         elif 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
             zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5n[tr.pnj_5n],tr.pnj_5n,5)
@@ -4792,7 +4866,7 @@ def nivo5(sac,action,Gus,tr):
             zone_dialogue(screen,"Parler (A)",action,phrases_stand_5o[tr.pnj_stand_5so],tr.pnj_stand_5so,5)  
             
         #LEVEL CENTRE
-        elif 346+screen_x < x < 492+screen_x and 60+screen_y < y < 150+screen_y and Gus.level == 5.7 :
+        elif 346+screen_x < x < 492+screen_x and 60+screen_y < y < 150+screen_y and Gus.level == 5.7 :  
             if tr.caisse_occupee_5c == True :                
                 tr.etag_5c2 =  zone_interaction(screen,"Voler un vêtement (A)",action,tr.etag_5c2,"des habits !")
                 sac.Habits = 1
@@ -4813,7 +4887,18 @@ def nivo5(sac,action,Gus,tr):
             screen.blit(textsurface2,(x-65,y-40))
             
         elif 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7:
-            zone_dialogue(screen,"Parler (A)",action,phrases_caisse_5c[tr.caisse_5c],tr.caisse_5c,5)
+            zone_dialogue(screen,"Parler (A)",action,phrases_caisse_5c[tr.caisse_5c],tr.caisse_5c,10)
+            if sac.Ciseaux == 1 and tr.ordi_vendeuse == False :
+                textsurface = myfont.render("Couper le câble internet", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))  
+                
+            if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True and sac.Carte_Mere == 1 and tr.caisse_occupee_5c == False:
+                textsurface = myfont.render("Réparer le PC", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                 
             
         elif 730+screen_x < x < 834+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.7 :
             zone_dialogue(screen,"Parler (A)",action,phrases_mag_5c[tr.pnj_mag_5c],tr.pnj_mag_5c,5)
@@ -4885,6 +4970,13 @@ def nivo5(sac,action,Gus,tr):
         
         if tr.disparu%2 != 1:
             screen.blit(gugus, rect_gugus)
+        else :
+            countdown = (timing+10)/60
+            time_out = -(countdown-(time/60))
+            temps = myfont.render("Attends 10 secondes : " + str(int(time_out)), False, (22, 22, 9))
+            screen.blit(temps , (225,150))
+            if tr.recherche == True and time_out >= 10:
+                tr.recherche = False
         
         pv = Gus_font.render("Santé : " + str(Gus.pv), False, (78, 22, 9))
         argent = Gus_font.render("Argent : " + str(round(Gus.money,2)), False, (31, 160, 85))
@@ -4900,6 +4992,7 @@ def nivo5(sac,action,Gus,tr):
             affich_sac(screen,sac)
         if (Gus.pause%2) == 1:
             pause(screen,gameExit,Gus,sac,tr)
+
         if tr.affich_plan%2 == 1:
             affichage_plan(screen,gameExit)
         if Gus.pv == 0 or tr.game_over == True:

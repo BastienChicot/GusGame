@@ -261,6 +261,8 @@ class trigger():
         self.lassl_5n = -1
         self.pnj_5n = -1
         
+        self.give_capote_lassl = False
+        
         # 5 Nord Ouest
         
         self.mach_tick1 = -1
@@ -297,9 +299,13 @@ class trigger():
         self.pnj_mag_5c = -1
         self.pnj_allee_5c = -1
         
-        
+        self.ordi_vendeuse = False
+        self.coupe_cable = False
         self.caisse_occupee_5c = False
         self.disparu = 0
+        
+        self.recherche = False
+        self.repare_ordi = False
         
         # 5 Sud
         
