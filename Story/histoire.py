@@ -3998,10 +3998,17 @@ def nivo5(sac,action,Gus,tr):
 
     #OBJETS NIVEAU
     #INTERACTIONS
-    phrases_dame_5m = [["Hey gamin, t'as pas","quelques vêtements de","rechange ?"]]
-    phrases_assis_5m = [["Tu vois pas que","je suis en train","de lire ?"]]
-    phrases_machine_5m = [["Il parait que mon","frère vit ici...","Mais je ne vois pas","d'appartement dans le","coin..."]]
-    phrases_banc_5m = [["Quand partira le","prochain métro ?"]]
+    phrases_dame_5m = [["Hey gamin, t'as pas","quelques vêtements de","rechange ?"],
+                        ["Ah ! Tu m'as trouvé des","habits ?"],
+                        ["Merci gamin.","Prends ce plan de la ville", "en échange ."]]
+    phrases_assis_5m = [["Tu vois pas que","je suis en train","de lire ?"],
+                        ["C'est quoi ça ?","Une clé USB ?","Tu veux que j'en fasse","quoi ?","Moi je veux des trucs","qui me font voyager..." ],
+                        ["J'peux pas te payer","mais prends cette clé","Elle doit ouvrir quelque","chose de génial !"]]
+    phrases_machine_5m = [["Il parait que mon","frère vit ici...","Mais je ne vois pas","d'appartement dans le","coin...","Je ne connais pas","bien la ville."],
+                          ["Tu ne saurais pas","où je pourrais trouver","un plan de la ville ?"],
+                          ["Merci pour ce plan","Je vais repartir d'ici","J'ai du me tromper","de station."]]
+    phrases_banc_5m = [["Quand partira le","prochain métro ?"],
+                       ["Ah cool ! Merci bien .","Si t'as besoin de quoi","que ce soit, va voir","mon cousin. Il est vers","les machines à ticket."]]
     phrases_chauve_5m = [["Euh ....","Que? Jô nô parlé","pass ton linguea..."]]
     
     phrases_clodo_5m = [["Héééé toi !!","T'as pas une p'tite","pièce ou un ticket ?"]]
@@ -4012,7 +4019,10 @@ def nivo5(sac,action,Gus,tr):
     phrases_pnj_5n = [["J'ai plus de café","dans ma tasse..."]]
     
     phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "]]
-    phrases_pnj_5no = [["Je flippe à fond!"]]
+    phrases_pnj_5no = [["Je flippe à fond!"],
+                       ["Je peux te prêter mon","téléphone. Mais il","n'a plus de batterie."],
+                       ["Si tu as ce que je","recherche, je peux","même te donner le","téléphone."],
+                       ["Tiens, prends le tel !"]]
     
     phrases_stand_5o = [["On cherche des ","candidats pour l'armée.","Tu en connais ?"]]
     
@@ -4111,17 +4121,37 @@ def nivo5(sac,action,Gus,tr):
                     if 908+screen_x < x < 961+screen_x and 86+screen_y < y < 158+screen_y and Gus.level == 5:
                         tr.poubelle_5m += 1
                         
-                    if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0 :
-                        tr.dame_5m = 0
+                    if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 :
+                        if sac.Habits == 0 and tr.donne_habits == False :
+                            tr.dame_5m = 0
+                        if sac.Habits == 1 and tr.donne_habits == False :
+                            tr.dame_5m = 1
+                        if sac.Habits == 0 and tr.donne_habits == True :
+                            tr.dame_5m = 2
                     
                     if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5:
-                        tr.pnj_assis_5m = 0
+                        if sac.Cle_USB == 0 and tr.vente_assis == False :
+                            tr.pnj_assis_5m = 0
+                        if sac.Cle_USB == 1 and tr.vente_assis == False and tr.cachets_pnj_metro == 0:
+                            tr.pnj_assis_5m = 1
+                        if tr.vente_assis == False and tr.cachets_pnj_metro != 0 and sac.Cle_bizarre == 0:
+                            tr.pnj_assis_5m = 2
+                        if tr.vente_assis == True and tr.cachets_pnj_metro != 0 and sac.Cle_bizarre == 1:
+                            tr.pnj_assis_5m = 0
                         
                     if 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
-                        tr.pnj_machine_5m = 0
+                        if sac.Plan == 0 and tr.give_plan == False :
+                            tr.pnj_machine_5m = 0
+                        elif sac.Plan == 1:
+                            tr.pnj_machine_5m = 1
+                        elif sac.Plan == 0 and tr.give_plan == True:
+                            tr.pnj_machine_5m = 2
 
                     if 715+screen_x < x < 777+screen_x and 329+screen_y < y < 430+screen_y and Gus.level == 5:
-                        tr.pnj_banc_5m = 0
+                        if tr.give_horaire == False:
+                            tr.pnj_banc_5m = 0
+                        if tr.give_horaire == True:
+                            tr.pnj_banc_5m = 1
 
                     if 664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y and Gus.level == 5:
                         tr.chauve = 0
@@ -4170,7 +4200,14 @@ def nivo5(sac,action,Gus,tr):
                         tr.controleur_5no = 0
                     
                     if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
-                        tr.pnj_5no = 0
+                        if tr.give_horaire == False :
+                            tr.pnj_5no = 0
+                        if tr.give_horaire == True and tr.batt_tel_5no == False :
+                            tr.pnj_5no = 1
+                        if tr.batt_tel_5no == True and tr.give_cachets_5no == False :
+                            tr.pnj_5no = 2
+                        if tr.batt_tel_5no == True and tr.give_cachets_5no == True :
+                            tr.pnj_5no = 3
                         
                     # 5 OUEST
                     if 693+screen_x < x < 760+screen_x and 100+screen_y < y < 170+screen_y and Gus.level == 5.5 :
@@ -4248,9 +4285,28 @@ def nivo5(sac,action,Gus,tr):
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
+                    if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 1:
+                        tr.donne_habits = True
+                        
+                    if 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5 and sac.Plan == 1:
+                        tr.give_plan = True
+                        
+                    if 715+screen_x < x < 777+screen_x and 329+screen_y < y < 470+screen_y and Gus.level == 5 and sac.Horaires_metro == 1:
+                        tr.give_horaire = True
+                        
+                    if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5 and sac.Cle_USB == 1 and tr.cachets_pnj_metro == 0 and tr.vente_assis == False:
+                        tr.donne_USB = True
+                    if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5 and tr.cachets_pnj_metro == 1:
+                        tr.vente_assis = True
+                         
                     if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
                         if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
                             tr.give_capote_lassl = True
+                    
+                    if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 and sac.Chargeur == 1:
+                        tr.batt_tel_5no = True
+                    if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 and tr.cachets_5no == 2 :
+                        tr.give_cachets_5no = True
                     
                     if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
                         tr.affich_plan += 1
@@ -4697,13 +4753,16 @@ def nivo5(sac,action,Gus,tr):
                 research = 30 + (countdown-(time/60))
                 temps = myfont.render(str(int(research)), False, (22, 22, 9))
                 screen.blit(temps , (x,y+100))
+
+                if int(research) <= 0:
+                        tr.game_over = True
             elif tr.caisse_5c == 1 and tr.disparu%2 != 1:
                 research = 15 + (countdown-(time/60))
                 temps = myfont.render(str(int(research)), False, (22, 22, 9))
                 screen.blit(temps , (x,y+100))
             
-            if int(research) <= 0:
-                tr.game_over = True
+                if int(research) <= 0:
+                    tr.game_over = True
                 
         if tr.give_capote_lassl == True:
             Gus.savoir_info = True
@@ -4712,7 +4771,32 @@ def nivo5(sac,action,Gus,tr):
         if tr.repare_ordi == True:
             tr.caisse_occupee_5c = True
             sac.Carte_Mere = 0
+            
+        if tr.donne_habits == True :
+            sac.Habits = 0
         
+        if tr.dame_5m == 2 :
+            sac.Plan = 1
+         
+        if tr.give_plan == True :
+            sac.Plan = 0
+            
+        if tr.give_horaire == True :
+            sac.Horaires_metro = 0
+        
+        if tr.batt_tel_5no == True:
+            sac.Chargeur = 0
+        if tr.give_cachets_5no == True:
+            sac.Telephone = 1
+            tr.cachets_5no = 0
+            
+        if tr.donne_USB == True :
+            sac.Cle_USB = 0
+        if tr.vente_assis == True :
+            tr.cachets_pnj_metro = 0
+            sac.Cle_meuble = 1
+        
+        sac.Cachets = tr.cachets_5no + tr.cachets_pnj_metro + tr.cachets_allee + tr.cachets_militaire
         #LEVEL  METRO
         if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
             tr.press_mach1 = zone_interaction(screen,"Acheter un truc (A)",action,tr.press_mach1,"une bouteille de soda")
@@ -4725,17 +4809,44 @@ def nivo5(sac,action,Gus,tr):
             tr.poubelle_5m = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poubelle_5m,"50 ç !")
             tr.money_5m = 0.5
             
-        elif 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 0:
+        elif 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 :
             zone_dialogue(screen,"Parler à la dame (A)",action,phrases_dame_5m[tr.dame_5m],tr.dame_5m,5)
+            if sac.Habits == 1 and tr.donne_habits == False:
+                zone_dialogue(screen,"Parler à la dame (A)",action,phrases_dame_5m[tr.dame_5m],tr.dame_5m,5)
+                textsurface = myfont.render("Donner les habits", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
             
         elif 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5:
             zone_dialogue(screen,"Parler à la dame (A)",action,phrases_assis_5m[tr.pnj_assis_5m],tr.pnj_assis_5m,5)
+            if tr.cachets_pnj_metro == 0 and tr.vente_assis == False and sac.Cle_USB == 1:
+                textsurface = myfont.render("Donner la clé USB", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+            if tr.cachets_pnj_metro == 1 and tr.vente_assis == False :
+                textsurface = myfont.render("Proposer des cachets", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                 
             
         elif 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
             zone_dialogue(screen,"Parler (A)",action,phrases_machine_5m[tr.pnj_machine_5m],tr.pnj_machine_5m,5)
 
+            if sac.Plan == 1 and tr.give_plan == False :
+                textsurface = myfont.render("Donner le plan de la ville", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         elif 715+screen_x < x < 777+screen_x and 329+screen_y < y < 470+screen_y and Gus.level == 5:
             zone_dialogue(screen,"Parler (A)",action,phrases_banc_5m[tr.pnj_banc_5m],tr.pnj_banc_5m,5) 
+            if sac.Horaires_metro == 1 :
+                textsurface = myfont.render("Donner les horaires du métro", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                 
             
         elif 664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y and Gus.level == 5:
             zone_dialogue(screen,"Parler (A)",action,phrases_chauve_5m[tr.chauve],tr.chauve,5) 
@@ -4777,7 +4888,10 @@ def nivo5(sac,action,Gus,tr):
             
         elif 0+screen_x < x < 110+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.3 :
             tr.cachet_5n = zone_interaction(screen,"Qu'est-ce que c'est ? (A)",action,tr.cachet_5n,"des cachets.")
-            sac.Cachets = 5
+            tr.cachets_5no = 2 
+            tr.cachets_pnj_metro = 1 
+            tr.cachets_allee = 1 
+            tr.cachets_militaire = 1
             
         elif 256+screen_x < x < 334+screen_x and 460+screen_y < y < 538+screen_y and Gus.level == 5.3:
             zone_dialogue(screen,"Parler (A)",action,phrases_controleur_5n[tr.controleur_5n],tr.controleur_5n,5)
@@ -4813,7 +4927,16 @@ def nivo5(sac,action,Gus,tr):
             
         elif 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
             zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5no[tr.pnj_5no],tr.pnj_5no,5)
-            
+            if sac.Chargeur == 1 and tr.batt_tel_5no == False :
+                textsurface = myfont.render("Recharger le téléphone", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
+            if sac.Chargeur == 0 and tr.batt_tel_5no == True and tr.cachets_5no == 2 and tr.give_cachets_5no == False:
+                textsurface = myfont.render("Donner des cachets", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))             
             
         #LEVEL OUEST
         elif 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
@@ -4841,7 +4964,8 @@ def nivo5(sac,action,Gus,tr):
             sac.Mort_aux_rats = 1
         elif 395+screen_x < x < 524+screen_x and 595+screen_y < y < 672+screen_y and Gus.level == 5.6 :
             if sac.Cle_meuble == 1:
-                tr.meuble_5so =  zone_interaction(screen,"Fouiller le meuble (A)",action,tr.meuble_5so,"un chargeur ! ")             
+                tr.meuble_5so =  zone_interaction(screen,"Fouiller le meuble (A)",action,tr.meuble_5so,"un chargeur ! ") 
+                sac.Chargeur = 1
             else :
                 textsurface = myfont.render("C'est fermé", False, (220, 120, 0))
                 textsurface2 = myfont.render("à clé !", False, (220, 120, 0))

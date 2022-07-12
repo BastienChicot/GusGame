@@ -239,6 +239,14 @@ class trigger():
         self.pnj_banc_5m = -1
         self.chauve = -1
         
+        self.donne_habits = False
+        self.give_plan = False
+        self.give_horaire = False
+        
+        self.cachets_pnj_metro = 0
+        self.vente_assis = False
+        self.donne_USB = False
+        
         # 5 esc 1
         
         self.poub_esc1 = -1
@@ -271,6 +279,10 @@ class trigger():
         self.controleur_5no = -1
         self.pnj_5no = -1
         
+        self.batt_tel_5no = False
+        self.give_cachets_5no = False
+        self.cachets_5no = 0
+        
         # 5 Ouest
         self.affich_plan = 0
         
@@ -289,6 +301,8 @@ class trigger():
         self.tab_5so = -1
         self.pnj_stand_5so = -1
         
+        self.cachets_militaire = 0
+        
         # 5 Centre
         self.etag_5c1 = -1
         self.etag_5c2 = -1
@@ -306,6 +320,8 @@ class trigger():
         
         self.recherche = False
         self.repare_ordi = False
+        
+        self.cachets_allee = 0
         
         # 5 Sud
         
