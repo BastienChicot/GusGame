@@ -3990,10 +3990,13 @@ def nivo5(sac,action,Gus,tr):
     spawn_y = 470
     spawnx_esc = 490
     spawny_esc = 530
+    spawnx_N = 900
+    spawny_N = 675
        
     rat_m = pnj(spawn_x,spawn_y,screen_x,screen_y,rat_left,'left') 
     rat_esc = pnj(spawnx_esc,spawny_esc,screen_x,screen_y,rat_left,'left') 
-
+    rat_nord = pnj(spawnx_N,spawny_N,screen_x,screen_y,rat_left,'left') 
+    
     #INTERACTIONS
 
     #OBJETS NIVEAU
@@ -4011,7 +4014,10 @@ def nivo5(sac,action,Gus,tr):
                        ["Ah cool ! Merci bien .","Si t'as besoin de quoi","que ce soit, va voir","mon cousin. Il est vers","les machines à ticket."]]
     phrases_chauve_5m = [["Euh ....","Que? Jô nô parlé","pass ton linguea..."]]
     
-    phrases_clodo_5m = [["Héééé toi !!","T'as pas une p'tite","pièce ou un ticket ?"]]
+    phrases_clodo_5m = [["Héééé toi !!","T'as pas une p'tite","pièce ou un ticket ?"],
+                        ["Tu peux appeler mon","frère avec ton tél ? ","Il faut lui dire ","d'aller à l'autre bout de","la ville..."],
+                        ["Ca m'a donné soif tout","ça. T'as pas un","truc à boire ?"],
+                        ["Merci petit !! Tu sais, il", "y a des gars dangereux","dans le métro. Tu devrais","être plus prudent. J'en ai","vu un en chaussures grises."]]
     
     phrases_controleur_5n = [["T'as bien ton ticket","petit ?"]]
     phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"],
@@ -4041,6 +4047,12 @@ def nivo5(sac,action,Gus,tr):
     phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
                       ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"]]
     phrases_vigil_5s = [["On est en vigilance","rouge écarlate !", "Personne ne sort ","d'ici !"]]
+    
+    
+    phrases_tel = [["Allo ! ... Comment ça ?","... mais c'est à l'autre"," bout de la","ville !! ...","                      flèche+a"],
+                   ["Vous dites que mon","frère est là bas ? ..","Très bien ! j'y vais...","","                      flèche+a"],
+                   ["Heureusement que j'ai","récupéré un plan de la","ville ! ","                      flèche+a"],
+                   [""]]
     
     gameExit = False
     
@@ -4134,9 +4146,9 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_assis_5m = 0
                         if sac.Cle_USB == 1 and tr.vente_assis == False and tr.cachets_pnj_metro == 0:
                             tr.pnj_assis_5m = 1
-                        if tr.vente_assis == False and tr.cachets_pnj_metro != 0 and sac.Cle_bizarre == 0:
+                        if tr.vente_assis == False and tr.cachets_pnj_metro != 0 and sac.Cle_meuble == 0:
                             tr.pnj_assis_5m = 2
-                        if tr.vente_assis == True and tr.cachets_pnj_metro != 0 and sac.Cle_bizarre == 1:
+                        if tr.vente_assis == True and tr.cachets_pnj_metro != 0 and sac.Cle_meuble == 1:
                             tr.pnj_assis_5m = 0
                         
                     if 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
@@ -4162,7 +4174,16 @@ def nivo5(sac,action,Gus,tr):
                         
                     # 5 ESCALIER 2
                     if 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 :
-                        tr.clodo_5m = 0
+                        if sac.Telephone == 0:
+                            tr.clodo_5m = 0
+                        if sac.Telephone == 1 and tr.appelle_frere_clodo == False:
+                            tr.clodo_5m = 1
+                        if tr.appelle_frere_clodo == True and tr.give_soda == False:
+                            tr.clodo_5m = 2
+                        if tr.appelle_frere_clodo == True and tr.give_soda == True:
+                            tr.clodo_5m = 3
+                        if tr.call == True:
+                            tr.disc += 1
                         
                     # 5 NORD
                     if 404+screen_x < x < 478+screen_x and 140+screen_y < y < 207+screen_y and Gus.level == 5.3 :
@@ -4298,7 +4319,14 @@ def nivo5(sac,action,Gus,tr):
                         tr.donne_USB = True
                     if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5 and tr.cachets_pnj_metro == 1:
                         tr.vente_assis = True
-                         
+                        
+                    if 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 and tr.clodo_5m == 1 and sac.Telephone == 1:
+                        tr.appelle_frere_clodo = True
+                        tr.call = True
+                        
+                    if 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 and tr.clodo_5m == 2 and tr.appelle_frere_clodo and sac.Soda != 0:
+                        tr.give_soda = True
+                        
                     if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
                         if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
                             tr.give_capote_lassl = True
@@ -4539,11 +4567,43 @@ def nivo5(sac,action,Gus,tr):
             time += 1
             
             liste_mur = level_5N(screen,screen_x,screen_y)
+            
+            if rat_nord.side == "left":
+                rat_nord = pnj(spawnx_N,spawny_N,screen_x,screen_y,rat_left,'left')
+            elif rat_nord.side == "right":
+                rat_nord = pnj(spawnx_N,spawny_N,screen_x,screen_y,rat_right,'right')
+                
+            speed_x,speed_y = rat_nord.collisions_pnj(liste_mur,speed_x,speed_y,rat_right,rat_left,0)
+            spawnx_N,spawny_N = rat_nord.move(spawnx_N,spawny_N,speed_x,speed_y)
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
-            
+
+            if rat_nord.rect.colliderect(rect_gugus) and rat_nord.side == "left":
+                if abs (rat_nord.rect.left - rect_gugus.right) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_nord.side = "right"
+                    
+            if rat_nord.rect.colliderect(rect_gugus) and rat_nord.side == "right":
+                if abs (rat_nord.rect.right - rect_gugus.left) <= 10:
+                    speed_x *= -1
+                    speed_y *= -1
+                    rat_nord.side = "left"
+                    
+            if rect_gugus.colliderect(rat_nord.rect):
+                if abs (rat_nord.rect.left - rect_gugus.right) <= 10:
+                    x_change = 0
+                    rel_x = 0
+            if rat_nord.rect.colliderect(rect_gugus):
+                if abs (rat_nord.rect.right - rect_gugus.left) <= 10:
+                    x_change = 0
+                    rel_x = 0 
+                    
             screen_x += rel_x
             screen_y += rel_y
+            
+            if tr.tue_rats == False:
+                screen.blit(rat_nord.image, rat_nord.rect)
             
             if x > 480 :
                 Gus.level = 5.2
@@ -4753,16 +4813,17 @@ def nivo5(sac,action,Gus,tr):
                 research = 30 + (countdown-(time/60))
                 temps = myfont.render(str(int(research)), False, (22, 22, 9))
                 screen.blit(temps , (x,y+100))
-
+            
                 if int(research) <= 0:
                         tr.game_over = True
+                        
             elif tr.caisse_5c == 1 and tr.disparu%2 != 1:
                 research = 15 + (countdown-(time/60))
                 temps = myfont.render(str(int(research)), False, (22, 22, 9))
                 screen.blit(temps , (x,y+100))
-            
+                    
                 if int(research) <= 0:
-                    tr.game_over = True
+                        tr.game_over = True
                 
         if tr.give_capote_lassl == True:
             Gus.savoir_info = True
@@ -4795,6 +4856,12 @@ def nivo5(sac,action,Gus,tr):
         if tr.vente_assis == True :
             tr.cachets_pnj_metro = 0
             sac.Cle_meuble = 1
+            
+        if tr.give_soda == True :
+            sac.Soda = 0
+        
+        if tr.disc >= 4 :
+            tr.call = False
         
         sac.Cachets = tr.cachets_5no + tr.cachets_pnj_metro + tr.cachets_allee + tr.cachets_militaire
         #LEVEL  METRO
@@ -4858,8 +4925,21 @@ def nivo5(sac,action,Gus,tr):
             
         #LEVEL ESCALIER 2
         elif 360 < x < 503 and 120 < y < 236 and Gus.level == 5.2 :
-            zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo_5m[tr.clodo_5m],tr.clodo_5m,5) 
-
+            if tr.call == False:
+                zone_dialogue(screen,"Parler au clodo (A)",action,phrases_clodo_5m[tr.clodo_5m],tr.clodo_5m,5)
+            elif tr.call == True :
+                zone_dialogue(screen,"",action,phrases_tel[tr.disc],tr.disc,5)
+                
+            if tr.clodo_5m == 1 and tr.appelle_frere_clodo == False :
+                textsurface = myfont.render("Appeler le frère :", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-60,y-60))
+                screen.blit(textsurface2,(x-25,y-40))                 
+            if tr.clodo_5m == 2 and tr.appelle_frere_clodo == True and sac.Soda != 0:
+                textsurface = myfont.render("Donner un soda", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-60,y-60))
+                screen.blit(textsurface2,(x-25,y-40)) 
         #LEVEL NORD
         elif 404+screen_x < x < 478+screen_x and 140+screen_y < y < 207+screen_y and Gus.level == 5.3 :
             tr.press_capote_5n = zone_interaction(screen,"Qu'est-ce que c'est (A)",action,tr.press_capote_5n,"une capote.")

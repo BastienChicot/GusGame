@@ -296,7 +296,7 @@ def zone_dialogue(screen,texte_zone,action,liste_phrases,var_iter,max_iter):
         
         if i < max_iter and action.click == True:
             textsurface2 = myfont.render(phrases, False, (110, 110, 110))
-            screen.blit(textsurface2,(290,j))
+            screen.blit(textsurface2,(270,j))
 
             j += 15
     

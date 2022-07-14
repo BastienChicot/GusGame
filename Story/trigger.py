@@ -254,6 +254,10 @@ class trigger():
         # 5 esc 2
         
         self.clodo_5m = -1
+        self.appelle_frere_clodo = False
+        self.give_soda = False
+        self.call = False
+        self.disc = -1
         
         # 5 Nord
         self.press_capote_5n = -1
@@ -270,6 +274,8 @@ class trigger():
         self.pnj_5n = -1
         
         self.give_capote_lassl = False
+        
+        self.tue_rats = False
         
         # 5 Nord Ouest
         
