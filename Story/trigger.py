@@ -247,6 +247,8 @@ class trigger():
         self.vente_assis = False
         self.donne_USB = False
         
+        self.info_vol = False
+        
         # 5 esc 1
         
         self.poub_esc1 = -1
@@ -276,6 +278,7 @@ class trigger():
         self.give_capote_lassl = False
         
         self.tue_rats = False
+        self.give_cig_5n = False
         
         # 5 Nord Ouest
         
@@ -338,6 +341,8 @@ class trigger():
         self.bac_5s = -1
         
         self.caisse_5s_occupe = False
+        self.balance_5 = False
+        self.give_tw_5 = False
         
     def update_items(self):
          self.give_money = self.pnj_bus
