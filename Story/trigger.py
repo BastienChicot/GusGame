@@ -279,6 +279,9 @@ class trigger():
         
         self.tue_rats = False
         self.give_cig_5n = False
+        self.give_CD = False
+        self.give_mask = False
+        self.give_cachet_5n = False
         
         # 5 Nord Ouest
         
@@ -311,6 +314,8 @@ class trigger():
         self.pnj_stand_5so = -1
         
         self.cachets_militaire = 0
+        self.validate = False
+        self.OK = False
         
         # 5 Centre
         self.etag_5c1 = -1
@@ -331,6 +336,7 @@ class trigger():
         self.repare_ordi = False
         
         self.cachets_allee = 0
+        self.give_cachet_5c = False
         
         # 5 Sud
         
@@ -343,6 +349,8 @@ class trigger():
         self.caisse_5s_occupe = False
         self.balance_5 = False
         self.give_tw_5 = False
+        
+        self.cacher = False
         
     def update_items(self):
          self.give_money = self.pnj_bus

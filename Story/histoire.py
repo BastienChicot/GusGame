@@ -4024,7 +4024,11 @@ def nivo5(sac,action,Gus,tr):
     phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"],
                         ["Tiens ! J'ai trouvé","ce truc sur :","'Comment réparer un","ordinateur tout seul'."]]
     phrases_pnj_5n = [["J'ai plus de café","dans ma tasse..."],
-                      ["Il y a un truc dans ce carton","mais il faudrait se","débarasser des rats ..."]]
+                      ["Il y a un truc dans ce carton","mais il faudrait se","débarasser des rats ..."],
+                      ["J'ai peur de choper une","maladie près de ces","poubelles."],
+                      ["C'est un reportage sur les","maladies créées en labo.","Le seul moyen de se","protéger c'est d'avoir un","masque."],
+                      ["Merci pour le masque .","Ils ont du prévoir des","medicaments. C'est pour ça","qu'ils créés ces maladies.","Il faut prévenir les gens!"],
+                      ["Merci mec, ça va","déjà mieux..."]]
     
     phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "]]
     phrases_pnj_5no = [["Je flippe à fond!"],
@@ -4043,7 +4047,9 @@ def nivo5(sac,action,Gus,tr):
                          ["Super, une carte mère","J'ai aucune idée de","ce à quoi ça sert","ni où ça va ..."],
                          ["Tu peux me changer","la carte mère ?","Merci beaucoup, je","vais pouvoir travailler."]]
     phrases_mag_5c = [["J'adore ce magasin."]]
-    phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."]]
+    phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."],
+                        ["Tu as entendu parler de","cette nouvelle maladie ?"],
+                        ["J'espère que c'est efficace"]]
     
     phrases_caisse_5s = [["J'en ai marre de","ce travail !"]]
     phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
@@ -4221,8 +4227,17 @@ def nivo5(sac,action,Gus,tr):
                         
                     if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == False:
                         tr.pnj_5n = 0
-                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == True:
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == True and tr.tue_rats == False:
                         tr.pnj_5n = 1
+                        
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == True and tr.tue_rats == True and tr.give_CD == False:
+                        tr.pnj_5n = 2
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == True and tr.tue_rats == True and tr.give_CD == True and tr.give_mask == False:
+                        tr.pnj_5n = 3
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == True and tr.tue_rats == True and tr.give_CD == True and tr.give_mask == True and tr.give_cachet_5n == False:
+                        tr.pnj_5n = 4
+                    if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_CD == True and tr.give_mask == True and tr.give_cachet_5n == True:
+                        tr.pnj_5n = 5
                         
                     # 5 NORD OUEST
                     if 125+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y and Gus.level == 5.4 and sac.Ticket == 0:
@@ -4290,7 +4305,12 @@ def nivo5(sac,action,Gus,tr):
                         tr.pnj_mag_5c = 0
                         
                     if 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
-                        tr.pnj_allee_5c = 0
+                        if tr.give_mask == False:
+                            tr.pnj_allee_5c = 0
+                        if tr.give_mask == True and tr.give_cachet_5c == False:
+                            tr.pnj_allee_5c = 1
+                        if tr.give_mask == True and tr.give_cachet_5c == True:
+                            tr.pnj_allee_5c = 2
                         
                     # 5 SUD
                     if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
@@ -4353,6 +4373,12 @@ def nivo5(sac,action,Gus,tr):
                     if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
                         if sac.Clopes != 0:
                             tr.give_cig_5n = True
+                        if tr.tue_rats == True and sac.CD != 0:
+                            tr.give_CD = True
+                        if tr.give_CD == True and sac.Masque != 0 and tr.pnj_5n == 3:
+                            tr.give_mask = True
+                        if tr.cachets_militaire != 0 and tr.give_mask == True and tr.pnj_5n == 4:
+                            tr.give_cachet_5n = True
                     if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
                         if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
                             tr.give_capote_lassl = True
@@ -4370,6 +4396,14 @@ def nivo5(sac,action,Gus,tr):
                         tr.affich_plan += 1
                     if 886+screen_x < x < 984+screen_x and 260+screen_y < y < 380+screen_y and Gus.level == 5.6 :
                         tr.tab_5so = 0
+                        
+                    if 720+screen_x < x < 975+screen_x and 390+screen_y < y < 525+screen_y and Gus.level == 5.6 and tr.give_mask== True and sac.Cachets != 0 and tr.validate == False:
+
+                        tr.OK = True
+                    if 720+screen_x < x < 975+screen_x and 390+screen_y < y < 525+screen_y and Gus.level == 5.6 and tr.give_mask== True and sac.Cachets != 0 and tr.validate == True:
+
+                        tr.game_over = True
+                        
                     if 834+screen_x < x < 935+screen_x and 60+screen_y < y < 190+screen_y and Gus.level == 5.7 :
                         tr.disparu += 1
                         timing = time
@@ -4382,12 +4416,18 @@ def nivo5(sac,action,Gus,tr):
                     if 242+screen_x < x < 315+screen_x and 40+screen_y < y < 190+screen_y and Gus.level == 5.7 and sac.Carte_Mere == 1 and tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True:
                         tr.repare_ordi = True
                                                 
+                    if 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 and tr.cachets_allee != 0 and tr.give_mask == True:
+                        tr.give_cachet_5c = True
                     if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 and tr.pnj_jeu_5s > 0:
                         jeu_voit = True
                     
                     if 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
                         if tr.info_vol == True and tr.clodo_5m == 3:
                             tr.balance_5 = True
+                            
+                    if sac.Cachets == 0 and tr.give_cachet_5c == True and tr.give_cachet_5n == True:
+                        tr.recherche = True
+                        countdown = (time+10)/60   
                     
 
                     #     tr.capote_nn = 0 
@@ -4858,7 +4898,15 @@ def nivo5(sac,action,Gus,tr):
                     
                 if int(research) <= 0:
                         tr.game_over = True
-                
+                        
+            elif sac.Cachets == 0 and tr.give_cachet_5c == True and tr.give_cachet_5n == True and tr.disparu%2 != 1:
+                research = 30 + (countdown-(time/60))
+                temps = myfont.render(str(int(research)), False, (22, 22, 9))
+                screen.blit(temps , (x,y+100))
+            
+                if int(research) <= 0:
+                        tr.game_over = True
+
         if tr.give_capote_lassl == True:
             Gus.savoir_info = True
             sac.Capote = 0
@@ -4902,7 +4950,28 @@ def nivo5(sac,action,Gus,tr):
             
         if tr.tue_rats == True:
             sac.Mort_aux_rats = 0
-        
+            
+        if tr.give_CD == True:
+            sac.CD = 0
+        if tr.give_mask == True:
+            sac.Masque = 0
+            
+        if tr.give_cachet_5c == True :
+            tr.cachets_allee = 0
+            
+        if tr.give_cachet_5n == True :
+            tr.cachets_militaire = 0
+            
+        if tr.OK == True:
+            tr.validate = True
+            
+        if sac.Cachets == 0 and tr.give_cachet_5c == True and tr.give_cachet_5n == True and tr.cacher == False:
+            textsurface = myfont.render("Tu as tout vendu", False, (0, 0, 0))
+            textsurface2 = myfont.render("Mais un contrôleur t'as vu", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+            screen.blit(textsurface2,(x,y-40))
+         
+
         sac.Cachets = tr.cachets_5no + tr.cachets_pnj_metro + tr.cachets_allee + tr.cachets_militaire
         #LEVEL  METRO
         if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
@@ -5036,13 +5105,28 @@ def nivo5(sac,action,Gus,tr):
                 screen.blit(textsurface2,(x+35,y-40))
             
         elif 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 :
-            zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5n[tr.pnj_5n],tr.pnj_5n,5)
+            zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5n[tr.pnj_5n],tr.pnj_5n,7)
             if sac.Clopes != 0 and tr.give_cig_5n == False:
                 textsurface = myfont.render("Donner des cigarettes", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
-                screen.blit(textsurface2,(x+35,y-40))               
-
+                screen.blit(textsurface2,(x+35,y-40)) 
+            if sac.CD == 1 and tr.tue_rats == True:
+                textsurface = myfont.render("Donner le CD", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
+            if sac.Masque == 1 and tr.give_CD == True:
+                textsurface = myfont.render("Donner le masque", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
+            if tr.cachets_militaire == 1 and tr.give_mask == True :
+                textsurface = myfont.render("Donner le médicament", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40)) 
+                
         #LEVEL NORD OUEST
         elif 125+screen_x < x < 215+screen_x and 326+screen_y < y < 427+screen_y and Gus.level == 5.4 :
             if sac.Ticket == 0:
@@ -5123,8 +5207,17 @@ def nivo5(sac,action,Gus,tr):
                 screen.blit(textsurface2,(x-120,y-40))  
             
         elif 720+screen_x < x < 975+screen_x and 390+screen_y < y < 525+screen_y and Gus.level == 5.6 :
-            zone_dialogue(screen,"Parler (A)",action,phrases_stand_5o[tr.pnj_stand_5so],tr.pnj_stand_5so,5)  
-            
+            zone_dialogue(screen,"Parler (A)",action,phrases_stand_5o[tr.pnj_stand_5so],tr.pnj_stand_5so,5) 
+            if tr.give_mask == True and sac.Cachets != 0 and tr.validate == False:
+                textsurface = myfont.render("Vendre un médicament", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40))                 
+            if tr.give_mask == True and sac.Cachets != 0 and tr.validate == True:
+                textsurface = myfont.render("Tu es sûr ?", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40))            
         #LEVEL CENTRE
         elif 346+screen_x < x < 492+screen_x and 60+screen_y < y < 150+screen_y and Gus.level == 5.7 :  
             if tr.caisse_occupee_5c == True :                
@@ -5165,6 +5258,11 @@ def nivo5(sac,action,Gus,tr):
 
         elif 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 :
             zone_dialogue(screen,"Parler (A)",action,phrases_allee_5c[tr.pnj_allee_5c],tr.pnj_allee_5c,5)
+            if tr.give_mask == True and tr.give_cachet_5c == False:    
+                textsurface = myfont.render("Vendre un médicament", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40)) 
             
         #LEVEL SUD
         elif 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
@@ -5264,5 +5362,5 @@ def nivo5(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(x,y,Gus.spawn)
+        print(tr.recherche)
         clock.tick(100)        
