@@ -7,6 +7,7 @@ Created on Thu Nov 25 15:43:41 2021
 import pygame
 from settings import *
 import pickle
+import random
 
 pygame.init()
 
@@ -424,4 +425,17 @@ def border_start(screen_x,screen_y,x,y,start_x,start_y,display_width,display_hei
         x=x
         y=y
         
-    return(x,y,screen_x,screen_y)
+    return(x,y,screen_x,screen_y)      
+
+class voiture():
+    def __init__(self,limit,liste_voit):
+        self.random_x = random.randint(150,320)
+        self.random_y = random.randint(limit-40, limit-0)
+        self.limit = limit
+        self.nb = random.randint(0,6)
+        self.image = liste_voit[self.nb]
+        
+    def move_car(self,speed):
+        self.random_y += speed 
+        
+        

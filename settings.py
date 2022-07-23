@@ -266,3 +266,20 @@ power_bar = [power_bar0,power_bar1,power_bar2,power_bar3,power_bar4,power_bar5]
 
 plan = pygame.image.load("bank/image/plan_metro.png")
 
+
+car_player = pygame.image.load('bank/image/car_game/car_mini.png')
+car1 = pygame.image.load("bank/image/car_game/car_blue.png")
+car3 = pygame.image.load("bank/image/car_game/car_yellow.png")
+car4 = pygame.image.load("bank/image/car_game/car_grey.png")
+car5 = pygame.image.load("bank/image/car_game/car_brown.png")
+car6 = pygame.image.load("bank/image/car_game/break_blue.png")
+car7 = pygame.image.load("bank/image/car_game/break_red.png")
+car8 = pygame.image.load("bank/image/car_game/break_grey.png")
+
+route = pygame.image.load("bank/image/car_game/fond.png")
+route2 = pygame.image.load("bank/image/car_game/fond.png")
+
+liste_voit = [car1,car3,car4,car5,car6,car7,car8]
+
+
+

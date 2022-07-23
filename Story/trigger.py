@@ -294,6 +294,7 @@ class trigger():
         self.batt_tel_5no = False
         self.give_cachets_5no = False
         self.cachets_5no = 0
+        self.give_alcool_5 = False
         
         # 5 Ouest
         self.affich_plan = 0
@@ -351,6 +352,9 @@ class trigger():
         self.give_tw_5 = False
         
         self.cacher = False
+        
+        #Voiture
+        self.score_voiture = 0
         
     def update_items(self):
          self.give_money = self.pnj_bus

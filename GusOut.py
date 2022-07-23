@@ -50,7 +50,10 @@ def launch(Gus):
         nivo_fight(sac,action,Gus,tr)        
     if Gus.level >= 5 and Gus.level < 6:
         nivo5(sac,action,Gus,tr)
-        
+    if Gus.level == 333:
+        nivo_voiture(sac,action,Gus,tr)        
+    if Gus.level >= 5 and Gus.level < 6:
+        nivo5(sac,action,Gus,tr)
         
 gameExit = False
 

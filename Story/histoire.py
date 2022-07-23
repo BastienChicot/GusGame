@@ -3006,7 +3006,7 @@ def nivo3(sac,action,Gus,tr):
         
         clock.tick(100)
         
-def end_game(score):
+def end_game(score,replay = False):
     final_font = pygame.font.SysFont('Corbel Bold', 50)
     screen.fill((250,250,250))
     
@@ -3019,6 +3019,12 @@ def end_game(score):
     titr = final_font.render("Retour au jeu : ENTER", False, (21, 21, 21))
     
     screen.blit(titr,(100,300))
+    
+    if replay == True :
+        rejoue = final_font.render("Rejouer au jeu : SPACE", False, (21, 21, 21))
+        
+        screen.blit(rejoue,(100,400))
+    
     
 def music_level(sac,action,Gus,tr):
     gameExit=False
@@ -4030,7 +4036,9 @@ def nivo5(sac,action,Gus,tr):
                       ["Merci pour le masque .","Ils ont du prévoir des","medicaments. C'est pour ça","qu'ils créés ces maladies.","Il faut prévenir les gens!"],
                       ["Merci mec, ça va","déjà mieux..."]]
     
-    phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "]]
+    phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "],
+                              ["J'ai super soif !"],
+                              ["Heyyyyy ....","Merçiii petchi ! ","wow !!","ça tourne..."]]
     phrases_pnj_5no = [["Je flippe à fond!"],
                        ["Je peux te prêter mon","téléphone. Mais il","n'a plus de batterie."],
                        ["Si tu as ce que je","recherche, je peux","même te donner le","téléphone."],
@@ -4051,7 +4059,8 @@ def nivo5(sac,action,Gus,tr):
                         ["Tu as entendu parler de","cette nouvelle maladie ?"],
                         ["J'espère que c'est efficace"]]
     
-    phrases_caisse_5s = [["J'en ai marre de","ce travail !"]]
+    phrases_caisse_5s = [["J'en ai marre de","ce travail !"],
+                         ["Attends....","Je suis occupé, je rempli ","ce formulaire et je quitte","ce travail !!"]]
     phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
                       ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"]]
     phrases_vigil_5s = [["On est en vigilance","rouge écarlate !", "Personne ne sort ","d'ici !"],
@@ -4246,7 +4255,12 @@ def nivo5(sac,action,Gus,tr):
                         tr.mach_tick2 += 1
                         
                     if 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
-                        tr.controleur_5no = 0
+                        if tr.give_cachet_5c == False or tr.give_cachets_5no == False or tr.give_cachet_5n == False and tr.give_alcool_5 == False:
+                            tr.controleur_5no = 0
+                        if tr.give_cachet_5c == True and tr.give_cachets_5no == True and tr.give_cachet_5n == True and tr.give_alcool_5 == False:
+                            tr.controleur_5no = 1
+                        if tr.give_alcool_5 == True:
+                            tr.controleur_5no = 2    
                     
                     if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
                         if tr.give_horaire == False :
@@ -4314,7 +4328,10 @@ def nivo5(sac,action,Gus,tr):
                         
                     # 5 SUD
                     if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
-                        tr.caisse_5s = 0
+                        if tr.caisse_5s_occupe == False:
+                            tr.caisse_5s = 0
+                        if tr.caisse_5s_occupe == True:
+                            tr.caisse_5s = 1
                     
                     if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 :
                         if sac.Jeu == 1 :
@@ -4379,6 +4396,10 @@ def nivo5(sac,action,Gus,tr):
                             tr.give_mask = True
                         if tr.cachets_militaire != 0 and tr.give_mask == True and tr.pnj_5n == 4:
                             tr.give_cachet_5n = True
+                            if sac.Cachets == 1 :
+                                tr.recherche = True
+                                countdown = (time+10)/60   
+
                     if 595+screen_x < x < 678+screen_x and 135+screen_y < y < 210+screen_y and Gus.level == 5.3 :
                         if sac.Capote >= 1 and tr.lassl_5n == 0 and Gus.savoir_info == False:
                             tr.give_capote_lassl = True
@@ -4391,7 +4412,13 @@ def nivo5(sac,action,Gus,tr):
                         tr.batt_tel_5no = True
                     if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 and tr.cachets_5no == 2 :
                         tr.give_cachets_5no = True
+                        if sac.Cachets == 1 :
+                            tr.recherche = True
+                            countdown = (time+10)/60   
                     
+                    if 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
+                        tr.give_alcool_5 = True
+                        
                     if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
                         tr.affich_plan += 1
                     if 886+screen_x < x < 984+screen_x and 260+screen_y < y < 380+screen_y and Gus.level == 5.6 :
@@ -4418,16 +4445,20 @@ def nivo5(sac,action,Gus,tr):
                                                 
                     if 790+screen_x < x < 900+screen_x and 455+screen_y < y < 535+screen_y and Gus.level == 5.7 and tr.cachets_allee != 0 and tr.give_mask == True:
                         tr.give_cachet_5c = True
-                    if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 and tr.pnj_jeu_5s > 0:
+                        if sac.Cachets == 1 :
+                            tr.recherche = True
+                            countdown = (time+10)/60   
+
+                    if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 and tr.pnj_jeu_5s > 0 and sac.Jeu == 1:
                         jeu_voit = True
-                    
+
                     if 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
                         if tr.info_vol == True and tr.clodo_5m == 3:
                             tr.balance_5 = True
                             
-                    if sac.Cachets == 0 and tr.give_cachet_5c == True and tr.give_cachet_5n == True:
-                        tr.recherche = True
-                        countdown = (time+10)/60   
+                    if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
+                        if tr.pnj_stand_5so == 0 and sac.Contrat == 1 and sac.Stylo == 1 :
+                            tr.caisse_5s_occupe = True
                     
 
                     #     tr.capote_nn = 0 
@@ -4827,6 +4858,10 @@ def nivo5(sac,action,Gus,tr):
             if Gus.spawn == 2 and time < 2:
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,660,16)
+
+            if Gus.spawn == 3 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,802,400)
                         
             time += 1
             
@@ -4965,12 +5000,21 @@ def nivo5(sac,action,Gus,tr):
         if tr.OK == True:
             tr.validate = True
             
-        if sac.Cachets == 0 and tr.give_cachet_5c == True and tr.give_cachet_5n == True and tr.cacher == False:
+        if sac.Cachets == 0 and tr.recherche == True:
             textsurface = myfont.render("Tu as tout vendu", False, (0, 0, 0))
             textsurface2 = myfont.render("Mais un contrôleur t'as vu", False, (0, 0, 0))
             screen.blit(textsurface,(x,y-60))
             screen.blit(textsurface2,(x,y-40))
-         
+            
+        if tr.give_alcool_5 == True :
+            sac.Alcool = 0
+            
+        if tr.caisse_5s_occupe == True:
+            sac.Contrat = 0
+            sac.Stylo = 0
+        
+        if jeu_voit == True:
+            Gus.level = 333
 
         sac.Cachets = tr.cachets_5no + tr.cachets_pnj_metro + tr.cachets_allee + tr.cachets_militaire
         #LEVEL  METRO
@@ -5144,6 +5188,11 @@ def nivo5(sac,action,Gus,tr):
             
         elif 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
             zone_dialogue(screen,"Parler (A)",action,phrases_controleur_5no[tr.controleur_5no],tr.controleur_5no,5)
+            if tr.controleur_5no == 1 :
+                textsurface = myfont.render("Donner de l'alcool", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
             
         elif 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
             zone_dialogue(screen,"Parler (A)",action,phrases_pnj_5no[tr.pnj_5no],tr.pnj_5no,5)
@@ -5268,9 +5317,19 @@ def nivo5(sac,action,Gus,tr):
         elif 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
             zone_dialogue(screen,"Parler (A)",action,phrases_caisse_5s[tr.caisse_5s],tr.caisse_5s,5)
             
+            if tr.pnj_stand_5so == 0 and sac.Contrat == 1 and sac.Stylo == 1 :
+                textsurface = myfont.render("Donner un contrat ", False, (0, 0, 0))
+                textsurface2 = myfont.render("et un stylo pour ", False, (0, 0, 0))
+                textsurface3 = myfont.render("rejoindre l'armée ", False, (0, 0, 0))
+                textsurface4 = myfont.render("ENTER ", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-80))
+                screen.blit(textsurface2,(x-100,y-60))
+                screen.blit(textsurface3,(x-100,y-40)) 
+                screen.blit(textsurface4,(x-65,y-20))  
+            
         elif 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 :
             zone_dialogue(screen,"Parler (A)",action,phrases_jeu_5s[tr.pnj_jeu_5s],tr.pnj_jeu_5s,5)
-            if tr.pnj_jeu_5s == 1:
+            if tr.pnj_jeu_5s == 1 and sac.Jeu == 1:
                 textsurface = myfont.render("Jouer au jeu", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x-100,y-60))
@@ -5293,8 +5352,7 @@ def nivo5(sac,action,Gus,tr):
                 tr.bac_5s = zone_interaction(screen,"Fouiller le bac (A)",action,tr.etag_5s,"un jeu-vidéo !")
                 sac.Jeu = 1
             elif tr.caisse_5s_occupe == False :
-                zone_dialogue(screen,"Fouiller le bac (A)",action,phrases_etagere[0],0,5) 
-            
+                zone_dialogue(screen,"Fouiller le bac (A)",action,phrases_etagere[0],0,5)            
 
         #     if sac.Papier > 0 :
         #         textsurface = myfont.render("Réparer la machine", False, (0, 0, 0))
@@ -5363,4 +5421,374 @@ def nivo5(sac,action,Gus,tr):
 
         pygame.display.update()
         print(tr.recherche)
-        clock.tick(100)        
+        clock.tick(100) 
+        
+def nivo_voiture (sac,action,Gus,tr) :
+    
+    gameExit=False
+    
+    x = 262.5
+    x2 =237.5 
+    
+    y = 390
+    y_back = 420
+    
+    move = 1
+    nivo = 1
+    score = 0
+    nb_voiture = 0
+    clean = 0
+    life = 100
+    
+    accel = 0.009
+    frein = 0
+    turn =0
+    time = 0
+    angle = 0
+    
+    start_x = 0
+    start_y = -500
+    start_xr = 350
+    
+    pnj_car = voiture(0,liste_voit)
+    pnj_car2 = voiture(-167,liste_voit)
+    pnj_car3 = voiture(-333,liste_voit)
+    pnj_car4 = voiture(-500,liste_voit)
+    pnj_car5 = voiture(-500,liste_voit)
+    pnj_car6 = voiture(-500,liste_voit)
+    
+    pnj_rect = pnj_car.image.get_rect()
+    pnj_rect.topleft = (pnj_car.random_x,pnj_car.random_y)
+    pnj_rect2 = pnj_car2.image.get_rect()
+    pnj_rect2.topleft = (pnj_car2.random_x,pnj_car2.random_y)
+    pnj_rect3 = pnj_car3.image.get_rect()
+    pnj_rect3.topleft = (pnj_car3.random_x,pnj_car3.random_y)
+
+    pnj_rect4 = pnj_car4.image.get_rect()
+    pnj_rect4.topleft = (pnj_car4.random_x,pnj_car4.random_y)
+    pnj_rect5 = pnj_car5.image.get_rect()
+    pnj_rect5.topleft = (pnj_car5.random_x,pnj_car5.random_y)
+    pnj_rect6 = pnj_car6.image.get_rect()
+    pnj_rect6.topleft = (pnj_car6.random_x,pnj_car6.random_y)
+    
+    start_y_red = -1500
+    
+    clock = pygame.time.Clock()
+    while not gameExit:
+        
+        if life > 0:
+                
+            if nivo == 1:
+                v_max = 5
+            elif nivo == 2:
+                v_max = 6.5
+            elif nivo == 3:
+                v_max = 7
+            elif nivo == 4:
+                v_max = 7.5
+            elif nivo == 5:
+                v_max = 8
+            elif nivo == 6:
+                v_max = 8.5
+            elif nivo == 7:
+                v_max = 9
+            elif nivo > 7:
+                v_max = 9 + ((nivo-7)/2)
+                
+            if score > 1:
+                nivo = int((clean+10)/10)
+            else:
+                nivo = 1
+                
+            if nivo == 1:
+                liste_car=[pnj_car,pnj_car2,pnj_car3]
+                liste_rect=[pnj_rect,pnj_rect2,pnj_rect3]
+            elif 2 <= nivo < 5 :
+                liste_car=[pnj_car,pnj_car2,pnj_car3,pnj_car4]
+                liste_rect=[pnj_rect,pnj_rect2,pnj_rect3, pnj_rect4]
+            elif 5 <= nivo < 10 :
+                liste_car=[pnj_car,pnj_car2,pnj_car3,pnj_car4,pnj_car5]
+                liste_rect=[pnj_rect,pnj_rect2,pnj_rect3, pnj_rect4, pnj_rect5]
+            elif nivo >= 10:
+                liste_car=[pnj_car,pnj_car2,pnj_car3,pnj_car4,pnj_car5,pnj_car6]
+                liste_rect=[pnj_rect,pnj_rect2,pnj_rect3, pnj_rect4, pnj_rect5, pnj_rect6]
+                
+            time += 1
+            ###VOITURE
+            car = pygame.Surface((5, 10),pygame.SRCALPHA)
+            car.fill((250,250,250))
+            car2 = pygame.Surface((5, 10),pygame.SRCALPHA)
+            car2.fill((250,250,250))
+            
+            car3 = pygame.Surface((5, 10),pygame.SRCALPHA)
+            car3.fill((250,250,250))
+            car4 = pygame.Surface((5, 10),pygame.SRCALPHA)
+            car4.fill((250,250,250))
+            
+            body_rect = car_player.get_rect()
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True
+            
+            ###ACCEL ET DECEL
+            keys=pygame.key.get_pressed()
+            if keys[pygame.K_UP]and move == 0:
+                move = 1
+            elif keys[pygame.K_UP]and move != 0 and move <= v_max and 317.5 > x2 > 147.5:  
+                accel = (np.sin((move*0.15)+7)+1)/20
+                move += accel
+            elif keys[pygame.K_UP]and (317.5 < x2 or x2 < 147.5):  
+                if move > 0 :
+                    move -= ((move**5)**(-1/4))
+                    
+                elif move <= 0:
+                    move = 0
+                
+            elif keys[pygame.K_DOWN]:
+                if move > 0:
+                    frein += 0.002
+                    move -= ((move**12)**(-1/4)) + frein
+                elif move <= 0:
+                    accel = (np.sin((move*0.15)+7)+1)/20
+                    move = 0
+                    
+            elif not keys[pygame.K_UP] and not keys[pygame.K_DOWN]:
+                if move > 0 :
+                    move -= ((move**12)**(-1/4))
+                    
+                elif move <= 0:
+                    move = 0
+                
+            ###TURN MARCHE AVANT
+            if keys[pygame.K_LEFT] and move > 0 and 60 < x and angle < 25:
+                angle += 0.75
+                move *= 0.9995
+                if angle >= 0:
+                    turn = -2
+                else:
+                    turn = 0
+            elif keys[pygame.K_LEFT] and move > 0 and 60 < x and angle >=25:
+                angle += 0
+                move *= 0.9995
+                if angle >= 0:
+                    turn = -2
+                else:
+                    turn = 0
+                    
+            elif keys[pygame.K_RIGHT] and move > 0 and x < 490 and angle > -25:
+                angle -= 0.75
+                move *= 0.9995
+                if angle <= 0:
+                    turn = 2
+                else:
+                    turn = 0
+            elif keys[pygame.K_RIGHT] and move > 0 and x < 490 and angle <= -25:
+                angle -= 0
+                move *= 0.9995
+                if angle <= 0:
+                    turn = 2
+                else:
+                    turn = 0
+                    
+            ###TURN MARCHE ARRIERE
+            
+            elif keys[pygame.K_LEFT] and move < 0 and 60 < x:
+                angle -= 0.75
+                move *= 0.9995
+                if angle >= 0:
+                    turn = -2
+                else:
+                    turn = 0
+            elif keys[pygame.K_RIGHT] and move < 0 and x < 490:
+                angle += 0.75
+                move *= 0.9995
+                if angle <= 0:
+                    turn = 2
+                else:
+                    turn = 0
+            
+            else:
+                turn = 0
+                if angle > 0:
+                        angle -= 1.25
+                elif angle < 0:
+                        angle += 1.25
+                        
+            ###UNTURN
+    
+            if keys[pygame.K_RIGHT] and angle > 0:
+                angle -= 1.5    
+    
+            if keys[pygame.K_LEFT] and angle < 0:
+                angle += 1.5
+            
+            ###MOVE CAR
+                
+            if y > 350 :
+                y -= move
+    
+            else:
+                start_y += move
+                start_y_red += move
+    
+            if y_back > 380:
+                y_back -= move  
+            
+            if start_y + move >= 500 :
+                start_y = -1500  
+            if start_y_red + move >= 500 :
+                start_y_red = -1500   
+    
+            ###BORDER
+            if x > 0 or x < 490 and x2 > 0 or x2 < 430:
+                x += turn
+                x2 += turn
+            elif x <= 25 and x2 <= 0:
+                x = 60
+                x2 =0
+            elif x >= 490 and x2 >= 430:
+                x = 490          
+                x2 = 430
+                
+            ###TALUS
+            if x2 < 147.5 or x > 347.5 :
+                score -= 10 * nivo
+                
+            screen.fill((0,0,0))
+    
+            screen.blit(route,(0,start_y))
+            screen.blit(route,(0,start_y_red))
+            
+            car = pygame.transform.rotate(car,angle)
+            car2 = pygame.transform.rotate(car2,angle)             
+            
+            screen.blit(car,(x,y))
+            screen.blit(car2,(x2,y))
+                
+            screen.blit(car3,(x,y_back))
+            screen.blit(car4,(x2,y_back))
+            
+            body_rect.topleft = (x2+2.5,y-3)
+            screen.blit(car_player,body_rect)
+            
+            if move <= 0 :
+                nivo = 1
+                clean = 0
+                
+            ###COLLISIONS
+            for elt in liste_car:
+                if elt.random_x - 30 < (x2) < elt.random_x + 30  and abs((elt.random_y + 40) - (y-3)) <= 1 and move != 0 and time >= 100:
+                        score -= 100
+                        move = 0
+                        clean = 0
+                        life -= 20                       
+                        time = 0
+                if (abs(elt.random_x + 30 - x2) <= 1  and elt.random_y - 46 < y < elt.random_y + 40) or (abs(elt.random_x - x + 5) <= 1  and elt.random_y - 46 < y < elt.random_y + 40):
+                        score -= 20
+                        move = 0
+                        turn *= -1
+                        clean = 0
+                        life -= 0.05                    
+                if elt.random_x - 50 < (x2 + 2.5) < elt.random_x + 30  and abs((elt.random_y) - (y+27)) <= 1 and move != 0:
+                        score += 20
+                        life -= 5
+
+            ###DOUBLER LES PNJ
+            for elt in liste_car:
+                
+                if elt.random_y > 500:
+                    elt.random_x = random.randint(150,320)
+                    elt.random_y = random.randint(-45, -40)
+                    elt.nb = random.randint(0,6)
+                    elt.image = liste_voit[elt.nb]
+                    nb_voiture += 1
+                    clean += 1
+                    score += 100 * (move/(v_max*0.9)) * nivo
+                    
+                if move >= 15:
+                   elt.random_y += move - 7
+                elif 12 < move < 15:
+                   elt.random_y += move - 6
+                elif 9 < move < 12:
+                   elt.random_y += move - 5
+                elif 6 < move < 9:
+                   elt.random_y += move - 4
+                elif 0 < move < 6:
+                   elt.random_y += move - 3
+                elif move == 0:
+                   elt.random_y += move
+                
+                for rect in liste_rect:
+                    rect.topleft = (elt.random_x,elt.random_y)
+                    screen.blit(elt.image,rect)
+                
+            vitesse = str(round(move*20,1))
+            
+            points = str(int(score))
+            multi = str(int(nivo))
+            
+            vie = str(int(life))
+            
+            titre = myfont.render("Speed", False, (21, 21, 21))
+            titre4 = myfont.render("Life", False, (21, 21, 21))
+            titre2 = myfont.render("Score", False, (21, 21, 21))
+            titre3 = myfont.render("Multiplier", False, (21, 21, 21))
+            score_battre = myfont.render("Score à battre : 50 000", False, (180, 180, 180))
+            
+            textsurface = myfont.render(vitesse, False, (21, 21, 21))
+            textsurface2 = myfont.render(points, False, (21, 21, 21))
+            textsurface4 = myfont.render(vie, False, (21, 21, 21))
+            textsurface3 = myfont.render(multi, False, (21, 21, 21))
+            
+            screen.blit(titre,(20,20))
+            screen.blit(titre2,(20,52))
+            screen.blit(titre4,(420,20))
+            screen.blit(titre3,(420,52))
+            screen.blit(score_battre,(180,20))
+            
+            screen.blit(textsurface,(20,35))
+            screen.blit(textsurface2,(20,65))
+            screen.blit(textsurface4,(420,35))
+            screen.blit(textsurface3,(420,65))
+
+        ###FIN JEU        
+        elif life <= 0:
+            tr.score_voiture = int(score)
+            
+            if tr.score_voiture <= 50000 :
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        gameExit = True
+                    
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            nb_voiture = 0
+                            score = 0
+                            nivo = 1
+                            move = 0
+                            clean = 0
+                            life = 100
+                            for elt in liste_car:
+                                elt.random_y -= 500
+                            x = 262.5
+                            x2 =237.5 
+        
+                            y = 390
+                            y_back = 420
+
+                        if event.key == pygame.K_RETURN:
+                            gameExit = True
+                            Gus.level = 5.8
+                            Gus.spawn = 3
+                            
+                end_game(points,replay = True)
+                
+            elif tr.score_voiture > 50000:
+                Gus.level = 5.8
+                Gus.spawn = 3
+                
+
+        pygame.display.update()
+        
+        clock.tick(100)             
