@@ -171,6 +171,7 @@ class sac_a_dos():
         self.Stylo = 0
         self.Jeu = 0
         self.Plan = 0
+        self.Carte_Rare = 0
         
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro + tr.clope_trome + tr.clope_5m

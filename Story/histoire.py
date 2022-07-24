@@ -4038,7 +4038,7 @@ def nivo5(sac,action,Gus,tr):
     
     phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "],
                               ["J'ai super soif !"],
-                              ["Heyyyyy ....","Merçiii petchi ! ","wow !!","ça tourne..."]]
+                              ["Heyyyyy ....","Merçiii petchi ! ","wow !!","ça tourne...","T'sais, mwa j'ème bien","collektioné lé catre de","jeu..."]]
     phrases_pnj_5no = [["Je flippe à fond!"],
                        ["Je peux te prêter mon","téléphone. Mais il","n'a plus de batterie."],
                        ["Si tu as ce que je","recherche, je peux","même te donner le","téléphone."],
@@ -4062,7 +4062,8 @@ def nivo5(sac,action,Gus,tr):
     phrases_caisse_5s = [["J'en ai marre de","ce travail !"],
                          ["Attends....","Je suis occupé, je rempli ","ce formulaire et je quitte","ce travail !!"]]
     phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
-                      ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"]]
+                      ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"],
+                      ["Bravo tu m'as battu !","Prends cette carte rare","avec toi."]]
     phrases_vigil_5s = [["On est en vigilance","rouge écarlate !", "Personne ne sort ","d'ici !"],
                         ["Merci pour l'info, mais","je n'ai plus mon talkie","walkie pour prévenir mes","collègues."],
                         ["Cool un talkie walkie","Je n'en avais plus.","Mais ça ne me dit pas","où est le voleur"],
@@ -4334,8 +4335,10 @@ def nivo5(sac,action,Gus,tr):
                             tr.caisse_5s = 1
                     
                     if 813+screen_x < x < 900+screen_x and 379+screen_y < y < 460+screen_y and Gus.level == 5.8 :
-                        if sac.Jeu == 1 :
+                        if sac.Jeu == 1 and tr.score_voiture <= 40000:
                             tr.pnj_jeu_5s = 1
+                        elif sac.Jeu == 1 and tr.score_voiture  >40000:
+                            tr.pnj_jeu_5s = 2
                         elif sac.Jeu == 0 :
                             tr.pnj_jeu_5s = 0
                         
@@ -4859,9 +4862,15 @@ def nivo5(sac,action,Gus,tr):
                 
                 screen_x,screen_y,x,y = spawn_level(x,y,660,16)
 
-            if Gus.spawn == 3 and time < 2:
-                
-                screen_x,screen_y,x,y = spawn_level(x,y,802,400)
+            if Gus.spawn == 3:
+                if time < 200 and tr.score_voiture > 40000:
+                    screen_x,screen_y,x,y = spawn_level(x,y,801,400)
+                    textsurface = myfont.render("Tu récupères une carte de jeu", False, (0, 0, 0))
+                    screen.blit(textsurface,(x,y-60))
+                    sac.Carte_Rare = 1
+                elif time < 2 and tr.score_voiture <= 40000 :
+                    screen_x,screen_y,x,y = spawn_level(x,y,801,400)
+                    
                         
             time += 1
             
@@ -5699,7 +5708,7 @@ def nivo_voiture (sac,action,Gus,tr) :
                 
                 if elt.random_y > 500:
                     elt.random_x = random.randint(150,320)
-                    elt.random_y = random.randint(-45, -40)
+                    elt.random_y = random.randint(-100, -40)
                     elt.nb = random.randint(0,6)
                     elt.image = liste_voit[elt.nb]
                     nb_voiture += 1
@@ -5734,7 +5743,7 @@ def nivo_voiture (sac,action,Gus,tr) :
             titre4 = myfont.render("Life", False, (21, 21, 21))
             titre2 = myfont.render("Score", False, (21, 21, 21))
             titre3 = myfont.render("Multiplier", False, (21, 21, 21))
-            score_battre = myfont.render("Score à battre : 50 000", False, (180, 180, 180))
+            score_battre = myfont.render("Score à battre : 40 000", False, (180, 180, 180))
             
             textsurface = myfont.render(vitesse, False, (21, 21, 21))
             textsurface2 = myfont.render(points, False, (21, 21, 21))
@@ -5756,7 +5765,7 @@ def nivo_voiture (sac,action,Gus,tr) :
         elif life <= 0:
             tr.score_voiture = int(score)
             
-            if tr.score_voiture <= 50000 :
+            if tr.score_voiture <= 40000 :
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         gameExit = True
@@ -5784,7 +5793,8 @@ def nivo_voiture (sac,action,Gus,tr) :
                             
                 end_game(points,replay = True)
                 
-            elif tr.score_voiture > 50000:
+            elif tr.score_voiture > 40000:
+                gameExit = True
                 Gus.level = 5.8
                 Gus.spawn = 3
                 
