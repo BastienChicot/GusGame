@@ -295,6 +295,7 @@ class trigger():
         self.give_cachets_5no = False
         self.cachets_5no = 0
         self.give_alcool_5 = False
+        self.echange_tw = False
         
         # 5 Ouest
         self.affich_plan = 0

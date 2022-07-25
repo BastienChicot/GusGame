@@ -4009,15 +4009,17 @@ def nivo5(sac,action,Gus,tr):
     #INTERACTIONS
     phrases_dame_5m = [["Hey gamin, t'as pas","quelques vêtements de","rechange ?"],
                         ["Ah ! Tu m'as trouvé des","habits ?"],
-                        ["Merci gamin.","Prends ce plan de la ville", "en échange ."]]
+                        ["Merci gamin.","Prends ce plan de la ville", "en échange ."],
+                        ["T'as pas fini de venir","me parler ?!"]]
     phrases_assis_5m = [["Tu vois pas que","je suis en train","de lire ?"],
                         ["C'est quoi ça ?","Une clé USB ?","Tu veux que j'en fasse","quoi ?","Moi je veux des trucs","qui me font voyager..." ],
                         ["J'peux pas te payer","mais prends cette clé","Elle doit ouvrir quelque","chose de génial !"]]
-    phrases_machine_5m = [["Il parait que mon","frère vit ici...","Mais je ne vois pas","d'appartement dans le","coin...","Je ne connais pas","bien la ville."],
+    phrases_machine_5m = [["Il parait que mon","frère vit ici...","Mais je ne vois pas","d'appartement dans le","coin..."],
                           ["Tu ne saurais pas","où je pourrais trouver","un plan de la ville ?"],
                           ["Merci pour ce plan","Je vais repartir d'ici","J'ai du me tromper","de station."]]
     phrases_banc_5m = [["Quand partira le","prochain métro ?"],
-                       ["Ah cool ! Merci bien .","Si t'as besoin de quoi","que ce soit, va voir","mon cousin. Il est vers","les machines à ticket."]]
+                       ["Ah cool ! Merci bien .","Si t'as besoin de quoi","que ce soit, va voir","mon cousin. Il est vers","les machines à ticket."],
+                       ["T'as vu mon cousin ?"]]
     phrases_chauve_5m = [["Euh ....","Que? Jô nô parlé","pass ton linguea..."],
                          ["'Je me suis fait voler mon ","portefeuille par une","personne avec un haut","bleu et un pantalon ","blanc...'"]]
     
@@ -4028,7 +4030,8 @@ def nivo5(sac,action,Gus,tr):
     
     phrases_controleur_5n = [["T'as bien ton ticket","petit ?"]]
     phrases_lassl_5n = [["Hey salut Gus,","Tu vas en ville ?"],
-                        ["Tiens ! J'ai trouvé","ce truc sur :","'Comment réparer un","ordinateur tout seul'."]]
+                        ["Tiens ! J'ai trouvé","ce truc sur :","'Comment réparer un","ordinateur tout seul'."],
+                        ["Tu fais quoi après ?","On m'a parlé d'un verre","en ville."]]
     phrases_pnj_5n = [["J'ai plus de café","dans ma tasse..."],
                       ["Il y a un truc dans ce carton","mais il faudrait se","débarasser des rats ..."],
                       ["J'ai peur de choper une","maladie près de ces","poubelles."],
@@ -4038,11 +4041,14 @@ def nivo5(sac,action,Gus,tr):
     
     phrases_controleur_5no = [["On nous a signalé","la présence d'une ","personne dangereuse." , "Faites attention ! "],
                               ["J'ai super soif !"],
-                              ["Heyyyyy ....","Merçiii petchi ! ","wow !!","ça tourne...","T'sais, mwa j'ème bien","collektioné lé catre de","jeu..."]]
+                              ["Heyyyyy ....Merçiii petchi ! ","wow !! ça tourne...","T'sais, mwa j'ème bien","collektioné lé catre de","jeu..."],
+                              ["Oh tu as la carte d'un","Ostoplouc evolution 100 !","Je te l'échange contre","mon talkie walkie."],
+                              ["J'adore ma nouvelle carte !"]]
     phrases_pnj_5no = [["Je flippe à fond!"],
                        ["Je peux te prêter mon","téléphone. Mais il","n'a plus de batterie."],
                        ["Si tu as ce que je","recherche, je peux","même te donner le","téléphone."],
-                       ["Tiens, prends le tel !"]]
+                       ["Tiens, prends le tel !"],
+                       ["..."]]
     
     phrases_stand_5o = [["On cherche des ","candidats pour l'armée.","Tu en connais ?"]]
     
@@ -4053,21 +4059,24 @@ def nivo5(sac,action,Gus,tr):
                          ["Je comprend pas,","mon ordinateur ne","marche plus. J'ai","remis internet mais","plus rien ne marche..."],
                          ["Ah ! C'est un problème","de carte mère !","T'en as une sur toi ?"],
                          ["Super, une carte mère","J'ai aucune idée de","ce à quoi ça sert","ni où ça va ..."],
-                         ["Tu peux me changer","la carte mère ?","Merci beaucoup, je","vais pouvoir travailler."]]
+                         ["Tu peux me changer","la carte mère ?","Merci beaucoup, je","vais pouvoir travailler."],
+                         ["Je peux t'aider ?"]]
     phrases_mag_5c = [["J'adore ce magasin."]]
     phrases_allee_5c = [["Le vigil ne veut","pas me laisser partir..."],
                         ["Tu as entendu parler de","cette nouvelle maladie ?"],
-                        ["J'espère que c'est efficace"]]
+                        ["J'espère que c'est efficace"],
+                        ["On va enfin pouvoir sortir !"]]
     
     phrases_caisse_5s = [["J'en ai marre de","ce travail !"],
                          ["Attends....","Je suis occupé, je rempli ","ce formulaire et je quitte","ce travail !!"]]
     phrases_jeu_5s = [["Hey Gus !","Le vendeur m'a repris","le jeu de voiture","Tu veux pas le","retrouver ?"],
                       ["Je suis sûr que tu", "pourras jamais faire","mieux que mon score !"],
-                      ["Bravo tu m'as battu !","Prends cette carte rare","avec toi."]]
+                      ["Bravo tu m'as battu !","Prends cette carte rare","avec toi."],
+                      ["Tu es super fort au jeu !","T'as déjà pensé à","donner des cours ?"]]
     phrases_vigil_5s = [["On est en vigilance","rouge écarlate !", "Personne ne sort ","d'ici !"],
                         ["Merci pour l'info, mais","je n'ai plus mon talkie","walkie pour prévenir mes","collègues."],
                         ["Cool un talkie walkie","Je n'en avais plus.","Mais ça ne me dit pas","où est le voleur"],
-                        ["Ok je peux intervenir !","Tout le monde sort !!!"]]
+                        ["Avec ce talkie-walkie","je peux intervenir !","Tout le monde sort !!!"]]
     
     
     phrases_tel = [["Allo ! ... Comment ça ?","... mais c'est à l'autre"," bout de la","ville !! ...","                      flèche+a"],
@@ -4161,6 +4170,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.dame_5m = 1
                         if sac.Habits == 0 and tr.donne_habits == True :
                             tr.dame_5m = 2
+                        if tr.give_plan == True :
+                            tr.dame_5m = 3
                     
                     if 485+screen_x < x < 541+screen_x and 389+screen_y < y < 446+screen_y and Gus.level == 5:
                         if sac.Cle_USB == 0 and tr.vente_assis == False :
@@ -4169,7 +4180,7 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_assis_5m = 1
                         if tr.vente_assis == False and tr.cachets_pnj_metro != 0 and sac.Cle_meuble == 0:
                             tr.pnj_assis_5m = 2
-                        if tr.vente_assis == True and tr.cachets_pnj_metro != 0 and sac.Cle_meuble == 1:
+                        if tr.vente_assis == True and sac.Cle_meuble == 1:
                             tr.pnj_assis_5m = 0
                         
                     if 276+screen_x < x < 333+screen_x and 250+screen_y < y < 328+screen_y and Gus.level == 5:
@@ -4185,6 +4196,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_banc_5m = 0
                         if tr.give_horaire == True:
                             tr.pnj_banc_5m = 1
+                        if sac.Telephone == 1:
+                            tr.pnj_banc_5m = 2
 
                     if 664+screen_x < x < 705+screen_x and 50+screen_y < y < 150+screen_y and Gus.level == 5:
                         if tr.info_vol == False:
@@ -4234,6 +4247,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.lassl_5n = 0
                         if tr.give_capote_lassl == True and Gus.savoir_info == True:
                             tr.lassl_5n = 1
+                        if tr.repare_ordi == True:
+                            tr.lassl_5n = 2
                         
                     if 550+screen_x < x < 655+screen_x and 610+screen_y < y < 700+screen_y and Gus.level == 5.3 and tr.give_cig_5n == False:
                         tr.pnj_5n = 0
@@ -4260,8 +4275,12 @@ def nivo5(sac,action,Gus,tr):
                             tr.controleur_5no = 0
                         if tr.give_cachet_5c == True and tr.give_cachets_5no == True and tr.give_cachet_5n == True and tr.give_alcool_5 == False:
                             tr.controleur_5no = 1
-                        if tr.give_alcool_5 == True:
+                        if tr.give_alcool_5 == True and sac.Carte_Rare == 0:
                             tr.controleur_5no = 2    
+                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1:
+                            tr.controleur_5no = 3
+                        if tr.echange_tw == True:
+                            tr.controleur_5no = 4
                     
                     if 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
                         if tr.give_horaire == False :
@@ -4272,6 +4291,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_5no = 2
                         if tr.batt_tel_5no == True and tr.give_cachets_5no == True :
                             tr.pnj_5no = 3
+                        if sac.Telephone == 1:
+                            tr.pnj_5no = 4
                         
                     # 5 OUEST
                     if 693+screen_x < x < 760+screen_x and 100+screen_y < y < 170+screen_y and Gus.level == 5.5 :
@@ -4315,6 +4336,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.caisse_5c = 4
                         if tr.ordi_vendeuse == True and tr.recherche == False and Gus.savoir_info == True and sac.Carte_Mere == 1 and tr.caisse_occupee_5c == False:
                             tr.caisse_5c = 5
+                        if tr.repare_ordi == True:
+                            tr.caisse_5c = 6
                             
                     if 730+screen_x < x < 834+screen_x and 86+screen_y < y < 167+screen_y and Gus.level == 5.7 :
                         tr.pnj_mag_5c = 0
@@ -4326,6 +4349,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_allee_5c = 1
                         if tr.give_mask == True and tr.give_cachet_5c == True:
                             tr.pnj_allee_5c = 2
+                        if tr.give_tw_5 == True and tr.balance_5 == True:
+                            tr.pnj_allee_5c = 3
                         
                     # 5 SUD
                     if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
@@ -4341,6 +4366,8 @@ def nivo5(sac,action,Gus,tr):
                             tr.pnj_jeu_5s = 2
                         elif sac.Jeu == 0 :
                             tr.pnj_jeu_5s = 0
+                        if tr.echange_tw == True:
+                            tr.pnj_jeu_5s = 3
                         
                     if 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
                         if tr.balance_5 == False and tr.give_tw_5 == False:
@@ -4349,7 +4376,7 @@ def nivo5(sac,action,Gus,tr):
                             tr.vigil_5s = 1
                         if tr.balance_5 == False and tr.give_tw_5 == True:
                             tr.vigil_5s = 2
-                        if tr.balance_5 == True and tr.give_tw_5 == True:
+                        if tr.balance_5 == True and sac.Talkie_Walkie == 1:
                             tr.vigil_5s = 3
                         
                     if 560+screen_x < x < 706+screen_x and 315+screen_y < y < 395+screen_y and Gus.level == 5.8 :
@@ -4420,7 +4447,10 @@ def nivo5(sac,action,Gus,tr):
                             countdown = (time+10)/60   
                     
                     if 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
-                        tr.give_alcool_5 = True
+                        if sac.Alcool != 0 and sac.Carte_Rare == 0 :
+                            tr.give_alcool_5 = True
+                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1:
+                            tr.echange_tw = True
                         
                     if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
                         tr.affich_plan += 1
@@ -4458,6 +4488,8 @@ def nivo5(sac,action,Gus,tr):
                     if 840+screen_x < x < 940+screen_x and 30+screen_y < y < 130+screen_y and Gus.level == 5.8 :
                         if tr.info_vol == True and tr.clodo_5m == 3:
                             tr.balance_5 = True
+                        if sac.Talkie_Walkie == 1:
+                            tr.give_tw_5 = True                            
                             
                     if 35+screen_x < x < 190+screen_x and 450+screen_y < y < 530+screen_y and Gus.level == 5.8 :
                         if tr.pnj_stand_5so == 0 and sac.Contrat == 1 and sac.Stylo == 1 :
@@ -4717,7 +4749,7 @@ def nivo5(sac,action,Gus,tr):
                 Gus.level = 5.2
                 Gus.spawn = 2
                 time = 0
-            if y > 220 and x < 0:
+            if y > 220 and x < 10:
                 Gus.level = 5.4
                 Gus.spawn = 1
                 time = 0 
@@ -5024,6 +5056,14 @@ def nivo5(sac,action,Gus,tr):
         
         if jeu_voit == True:
             Gus.level = 333
+        
+        if tr.echange_tw == True :
+            sac.Carte_Rare = 0
+            sac.Talkie_Walkie = 1
+            
+        if tr.give_tw_5 == True:
+            Gus.level = 6
+            Gus.spawn = 1
 
         sac.Cachets = tr.cachets_5no + tr.cachets_pnj_metro + tr.cachets_allee + tr.cachets_militaire
         #LEVEL  METRO
@@ -5201,6 +5241,11 @@ def nivo5(sac,action,Gus,tr):
                 textsurface = myfont.render("Donner de l'alcool", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))
+            if sac.Carte_Rare == 1 and tr.echange_tw == False :
+                textsurface = myfont.render("Echanger la carte rare", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40))                
             
         elif 210+screen_x < x < 280+screen_x and 145+screen_y < y < 222+screen_y and Gus.level == 5.4 :
@@ -5350,7 +5395,12 @@ def nivo5(sac,action,Gus,tr):
                 textsurface = myfont.render("Dénoncer le voleur", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x-100,y-60))
-                screen.blit(textsurface2,(x-65,y-40))               
+                screen.blit(textsurface2,(x-65,y-40))     
+            if sac.Talkie_Walkie == 1 and tr.give_tw_5 == False:
+                textsurface = myfont.render("Donner le talkie-walkie", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x-100,y-60))
+                screen.blit(textsurface2,(x-65,y-40))                 
             
         elif 560+screen_x < x < 706+screen_x and 315+screen_y < y < 395+screen_y and Gus.level == 5.8 :
             tr.etag_5s =  zone_interaction(screen,"Fouiller l'étagère (A)",action,tr.etag_5s,"un stylo !")
@@ -5429,7 +5479,7 @@ def nivo5(sac,action,Gus,tr):
             game_over(screen)
 
         pygame.display.update()
-        print(tr.recherche)
+        
         clock.tick(100) 
         
 def nivo_voiture (sac,action,Gus,tr) :
