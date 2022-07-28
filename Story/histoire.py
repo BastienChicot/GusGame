@@ -4277,7 +4277,7 @@ def nivo5(sac,action,Gus,tr):
                             tr.controleur_5no = 1
                         if tr.give_alcool_5 == True and sac.Carte_Rare == 0:
                             tr.controleur_5no = 2    
-                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1:
+                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1 and tr.echange_tw == False:
                             tr.controleur_5no = 3
                         if tr.echange_tw == True:
                             tr.controleur_5no = 4
@@ -4447,9 +4447,9 @@ def nivo5(sac,action,Gus,tr):
                             countdown = (time+10)/60   
                     
                     if 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
-                        if sac.Alcool != 0 and sac.Carte_Rare == 0 :
+                        if sac.Alcool != 0 and tr.controleur_5no == 1 :
                             tr.give_alcool_5 = True
-                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1:
+                        if tr.give_alcool_5 == True and sac.Carte_Rare == 1 and tr.controleur_5no == 3:
                             tr.echange_tw = True
                         
                     if 313+screen_x < x < 587+screen_x and 231+screen_y < y < 325+screen_y and Gus.level == 5.5 :
@@ -5237,12 +5237,12 @@ def nivo5(sac,action,Gus,tr):
             
         elif 225+screen_x < x < 320+screen_x and 450+screen_y < y < 550+screen_y and Gus.level == 5.4 :
             zone_dialogue(screen,"Parler (A)",action,phrases_controleur_5no[tr.controleur_5no],tr.controleur_5no,5)
-            if tr.controleur_5no == 1 :
+            if tr.controleur_5no == 1 and tr.give_alcool_5 == False:
                 textsurface = myfont.render("Donner de l'alcool", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
                 screen.blit(textsurface2,(x+35,y-40))
-            if sac.Carte_Rare == 1 and tr.echange_tw == False :
+            if sac.Carte_Rare == 1 and tr.give_alcool_5 == True and tr.echange_tw == False :
                 textsurface = myfont.render("Echanger la carte rare", False, (0, 0, 0))
                 textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
                 screen.blit(textsurface,(x,y-60))
