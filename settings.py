@@ -281,5 +281,24 @@ route2 = pygame.image.load("bank/image/car_game/fond.png")
 
 liste_voit = [car1,car3,car4,car5,car6,car7,car8]
 
+back_red_car = pygame.image.load("bank/image/lvl6/back_car_red.png")
+back_blue_car = pygame.image.load("bank/image/lvl6/back_car_blue.png")
+back_green_car = pygame.image.load("bank/image/lvl6/back_car_green.png")
+back_red_suv = pygame.image.load("bank/image/lvl6/back_suv_red.png")
+back_blue_suv = pygame.image.load("bank/image/lvl6/back_suv_blue.png")
+back_green_suv = pygame.image.load("bank/image/lvl6/back_suv_green.png")
+back_bus = pygame.image.load("bank/image/lvl6/back_bus.png")
+
+liste_car_back = [back_red_car,back_blue_car,back_green_car,back_red_suv,back_blue_suv,back_green_suv,back_bus]
+
+front_red_car = pygame.image.load("bank/image/lvl6/front_car_red.png")
+front_blue_car = pygame.image.load("bank/image/lvl6/front_car_blue.png")
+front_green_car = pygame.image.load("bank/image/lvl6/front_car_green.png")
+front_red_suv = pygame.image.load("bank/image/lvl6/front_suv_red.png")
+front_blue_suv = pygame.image.load("bank/image/lvl6/front_suv_blue.png")
+front_green_suv = pygame.image.load("bank/image/lvl6/front_suv_green.png")
+front_grey_car = pygame.image.load("bank/image/lvl6/front_car_grey.png")
+
+liste_car_front = [front_red_car,front_blue_car,front_green_car,front_red_suv,front_blue_suv,front_green_suv,front_grey_car]
 
 

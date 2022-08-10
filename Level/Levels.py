@@ -1395,4 +1395,39 @@ def level_5S(gameDisplay,screen_x,screen_y):
     gameDisplay.blit(fond, (screen_x,screen_y)) 
 
     
-    return(liste_mur)           
+    return(liste_mur)   
+
+def level_6O(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6O.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    mur0 = wall(0,0,500,1,0,0)
+    mur1 = wall(0,0,2,500,0,0)
+    mur9 = wall(500,0,1,500,0,0)
+    mur10 = wall(0,500,500,1,0,0)
+
+    #Escaliers
+    # mur2 = wall(0,200,300,140,0,0)
+    # mur3 = wall(253,408,45,100,0,0)
+    
+    # #Tox
+    # mur4 = wall(430,111,86,60,screen_x,screen_y)
+    
+    liste_mur = [mur0
+                  ,mur1,
+                  #mur2,mur3,mur4,
+                  mur9,mur10
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (0,0)) 
+
+    
+    return(liste_mur)            
+
+
+        
