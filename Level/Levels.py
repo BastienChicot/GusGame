@@ -1403,21 +1403,29 @@ def level_6O(gameDisplay,screen_x,screen_y):
     
     #Limites
     mur0 = wall(0,0,500,1,0,0)
-    mur1 = wall(0,0,2,500,0,0)
-    mur9 = wall(500,0,1,500,0,0)
+    mur1 = wall(0,0,10,500,0,0)
+    mur9 = wall(497,0,1,65,0,0)
     mur10 = wall(0,500,500,1,0,0)
+    mur11 = wall(497,340,1,160,0,0)
 
-    #Escaliers
-    # mur2 = wall(0,200,300,140,0,0)
-    # mur3 = wall(253,408,45,100,0,0)
+    #Poteaux
+    mur2 = wall(110,0,55,95,0,0)
+    mur3 = wall(405,220,50,125,0,0)
     
-    # #Tox
-    # mur4 = wall(430,111,86,60,screen_x,screen_y)
+    #poubelles
+    mur4 = wall(5,350,60,72,0,0)
+    mur5 = wall(420,0,75,32,0,0)
+
+    #pnj
+    mur6 = wall(12,180,48,55,0,0)
+    mur7 = wall(106,248,43,125,0,0)
+    mur8 = wall(457,428,43,72,0,0)
     
     liste_mur = [mur0
                   ,mur1,
-                  #mur2,mur3,mur4,
-                  mur9,mur10
+                  mur2,mur3,mur4,
+                  mur5,mur6,mur7,mur8,
+                  mur9,mur10,mur11
                   ]    
 
     for mur in liste_mur:

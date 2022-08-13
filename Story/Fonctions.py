@@ -436,6 +436,7 @@ class voiture():
         self.limit = limit
         self.nb = random.randint(0,6)
         self.image = liste_voit[self.nb]
+        self.rect = self.image.get_rect()
         
     def move_car(self,speed):
         self.random_y += speed 

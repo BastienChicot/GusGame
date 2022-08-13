@@ -5877,12 +5877,19 @@ def nivo6(sac,action,Gus,tr):
     alcool = sac.Alcool
     preservatif = sac.Capote
     #CREATION ET CARACTERISTIQUES PNJ  
+    ca_touche = False
     
-    move = 1
+    move = 4
     front_car_x = 173 
     front_car = voiture(0,liste_car_front)    
     pnj_front_rect = front_car.image.get_rect()
     pnj_front_rect.topleft = (front_car_x,front_car.random_y)
+
+
+    back_car_x = 300 
+    back_car = voiture(0,liste_car_back)    
+    pnj_back_rect = back_car.image.get_rect()
+    pnj_back_rect.topleft = (back_car_x,300)
         
     #INTERACTIONS
 
@@ -5895,6 +5902,10 @@ def nivo6(sac,action,Gus,tr):
         
         liste_car=[front_car]
         liste_rect=[pnj_front_rect]
+        liste_back_car=[back_car]
+        liste_back_rect=[pnj_back_rect]
+        
+        liste_voiture = [pnj_front_rect,pnj_back_rect]
 
         if not pygame.mixer.music.get_busy() and Gus.current <= len(playlist):
             Gus.current+=1
@@ -6017,6 +6028,8 @@ def nivo6(sac,action,Gus,tr):
         rect_gugus.topleft = (x,y)
                         
         if Gus.level == 6:
+            
+            lvl_move = False
     
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,50,50)
@@ -6028,28 +6041,30 @@ def nivo6(sac,action,Gus,tr):
             
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
 
-            screen_x += rel_x
-            screen_y += rel_y
-            
             ###COLLISIONS
-            # for elt in liste_car:
-            #     if elt.random_x - 30 < (x2) < elt.random_x + 30  and abs((elt.random_y + 40) - (y-3)) <= 1 and move != 0 and time >= 100:
-            #             score -= 100
-            #             move = 0
-            #             clean = 0
-            #             life -= 20                       
-            #             time = 0
-            #     if (abs(elt.random_x + 30 - x2) <= 1  and elt.random_y - 46 < y < elt.random_y + 40) or (abs(elt.random_x - x + 5) <= 1  and elt.random_y - 46 < y < elt.random_y + 40):
-            #             score -= 20
-            #             move = 0
-            #             turn *= -1
-            #             clean = 0
-            #             life -= 0.05                    
-            #     if elt.random_x - 50 < (x2 + 2.5) < elt.random_x + 30  and abs((elt.random_y) - (y+27)) <= 1 and move != 0:
-            #             score += 20
-            #             life -= 5
-
             ###DOUBLER LES PNJ
+                    
+            for elt in liste_voiture:
+                if elt.colliderect(rect_gugus):
+                    if abs (elt.left - rect_gugus.right) <= 5:
+                        move = 0
+                        ca_touche = True
+                        
+                if elt.colliderect(rect_gugus):
+                    if abs (elt.right - rect_gugus.left) <= 5:
+                        move = 0
+                        ca_touche = True
+                        
+                if rect_gugus.colliderect(elt):
+                    if abs (elt.left - rect_gugus.right) <= 5:
+                        move = 0
+                        ca_touche = True
+                        
+                if rect_gugus.colliderect(elt):
+                    if abs (elt.right - rect_gugus.left) <= 5:
+                        move = 0
+                        ca_touche = True
+                        
             for elt in liste_car:
                 
                 if elt.random_y > 500:
@@ -6057,11 +6072,29 @@ def nivo6(sac,action,Gus,tr):
                     elt.nb = random.randint(0,6)
                     elt.image = liste_car_front[elt.nb]
                     
-                elt.random_y += move + 2
+                elt.random_y += move 
                 
                 for rect in liste_rect:
                     rect.topleft = (front_car_x,elt.random_y)
                     screen.blit(elt.image,rect)
+
+            for elt in liste_back_car:
+                
+                if elt.random_y < -200:
+                    elt.random_y = random.randint(500, 540)
+                    elt.nb = random.randint(0,6)
+                    elt.image = liste_car_back[elt.nb]
+                    
+                elt.random_y -= move 
+                
+                for rect in liste_back_rect:
+                    rect.topleft = (back_car_x,elt.random_y)
+                    screen.blit(elt.image,rect)
+                    
+            x -= rel_x
+            y -= rel_y
+            
+
 
             
         # elif Gus.level == 5.1:
@@ -6403,7 +6436,7 @@ def nivo6(sac,action,Gus,tr):
         #         textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
         #         screen.blit(textsurface,(x,y-60))
         #         screen.blit(textsurface2,(x+35,y-40))                
-
+        
                 
         if screen_x >= 0 and rel_x > 0  and lvl_move:
             screen_x = 0
@@ -6452,7 +6485,9 @@ def nivo6(sac,action,Gus,tr):
 
         if Gus.pv == 0 or tr.game_over == True:
             game_over(screen)
-
+        if ca_touche == True :
+            game_over(screen)
+            
         pygame.display.update()
         
         clock.tick(100) 
