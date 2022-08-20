@@ -301,4 +301,6 @@ front_grey_car = pygame.image.load("bank/image/lvl6/front_car_grey.png")
 
 liste_car_front = [front_red_car,front_blue_car,front_green_car,front_red_suv,front_blue_suv,front_green_suv,front_grey_car]
 
-
+tp1=pygame.image.load('bank/pnj/tp_1.png')
+tp2=pygame.image.load('bank/pnj/tp_2.png')
+tp = [tp1,tp2]
