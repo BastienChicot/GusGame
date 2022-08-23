@@ -1515,4 +1515,243 @@ def level_6_2(gameDisplay,screen_x,screen_y):
     
     return(liste_mur)
 
+def level_6_3_base(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_3.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    mur0 = wall(-10,0,500,1,0,0)
+    # mur1 = wall(0,0,10,500,0,0)
+    # mur9 = wall(497,0,1,65,0,0)
+    # mur10 = wall(0,500,500,1,0,0)
+    # mur11 = wall(497,340,1,160,0,0)
+
+    # #Poteaux
+    # mur2 = wall(110,0,55,95,0,0)
+    # mur3 = wall(405,220,50,125,0,0)
+    
+    # #poubelles
+    # mur4 = wall(5,350,60,72,0,0)
+    # mur5 = wall(420,0,75,32,0,0)
+
+    # #pnj
+    # mur6 = wall(12,180,48,55,0,0)
+    # mur7 = wall(106,248,43,125,0,0)
+    # mur8 = wall(457,428,43,72,0,0)
+    
+    liste_mur = [mur0
+    #               ,mur1,
+    #               mur2,mur3,mur4,
+    #               mur5,mur6,mur7,mur8,
+    #               mur9,mur10,mur11
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (0,0)) 
+
+    
+    return(liste_mur)   
+
+def level_6_3_sans(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_3_sans_carton.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    # mur0 = wall(0,0,500,1,0,0)
+    # mur1 = wall(0,0,10,500,0,0)
+    # mur9 = wall(497,0,1,65,0,0)
+    # mur10 = wall(0,500,500,1,0,0)
+    # mur11 = wall(497,340,1,160,0,0)
+
+    # #Poteaux
+    # mur2 = wall(110,0,55,95,0,0)
+    # mur3 = wall(405,220,50,125,0,0)
+    
+    # #poubelles
+    # mur4 = wall(5,350,60,72,0,0)
+    # mur5 = wall(420,0,75,32,0,0)
+
+    # #pnj
+    # mur6 = wall(12,180,48,55,0,0)
+    # mur7 = wall(106,248,43,125,0,0)
+    # mur8 = wall(457,428,43,72,0,0)
+    
+    # liste_mur = [mur0
+    #               ,mur1,
+    #               mur2,mur3,mur4,
+    #               mur5,mur6,mur7,mur8,
+    #               mur9,mur10,mur11
+    #               ]    
+
+    # for mur in liste_mur:
+    #     pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (0,0)) 
+
+    
+    # return(liste_mur)   
+
+def level_6_3_avec(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_3_carton.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    # mur0 = wall(0,0,500,1,0,0)
+    # mur1 = wall(0,0,10,500,0,0)
+    # mur9 = wall(497,0,1,65,0,0)
+    # mur10 = wall(0,500,500,1,0,0)
+    # mur11 = wall(497,340,1,160,0,0)
+
+    # #Poteaux
+    # mur2 = wall(110,0,55,95,0,0)
+    # mur3 = wall(405,220,50,125,0,0)
+    
+    # #poubelles
+    # mur4 = wall(5,350,60,72,0,0)
+    # mur5 = wall(420,0,75,32,0,0)
+
+    # #pnj
+    # mur6 = wall(12,180,48,55,0,0)
+    # mur7 = wall(106,248,43,125,0,0)
+    # mur8 = wall(457,428,43,72,0,0)
+    
+    # liste_mur = [mur0
+    #               ,mur1,
+    #               mur2,mur3,mur4,
+    #               mur5,mur6,mur7,mur8,
+    #               mur9,mur10,mur11
+    #               ]    
+
+    # for mur in liste_mur:
+    #     pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (0,0)) 
+
+    
+    # return(liste_mur)   
+
+
+def level_6_4_sans(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_4_sans_planche.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    mur0 = wall(0,0,1000,1,screen_x,screen_y)
+    # mur1 = wall(995,0,5,2,screen_x,screen_y)
+    # mur9 = wall(0,285,35,425,screen_x,screen_y)
+    # mur10 = wall(967,0,33,707,screen_x,screen_y)
+    # mur11 = wall(0,669,1000,40,screen_x,screen_y)    
+
+    # #Meubles
+    # mur2 = wall(0,512,261,102,screen_x,screen_y)
+    # mur3 = wall(376,650,425,25,screen_x,screen_y)
+    # mur4 = wall(466,470,205,105,screen_x,screen_y)
+    # mur5 = wall(216,174,787,120,screen_x,screen_y)
+    # mur6 = wall(280,280,695,57,screen_x,screen_y)
+    # mur7 = wall(736,288,194,68,screen_x,screen_y)
+    
+    # #PNJ
+    # mur8 = wall(884,384,50,55,screen_x,screen_y)
+    # mur12 = wall(693,590,51,60,screen_x,screen_y)
+    # mur13 = wall(920,33,58,72,screen_x,screen_y)
+    
+    liste_mur = [mur0
+                  # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                  #   mur8,mur9,mur10,
+                  #   mur11,mur12,mur13
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)
+
+def level_6_4_avec(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_4_planche.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    mur0 = wall(0,0,1000,1,screen_x,screen_y)
+    # mur1 = wall(995,0,5,2,screen_x,screen_y)
+    # mur9 = wall(0,285,35,425,screen_x,screen_y)
+    # mur10 = wall(967,0,33,707,screen_x,screen_y)
+    # mur11 = wall(0,669,1000,40,screen_x,screen_y)    
+
+    # #Meubles
+    # mur2 = wall(0,512,261,102,screen_x,screen_y)
+    # mur3 = wall(376,650,425,25,screen_x,screen_y)
+    # mur4 = wall(466,470,205,105,screen_x,screen_y)
+    # mur5 = wall(216,174,787,120,screen_x,screen_y)
+    # mur6 = wall(280,280,695,57,screen_x,screen_y)
+    # mur7 = wall(736,288,194,68,screen_x,screen_y)
+    
+    # #PNJ
+    # mur8 = wall(884,384,50,55,screen_x,screen_y)
+    # mur12 = wall(693,590,51,60,screen_x,screen_y)
+    # mur13 = wall(920,33,58,72,screen_x,screen_y)
+    
+    liste_mur = [mur0
+                  # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                  #   mur8,mur9,mur10,
+                  #   mur11,mur12,mur13
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)
+
+def level_6_5(gameDisplay,screen_x,screen_y):
+    fond=pygame.image.load('Level/level_6_5.png').convert()
+    fond_width,fond_height = fond.get_rect().size
+    
+    #Limites
+    mur0 = wall(0,0,1000,1,screen_x,screen_y)
+    # mur1 = wall(995,0,5,2,screen_x,screen_y)
+    # mur9 = wall(0,285,35,425,screen_x,screen_y)
+    # mur10 = wall(967,0,33,707,screen_x,screen_y)
+    # mur11 = wall(0,669,1000,40,screen_x,screen_y)    
+
+    # #Meubles
+    # mur2 = wall(0,512,261,102,screen_x,screen_y)
+    # mur3 = wall(376,650,425,25,screen_x,screen_y)
+    # mur4 = wall(466,470,205,105,screen_x,screen_y)
+    # mur5 = wall(216,174,787,120,screen_x,screen_y)
+    # mur6 = wall(280,280,695,57,screen_x,screen_y)
+    # mur7 = wall(736,288,194,68,screen_x,screen_y)
+    
+    # #PNJ
+    # mur8 = wall(884,384,50,55,screen_x,screen_y)
+    # mur12 = wall(693,590,51,60,screen_x,screen_y)
+    # mur13 = wall(920,33,58,72,screen_x,screen_y)
+    
+    liste_mur = [mur0
+                  # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                  #   mur8,mur9,mur10,
+                  #   mur11,mur12,mur13
+                  ]    
+
+    for mur in liste_mur:
+        pygame.draw.rect(gameDisplay,black,mur)
+    
+    #PNJ
+    gameDisplay.blit(fond, (screen_x,screen_y)) 
+
+    
+    return(liste_mur)
+
+
 
