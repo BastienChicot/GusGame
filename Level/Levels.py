@@ -1442,29 +1442,33 @@ def level_6_1(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #Limites
-    mur0 = wall(0,0,1000,1,screen_x,screen_y)
-    # mur1 = wall(995,0,5,2,screen_x,screen_y)
-    # mur9 = wall(0,285,35,425,screen_x,screen_y)
-    # mur10 = wall(967,0,33,707,screen_x,screen_y)
-    # mur11 = wall(0,669,1000,40,screen_x,screen_y)    
-
-    # #Meubles
-    # mur2 = wall(0,512,261,102,screen_x,screen_y)
-    # mur3 = wall(376,650,425,25,screen_x,screen_y)
-    # mur4 = wall(466,470,205,105,screen_x,screen_y)
-    # mur5 = wall(216,174,787,120,screen_x,screen_y)
-    # mur6 = wall(280,280,695,57,screen_x,screen_y)
-    # mur7 = wall(736,288,194,68,screen_x,screen_y)
+    mur0 = wall(0,0,1000,264,screen_x,screen_y)
+    mur1 = wall(0,0,5,605,screen_x,screen_y)
+    mur9 = wall(995,0,5,605,screen_x,screen_y)
+    mur10 = wall(0,702,1000,5,screen_x,screen_y)
     
-    # #PNJ
-    # mur8 = wall(884,384,50,55,screen_x,screen_y)
-    # mur12 = wall(693,590,51,60,screen_x,screen_y)
-    # mur13 = wall(920,33,58,72,screen_x,screen_y)
+    #pnj
+    mur11 = wall(0,502,205,105,screen_x,screen_y)    
+    mur2 = wall(876,476,58,64,screen_x,screen_y)
+    
+    #arbres
+    mur3 = wall(107,265,287,60,screen_x,screen_y)
+    mur4 = wall(618,265,400,60,screen_x,screen_y)
+    mur13 = wall(200,300,91,111,screen_x,screen_y)
+    mur14 = wall(720,300,125,116,screen_x,screen_y)    
+    #bancs
+    mur5 = wall(582,265,100,30,screen_x,screen_y)
+    mur6 = wall(350,265,100,30,screen_x,screen_y)
+    
+    #objets
+    mur7 = wall(900,388,60,35,screen_x,screen_y)
+    mur8 = wall(840,589,50,16,screen_x,screen_y)
+    mur12 = wall(355,585,70,30,screen_x,screen_y)
     
     liste_mur = [mur0
-                  # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
-                  #   mur8,mur9,mur10,
-                  #   mur11,mur12,mur13
+                   ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                     mur8,mur9,mur10,
+                     mur11,mur12,mur13,mur14
                   ]    
 
     for mur in liste_mur:
