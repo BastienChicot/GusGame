@@ -6178,7 +6178,7 @@ def nivo6(sac,action,Gus,tr):
 
             screen.blit(pnj_tp, rect_tp)
             
-            if x > 250 :
+            if x > 460 :
                 Gus.level = 6.3
                 Gus.spawn = 1
                 time = 0
@@ -6192,20 +6192,20 @@ def nivo6(sac,action,Gus,tr):
             lvl_move = False
     
             if Gus.spawn == 1 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,50,650)
+                screen_x,screen_y,x,y = spawn_level(x,y,50,635)
             elif Gus.spawn == 2 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,980,10)
         
             time += 1
             
-            liste_mur = level_6_3_base(screen,screen_x,screen_y)
+            liste_mur = level_6_3_avec(screen,screen_x,screen_y)
             
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
 
             x -= rel_x
             y -= rel_y
             
-            if y < 0 :
+            if y < 110 :
                 Gus.level = 6.4
                 Gus.spawn = 1
                 time = 0
