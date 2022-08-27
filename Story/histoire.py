@@ -6194,7 +6194,7 @@ def nivo6(sac,action,Gus,tr):
             if Gus.spawn == 1 and time < 2:
                 screen_x,screen_y,x,y = spawn_level(x,y,50,635)
             elif Gus.spawn == 2 and time < 2:
-                screen_x,screen_y,x,y = spawn_level(x,y,980,10)
+                screen_x,screen_y,x,y = spawn_level(x,y,700,115)
         
             time += 1
             
@@ -6209,6 +6209,7 @@ def nivo6(sac,action,Gus,tr):
                 Gus.level = 6.4
                 Gus.spawn = 1
                 time = 0
+                gugus = gugus_droite
             if x < 0 :
                 Gus.level = 6.2
                 Gus.spawn = 2
@@ -6220,7 +6221,7 @@ def nivo6(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,41,150)
+                screen_x,screen_y,x,y = spawn_level(x,y,55,351)
 
             if Gus.spawn == 2 and time < 2:
                 
@@ -6228,14 +6229,14 @@ def nivo6(sac,action,Gus,tr):
                         
             time += 1
             
-            liste_mur = level_6_4_sans(screen,screen_x,screen_y)
+            liste_mur = level_6_4_avec(screen,screen_x,screen_y)
         
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y) 
                 
             screen_x += rel_x
             screen_y += rel_y
             
-            if x < 0:
+            if x < 25:
                 Gus.level = 6.3
                 Gus.spawn = 2
                 time = 0
@@ -6340,7 +6341,7 @@ def nivo6(sac,action,Gus,tr):
             game_over(screen)
             
         pygame.display.update()
-        print(x,Gus.spawn,Gus.level)
+        print(y)
         clock.tick(100) 
         
         
