@@ -1654,6 +1654,7 @@ def level_6_4_avec(gameDisplay,screen_x,screen_y):
     mur11 = wall(0,475,589,300,screen_x,screen_y)    
     mur2 = wall(360,163,210,50,screen_x,screen_y)
     mur14 = wall(995,0,5,707,screen_x,screen_y)
+    mur20 = wall(586,569,220,5,screen_x,screen_y)
     
     #Chat
     mur3 = wall(39,90,45,12,screen_x,screen_y)
@@ -1679,7 +1680,7 @@ def level_6_4_avec(gameDisplay,screen_x,screen_y):
                      mur8,mur9,mur10,
                      mur11,mur12,mur13,
                      mur14,mur15,mur16,mur17,mur18,
-                     mur19
+                     mur19,mur20
                      ]    
 
     for mur in liste_mur:
@@ -1696,29 +1697,30 @@ def level_6_5(gameDisplay,screen_x,screen_y):
     fond_width,fond_height = fond.get_rect().size
     
     #Limites
-    mur0 = wall(0,0,1000,1,screen_x,screen_y)
-    # mur1 = wall(995,0,5,2,screen_x,screen_y)
-    # mur9 = wall(0,285,35,425,screen_x,screen_y)
-    # mur10 = wall(967,0,33,707,screen_x,screen_y)
-    # mur11 = wall(0,669,1000,40,screen_x,screen_y)    
-
-    # #Meubles
-    # mur2 = wall(0,512,261,102,screen_x,screen_y)
-    # mur3 = wall(376,650,425,25,screen_x,screen_y)
-    # mur4 = wall(466,470,205,105,screen_x,screen_y)
-    # mur5 = wall(216,174,787,120,screen_x,screen_y)
-    # mur6 = wall(280,280,695,57,screen_x,screen_y)
-    # mur7 = wall(736,288,194,68,screen_x,screen_y)
+    mur0 = wall(0,0,590,170,screen_x,screen_y)
+    mur1 = wall(0,0,5,707,screen_x,screen_y)
+    mur9 = wall(790,0,210,175,screen_x,screen_y)
+    mur10 = wall(0,600,125,107,screen_x,screen_y)
+    mur11 = wall(450,604,550,103,screen_x,screen_y)    
+    mur4 = wall(995,0,5,707,screen_x,screen_y)
     
-    # #PNJ
-    # mur8 = wall(884,384,50,55,screen_x,screen_y)
-    # mur12 = wall(693,590,51,60,screen_x,screen_y)
-    # mur13 = wall(920,33,58,72,screen_x,screen_y)
+    #objets
+    mur2 = wall(410,640,58,27,screen_x,screen_y)
+    mur3 = wall(10,295,65,27,screen_x,screen_y)
+    mur5 = wall(335,303,585,217,screen_x,screen_y)
+    mur6 = wall(600,223,186,80,screen_x,screen_y)
+    
+    #lampadaire
+    mur7 = wall(100,86,16,251,screen_x,screen_y)
+    mur8 = wall(915,130,15,205,screen_x,screen_y)
+    
+    #pnj
+    mur12 = wall(358,170,54,30,screen_x,screen_y)
     
     liste_mur = [mur0
-                  # ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
-                  #   mur8,mur9,mur10,
-                  #   mur11,mur12,mur13
+                   ,mur1,mur2,mur3,mur4,mur5,mur6,mur7,
+                     mur8,mur9,mur10,
+                     mur11,mur12
                   ]    
 
     for mur in liste_mur:

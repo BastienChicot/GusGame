@@ -5983,8 +5983,13 @@ def nivo6(sac,action,Gus,tr):
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
-                    # if 39+screen_x < x < 91+screen_x and 363+screen_y < y < 435+screen_y and Gus.level == 5 and sac.Habits == 1:
-                    #     tr.donne_habits = True
+                    if 706+screen_x < x < 767+screen_x and 286+screen_y < y < 343+screen_y and Gus.level == 6.4:
+                        Gus.spawn = 3
+                        time = 0
+                        
+                    if 700+screen_x < x < 790+screen_x and 600+screen_y < y < 660+screen_y and Gus.level == 6.4:
+                        Gus.spawn = 2
+                        time = 0
 
                             
                 elif event.key != pygame.K_RETURN:
@@ -6225,7 +6230,11 @@ def nivo6(sac,action,Gus,tr):
 
             if Gus.spawn == 2 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,650,621)
+                screen_x,screen_y,x,y = spawn_level(x,y,725,285)
+                
+            if Gus.spawn == 3 and time < 2:
+                
+                screen_x,screen_y,x,y = spawn_level(x,y,721,611)
                         
             time += 1
             
@@ -6240,7 +6249,7 @@ def nivo6(sac,action,Gus,tr):
                 Gus.level = 6.3
                 Gus.spawn = 2
                 time = 0
-            if y > 700:
+            if y > 500:
                 Gus.level = 6.5
                 Gus.spawn = 1
                 time = 0                 
@@ -6251,7 +6260,7 @@ def nivo6(sac,action,Gus,tr):
             
             if Gus.spawn == 1 and time < 2:
                 
-                screen_x,screen_y,x,y = spawn_level(x,y,650,51)
+                screen_x,screen_y,x,y = spawn_level(x,y,650,50)
 
             if Gus.spawn == 2 and time < 2:
                 
@@ -6268,7 +6277,7 @@ def nivo6(sac,action,Gus,tr):
             
             if y < 0:
                 Gus.level = 6.4
-                Gus.spawn = 2
+                Gus.spawn = 3
                 time = 0
             # if y > 700:
             #     Gus.level = 6.5
@@ -6287,8 +6296,20 @@ def nivo6(sac,action,Gus,tr):
         #         textsurface = myfont.render("Donner les habits", False, (0, 0, 0))
         #         textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
         #         screen.blit(textsurface,(x,y-60))
-        #         screen.blit(textsurface2,(x+35,y-40))                
-        
+        #         screen.blit(textsurface2,(x+35,y-40))
+
+        if 706+screen_x < x < 767+screen_x and 286+screen_y < y < 343+screen_y and Gus.level == 6.4:
+            textsurface = myfont.render("Descendre les escaliers", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+            screen.blit(textsurface2,(x+35,y-40))
+            
+        elif 700+screen_x < x < 790+screen_x and 600+screen_y < y < 645+screen_y and Gus.level == 6.4:
+            textsurface = myfont.render("Monter sur le toit", False, (0, 0, 0))
+            textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+            screen.blit(textsurface,(x,y-60))
+            screen.blit(textsurface2,(x+35,y-40))           
+
                 
         if screen_x >= 0 and rel_x > 0  and lvl_move:
             screen_x = 0
