@@ -1526,7 +1526,7 @@ def level_6_3_base(gameDisplay,screen_x,screen_y):
     
     #Limites
     mur0 = wall(0,0,500,265,0,0)
-    mur1 = wall(0,0,2,450,0,0)
+    mur1 = wall(0,0,40,422,0,0)
     mur9 = wall(460,0,40,500,0,0)
     mur10 = wall(0,470,500,30,0,0)
     mur11 = wall(0,310,374,112,0,0)
@@ -1551,7 +1551,7 @@ def level_6_3_sans(gameDisplay,screen_x,screen_y):
     
     #Limites
     mur0 = wall(0,0,500,265,0,0)
-    mur1 = wall(0,0,2,450,0,0)
+    mur1 = wall(0,0,40,422,0,0)
     mur9 = wall(460,0,40,500,0,0)
     mur10 = wall(0,470,500,30,0,0)
     mur11 = wall(0,310,374,112,0,0)
@@ -1576,7 +1576,7 @@ def level_6_3_avec(gameDisplay,screen_x,screen_y):
     
     #Limites
     mur0 = wall(0,0,500,110,0,0)
-    mur1 = wall(0,0,2,450,0,0)
+    mur1 = wall(0,0,40,422,0,0)
     mur9 = wall(460,0,40,500,0,0)
     mur10 = wall(0,470,500,30,0,0)
     mur11 = wall(0,310,374,112,0,0)
@@ -1589,13 +1589,12 @@ def level_6_3_avec(gameDisplay,screen_x,screen_y):
                   mur9,mur10,mur11,
                   mur12,mur13,mur14
                   ]    
-    
+        
     for mur in liste_mur:
         pygame.draw.rect(gameDisplay,black,mur)
     
     #PNJ
     gameDisplay.blit(fond, (0,0)) 
-
     
     return(liste_mur)   
 
