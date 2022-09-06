@@ -5893,7 +5893,7 @@ def nivo6(sac,action,Gus,tr):
     pnj_back_rect.topleft = (back_car_x,300)
         
     #INTERACTIONS
-
+    phrase_porte_60 = [["Le feu ne marche plus,","comment je vais traverser ?"]]
     #OBJETS NIVEAU
     #INTERACTIONS
     
@@ -5973,10 +5973,11 @@ def nivo6(sac,action,Gus,tr):
                     action.click = True
                     click_.play()
                     
-                    # 5 METRO
-                    # if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
-                    #      tr.press_mach1 += 1 
+                    # 5 METRO6.0
                     
+                    if 63 < x < 112 and 75 < y < 114 and Gus.level == 6.0:
+                        tr.poub_60 += 1
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
@@ -6284,7 +6285,27 @@ def nivo6(sac,action,Gus,tr):
             #     Gus.spawn = 1
             #     time = 0  
 
-        #LEVEL  METRO
+        #LEVEL  6.0
+        #poubelle
+        if 63 < x < 112 and 75 < y < 114 and Gus.level == 6.0 :
+            tr.poub_60 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_60,"un fusible")            
+            sac.Fusible = 1
+        #pnj porte
+        elif 47 < x < 75 and 203 < y < 233 and Gus.level == 6.0:
+            zone_dialogue(screen,"Parler à la dame (A)",action,phrase_porte_60[tr.porte_60],tr.porte_60,5)
+        
+        #poubelle en bas
+        50 < x < 87 and 400 < y < 438 and Gus.level == 6.0
+        
+        #vieille
+        113 < x < 147 and 375 < y < 416 and Gus.level == 6.0
+        
+        #gars
+        434 < x < 475 and 459 < y < 500 and Gus.level == 6.0
+        
+        #carton
+        430 < x < 495 and 30 < y < 58 and Gus.level == 6.0
+        
         # if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
         #     tr.press_mach1 = zone_interaction(screen,"Acheter un truc (A)",action,tr.press_mach1,"une bouteille de soda")
 
@@ -6298,7 +6319,7 @@ def nivo6(sac,action,Gus,tr):
         #         screen.blit(textsurface,(x,y-60))
         #         screen.blit(textsurface2,(x+35,y-40))
 
-        if 706+screen_x < x < 767+screen_x and 286+screen_y < y < 343+screen_y and Gus.level == 6.4:
+        elif 706+screen_x < x < 767+screen_x and 286+screen_y < y < 343+screen_y and Gus.level == 6.4:
             textsurface = myfont.render("Descendre les escaliers", False, (0, 0, 0))
             textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
             screen.blit(textsurface,(x,y-60))

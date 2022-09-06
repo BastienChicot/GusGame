@@ -174,6 +174,9 @@ class sac_a_dos():
         self.Carte_Rare = 0
         self.Talkie_Walkie = 0
         
+        #nivo 6
+        self.Fusible = 0
+        
     def update_items(self,tr):
         self.Clopes = tr.clopesEst + tr.clopes_nn + tr.clope_metro + tr.clope_trome + tr.clope_5m
         self.Capote = tr.capote_nn + tr.capote_buro + tr.capote_entree + tr.capoteNord + tr.capote_3 + tr.capote_5n

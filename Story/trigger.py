@@ -357,6 +357,12 @@ class trigger():
         #Voiture
         self.score_voiture = 0
         
+        #LVL 6
+        
+        #6.0
+        self.poub_60 = -1    
+        self.porte_60 = -1
+        
     def update_items(self):
          self.give_money = self.pnj_bus
          self.drug_money = (0 + self.argent_vieille + self.argent_tox + 
