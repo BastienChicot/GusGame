@@ -27,6 +27,10 @@ Created on Tue Jul  5 10:16:38 2022
 #carton
 430 < x < 495 and 30 < y < 58 and Gus.level == 6.0
 
+#boite fusible
+91 < x < 130 and 261 < y < 325 and Gus.level == 6.0
+
+
 #level 6.1
 
 #pnj bus

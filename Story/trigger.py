@@ -362,6 +362,13 @@ class trigger():
         #6.0
         self.poub_60 = -1    
         self.porte_60 = -1
+        self.poub2_60 = -1
+        self.vieille_60 = -1
+        self.type_60 = -1
+        self.carton_60 = -1
+        self.torchon_60 = 0
+        
+        self.repare_feu_60 = False
         
     def update_items(self):
          self.give_money = self.pnj_bus

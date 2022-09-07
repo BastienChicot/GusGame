@@ -5893,7 +5893,13 @@ def nivo6(sac,action,Gus,tr):
     pnj_back_rect.topleft = (back_car_x,300)
         
     #INTERACTIONS
-    phrase_porte_60 = [["Le feu ne marche plus,","comment je vais traverser ?"]]
+    phrase_porte_60 = [["Le feu ne marche plus,","comment je vais traverser ?"],
+                       ["Je pense qu'il faut","remplacer le fusible du","feu."]]
+    
+
+    phrases_vieille_60 = [["Il y a beaucoup de","voiture aujourd'hui..."]]
+    
+    phrases_type_60 = [["Hey !","Tu cherches quelque","chose ?"]]
     #OBJETS NIVEAU
     #INTERACTIONS
     
@@ -5978,12 +5984,35 @@ def nivo6(sac,action,Gus,tr):
                     if 63 < x < 112 and 75 < y < 114 and Gus.level == 6.0:
                         tr.poub_60 += 1
                         
+                    if 47 < x < 75 and 195 < y < 233 and Gus.level == 6.0:
+                        if sac.Fusible == 0 and tr.repare_feu_60 == False:
+                            tr.porte_60 = 0
+                        elif sac.Fusible == 1 or tr.repare_feu_60 == True:
+                            tr.porte_60 = 1
+                    
+                    if 50 < x < 87 and 400 < y < 438 and Gus.level == 6.0:
+                        tr.poub2_60 += 1
+                        
+                    if 100 < x < 147 and 360 < y < 416 and Gus.level == 6.0:
+                        tr.vieille_60 = 0
+                    
+                    if 425 < x < 475 and 435 < y < 500 and Gus.level == 6.0:
+                        tr.type_60 = 0
+                        
+                    if 430 < x < 495 and 30 < y < 65 and Gus.level == 6.0:
+                        tr.carton_60 += 1
+                        
+                        
                 elif event.key != pygame.K_a:
                 
                     action.click = False
                 
                 if event.key == pygame.K_RETURN:
                     enter_s.play()
+                    if 70 < x < 130 and 261 < y < 325 and Gus.level == 6.0:
+                        if sac.Fusible == 1:
+                            tr.repare_feu_60 = True
+                            
                     if 706+screen_x < x < 767+screen_x and 286+screen_y < y < 343+screen_y and Gus.level == 6.4:
                         Gus.spawn = 3
                         time = 0
@@ -6044,7 +6073,11 @@ def nivo6(sac,action,Gus,tr):
                 screen_x,screen_y,x,y = spawn_level(x,y,980,100)
         
             time += 1
-            liste_mur = level_6O(screen,screen_x,screen_y)
+            
+            if tr.repare_feu_60 == False:
+                liste_mur = level_6O(screen,screen_x,screen_y)
+            elif tr.repare_feu_60 == True:
+                liste_mur = level_6O_feu(screen,screen_x,screen_y)
             
             x_change,y_change,rel_x,rel_y = collisions(liste_mur,rect_gugus,x_change,y_change,speed_move,rel_x,rel_y)
 
@@ -6078,9 +6111,19 @@ def nivo6(sac,action,Gus,tr):
                     elt.random_y = random.randint(-100, -40)
                     elt.nb = random.randint(0,6)
                     elt.image = liste_car_front[elt.nb]
+
+                elif elt.random_y > 500 and tr.repare_feu_60 == True:
+                    elt.random_y = -35
+                    elt.nb = random.randint(0,6)
+                    elt.image = liste_car_front[elt.nb]
                     
-                elt.random_y += move 
-                
+                if tr.repare_feu_60 == False:  
+                    elt.random_y += move 
+                elif tr.repare_feu_60 == True and elt.random_y > -35:  
+                    elt.random_y += move 
+                else:  
+                    elt.random_y += 0
+
                 for rect in liste_rect:
                     rect.topleft = (front_car_x,elt.random_y)
                     screen.blit(elt.image,rect)
@@ -6092,7 +6135,17 @@ def nivo6(sac,action,Gus,tr):
                     elt.nb = random.randint(0,6)
                     elt.image = liste_car_back[elt.nb]
                     
-                elt.random_y -= move 
+                elif elt.random_y < -200 and tr.repare_feu_60 == True:
+                    elt.random_y = 466
+                    elt.nb = random.randint(0,6)
+                    elt.image = liste_car_back[elt.nb]                    
+
+                if tr.repare_feu_60 == False:
+                    elt.random_y -= move 
+                elif tr.repare_feu_60 == True and elt.random_y < 466:
+                    elt.random_y -= move 
+                else:
+                    elt.random_y -= 0                 
                 
                 for rect in liste_back_rect:
                     rect.topleft = (back_car_x,elt.random_y)
@@ -6285,26 +6338,47 @@ def nivo6(sac,action,Gus,tr):
             #     Gus.spawn = 1
             #     time = 0  
 
+        if tr.repare_feu_60 == True:
+            sac.Fusible = 0
         #LEVEL  6.0
         #poubelle
-        if 63 < x < 112 and 75 < y < 114 and Gus.level == 6.0 :
+        if 63 < x < 112 and 75 < y < 114 and Gus.level == 6.0 and tr.repare_feu_60 == False :
             tr.poub_60 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub_60,"un fusible")            
             sac.Fusible = 1
         #pnj porte
-        elif 47 < x < 75 and 203 < y < 233 and Gus.level == 6.0:
+        elif 47 < x < 75 and 195 < y < 233 and Gus.level == 6.0:
             zone_dialogue(screen,"Parler à la dame (A)",action,phrase_porte_60[tr.porte_60],tr.porte_60,5)
         
         #poubelle en bas
-        50 < x < 87 and 400 < y < 438 and Gus.level == 6.0
-        
+        elif 50 < x < 87 and 400 < y < 438 and Gus.level == 6.0:
+            tr.poub2_60 = zone_interaction(screen,"Fouiller la poubelle (A)",action,tr.poub2_60,"que des saletés")            
+
         #vieille
-        113 < x < 147 and 375 < y < 416 and Gus.level == 6.0
+        elif 100 < x < 147 and 360 < y < 416 and Gus.level == 6.0:
+            zone_dialogue(screen,"Parler à la dame (A)",action,phrases_vieille_60[tr.vieille_60],tr.vieille_60,5)
         
         #gars
-        434 < x < 475 and 459 < y < 500 and Gus.level == 6.0
+        elif 425 < x < 475 and 435 < y < 500 and Gus.level == 6.0:
+            zone_dialogue(screen,"Parler au mec (A)",action,phrases_type_60[tr.type_60],tr.type_60,5)    
         
         #carton
-        430 < x < 495 and 30 < y < 58 and Gus.level == 6.0
+        elif 430 < x < 495 and 30 < y < 65 and Gus.level == 6.0:
+            tr.carton_60 = zone_interaction(screen,"Fouiller le carton (A)",action,tr.carton_60,"un torchon.")            
+            tr.torchon_60 = 1
+            
+        #boite fusible
+        elif 70 < x < 130 and 261 < y < 325 and Gus.level == 6.0:
+            if sac.Fusible == 0 and tr.repare_feu_60 == False:
+                textsurface = myfont.render("Ca fait des étincelles", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                
+            if sac.Fusible == 1 and tr.repare_feu_60 == False:
+                textsurface = myfont.render("Changer le fusible", False, (0, 0, 0))
+                textsurface2 = myfont.render("ENTER", False, (0, 0, 0))
+                screen.blit(textsurface,(x,y-60))
+                screen.blit(textsurface2,(x+35,y-40))                
+                
+
         
         # if 0+screen_x < x < 94+screen_x and 240+screen_y < y < 300+screen_y and Gus.level == 5 and sac.Soda < 2:
         #     tr.press_mach1 = zone_interaction(screen,"Acheter un truc (A)",action,tr.press_mach1,"une bouteille de soda")
@@ -6379,7 +6453,7 @@ def nivo6(sac,action,Gus,tr):
 
         if Gus.pv == 0 or tr.game_over == True:
             game_over(screen)
-        if ca_touche == True :
+        if ca_touche == True and tr.repare_feu_60 == False :
             game_over(screen)
             
         pygame.display.update()

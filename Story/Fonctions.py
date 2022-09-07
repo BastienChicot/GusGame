@@ -183,7 +183,7 @@ class sac_a_dos():
         self.Seringue = tr.seringue_NE + tr.seringue_NO + tr.seringueN + tr.seringueO + tr.seringue_5so
         self.Alcool = tr.bouteille_NO + tr.bouteille_alc + tr.biere + tr.bouteille_5n
         self.Torchon = (tr.torchon_salon + tr.torchonsdb1 + tr.torchoncoul + tr.torchonch +
-        tr.torchon_entre + tr.torchon_mom)
+        tr.torchon_entre + tr.torchon_mom + tr.torchon_60)
         
     def iter_objects(self):
         return (self.__dict__)                    

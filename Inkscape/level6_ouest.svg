@@ -9,6 +9,9 @@
    id="svg5"
    inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
    sodipodi:docname="level6_ouest.svg"
+   inkscape:export-filename="..\Level\level_6O_feu.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,9 +28,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="120.91526"
-     inkscape:cy="317.49094"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="290.26733"
+     inkscape:cy="209.65716"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -40,11 +43,11 @@
        inkscape:collect="always"
        id="linearGradient5687">
       <stop
-         style="stop-color:#00ff00;stop-opacity:1;"
+         style="stop-color:#bf0000;stop-opacity:1;"
          offset="0"
          id="stop5683" />
       <stop
-         style="stop-color:#00ff00;stop-opacity:0.22545454;"
+         style="stop-color:#ff0000;stop-opacity:0.22545454;"
          offset="1"
          id="stop5685" />
     </linearGradient>
@@ -621,17 +624,17 @@
        rx="2.6197209"
        ry="2.2227745" />
     <ellipse
-       style="fill:#00ff00;stroke-width:0.264583"
+       style="fill:#00ca00;stroke-width:0.264583;fill-opacity:1"
        id="path5461-3-7"
-       cx="114.56444"
-       cy="74.636414"
+       cx="114.56445"
+       cy="74.140327"
        rx="2.6197209"
        ry="2.2227745" />
     <ellipse
        style="fill:url(#linearGradient5689-4);fill-opacity:1;stroke-width:0.264583"
        id="path5461-3-0-5"
-       cx="114.56444"
-       cy="74.636414"
+       cx="114.72814"
+       cy="62.781624"
        rx="3.8077288"
        ry="3.0748327" />
     <rect
@@ -642,56 +645,56 @@
        x="109.93423"
        y="79.679642" />
     <ellipse
-       style="fill:#ff0000;stroke-width:0.264583"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264583"
        id="path5849-0"
-       cx="114.92287"
-       cy="82.739288"
+       cx="112.37476"
+       cy="82.615753"
        rx="0.86004114"
        ry="0.81753182" />
     <rect
-       style="fill:#ff0000;stroke-width:0.264583"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264583"
        id="rect5903-8"
        width="0.86004108"
        height="2.048384"
-       x="114.49284"
-       y="83.261879" />
+       x="111.94473"
+       y="83.138344" />
     <rect
-       style="fill:#ff0000;stroke-width:0.264583"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264583"
        id="rect5905-1"
        width="1.1463233"
        height="0.41193345"
-       x="34.204735"
-       y="137.16666"
+       x="32.319347"
+       y="135.45033"
        transform="matrix(0.7715518,-0.6361665,0.63707465,0.77080211,0,0)"
        inkscape:transform-center-x="0.14017888"
        inkscape:transform-center-y="-1.5183818" />
     <rect
-       style="fill:#ff0000;stroke-width:0.264594"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264594"
        id="rect5905-2-0"
        width="1.2952423"
        height="0.39119214"
-       x="-81.45755"
-       y="117.02528"
+       x="-81.443352"
+       y="114.4744"
        transform="matrix(0.03024972,-0.99954237,0.99908097,0.04286283,0,0)"
        inkscape:transform-center-y="-0.035087566"
        inkscape:transform-center-x="0.03319709" />
     <rect
-       style="fill:#ff0000;stroke-width:0.264594"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264594"
        id="rect5905-2-1-0"
        width="1.2952423"
        height="0.39119214"
-       x="-91.271149"
-       y="-112.73473"
+       x="-91.03849"
+       y="-110.19132"
        transform="matrix(-0.03024972,-0.99954237,-0.99908097,0.04286283,0,0)"
        inkscape:transform-center-y="-0.035094141"
        inkscape:transform-center-x="-0.033208968" />
     <rect
-       style="fill:#ff0000;stroke-width:0.264583"
+       style="fill:#5cff00;fill-opacity:1;stroke-width:0.264583"
        id="rect5905-0-4"
        width="1.1463233"
        height="0.41193345"
-       x="-142.97383"
-       y="-9.0640783"
+       x="-140.93105"
+       y="-7.5383706"
        transform="matrix(-0.7715518,-0.6361665,-0.63707365,0.77080293,0,0)"
        inkscape:transform-center-x="-0.14032654"
        inkscape:transform-center-y="-1.5182653" />
